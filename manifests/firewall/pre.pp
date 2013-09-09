@@ -31,14 +31,6 @@ class grizzly::firewall::pre {
     state  => ['NEW'],
     action => 'accept',
     port   => 22,
-  } -> 
-  #5    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:8140 
-  # RabbitMQ
-  firewall { '05672 - RabbitMQ':
-   proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => 5672,
-  }
+  } 
 }
 
