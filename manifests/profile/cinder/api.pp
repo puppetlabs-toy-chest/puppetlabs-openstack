@@ -1,3 +1,64 @@
 class grizzly::profile::cinder::api {
-  notify { "TODO: cinder::api profile": }
+  $api_device = hiera('grizzly::network::api::device')
+  $management_device = hiera('grizzly::network::management::device')
+  $management_address = getvar("ipaddress_${management_device}")
+  $api_address = getvar("ipaddress_${api_device}")
+  $explicit_address = hiera('grizzly::controller::address')
+
+  if $management_address != $explicit_address {
+    fail("Cinder API/Scheduler setup failed. The inferred location the Cinder API the grizzly::network::management::device hiera value is ${management_address}. The explicit address from grizzly::controller::address is ${explicit_address}. Please correct this difference.")
+  }
+
+  firewall { '08776 - Cinder API Network':
+    proto  => 'tcp',
+    state  => ['NEW'],
+    action => 'accept',
+    port   => '8776',
+    source => $cinder_public_network,
+  }
+
+  firewall { '08776 - Cinder Management Network':
+    proto  => 'tcp',
+    state  => ['NEW'],
+    action => 'accept',
+    port   => '8776',
+    source => $cinder_private_network,
+  }
+
+
+  class { '::cinder::db::mysql':
+    user          => 'cinder',
+    password      => hiera('grizzly::cinder::sql::password'),
+    dbname        => 'cinder',
+    allowed_hosts => hiera('grizzly::mysql::allowed_hosts'),
+  } 
+
+  class { '::cinder::keystone::auth':
+    password         => hiera('grizzly::cinder::password'),
+    public_address   => $api_address,
+    admin_address    => $management_address,
+    internal_address => $management_address,
+    region           => hiera('grizzly::region'),
+  }
+
+  $db_password = hiera('grizzly::cinder::sql::password')
+  $sql_connection = "mysql://cinder:$db_password@$management_address/cinder"
+
+  class { '::cinder':
+    sql_connection  => $sql_connection,
+    rabbit_hosts    => [ $management_address ],
+    rabbit_userid   => hiera('grizzly::rabbitmq::user'),
+    rabbit_password => hiera('grizzly::rabbitmq::password'),
+    debug           => hiera('grizzly::cinder::debug'),
+    verbose         => hiera('grizzly::cinder::verbose'),
+  }
+
+  class { '::cinder::api':
+    keystone_password  => hiera('grizzly::cinder::password'),
+    keystone_auth_host => $management_address
+  }
+
+  class { '::cinder::scheduler':
+    scheduler_driver => 'cinder.scheduler.simple.SimpleScheduler',
+  }
 }

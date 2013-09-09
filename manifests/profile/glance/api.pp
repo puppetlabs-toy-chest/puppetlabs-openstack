@@ -9,7 +9,6 @@ class grizzly::profile::glance::api {
     fail("Glance API setup failed. The inferred location of keystone on the grizzly::network::management::device hiera value is ${management_address}. The explicit address from grizzly::controller::address is ${explicit_address}. Please correct this difference.")
   }
 
-  notify { "TODO: glance::api profile": }
   # public API access
   firewall { '09292 - Glance API API Network':
     proto  => 'tcp',
