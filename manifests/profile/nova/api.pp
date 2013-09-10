@@ -21,7 +21,7 @@ class grizzly::profile::nova::api {
     state  => ['NEW'],
     action => 'accept',
     port   => '8774',
-    source => $api_network,
+    source => hiera('grizzly::network::api'),
   }
 
   # private API access
@@ -30,7 +30,7 @@ class grizzly::profile::nova::api {
     state  => ['NEW'],
     action => 'accept',
     port   => '8774',
-    source => $management_network,
+    source => hiera('grizzly::network::management'),
   }
 
   firewall { '8775 - Nova Metadata - API Network':
@@ -38,7 +38,7 @@ class grizzly::profile::nova::api {
     state  => ['NEW'],
     action => 'accept',
     port   => '8775',
-    source => $api_network,
+    source => hiera('grizzly::network::api'),
   }
 
   firewall { '8775 - Nova Metadata - Management Network':
@@ -46,7 +46,7 @@ class grizzly::profile::nova::api {
     state  => ['NEW'],
     action => 'accept',
     port   => '8775',
-    source => $management_network,
+    source => hiera('grizzly::network::management'),
   }
 
   $sql_password = hiera('grizzly::nova::sql::password')

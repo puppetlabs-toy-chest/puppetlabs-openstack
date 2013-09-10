@@ -24,7 +24,7 @@ class grizzly::profile::quantum::server {
     state  => ['NEW'],
     action => 'accept',
     port   => '9696',
-    source => $api_network,
+    source => hiera('grizzly::network::api'),
   }
 
   # private API access
@@ -32,8 +32,8 @@ class grizzly::profile::quantum::server {
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '8774',
-    source => $management_network,
+    port   => '9696',
+    source => hiera('grizzly::network::api'),
   }
 
   $sql_password = hiera('grizzly::quantum::sql::password')
