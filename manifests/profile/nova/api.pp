@@ -101,6 +101,5 @@ class grizzly::profile::nova::api {
     host    => $management_address,
     enabled => true
   }
-
 }
 
