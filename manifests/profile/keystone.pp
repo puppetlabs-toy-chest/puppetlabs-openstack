@@ -1,13 +1,18 @@
 class grizzly::profile::keystone {
-
   $api_device = hiera('grizzly::network::api::device')
+  $api_address = getvar("ipaddress_${api_device}")
+
   $management_device = hiera('grizzly::network::management::device')
   $management_address = getvar("ipaddress_${management_device}")
-  $api_address = getvar("ipaddress_${api_device}")
+
   $explicit_address = hiera('grizzly::controller::address')
 
   if $management_address != $explicit_address {
-    fail("Keystone setup failed. The inferred location of keystone on the grizzly::network::management::device hiera value is ${management_address}. The explicit address from grizzly::controller::address is ${explicit_address}. Please correct this difference.")
+    fail("Keystone setup failed. The inferred location of keystone 
+    from the grizzly::network::management::device hiera value is 
+    ${management_address}. The explicit address 
+    from grizzly::controller::address is ${explicit_address}. 
+    Please correct this difference.")
   }
 
   firewall { '5000 - Keystone Public API Network':
@@ -35,17 +40,14 @@ class grizzly::profile::keystone {
   }
 
   $sql_password = hiera('grizzly::keystone::sql::password')
-  $sql_address = hiera('grizzly::controller::address')
-  $management_network = hiera('grizzly::network::management')
-
+  $sql_connection = "mysql://keystone:$sql_password@$management_address/keystone"
+  
   class { '::keystone::db::mysql':
     user          => 'keystone',
     password      => $sql_password,
     dbname        => 'keystone',
     allowed_hosts => hiera('grizzly::mysql::allowed_hosts'),
   }
-
-  $sql_connection = "mysql://keystone:$sql_password@$sql_address/keystone"
 
   class { '::keystone':
     admin_token    => hiera('grizzly::keystone::admin_token'),
