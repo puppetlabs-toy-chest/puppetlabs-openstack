@@ -68,4 +68,10 @@ class grizzly::profile::keystone {
     internal_address => $management_address,
     region           => hiera('grizzly::region'),
   }
+
+
+  $tenants = hiera('grizzly::tenants')
+  $users = hiera('grizzly::users')
+  create_resources('grizzly::resources::tenant', $tenants)
+  create_resources('grizzly::resources::user', $users)
 }
