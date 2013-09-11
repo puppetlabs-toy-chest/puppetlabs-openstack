@@ -80,7 +80,14 @@ class grizzly::profile::nova::api {
     cinder           => true,
   }
 
-  $glance_api_server = "http://${management_address}:9292"
+  $glance_api_server = "http://${storage_address}:9292"
+
+  class { '::nova::network::quantum':
+    quantum_admin_password => hiera('grizzly::quantum::password'),
+    quantum_region_name    => hiera('grizzly::region'),
+    quantum_admin_auth_url => "http://${management_address}:35357/v2.0",
+    quantum_url            => "http://${management_address}:9696",
+  } 
 
   class { '::nova':
     sql_connection     => $sql_connection,
