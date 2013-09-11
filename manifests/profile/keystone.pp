@@ -1,3 +1,4 @@
+# The profile to install the Keystone service
 class grizzly::profile::keystone {
   $api_device = hiera('grizzly::network::api::device')
   $api_address = getvar("ipaddress_${api_device}")
@@ -5,13 +6,23 @@ class grizzly::profile::keystone {
   $management_device = hiera('grizzly::network::management::device')
   $management_address = getvar("ipaddress_${management_device}")
 
-  $explicit_address = hiera('grizzly::controller::address')
+  $explicit_management_address =
+    hiera('grizzly::controller::address::management')
+  $explicit_api_address = hiera('grizzly::controller::address::api')
 
-  if $management_address != $explicit_address {
-    fail("Keystone setup failed. The inferred location of keystone 
-    from the grizzly::network::management::device hiera value is 
-    ${management_address}. The explicit address 
-    from grizzly::controller::address is ${explicit_address}. 
+  if $management_address != $explicit_management_address {
+    fail("Keystone setup failed. The inferred location of keystone
+    from the grizzly::network::management::device hiera value is
+    ${management_address}. The explicit address
+    from grizzly::controller::address is ${explicit_management_address}.
+    Please correct this difference.")
+  }
+
+  if $api_address != $explicit_api_address {
+    fail("Keystone setup failed. The inferred location of keystone
+    from the grizzly::network::api::device hiera value is
+    ${api_address}. The explicit address
+    from grizzly::controller::address::api is ${explicit_api_address}.
     Please correct this difference.")
   }
 
@@ -21,7 +32,7 @@ class grizzly::profile::keystone {
     action => 'accept',
     port   => '5000',
     source => hiera('grizzly::network::api'),
-  } 
+  }
 
   firewall { '5000 - Keystone Public Management Network':
     proto  => 'tcp',
@@ -29,7 +40,7 @@ class grizzly::profile::keystone {
     action => 'accept',
     port   => '5000',
     source => hiera('grizzly::network::management'),
-  } 
+  }
 
   firewall { '35357 - Keystone Admin Management Network':
     proto  => 'tcp',
@@ -40,8 +51,9 @@ class grizzly::profile::keystone {
   }
 
   $sql_password = hiera('grizzly::keystone::sql::password')
-  $sql_connection = "mysql://keystone:$sql_password@$management_address/keystone"
-  
+  $sql_connection =
+    "mysql://keystone:${sql_password}@${management_address}/keystone"
+
   class { '::keystone::db::mysql':
     user          => 'keystone',
     password      => $sql_password,

@@ -1,3 +1,4 @@
+# The profile for installing the Cinder API
 class grizzly::profile::cinder::api {
   $api_device = hiera('grizzly::network::api::device')
   $api_address = getvar("ipaddress_${api_device}")
@@ -5,13 +6,24 @@ class grizzly::profile::cinder::api {
   $management_device = hiera('grizzly::network::management::device')
   $management_address = getvar("ipaddress_${management_device}")
 
-  $explicit_address = hiera('grizzly::controller::address')
+  $explicit_management_address =
+    hiera('grizzly::controller::address::management')
+  $explicit_api_address = hiera('grizzly::controller::address::api')
 
-  if $management_address != $explicit_address {
-    fail("Cinder API/Scheduler setup failed. The inferred location the 
-    Cinder API the grizzly::network::management::device hiera value is 
-    ${management_address}. The explicit address 
-    from grizzly::controller::address is ${explicit_address}. Please 
+
+  if $management_address != $explicit_management_address {
+    fail("Cinder API/Scheduler setup failed. The inferred location the
+    Cinder API the grizzly::network::management::device hiera value is
+    ${management_address}. The explicit address
+    from grizzly::controller::address::management is
+    ${explicit_management_address}. Please correct this difference.")
+  }
+
+  if $api_address != $explicit_api_address {
+    fail("Cinder API/Scheduler setup failed. The inferred location the
+    Cinder API the grizzly::network::api::device hiera value is
+    ${api_address}. The explicit address
+    from grizzly::controller::address::api is ${explicit_api_address}. Please
     correct this difference.")
   }
 
@@ -32,14 +44,15 @@ class grizzly::profile::cinder::api {
   }
 
   $sql_password = hiera('grizzly::cinder::sql::password')
-  $sql_connection = "mysql://cinder:$sql_password@$management_address/cinder"
+  $sql_connection =
+    "mysql://cinder:${sql_password}@${management_address}/cinder"
 
   class { '::cinder::db::mysql':
     user          => 'cinder',
     password      => $sql_password,
     dbname        => 'cinder',
     allowed_hosts => hiera('grizzly::mysql::allowed_hosts'),
-  } 
+  }
 
   class { '::cinder::keystone::auth':
     password         => hiera('grizzly::cinder::password'),

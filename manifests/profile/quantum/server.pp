@@ -1,3 +1,4 @@
+# The profile to set up the quantum server
 class grizzly::profile::quantum::server {
   $api_device = hiera('grizzly::network::api::device')
   $api_address = getvar("ipaddress_${api_device}")
@@ -8,13 +9,23 @@ class grizzly::profile::quantum::server {
   $data_device = hiera('grizzly::network::data::device')
   $data_address = getvar("ipaddress_${data_device}")
 
-  $explicit_address = hiera('grizzly::controller::address')
+  $explicit_management_address =
+    hiera('grizzly::controller::address::management')
+  $explicit_api_address = hiera('grizzly::controller::address::api')
 
-  if $management_address != $explicit_address {
-    fail("Quantum API/Scheduler setup failed. The inferred location the 
-    quantum API the grizzly::network::management::device hiera value is 
-    ${management_address}. The explicit address 
-    from grizzly::controller::address is ${explicit_address}. Please 
+  if $management_address != $explicit_management_address {
+    fail("Quantum API/Scheduler setup failed. The inferred location the
+    quantum API the grizzly::network::management::device hiera value is
+    ${management_address}. The explicit address
+    from grizzly::controller::address::management is
+    ${explicit_management_address}. Please correct this difference.")
+  }
+
+  if $api_address != $explicit_api_address {
+    fail("Quantum API/Scheduler setup failed. The inferred location the
+    quantum API the grizzly::network::api::device hiera value is
+    ${api_address}. The explicit address
+    from grizzly::controller::address::api is ${explicit_api_address}. Please
     correct this difference.")
   }
 
@@ -37,14 +48,15 @@ class grizzly::profile::quantum::server {
   }
 
   $sql_password = hiera('grizzly::quantum::sql::password')
-  $sql_connection = "mysql://quantum:$sql_password@$management_address/quantum"
+  $sql_connection =
+    "mysql://quantum:${sql_password}@${management_address}/quantum"
 
   class { '::quantum::db::mysql':
     user          => 'quantum',
     password      => $sql_password,
     dbname        => 'quantum',
     allowed_hosts => hiera('grizzly::mysql::allowed_hosts'),
-  } 
+  }
 
   class { '::quantum::keystone::auth':
     password         => hiera('grizzly::quantum::password'),

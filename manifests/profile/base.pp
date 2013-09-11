@@ -1,3 +1,4 @@
+# The base profile for OpenStack. Installs the repository and ntp
 class grizzly::profile::base {
   # all nodes need the OpenStack repository
   include ::openstack::repo

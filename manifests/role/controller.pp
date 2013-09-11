@@ -4,7 +4,7 @@ class grizzly::role::controller inherits grizzly::role {
   class { 'grizzly::profile::memcache': } ->
   class { 'grizzly::profile::mysql': } ->
   class { 'grizzly::profile::keystone': } ->
-  class { 'grizzly::profile::glance::api': } ->
+  class { 'grizzly::profile::glance::auth': } ->
   class { 'grizzly::profile::cinder::api': } ->
   class { 'grizzly::profile::nova::api': } ->
   class { 'grizzly::profile::quantum::server': } ->
