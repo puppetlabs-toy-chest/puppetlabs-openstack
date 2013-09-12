@@ -1,31 +1,34 @@
 # The profile to set up the Nova controller (several services)
 class grizzly::profile::nova::api {
   $api_device = hiera('grizzly::network::api::device')
-  $api_address = getvar("ipaddress_${api_device}")
-
   $management_device = hiera('grizzly::network::management::device')
+  $data_device = hiera('grizzly::network::data::device')
+  $external_device = hiera('grizzly::network::external::device')
+
+  $api_address = getvar("ipaddress_${api_device}")
   $management_address = getvar("ipaddress_${management_device}")
+  $data_address = getvar("ipaddress_${data_device}")
+  $external_address = getvar("ipaddress_${external_device}")
 
-  $explicit_management_address =
+  $controller_management_address =
     hiera('grizzly::controller::address::management')
-  $explicit_api_address = hiera('grizzly::controller::address::api')
+  $controller_api_address = hiera('grizzly::controller::address::api')
 
-  if $management_address != $explicit_management_address {
+  if $management_address != $controller_management_address {
     fail("Nova API/Scheduler setup failed. The inferred location the
     nova API the grizzly::network::management::device hiera value is
     ${management_address}. The explicit address
     from grizzly::controller::address::management is
-    ${explicit_management_address}. Please correct this difference.")
+    ${controller_management_address}. Please correct this difference.")
   }
 
-  if $api_address != $explicit_api_address {
+  if $api_address != $controller_api_address {
     fail("Cinder API/Scheduler setup failed. The inferred location the
     Cinder API the grizzly::network::api::device hiera value is
     ${api_address}. The explicit address
-    from grizzly::controller::address::api is ${explicit_api_address}. Please
+    from grizzly::controller::address::api is ${controller_api_address}. Please
     correct this difference.")
   }
-
 
   # public API access
   firewall { '8774 - Nova API - API Network':
@@ -61,12 +64,9 @@ class grizzly::profile::nova::api {
     source => hiera('grizzly::network::management'),
   }
 
-  $sql_password = hiera('grizzly::nova::sql::password')
-  $sql_connection = "mysql://nova:${sql_password}@${management_address}/nova"
-
   class { '::nova::db::mysql':
     user          => 'nova',
-    password      => $sql_password,
+    password      => hiera('grizzly::nova::sql::password'),
     dbname        => 'nova',
     allowed_hosts => hiera('grizzly::mysql::allowed_hosts'),
   }
@@ -80,45 +80,8 @@ class grizzly::profile::nova::api {
     cinder           => true,
   }
 
-  $glance_api_server = "http://${storage_address}:9292"
-
-  class { '::nova::network::quantum':
-    quantum_admin_password => hiera('grizzly::quantum::password'),
-    quantum_region_name    => hiera('grizzly::region'),
-    quantum_admin_auth_url => "http://${management_address}:35357/v2.0",
-    quantum_url            => "http://${management_address}:9696",
-  } 
-
-  class { '::nova':
-    sql_connection     => $sql_connection,
-    glance_api_servers => $glance_api_server,
-    memcached_servers  => ['127.0.0.1:1211'],
-    rabbit_hosts       => [$management_address],
-    rabbit_userid      => hiera('grizzly::rabbitmq::user'),
-    rabbit_password    => hiera('grizzly::rabbitmq::password'),
-    debug              => hiera('grizzly::nova::debug'),
-    verbose            => hiera('grizzly::nova::verbose'),
-  }
-
-  class { '::nova::api':
-    admin_password  => hiera('grizzly::nova::password'),
-    auth_host       => $management_address,
-    enabled         => true,
-  }
-
-  class { [
-    'nova::scheduler',
-    'nova::objectstore',
-    'nova::cert',
-    'nova::consoleauth',
-    'nova::conductor'
-  ]:
-    enabled => true,
-  }
-
-  class { 'nova::vncproxy':
-    host    => $management_address,
-    enabled => true
+  class { 'grizzly::profile::nova::common':
+    is_controller => true,
   }
 }
 
