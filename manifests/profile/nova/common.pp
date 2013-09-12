@@ -60,7 +60,7 @@ class grizzly::profile::nova::common (
 
   # TODO: it's important to set up the vnc properly
   class { '::nova::compute':
-    enabled                       => $is_controller,
+    enabled                       => $is_compute,
     vnc_enabled                   => true,
     vncserver_proxyclient_address => $data_address,
     vncproxy_host                 => $controller_management_address,

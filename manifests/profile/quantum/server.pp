@@ -29,7 +29,7 @@ class grizzly::profile::quantum::server {
     state  => ['NEW'],
     action => 'accept',
     port   => '9696',
-    source => hiera('grizzly::network::api'),
+    source => hiera('grizzly::network::management'),
   }
 
   # This class does not impact the quantum.conf file
