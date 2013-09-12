@@ -46,7 +46,7 @@ class grizzly::profile::quantum::common (
   ### Quantum service installation, only installed on server
   class { '::keystone::client': } ->
   class { '::quantum::server':
-    auth_host     => $management_address,
+    auth_host     => $controller_management_address,
     auth_password => hiera('grizzly::quantum::password'),
     enabled       => $is_controller,
   }
