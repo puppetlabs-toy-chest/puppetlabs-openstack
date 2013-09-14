@@ -23,7 +23,7 @@ class grizzly::profile::quantum::common (
     "mysql://quantum:${sql_password}@${controller_management_address}/quantum"
 
   class { '::quantum':
-    rabbit_host        => $controller_address,
+    rabbit_host        => $controller_management_address,
     rabbit_user        => hiera('grizzly::rabbitmq::user'),
     rabbit_password    => hiera('grizzly::rabbitmq::password'),
     debug              => hiera('grizzly::quantum::debug'),
