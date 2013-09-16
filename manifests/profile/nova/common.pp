@@ -29,7 +29,7 @@ class grizzly::profile::nova::common (
   class { '::nova':
     sql_connection     => $sql_connection,
     glance_api_servers => $glance_api_server,
-    memcached_servers  => ['127.0.0.1:1211'],
+    memcached_servers  => ["${controller_management_address}:11211"],
     rabbit_hosts       => [$controller_management_address],
     rabbit_userid      => hiera('grizzly::rabbitmq::user'),
     rabbit_password    => hiera('grizzly::rabbitmq::password'),
@@ -43,8 +43,8 @@ class grizzly::profile::nova::common (
     enabled         => $is_controller,
   }
 
-  class { 'nova::vncproxy':
-    host    => $controller_management_address,
+  class { '::nova::vncproxy':
+    host    => $controller_api_address,
     enabled => $is_controller,
   }
 
@@ -63,7 +63,7 @@ class grizzly::profile::nova::common (
     enabled                       => $is_compute,
     vnc_enabled                   => true,
     vncserver_proxyclient_address => $management_address,
-    vncproxy_host                 => $controller_management_address,
+    vncproxy_host                 => $controller_api_address,
   }
 
   class { '::nova::compute::libvirt':

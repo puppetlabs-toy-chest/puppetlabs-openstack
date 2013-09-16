@@ -64,6 +64,22 @@ class grizzly::profile::nova::api {
     source => hiera('grizzly::network::management'),
   }
 
+  firewall { '6080 - Nova NoVncProxy - Management Network':
+    proto  => 'tcp',
+    state  => ['NEW'],
+    action => 'accept',
+    port   => '6080',
+    source => hiera('grizzly::network::management'),
+  }
+
+  firewall { '6080 - Nova NoVncProxy - API Network':
+    proto  => 'tcp',
+    state  => ['NEW'],
+    action => 'accept',
+    port   => '6080',
+    source => hiera('grizzly::network::api'),
+  }
+
   class { '::nova::db::mysql':
     user          => 'nova',
     password      => hiera('grizzly::nova::sql::password'),
