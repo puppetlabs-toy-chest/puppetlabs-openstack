@@ -1,5 +1,10 @@
 # Starts up standard firewall rules. Pre-runs
+
 class grizzly::firewall::pre {
+  resources { "firewall":
+    purge => true,
+  }
+
   Firewall {
     require => undef,
   }
