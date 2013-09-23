@@ -20,4 +20,13 @@ class grizzly::profile::nova::compute {
   class { 'grizzly::profile::nova::common':
     is_compute => true,
   }
+
+  # This may only be necessary for RHEL family systems
+  file { '/etc/libvirt/qemu.conf':
+    ensure => present,
+    source => 'puppet:///grizzly/qemu.conf',
+    mode   => '0644',
+    notify => Service['libvirtd'],
+  }
+
 }
