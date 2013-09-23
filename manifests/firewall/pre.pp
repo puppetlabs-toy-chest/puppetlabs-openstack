@@ -1,8 +1,13 @@
 # Starts up standard firewall rules. Pre-runs
 
 class grizzly::firewall::pre {
+  exec { "iptables restart":
+    command => "/sbin/service iptables restart",
+  }
+
   resources { "firewall":
     purge => true,
+    before => Exec["iptables restart"],
   }
 
   Firewall {
