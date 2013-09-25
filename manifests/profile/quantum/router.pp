@@ -9,4 +9,17 @@ class grizzly::profile::quantum::router {
     permanent => 'yes',
     value     => '1',
   }
+
+  # Attempts to set up the external network bridge
+  if empty($network_br_ex) {
+    $external_device = hiera('grizzly::network::external::device')
+    $external_network = hiera('grizzly::network::external')
+    $external_ip = getvar("ipaddress_${external_device}")
+    $external_ip_subnet = regsubst($external_network, '^(\d+)\.(\d+)\.(\d+)\.(\d+)(/\d+)', "${external_ip}\5")
+
+    exec { '/usr/bin/ovs-vsctl add-br br-ex': } ->
+    exec { "/usr/bin/ovs-vsctl add-port br-ex ${external_device}": }
+    exec { "/sbin/ip addr del ${external_ip_subnet} dev ${external_device}": }
+    exec { "/sbin/ip addr add ${external_ip_subnet} dev br-ex": }
+  }
 }
