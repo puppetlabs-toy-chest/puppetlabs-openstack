@@ -4,7 +4,8 @@ class grizzly::profile::quantum::router {
     is_router => true,
   }
 
-  Exec { path => '/usr/bin:/usr/sbin:/bin:/sbin' } ->
+  Exec { path => '/usr/bin:/usr/sbin:/bin:/sbin', } 
+
   ::sysctl::value { 'net.ipv4.ip_forward': 
     value     => '1',
   }
