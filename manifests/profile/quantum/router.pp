@@ -4,9 +4,7 @@ class grizzly::profile::quantum::router {
     is_router => true,
   }
 
-  sysctl { 'net.ipv4.ip_forward':
-    ensure    => present,
-    permanent => 'yes',
+  ::sysctl::value { 'net.ipv4.ip_forward': 
     value     => '1',
   }
 
