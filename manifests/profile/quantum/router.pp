@@ -10,6 +10,10 @@ class grizzly::profile::quantum::router {
     value     => '1',
   }
 
+  class {'grizzly::profile::quantum::common':
+    is_router => true,
+  } ->
+
   # Attempts to set up the external network bridge
   if empty($network_br_ex) {
     $external_device = hiera('grizzly::network::external::device')
