@@ -1,10 +1,10 @@
 # The profile to set up a quantum ovs network router
 class grizzly::profile::quantum::router {
-  class {'grizzly::profile::quantum::common':
-    is_router => true,
-  }
-
-  Exec { path => '/usr/bin:/usr/sbin:/bin:/sbin', } 
+  Exec { 
+    path => '/usr/bin:/usr/sbin:/bin:/sbin', 
+    require => Class['grizzly::profile::quantum::common'],
+  } 
+  
 
   ::sysctl::value { 'net.ipv4.ip_forward': 
     value     => '1',
@@ -12,7 +12,7 @@ class grizzly::profile::quantum::router {
 
   class {'grizzly::profile::quantum::common':
     is_router => true,
-  } ->
+  } 
 
   # Attempts to set up the external network bridge
   if empty($network_br_ex) {

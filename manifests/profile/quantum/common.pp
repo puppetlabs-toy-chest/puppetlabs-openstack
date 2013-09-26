@@ -38,7 +38,7 @@ class grizzly::profile::quantum::common (
   }
 
   # everyone gets an ovs plugin (TODO true?)
-  class  { 'quantum::plugins::ovs':
+  class  { '::quantum::plugins::ovs':
     sql_connection      => $sql_connection,
     tenant_network_type => 'gre',
   }
