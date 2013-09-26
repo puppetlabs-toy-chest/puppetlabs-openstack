@@ -20,12 +20,4 @@ class grizzly::profile::mysql {
   }
 
   class { 'mysql::server::account_security': }
-
-  firewall { '3306 - MySQL management':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '3306',
-    source => hiera('grizzly::network::management'),
-  }
 }

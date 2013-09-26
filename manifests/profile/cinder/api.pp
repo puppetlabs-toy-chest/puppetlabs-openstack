@@ -43,15 +43,6 @@ class grizzly::profile::cinder::api {
     source => hiera('grizzly::network::api'),
   }
 
-  firewall { '08776 - Cinder Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '8776',
-    source => hiera('grizzly::network::management'),
-  }
-
-
   class { '::cinder::db::mysql':
     user          => 'cinder',
     password      => hiera('grizzly::cinder::sql::password'),

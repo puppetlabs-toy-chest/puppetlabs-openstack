@@ -14,6 +14,7 @@ class grizzly::firewall::post {
     action => 'reject',
     proto  => 'all',
     reject => 'icmp-host-prohibited',
+    source => '0.0.0.0/0',
     before => undef,
   }
 }

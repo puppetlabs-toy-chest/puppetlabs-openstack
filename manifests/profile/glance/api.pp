@@ -38,15 +38,6 @@ class grizzly::profile::glance::api {
     source => hiera('grizzly::network::api'),
   }
 
-  # private API access
-  firewall { '09292 - Glance API Management Network':
-    proto         => 'tcp',
-    state         => ['NEW'],
-    action        => 'accept',
-    port          => '9292',
-    source        => hiera('grizzly::network::management'),
-  }
-
   # public API access
   firewall { '09191 - Glance Registry API Network':
     proto  => 'tcp',
@@ -55,16 +46,6 @@ class grizzly::profile::glance::api {
     port   => '9191',
     source => hiera('grizzly::network::api'),
   }
-
-  # private API access
-  firewall { '09191 - Glance Registry Management Network':
-    proto         => 'tcp',
-    state         => ['NEW'],
-    action        => 'accept',
-    port          => '9191',
-    source        => hiera('grizzly::network::management'),
-  }
-
 
   $sql_password = hiera('grizzly::glance::sql::password')
   $sql_connection =

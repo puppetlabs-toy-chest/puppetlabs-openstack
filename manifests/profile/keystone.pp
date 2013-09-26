@@ -34,22 +34,6 @@ class grizzly::profile::keystone {
     source => hiera('grizzly::network::api'),
   }
 
-  firewall { '5000 - Keystone Public Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '5000',
-    source => hiera('grizzly::network::management'),
-  }
-
-  firewall { '35357 - Keystone Admin Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '35357',
-    source => hiera('grizzly::network::management')
-  }
-
   $sql_password = hiera('grizzly::keystone::sql::password')
   $sql_connection =
     "mysql://keystone:${sql_password}@${management_address}/keystone"

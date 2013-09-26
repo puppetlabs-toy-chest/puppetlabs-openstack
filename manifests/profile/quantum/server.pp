@@ -23,15 +23,6 @@ class grizzly::profile::quantum::server {
     source => hiera('grizzly::network::api'),
   }
 
-  # private API access
-  firewall { '9696 - quantum API - Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '9696',
-    source => hiera('grizzly::network::management'),
-  }
-
   # This class does not impact the quantum.conf file
   class { '::quantum::db::mysql':
     user          => 'quantum',

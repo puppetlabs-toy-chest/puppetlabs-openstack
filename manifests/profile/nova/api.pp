@@ -39,37 +39,12 @@ class grizzly::profile::nova::api {
     source => hiera('grizzly::network::api'),
   }
 
-  # private API access
-  firewall { '8774 - Nova API - Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '8774',
-    source => hiera('grizzly::network::management'),
-  }
-
   firewall { '8775 - Nova Metadata - API Network':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '8775',
     source => hiera('grizzly::network::api'),
-  }
-
-  firewall { '8775 - Nova Metadata - Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '8775',
-    source => hiera('grizzly::network::management'),
-  }
-
-  firewall { '6080 - Nova NoVncProxy - Management Network':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '6080',
-    source => hiera('grizzly::network::management'),
   }
 
   firewall { '6080 - Nova NoVncProxy - API Network':
