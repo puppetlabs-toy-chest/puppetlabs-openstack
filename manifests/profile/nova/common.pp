@@ -66,11 +66,6 @@ class grizzly::profile::nova::common (
     vncproxy_host                 => $controller_api_address,
   }
 
-  class { '::nova::compute::libvirt':
-    libvirt_type     => hiera('grizzly::nova::libvirt_type'),
-    vncserver_listen => $management_address,
-  }
-
   class { '::nova::compute::quantum': }
 
   class { '::nova::network::quantum':

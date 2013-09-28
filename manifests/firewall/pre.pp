@@ -1,19 +1,6 @@
 # Starts up standard firewall rules. Pre-runs
 
 class grizzly::firewall::pre {
-  exec { "iptables restart":
-    command => "/sbin/service iptables restart",
-  }
-
-  resources { "firewall":
-    purge => true,
-    before => Exec["iptables restart"],
-  }
-
-  Firewall {
-    require => undef,
-  }
-
   # Default firewall rules, based on the RHEL defaults
   #Table: filter
   #Chain INPUT (policy ACCEPT)
@@ -44,5 +31,6 @@ class grizzly::firewall::pre {
     state  => ['NEW'],
     action => 'accept',
     port   => 22,
+    before => [ Class['::grizzly::firewall::post'], Class['::openstack::repo'] ],
   }
 }

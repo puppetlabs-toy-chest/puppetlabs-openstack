@@ -4,7 +4,7 @@ class grizzly::firewall {
     require => Class['::grizzly::firewall::pre'],
   }
 
-#  class { ['::grizzly::firewall::pre', '::grizzly::firewall::post'] }
+  notify { 'Firewall presets initialized': }
 
   class { '::firewall': }
 }

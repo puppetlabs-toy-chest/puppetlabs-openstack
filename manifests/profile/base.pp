@@ -1,8 +1,19 @@
 # The base profile for OpenStack. Installs the repository and ntp
 class grizzly::profile::base {
+  # Set up the initial firewall rules for all nodes
+
+  resources { "firewall":
+    purge => true,
+  }
+
+  class { '::firewall': }
+
+  class { '::grizzly::firewall::pre': }
+
   # all nodes need the OpenStack repository
-  include ::openstack::repo
+  class { '::openstack::repo': }
 
   # everyone also needs to be on the same clock
-  include ::ntp
+  class { '::ntp': }
+  class { '::grizzly::firewall::post': }
 }

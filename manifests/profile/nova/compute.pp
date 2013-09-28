@@ -21,6 +21,11 @@ class grizzly::profile::nova::compute {
     is_compute => true,
   }
 
+  class { '::nova::compute::libvirt':
+    libvirt_type     => hiera('grizzly::nova::libvirt_type'),
+    vncserver_listen => $management_address,
+  }
+
   # This may only be necessary for RHEL family systems
   file { '/etc/libvirt/qemu.conf':
     ensure => present,
