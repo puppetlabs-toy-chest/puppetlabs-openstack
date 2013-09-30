@@ -1,6 +1,6 @@
 # Starts up standard firewall rules. Pre-runs
 
-class grizzly::firewall::pre {
+class grizzly::profile::firewall::pre {
   # Default firewall rules, based on the RHEL defaults
   #Table: filter
   #Chain INPUT (policy ACCEPT)
@@ -31,6 +31,7 @@ class grizzly::firewall::pre {
     state  => ['NEW'],
     action => 'accept',
     port   => 22,
-    before => [ Class['::grizzly::firewall::post'], Class['::openstack::repo'] ],
+    before => [ Class['::grizzly::profile::firewall::post'], 
+                Class['::openstack::repo'], ]
   }
 }

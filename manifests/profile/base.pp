@@ -8,12 +8,12 @@ class grizzly::profile::base {
 
   class { '::firewall': }
 
-  class { '::grizzly::firewall::pre': }
+  class { '::grizzly::profile::firewall::pre': }
 
   # all nodes need the OpenStack repository
   class { '::openstack::repo': }
 
   # everyone also needs to be on the same clock
   class { '::ntp': }
-  class { '::grizzly::firewall::post': }
+  class { '::grizzly::profile::firewall::post': }
 }

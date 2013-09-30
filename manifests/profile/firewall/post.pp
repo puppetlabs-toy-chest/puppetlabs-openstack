@@ -1,5 +1,5 @@
 # post-firewall rules to reject remaining traffic
-class grizzly::firewall::post {
+class grizzly::profile::firewall::post {
 
   firewall { '99998 - Accept all management network traffic':
     proto  => 'all',
@@ -15,6 +15,5 @@ class grizzly::firewall::post {
     proto  => 'all',
     reject => 'icmp-host-prohibited',
     source => '0.0.0.0/0',
-    before => undef,
   }
 }
