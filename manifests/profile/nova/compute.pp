@@ -50,5 +50,5 @@ class grizzly::profile::nova::compute {
     Class['::firewall'] ->
     Firewall['00001 - related established']
 
-  Firewall['99999 - Reject remaining traffic'] -> Service['libvirtd']
+  Firewall['99999 - Reject remaining traffic'] -> Service['libvirt']
 }
