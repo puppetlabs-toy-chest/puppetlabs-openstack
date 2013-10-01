@@ -9,7 +9,7 @@ class grizzly::profile::cinder::volume {
     source => hiera('grizzly::network::api'),
   }
 
-  class { 'grizzly::profile::cinder::common':
+  class { '::grizzly::profile::cinder::common':
     is_volume => true,
   }
 }

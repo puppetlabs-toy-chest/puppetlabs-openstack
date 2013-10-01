@@ -45,11 +45,18 @@ class grizzly::profile::cinder::common (
   }
 
   if $is_volume {
-    class { '::cinder::setup_test_volume': } ->
+    class { '::cinder::setup_test_volume': 
+        volume_name => 'cinder-volumes',
+    } ->
 
     class { '::cinder::volume':
       package_ensure => true,
       enabled        => true,
+    }
+
+    class { '::cinder::volume::iscsi':
+      iscsi_ip_address  => hiera('grizzly::storage::address::management'),
+      volume_group      => 'cinder-volumes',
     }
   }
   else {

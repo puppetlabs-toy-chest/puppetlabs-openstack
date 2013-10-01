@@ -39,7 +39,8 @@ class grizzly::profile::nova::compute {
 
   # exec rules for stopping libvirtd
   exec { '/sbin/service libvirtd stop': 
-    notify => Service['libvirt']
+    notify  => Service['libvirt'],
+    returns => [0, 1],
   }
 
   # clear the libvirtd masquerade rule
