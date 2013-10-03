@@ -8,10 +8,7 @@ description 'Using a hiera-based roles and profiles model, simplify OpenStack de
 project_page 'https://github.com/puppetlabs/puppetlabs-grizzly'
 
 ## Add dependencies, if any:
-dependency 'puppetlabs/keystone', '>= 2.1.0 < 3.0.0'
-dependency 'puppetlabs/glance', '>= 2.1.0 < 3.0.0'
-dependency 'puppetlabs/cinder', '>= 2.1.0 < 3.0.0'
-dependency 'puppetlabs/quantum', '>= 2.1.0 < 3.0.0'
-dependency 'puppetlabs/nova', '>= 2.1.0 < 3.0.0'
 dependency 'puppetlabs/openstack', '>= 2.1.0 < 3.0.0'
 dependency 'puppetlabs/apache', '0.8.0'
+dependency 'puppetlabs/ntp', '>= 2.0.0 < 3.0.0'
+dependency 'puppetlabs/firewall, '>= 0.4.2 < 1.0.0'
