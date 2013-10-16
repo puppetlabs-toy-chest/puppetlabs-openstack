@@ -8,4 +8,5 @@ class grizzly::role::controller inherits ::grizzly::role {
   class { '::grizzly::profile::nova::api': } ->
   class { '::grizzly::profile::quantum::server': } ->
   class { '::grizzly::profile::horizon': }
+  class { '::grizzly::profile::auth_file': }
 }
