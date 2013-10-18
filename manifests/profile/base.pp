@@ -10,6 +10,10 @@ class grizzly::profile::base {
 
   class { '::grizzly::profile::firewall::pre': }
 
+  # all nodes should have the puppet firewall
+
+  class { '::grizzly::profile::firewall::puppet': }
+
   # all nodes need the OpenStack repository
   class { '::openstack::repo': }
 

@@ -26,7 +26,7 @@ class grizzly::profile::keystone {
     Please correct this difference.")
   }
 
-  firewall { '5000 - Keystone Public API Network':
+  firewall { '5000 - Keystone API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',

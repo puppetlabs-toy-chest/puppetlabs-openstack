@@ -11,7 +11,6 @@ class grizzly::profile::horizon {
     state  => ['NEW'],
     action => 'accept',
     port   => '80',
-    source => hiera('grizzly::network::api')
   }
 
   # public API access
@@ -20,7 +19,6 @@ class grizzly::profile::horizon {
     state  => ['NEW'],
     action => 'accept',
     port   => '443',
-    source => hiera('grizzly::network::api')
   }
 
   if $::selinux and $::selinux != false {

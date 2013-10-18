@@ -35,12 +35,11 @@ class grizzly::profile::cinder::api {
     correct this difference.")
   }
 
-  firewall { '08776 - Cinder API Network':
+  firewall { '08776 - Cinder API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '8776',
-    source => hiera('grizzly::network::api'),
   }
 
   class { '::cinder::db::mysql':

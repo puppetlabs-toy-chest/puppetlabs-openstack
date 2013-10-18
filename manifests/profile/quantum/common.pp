@@ -65,8 +65,10 @@ class grizzly::profile::quantum::common (
   class { '::quantum::agents::metadata':
     auth_password => hiera('grizzly::quantum::password'),
     shared_secret => hiera('grizzly::quantum::shared_secret'),
-    auth_url      => "http://${controller_address}:35357/v2.0",
+    auth_url      => "http://${controller_management_address}:35357/v2.0",
     debug         => hiera('grizzly::quantum::debug'),
+    auth_region   => hiera('grizzly::region'),
+    metadata_ip   => $controller_management_address,
     enabled       => $is_router,
   }
 }
