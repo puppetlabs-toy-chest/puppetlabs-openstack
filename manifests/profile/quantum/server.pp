@@ -15,12 +15,11 @@ class grizzly::profile::quantum::server {
   $controller_api_address = hiera('grizzly::controller::address::api')
 
   # public API access
-  firewall { '9696 - quantum API - API Network':
+  firewall { '9696 - Quantum API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '9696',
-    source => hiera('grizzly::network::api'),
   }
 
   # This class does not impact the quantum.conf file

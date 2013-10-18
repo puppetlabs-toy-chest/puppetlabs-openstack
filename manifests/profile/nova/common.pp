@@ -38,9 +38,10 @@ class grizzly::profile::nova::common (
   }
 
   class { '::nova::api':
-    admin_password  => hiera('grizzly::nova::password'),
-    auth_host       => $controller_management_address,
-    enabled         => $is_controller,
+    admin_password                       => hiera('grizzly::nova::password'),
+    auth_host                            => $controller_management_address,
+    enabled                              => $is_controller,
+    quantum_metadata_proxy_shared_secret => hiera('grizzly::quantum::shared_secret'),
   }
 
   class { '::nova::vncproxy':

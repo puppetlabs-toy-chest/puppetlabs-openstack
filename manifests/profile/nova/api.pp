@@ -31,28 +31,25 @@ class grizzly::profile::nova::api {
   }
 
   # public API access
-  firewall { '8774 - Nova API - API Network':
+  firewall { '8774 - Nova API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '8774',
-    source => hiera('grizzly::network::api'),
   }
 
-  firewall { '8775 - Nova Metadata - API Network':
+  firewall { '8775 - Nova Metadata':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '8775',
-    source => hiera('grizzly::network::api'),
   }
 
-  firewall { '6080 - Nova NoVncProxy - API Network':
+  firewall { '6080 - Nova NoVncProxy':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '6080',
-    source => hiera('grizzly::network::api'),
   }
 
   class { '::nova::db::mysql':

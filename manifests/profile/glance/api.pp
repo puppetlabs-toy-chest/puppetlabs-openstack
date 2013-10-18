@@ -30,21 +30,19 @@ class grizzly::profile::glance::api {
   }
 
   # public API access
-  firewall { '09292 - Glance API API Network':
+  firewall { '09292 - Glance API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '9292',
-    source => hiera('grizzly::network::api'),
   }
 
   # public API access
-  firewall { '09191 - Glance Registry API Network':
+  firewall { '09191 - Glance Registry':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '9191',
-    source => hiera('grizzly::network::api'),
   }
 
   $sql_password = hiera('grizzly::glance::sql::password')
