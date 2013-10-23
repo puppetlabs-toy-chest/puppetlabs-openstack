@@ -64,7 +64,7 @@ grizzly::cinder::password: 'zi-co-se'
 grizzly::cinder::verbose: 'True'
 grizzly::cinder::debug: 'True'
 
-grizzly::cinder::volume_size_gb: 4
+grizzly::cinder::volume_size: '4G'
 
 ######## Nova
 

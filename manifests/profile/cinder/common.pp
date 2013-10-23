@@ -47,7 +47,7 @@ class grizzly::profile::cinder::common (
   if $is_volume {
     class { '::cinder::setup_test_volume': 
         volume_name => 'cinder-volumes',
-        size        => hiera('grizzly::cinder::volume_size_gb')
+        size        => hiera('grizzly::cinder::volume_size')
     } ->
 
     class { '::cinder::volume':
