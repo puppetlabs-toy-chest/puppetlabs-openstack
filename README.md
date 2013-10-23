@@ -54,8 +54,8 @@ This module have been tested with Puppet 3.3. Additionally, this module depends 
 ###Beginning with Grizzly
 
 To begin, you will need to do some basic setup on the compute node. selinux needs to be disabled
-to give OpenStack full control over the KVM hypervisor and other necessary services. This is the
-only node that SELinux needs to be disabled on.
+on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
+services. This is the only node that SELinux needs to be disabled on.
 
 Additionally, you need to know the network addres ranges for all four of the public/private networks,
 and the specific ip addresses of the controller node and the storage node.
@@ -111,11 +111,19 @@ module that provides network namespaces, required by Open VSwitch, is loadedd
 
 ##Reference
 
-An introduction to roles and profiles.
+The puppetlabs-grizzly module is built on the 'Roles and Profiles' pattern. Every node
+in a deployment is assigned a single role. Every role is composed of some number of
+profiles, which ideally should be independent of one another, allowing for composition
+of new roles. The puppetlabs-grizzly module does not strictly adhere to this pattern,
+but should serve as a useful example of how to build profiles from modules for customized
+and maintainable OpenStack deployments.
 
 ##Limitations
 
-This module is only tested with RedHat based operating systems.
+* This module is only tested with RedHat based operating systems.
+* High availability and SSL-enabled endpoints are not provided by this module.
+
+Addressing these limitations is planned for the forthcoming puppet-havana module.
 
 ##License
 Puppet Grizzly Module - Puppet module for multi-node OpenStack Grizzly installation
