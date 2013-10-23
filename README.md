@@ -107,7 +107,7 @@ After applying the configuration to the controller node, apply the remaining
 configurations to the worker nodes. 
 
 You will need to reboot all of the nodes after installation to ensure that the kernel
-module that provides network namespaces, required by Open VSwitch, is loadedd
+module that provides network namespaces, required by Open VSwitch, is loaded.
 
 ##Reference
 
@@ -120,8 +120,19 @@ and maintainable OpenStack deployments.
 
 ##Limitations
 
-* This module is only tested with RedHat based operating systems.
-* High availability and SSL-enabled endpoints are not provided by this module.
+This module is only tested with RedHat based operating systems.
+
+High availability and SSL-enabled endpoints are not provided by this module.
+
+Due to a bug in the Firewall module, some configurations may not be
+applied correctly. The workaround is to flush the firewall rules and shut down
+the firewall before a run.
+
+```
+iptables -F
+iptables -F -t nat
+service iptables stop
+```
 
 Addressing these limitations is planned for the forthcoming puppet-havana module.
 
