@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Set up the Puppet Master
 vagrant ssh puppet -c "sudo service iptables stop; \
 sudo puppet module install puppetlabs/ntp; \
