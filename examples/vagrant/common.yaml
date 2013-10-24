@@ -1,0 +1,87 @@
+grizzly::region: 'openstack'
+
+######## Network
+grizzly::network::api: '192.168.11.0/24'
+grizzly::network::api::device: 'eth1'
+
+grizzly::network::external: '192.168.22.0/24'
+grizzly::network::external::device: 'eth2'
+
+grizzly::network::management: '172.16.33.0/24'
+grizzly::network::management::device: 'eth3'
+
+grizzly::network::data: '172.16.44.0/24'
+grizzly::network::data::device: 'eth4'
+
+######## Fixed IPs (controller)
+
+grizzly::controller::address::api: '192.168.11.4'
+grizzly::controller::address::management: '172.16.33.4'
+grizzly::storage::address::api: '192.168.11.5'
+grizzly::storage::address::management: '172.16.33.5'
+
+######## Database
+
+grizzly::mysql::root_password: 'spam-gak'
+grizzly::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
+
+######## RabbitMQ
+
+grizzly::rabbitmq::user: 'openstack'
+grizzly::rabbitmq::password: 'pose-vix'
+
+######## Keystone
+
+grizzly::keystone::admin_token: 'sosp-kyl'
+grizzly::keystone::sql::password: 'fuva-wax'
+grizzly::keystone::admin_email: 'chris.hoge@puppetlabs.com'
+grizzly::keystone::admin_password: 'fyby-tet'
+grizzly::keystone::verbose: 'True'
+grizzly::keystone::debug: 'True'
+
+grizzly::tenants:
+    "test":
+        description: "Test tenant"
+
+grizzly::users:
+    "test":
+        password: "abc123"
+        tenant: "test"
+        email: "test@example.com"
+        admin: true
+
+######## Glance
+
+grizzly::glance::sql::password: 'bo-xy-hi'
+grizzly::glance::password: 'na-mu-va'
+grizzly::glance::verbose: 'True'
+grizzly::glance::debug: 'True'
+
+######## Cinder
+
+grizzly::cinder::sql::password: 'meto-jag'
+grizzly::cinder::password: 'zi-co-se'
+grizzly::cinder::verbose: 'True'
+grizzly::cinder::debug: 'True'
+
+grizzly::cinder::volume_size: '4G'
+
+######## Nova
+
+grizzly::nova::libvirt_type: 'kvm'
+grizzly::nova::sql::password: 'li-hu-py'
+grizzly::nova::password: 'quuk-paj'
+grizzly::nova::verbose: 'True'
+grizzly::nova::debug: 'True'
+
+######## Quantum
+
+grizzly::quantum::sql::password: 'spal-nyp'
+grizzly::quantum::password: 'whi-rtuz'
+grizzly::quantum::shared_secret: 'by-sa-bo'
+grizzly::quantum::verbose: 'True'
+grizzly::quantum::debug: 'True'
+
+######## Horizon
+
+grizzly::horizon::secret_key: 'whu-ghuk'

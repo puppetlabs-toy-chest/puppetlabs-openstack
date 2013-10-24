@@ -1,5 +1,5 @@
 name    'puppetlabs-grizzly'
-version '1.0.0-rc5'
+version '1.0.0'
 source 'Chris Hoge'
 author 'puppetlabs'
 license 'Apache License, Version 2.0'
