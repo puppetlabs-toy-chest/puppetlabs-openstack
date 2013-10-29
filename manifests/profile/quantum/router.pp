@@ -10,9 +10,29 @@ class grizzly::profile::quantum::router {
     value     => '1',
   }
 
-  class {'grizzly::profile::quantum::common':
-    is_router => true,
-  } 
+  $controller_management_address = hiera('grizzly::controller::address::management')
+  include 'grizzly::profile::quantum::common'
+
+  ### Router service installation
+  class { '::quantum::agents::l3':
+    debug   => hiera('grizzly::quantum::debug'),
+    enabled => true,
+  }
+
+  class { '::quantum::agents::dhcp':
+    debug   => hiera('grizzly::quantum::debug'),
+    enabled => true,
+  }
+
+  class { '::quantum::agents::metadata':
+    auth_password => hiera('grizzly::quantum::password'),
+    shared_secret => hiera('grizzly::quantum::shared_secret'),
+    auth_url      => "http://${controller_management_address}:35357/v2.0",
+    debug         => hiera('grizzly::quantum::debug'),
+    auth_region   => hiera('grizzly::region'),
+    metadata_ip   => $controller_management_address,
+    enabled       => true,
+  }
 
   # Attempts to set up the external network bridge
   if empty($network_br_ex) {

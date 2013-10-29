@@ -55,7 +55,11 @@ class grizzly::profile::quantum::server {
     Please correct this difference.")
   }
 
-  class { 'grizzly::profile::quantum::common':
-    is_controller => true,
+  class { '::quantum::server':
+    auth_host     => hiera('grizzly::controller::address::management'),
+    auth_password => hiera('grizzly::quantum::password'),
+    enabled       => true,
   }
+
+  include 'grizzly::profile::quantum::common'
 }
