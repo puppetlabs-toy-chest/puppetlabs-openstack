@@ -57,7 +57,16 @@ class grizzly::profile::cinder::api {
     region           => hiera('grizzly::region'),
   }
 
-  class { '::grizzly::profile::cinder::common':
-    is_controller => true,
+  include '::grizzly::profile::cinder::common'
+
+  class { '::cinder::api':
+    keystone_password  => hiera('grizzly::cinder::password'),
+    keystone_auth_host => hiera('grizzly::controller::address::management'),
+    enabled            => true,
+  }
+
+  class { '::cinder::scheduler':
+    scheduler_driver => 'cinder.scheduler.simple.SimpleScheduler',
+    enabled          => true,
   }
 }

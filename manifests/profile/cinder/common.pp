@@ -1,8 +1,5 @@
 # common configuration for cinder profiles
-class grizzly::profile::cinder::common (
-  $is_controller = false,
-  $is_volume     = false,
-) {
+class grizzly::profile::cinder::common {
   $api_device = hiera('grizzly::network::api::device')
   $management_device = hiera('grizzly::network::management::device')
   $data_device = hiera('grizzly::network::data::device')
@@ -31,39 +28,5 @@ class grizzly::profile::cinder::common (
     rabbit_password   => hiera('grizzly::rabbitmq::password'),
     debug             => hiera('grizzly::cinder::debug'),
     verbose           => hiera('grizzly::cinder::verbose'),
-  }
-
-  class { '::cinder::api':
-    keystone_password  => hiera('grizzly::cinder::password'),
-    keystone_auth_host => $controller_management_address,
-    enabled            => $is_controller,
-  }
-
-  class { '::cinder::scheduler':
-    scheduler_driver => 'cinder.scheduler.simple.SimpleScheduler',
-    enabled          => $is_controller,
-  }
-
-  if $is_volume {
-    class { '::cinder::setup_test_volume': 
-        volume_name => 'cinder-volumes',
-        size        => hiera('grizzly::cinder::volume_size')
-    } ->
-
-    class { '::cinder::volume':
-      package_ensure => true,
-      enabled        => true,
-    }
-
-    class { '::cinder::volume::iscsi':
-      iscsi_ip_address  => hiera('grizzly::storage::address::management'),
-      volume_group      => 'cinder-volumes',
-    }
-  }
-  else {
-    class { '::cinder::volume':
-      package_ensure => true,
-      enabled        => false,
-    }
   }
 }
