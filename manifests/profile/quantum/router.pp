@@ -42,8 +42,8 @@ class grizzly::profile::quantum::router {
     $external_ip_subnet = regsubst($external_network, '^(\d+)\.(\d+)\.(\d+)\.(\d+)(/\d+)', "${external_ip}\5")
 
     exec { '/usr/bin/ovs-vsctl add-br br-ex': } ->
-    exec { "/usr/bin/ovs-vsctl add-port br-ex ${external_device}": }
-    exec { "/sbin/ip addr del ${external_ip_subnet} dev ${external_device}": }
+    exec { "/usr/bin/ovs-vsctl add-port br-ex ${external_device}": } ->
+    exec { "/sbin/ip addr del ${external_ip_subnet} dev ${external_device}": } ->
     exec { "/sbin/ip addr add ${external_ip_subnet} dev br-ex": }
   }
 }
