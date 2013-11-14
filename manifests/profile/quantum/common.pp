@@ -1,10 +1,7 @@
 # Sets up configuration common to all quantum nodes.
 # Flags install individual services as needed
 # This follows the suggest deployment from the Quantum Administrator Guide.
-class grizzly::profile::quantum::common (
-  $is_controller  = false,
-  $is_router      = false,
-) {
+class grizzly::profile::quantum::common {
   $api_device = hiera('grizzly::network::api::device')
   $management_device = hiera('grizzly::network::management::device')
   $data_device = hiera('grizzly::network::data::device')
@@ -41,34 +38,5 @@ class grizzly::profile::quantum::common (
   class  { '::quantum::plugins::ovs':
     sql_connection      => $sql_connection,
     tenant_network_type => 'gre',
-  }
-
-  ### Quantum service installation, only installed on server
-  class { '::keystone::client': } ->
-  class { '::quantum::server':
-    auth_host     => $controller_management_address,
-    auth_password => hiera('grizzly::quantum::password'),
-    enabled       => $is_controller,
-  }
-
-  ### Router service installation
-  class { '::quantum::agents::l3':
-    debug   => hiera('grizzly::quantum::debug'),
-    enabled => $is_router,
-  }
-
-  class { '::quantum::agents::dhcp':
-    debug   => hiera('grizzly::quantum::debug'),
-    enabled => $is_router,
-  }
-
-  class { '::quantum::agents::metadata':
-    auth_password => hiera('grizzly::quantum::password'),
-    shared_secret => hiera('grizzly::quantum::shared_secret'),
-    auth_url      => "http://${controller_management_address}:35357/v2.0",
-    debug         => hiera('grizzly::quantum::debug'),
-    auth_region   => hiera('grizzly::region'),
-    metadata_ip   => $controller_management_address,
-    enabled       => $is_router,
   }
 }
