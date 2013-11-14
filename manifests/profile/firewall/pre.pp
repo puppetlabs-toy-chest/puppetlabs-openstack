@@ -1,6 +1,6 @@
 # Starts up standard firewall rules. Pre-runs
 
-class grizzly::profile::firewall::pre {
+class havana::profile::firewall::pre {
   # Default firewall rules, based on the RHEL defaults
   #Table: filter
   #Chain INPUT (policy ACCEPT)
@@ -31,7 +31,7 @@ class grizzly::profile::firewall::pre {
     state  => ['NEW'],
     action => 'accept',
     port   => 22,
-    before => [ Class['::grizzly::profile::firewall::post'], 
+    before => [ Class['::havana::profile::firewall::post'], 
                 Class['::openstack::repo'], ]
   }
 }

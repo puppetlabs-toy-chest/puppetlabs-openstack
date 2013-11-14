@@ -1,3 +1,3 @@
-class grizzly::role::network inherits ::grizzly::role {
-  class { '::grizzly::profile::quantum::router': }
+class havana::role::network inherits ::havana::role {
+  class { '::havana::profile::quantum::router': }
 }

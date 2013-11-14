@@ -3,18 +3,18 @@ node 'puppet' {
 }
 
 node 'control.localdomain' {
-  include ::grizzly::role::controller
+  include ::havana::role::controller
 }
 
 node 'storage.localdomain' {
-  include ::grizzly::role::storage
+  include ::havana::role::storage
 }
 
 node 'network.localdomain' {
-  include ::grizzly::role::network
+  include ::havana::role::network
 }
 
 node /compute[0-9]+.localdomain/ {
-  include ::grizzly::role::compute
+  include ::havana::role::compute
 }
 

@@ -1,5 +1,5 @@
 # The base profile for OpenStack. Installs the repository and ntp
-class grizzly::profile::base {
+class havana::profile::base {
   # Set up the initial firewall rules for all nodes
 
   resources { "firewall":
@@ -8,16 +8,18 @@ class grizzly::profile::base {
 
   class { '::firewall': }
 
-  class { '::grizzly::profile::firewall::pre': }
+  # basic firewall rules to match general os rules
+  class { '::havana::profile::firewall::pre': }
 
   # all nodes should have the puppet firewall
-
-  class { '::grizzly::profile::firewall::puppet': }
+  class { '::havana::profile::firewall::puppet': }
 
   # all nodes need the OpenStack repository
   class { '::openstack::repo': }
 
   # everyone also needs to be on the same clock
   class { '::ntp': }
-  class { '::grizzly::profile::firewall::post': }
+
+  # secure the system by rejecting all other traffic
+  class { '::havana::profile::firewall::post': }
 }

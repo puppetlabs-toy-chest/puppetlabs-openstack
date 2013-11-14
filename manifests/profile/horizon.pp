@@ -1,8 +1,8 @@
 # Profile to install the horizon web service
-class grizzly::profile::horizon {
+class havana::profile::horizon {
   class { '::horizon':
-    secret_key      => hiera('grizzly::horizon::secret_key'),
-    cache_server_ip => hiera('grizzly::controller::address::management'),
+    secret_key      => hiera('havana::horizon::secret_key'),
+    cache_server_ip => hiera('havana::controller::address::management'),
   }
 
   # public API access

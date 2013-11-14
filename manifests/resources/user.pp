@@ -1,4 +1,4 @@
-define grizzly::resources::user (
+define havana::resources::user (
   $password,
   $tenant,
   $email,

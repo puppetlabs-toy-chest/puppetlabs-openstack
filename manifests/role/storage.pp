@@ -1,4 +1,4 @@
-class grizzly::role::storage inherits ::grizzly::role {
-  class { '::grizzly::profile::glance::api': }
-  class { '::grizzly::profile::cinder::volume': }
+class havana::role::storage inherits ::havana::role {
+  class { '::havana::profile::glance::api': }
+  class { '::havana::profile::cinder::volume': }
 }

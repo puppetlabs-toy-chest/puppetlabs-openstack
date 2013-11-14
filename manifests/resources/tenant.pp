@@ -1,4 +1,4 @@
-define grizzly::resources::tenant (
+define havana::resources::tenant (
   $description,
   $enabled = true,
 ) {

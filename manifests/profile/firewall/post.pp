@@ -1,10 +1,10 @@
 # post-firewall rules to reject remaining traffic
-class grizzly::profile::firewall::post {
+class havana::profile::firewall::post {
 
   firewall { '99998 - Accept all management network traffic':
     proto  => 'all',
     action => 'accept',
-    source => hiera('grizzly::network::management'),
+    source => hiera('havana::network::management'),
     before => undef,
   }
 

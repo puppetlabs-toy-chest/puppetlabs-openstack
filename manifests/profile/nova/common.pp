@@ -1,12 +1,12 @@
 # common configuration for the nova services
-class grizzly::profile::nova::common (
+class havana::profile::nova::common (
   $is_controller = false,
   $is_compute    = false,
 ) {
-  $api_device = hiera('grizzly::network::api::device')
-  $management_device = hiera('grizzly::network::management::device')
-  $data_device = hiera('grizzly::network::data::device')
-  $external_device = hiera('grizzly::network::external::device')
+  $api_device = hiera('havana::network::api::device')
+  $management_device = hiera('havana::network::management::device')
+  $data_device = hiera('havana::network::data::device')
+  $external_device = hiera('havana::network::external::device')
 
   $api_address = getvar("ipaddress_${api_device}")
   $management_address = getvar("ipaddress_${management_device}")
@@ -14,15 +14,15 @@ class grizzly::profile::nova::common (
   $external_address = getvar("ipaddress_${external_device}")
 
   $controller_management_address =
-    hiera('grizzly::controller::address::management')
-  $controller_api_address = hiera('grizzly::controller::address::api')
+    hiera('havana::controller::address::management')
+  $controller_api_address = hiera('havana::controller::address::api')
 
-  $storage_management_address = hiera('grizzly::storage::address::management')
-  $storage_api_address = hiera('grizzly::storage::address::api')
+  $storage_management_address = hiera('havana::storage::address::management')
+  $storage_api_address = hiera('havana::storage::address::api')
 
   $glance_api_server = "http://${storage_management_address}:9292"
 
-  $sql_password = hiera('grizzly::nova::sql::password')
+  $sql_password = hiera('havana::nova::sql::password')
   $sql_connection =
     "mysql://nova:${sql_password}@${controller_management_address}/nova"
 
@@ -31,17 +31,17 @@ class grizzly::profile::nova::common (
     glance_api_servers => $glance_api_server,
     memcached_servers  => ["${controller_management_address}:11211"],
     rabbit_hosts       => [$controller_management_address],
-    rabbit_userid      => hiera('grizzly::rabbitmq::user'),
-    rabbit_password    => hiera('grizzly::rabbitmq::password'),
-    debug              => hiera('grizzly::nova::debug'),
-    verbose            => hiera('grizzly::nova::verbose'),
+    rabbit_userid      => hiera('havana::rabbitmq::user'),
+    rabbit_password    => hiera('havana::rabbitmq::password'),
+    debug              => hiera('havana::nova::debug'),
+    verbose            => hiera('havana::nova::verbose'),
   }
 
   class { '::nova::api':
-    admin_password                       => hiera('grizzly::nova::password'),
+    admin_password                       => hiera('havana::nova::password'),
     auth_host                            => $controller_management_address,
     enabled                              => $is_controller,
-    quantum_metadata_proxy_shared_secret => hiera('grizzly::quantum::shared_secret'),
+    quantum_metadata_proxy_shared_secret => hiera('havana::quantum::shared_secret'),
   }
 
   class { '::nova::vncproxy':
@@ -70,8 +70,8 @@ class grizzly::profile::nova::common (
   class { '::nova::compute::quantum': }
 
   class { '::nova::network::quantum':
-    quantum_admin_password => hiera('grizzly::quantum::password'),
-    quantum_region_name    => hiera('grizzly::region'),
+    quantum_admin_password => hiera('havana::quantum::password'),
+    quantum_region_name    => hiera('havana::region'),
     quantum_admin_auth_url => "http://${controller_management_address}:35357/v2.0",
     quantum_url            => "http://${controller_management_address}:9696",
   }

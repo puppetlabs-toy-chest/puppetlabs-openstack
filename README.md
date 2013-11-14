@@ -1,14 +1,14 @@
-This module is used to deploy a multi-node installation of OpenStack Grizzly.
+This module is used to deploy a multi-node installation of OpenStack havana.
 
-#puppetlabs-grizzly
+#puppetlabs-havana
 
 ####Table of Contents
 
-1. [Overview - What is the Grizzly module?](#overview)
+1. [Overview - What is the havana module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
-3. [Setup - The basics of getting started with Grizzly](#setup)
+3. [Setup - The basics of getting started with havana](#setup)
     * [Setup Requirements](#setup-requirements)
-    * [Beginning with Grizzly](#beginning-with-grizzly)
+    * [Beginning with havana](#beginning-with-havana)
 4. [Usage - Configuration and customization options](#usage)
     * [Hiera configuration](#hiera-configuration)
     * [Controller Node](#controller-node)
@@ -19,12 +19,12 @@ This module is used to deploy a multi-node installation of OpenStack Grizzly.
 
 ##Overview
 
-The Puppetlabs Grizzly module  is used to deploy a multi-node installation of OpenStack Grizzly.
+The Puppetlabs havana module  is used to deploy a multi-node installation of OpenStack havana.
 
 ##Module Description
 
-Using the stable/grizzly branch of the puppet-openstack modules, puppetlabs-grizzly allows
-for the rapid deployment of a multi-node installation of OpenStack Grizzly. Four types
+Using the stable/havana branch of the puppet-openstack modules, puppetlabs-havana allows
+for the rapid deployment of a multi-node installation of OpenStack havana. Four types
 of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
@@ -51,7 +51,7 @@ interfaces are divided into two groups.
 
 This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera.
 
-###Beginning with Grizzly
+###Beginning with havana
 
 To begin, you will need to do some basic setup on the compute node. selinux needs to be disabled
 on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
@@ -63,7 +63,7 @@ and the specific ip addresses of the controller node and the storage node.
 ##Usage
 
 ###Hiera Configuration
-The first step to using the puppetlabs-grizzly module is to configure hiera with settings specific
+The first step to using the puppetlabs-havana module is to configure hiera with settings specific
 to your installation. In this module, the example directory contains a sample common.yaml file
 with all of the settings required by this module, as well as a example user to test your deployment
 with. These configuration options include network settings, locations of specific nodes, and
@@ -75,7 +75,7 @@ For your controller node, you need to assign your node the controller role. For 
 
 ```
 node 'control.localdomain' {
-  include ::grizzly::role::controller
+  include ::havana::role::controller
 }
 ```
 
@@ -88,15 +88,15 @@ node.
 For the remainder nodes, there are roles to assign for each. For example:
 ```
 node 'storage.localdomain' {
-  include ::grizzly::role::storage
+  include ::havana::role::storage
 }
 
 node 'network.localdomain' {
-  include ::grizzly::role::network
+  include ::havana::role::network
 }
 
 node /compute[0-9]+.localdomain/ {
-  include ::grizzly::role::compute
+  include ::havana::role::compute
 }
 ```
 
@@ -111,10 +111,10 @@ module that provides network namespaces, required by Open VSwitch, is loaded.
 
 ##Reference
 
-The puppetlabs-grizzly module is built on the 'Roles and Profiles' pattern. Every node
+The puppetlabs-havana module is built on the 'Roles and Profiles' pattern. Every node
 in a deployment is assigned a single role. Every role is composed of some number of
 profiles, which ideally should be independent of one another, allowing for composition
-of new roles. The puppetlabs-grizzly module does not strictly adhere to this pattern,
+of new roles. The puppetlabs-havana module does not strictly adhere to this pattern,
 but should serve as a useful example of how to build profiles from modules for customized
 and maintainable OpenStack deployments.
 
@@ -137,7 +137,7 @@ service iptables stop
 Addressing these limitations is planned for the forthcoming puppet-havana module.
 
 ##License
-Puppet Grizzly Module - Puppet module for multi-node OpenStack Grizzly installation
+Puppet havana Module - Puppet module for multi-node OpenStack havana installation
 
 Copyright (C) 2013 Puppet Labs, Inc.
 Copyright (C) 2013 Christian Hoge

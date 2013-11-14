@@ -1,4 +1,4 @@
-class grizzly::profile::firewall::puppet {
+class havana::profile::firewall::puppet {
   firewall { '08140 - Puppet':
     proto  => 'tcp',
     state  => ['NEW'],

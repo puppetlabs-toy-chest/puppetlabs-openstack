@@ -1,5 +1,5 @@
 # The profile to install the volume service
-class grizzly::profile::cinder::volume {
+class havana::profile::cinder::volume {
 
   firewall { '03260 - iscsi API':
     proto  => 'tcp',
@@ -8,10 +8,10 @@ class grizzly::profile::cinder::volume {
     port   => '3260',
   }
 
-  include '::grizzly::profile::cinder::common'
+  include '::havana::profile::cinder::common'
   class { '::cinder::setup_test_volume': 
     volume_name => 'cinder-volumes',
-    size        => hiera('grizzly::cinder::volume_size')
+    size        => hiera('havana::cinder::volume_size')
   } ->
 
   class { '::cinder::volume':
@@ -20,7 +20,7 @@ class grizzly::profile::cinder::volume {
   }
 
   class { '::cinder::volume::iscsi':
-    iscsi_ip_address  => hiera('grizzly::storage::address::management'),
+    iscsi_ip_address  => hiera('havana::storage::address::management'),
     volume_group      => 'cinder-volumes',
   }
 }

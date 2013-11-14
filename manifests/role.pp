@@ -1,3 +1,3 @@
-class grizzly::role {
-  include grizzly::profile::base
+class havana::role {
+  include havana::profile::base
 }

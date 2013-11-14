@@ -1,7 +1,7 @@
 # The profile to install rabbitmq and set the firewall
-class grizzly::profile::rabbitmq {
+class havana::profile::rabbitmq {
   class { '::nova::rabbitmq':
-    userid   => hiera('grizzly::rabbitmq::user'),
-    password => hiera('grizzly::rabbitmq::password'),
+    userid   => hiera('havana::rabbitmq::user'),
+    password => hiera('havana::rabbitmq::password'),
   }
 }

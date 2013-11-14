@@ -1,21 +1,21 @@
 # The profile to install an OpenStack specific mysql server
-class grizzly::profile::mysql {
+class havana::profile::mysql {
 
-  $management_device = hiera('grizzly::network::management::device')
+  $management_device = hiera('havana::network::management::device')
   $inferred_address = getvar("ipaddress_${management_device}")
-  $explicit_address = hiera('grizzly::controller::address::management')
+  $explicit_address = hiera('havana::controller::address::management')
 
   if $inferred_address != $explicit_address {
     fail("MySQL setup failed. The inferred location of the database based on the
-    grizzly::network::management::device hiera value is ${inferred_address}. The
-    explicit address from grizzly::controller::address::management
+    havana::network::management::device hiera value is ${inferred_address}. The
+    explicit address from havana::controller::address::management
     is ${explicit_address}. Please correct this difference.")
   }
 
   class { 'mysql::server':
     config_hash       => {
-      'root_password' => hiera('grizzly::mysql::root_password'),
-      'bind_address'  => hiera('grizzly::controller::address::management'),
+      'root_password' => hiera('havana::mysql::root_password'),
+      'bind_address'  => hiera('havana::controller::address::management'),
     },
   }
 

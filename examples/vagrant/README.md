@@ -1,4 +1,4 @@
-A few notes on using Vagrant and VMWare Fusion to test the Grizzly module:
+A few notes on using Vagrant and VMWare Fusion to test the Havana module:
 
 Five networks need to be setup in VMWare Fusion. The default net for
 Vagrant, and the four OpenStack networks.
