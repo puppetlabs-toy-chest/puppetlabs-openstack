@@ -2,8 +2,6 @@
 
 # Set up the Puppet Master
 vagrant ssh puppet -c "sudo service iptables stop; \
-sudo puppet module install puppetlabs/ntp; \
-sudo puppet module install puppetlabs/havana; \
 sudo cp /vagrant/site.pp /etc/puppet/manifests/site.pp; \
 sudo chown root:puppet /etc/puppet/manifests/site.pp; \
 sudo cp /vagrant/hiera.yaml /etc/puppet/hiera.yaml; \
