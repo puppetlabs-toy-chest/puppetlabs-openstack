@@ -1,8 +1,8 @@
-# The profile to set up a quantum ovs network router
-class havana::profile::quantum::router {
+# The profile to set up a neutron ovs network router
+class havana::profile::neutron::router {
   Exec { 
     path => '/usr/bin:/usr/sbin:/bin:/sbin', 
-    require => Class['havana::profile::quantum::common'],
+    require => Class['havana::profile::neutron::common'],
   } 
   
 
@@ -11,24 +11,24 @@ class havana::profile::quantum::router {
   }
 
   $controller_management_address = hiera('havana::controller::address::management')
-  include 'havana::profile::quantum::common'
+  include 'havana::profile::neutron::common'
 
   ### Router service installation
-  class { '::quantum::agents::l3':
-    debug   => hiera('havana::quantum::debug'),
+  class { '::neutron::agents::l3':
+    debug   => hiera('havana::neutron::debug'),
     enabled => true,
   }
 
-  class { '::quantum::agents::dhcp':
-    debug   => hiera('havana::quantum::debug'),
+  class { '::neutron::agents::dhcp':
+    debug   => hiera('havana::neutron::debug'),
     enabled => true,
   }
 
-  class { '::quantum::agents::metadata':
-    auth_password => hiera('havana::quantum::password'),
-    shared_secret => hiera('havana::quantum::shared_secret'),
+  class { '::neutron::agents::metadata':
+    auth_password => hiera('havana::neutron::password'),
+    shared_secret => hiera('havana::neutron::shared_secret'),
     auth_url      => "http://${controller_management_address}:35357/v2.0",
-    debug         => hiera('havana::quantum::debug'),
+    debug         => hiera('havana::neutron::debug'),
     auth_region   => hiera('havana::region'),
     metadata_ip   => $controller_management_address,
     enabled       => true,

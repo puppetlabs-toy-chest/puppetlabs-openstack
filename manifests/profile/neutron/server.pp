@@ -1,5 +1,5 @@
-# The profile to set up the quantum server
-class havana::profile::quantum::server {
+# The profile to set up the neutron server
+class havana::profile::neutron::server {
 
   $api_device = hiera('havana::network::api::device')
   $management_device = hiera('havana::network::management::device')
@@ -15,23 +15,23 @@ class havana::profile::quantum::server {
   $controller_api_address = hiera('havana::controller::address::api')
 
   # public API access
-  firewall { '9696 - Quantum API':
+  firewall { '9696 - neutron API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '9696',
   }
 
-  # This class does not impact the quantum.conf file
-  class { '::quantum::db::mysql':
-    user          => 'quantum',
-    password      => hiera('havana::quantum::sql::password'),
-    dbname        => 'quantum',
+  # This class does not impact the neutron.conf file
+  class { '::neutron::db::mysql':
+    user          => 'neutron',
+    password      => hiera('havana::neutron::sql::password'),
+    dbname        => 'neutron',
     allowed_hosts => hiera('havana::mysql::allowed_hosts'),
   }
 
-  class { '::quantum::keystone::auth':
-    password         => hiera('havana::quantum::password'),
+  class { '::neutron::keystone::auth':
+    password         => hiera('havana::neutron::password'),
     public_address   => $api_address,
     admin_address    => $management_address,
     internal_address => $management_address,
@@ -40,26 +40,26 @@ class havana::profile::quantum::server {
 
   # Error check the addresses
   if $management_address != $controller_management_address {
-    fail("Quantum API/Scheduler setup failed. The inferred location the
-    quantum API the havana::network::management::device hiera value is
+    fail("neutron API/Scheduler setup failed. The inferred location the
+    neutron API the havana::network::management::device hiera value is
     ${management_address}. The explicit address
     from havana::controller::address::management is
     ${controller_management_address}. Please correct this difference.")
   }
 
   if $api_address != $controller_api_address {
-    fail("Quantum API/Scheduler setup failed. The inferred location the
-    quantum API the havana::network::api::device hiera value is
+    fail("neutron API/Scheduler setup failed. The inferred location the
+    neutron API the havana::network::api::device hiera value is
     ${api_address}. The explicit address
     from havana::controller::address::api is ${controller_api_address}. 
     Please correct this difference.")
   }
 
-  class { '::quantum::server':
+  class { '::neutron::server':
     auth_host     => hiera('havana::controller::address::management'),
-    auth_password => hiera('havana::quantum::password'),
+    auth_password => hiera('havana::neutron::password'),
     enabled       => true,
   }
 
-  include 'havana::profile::quantum::common'
+  include 'havana::profile::neutron::common'
 }

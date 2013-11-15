@@ -41,7 +41,7 @@ class havana::profile::nova::common (
     admin_password                       => hiera('havana::nova::password'),
     auth_host                            => $controller_management_address,
     enabled                              => $is_controller,
-    quantum_metadata_proxy_shared_secret => hiera('havana::quantum::shared_secret'),
+    neutron_metadata_proxy_shared_secret => hiera('havana::neutron::shared_secret'),
   }
 
   class { '::nova::vncproxy':
@@ -67,12 +67,12 @@ class havana::profile::nova::common (
     vncproxy_host                 => $controller_api_address,
   }
 
-  class { '::nova::compute::quantum': }
+  class { '::nova::compute::neutron': }
 
-  class { '::nova::network::quantum':
-    quantum_admin_password => hiera('havana::quantum::password'),
-    quantum_region_name    => hiera('havana::region'),
-    quantum_admin_auth_url => "http://${controller_management_address}:35357/v2.0",
-    quantum_url            => "http://${controller_management_address}:9696",
+  class { '::nova::network::neutron':
+    neutron_admin_password => hiera('havana::neutron::password'),
+    neutron_region_name    => hiera('havana::region'),
+    neutron_admin_auth_url => "http://${controller_management_address}:35357/v2.0",
+    neutron_url            => "http://${controller_management_address}:9696",
   }
 }

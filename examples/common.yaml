@@ -74,13 +74,13 @@ havana::nova::password: 'quuk-paj'
 havana::nova::verbose: 'True'
 havana::nova::debug: 'True'
 
-######## Quantum
+######## neutron
 
-havana::quantum::sql::password: 'spal-nyp'
-havana::quantum::password: 'whi-rtuz'
-havana::quantum::shared_secret: 'by-sa-bo'
-havana::quantum::verbose: 'True'
-havana::quantum::debug: 'True'
+havana::neutron::sql::password: 'spal-nyp'
+havana::neutron::password: 'whi-rtuz'
+havana::neutron::shared_secret: 'by-sa-bo'
+havana::neutron::verbose: 'True'
+havana::neutron::debug: 'True'
 
 ######## Horizon
 
