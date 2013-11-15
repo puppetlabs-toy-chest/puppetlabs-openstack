@@ -73,4 +73,10 @@ class havana::profile::glance::api {
     verbose           => true,
     debug             => true,
   }
+
+  class { '::glance::notify::rabbitmq': 
+    rabbit_password => hiera('havana::rabbitmq::password'),
+    rabbit_userid   => hiera('havana::rabbitmq::user'),
+    rabbit_host     => hiera('havana::controller::address::management'),
+  }
 }
