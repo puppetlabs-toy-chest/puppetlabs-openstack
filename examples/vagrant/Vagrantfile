@@ -7,11 +7,6 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "vagrant-scientific64-x64"
 
-  config.hostmanager.enabled = true
-  config.hostmanager.manage_host = false
-  config.hostmanager.ignore_private_ip = true
-  config.hostmanager.include_offline = true
-
   config.vm.define "puppet" do |puppet|
     puppet.vm.network :private_network, ip: "192.168.11.3"
     puppet.vm.network :private_network, ip: "192.168.22.3"
@@ -64,13 +59,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define "compute1" do |compute1|
-    compute1.vm.network :private_network, ip: "192.168.11.7"
-    compute1.vm.network :private_network, ip: "192.168.22.7"
-    compute1.vm.network :private_network, ip: "172.16.33.7"
-    compute1.vm.network :private_network, ip: "172.16.44.7"
+  config.vm.define "compute" do |compute|
+    compute.vm.network :private_network, ip: "192.168.11.7"
+    compute.vm.network :private_network, ip: "192.168.22.7"
+    compute.vm.network :private_network, ip: "172.16.33.7"
+    compute.vm.network :private_network, ip: "172.16.44.7"
 
-    compute1.vm.hostname = "compute1"
+    compute.vm.hostname = "compute"
   end
 
 

@@ -1,6 +1,23 @@
 # Starts up standard firewall rules. Pre-runs
 
 class havana::profile::firewall::pre {
+
+  # Set up the initial firewall rules for all nodes
+  if $::osfamily == 'RedHat' {
+    resources { "firewall":
+      purge => true,
+      require => [ Class['::openstack::repo::epel'],
+                   Class['::openstack::repo::rdo'] ],
+    }
+  } elsif $::osfamily == 'Ubuntu' {
+    resources { "firewall":
+      purge => true,
+      require => [ Class['::openstack::repo::uca'] ],
+    }
+  }
+
+  class { '::firewall': }
+
   # Default firewall rules, based on the RHEL defaults
   #Table: filter
   #Chain INPUT (policy ACCEPT)
@@ -11,6 +28,7 @@ class havana::profile::firewall::pre {
     proto  => 'all',
     state  => ['RELATED', 'ESTABLISHED'],
     action => 'accept',
+    before => [ Class['::firewall'] ]
   } ->
   #2    ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0
   firewall { '00002 - localhost':
@@ -28,10 +46,8 @@ class havana::profile::firewall::pre {
   # state NEW tcp dpt:22
   firewall { '00022 - ssh':
     proto  => 'tcp',
-    state  => ['NEW'],
+    state  => ['NEW', 'ESTABLISHED', 'RELATED'],
     action => 'accept',
     port   => 22,
-    before => [ Class['::havana::profile::firewall::post'], 
-                Class['::openstack::repo'], ]
   }
 }

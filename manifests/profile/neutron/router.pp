@@ -5,7 +5,6 @@ class havana::profile::neutron::router {
     require => Class['havana::profile::neutron::common'],
   } 
   
-
   ::sysctl::value { 'net.ipv4.ip_forward': 
     value     => '1',
   }
@@ -34,16 +33,14 @@ class havana::profile::neutron::router {
     enabled       => true,
   }
 
-  # Attempts to set up the external network bridge
-  if empty($network_br_ex) {
-    $external_device = hiera('havana::network::external::device')
-    $external_network = hiera('havana::network::external')
-    $external_ip = getvar("ipaddress_${external_device}")
-    $external_ip_subnet = regsubst($external_network, '^(\d+)\.(\d+)\.(\d+)\.(\d+)(/\d+)', "${external_ip}\5")
+  vs_bridge { 'br-ex':
+    ensure => present,
+  }
 
-    exec { '/usr/bin/ovs-vsctl add-br br-ex': } ->
-    exec { "/usr/bin/ovs-vsctl add-port br-ex ${external_device}": } ->
-    exec { "/sbin/ip addr del ${external_ip_subnet} dev ${external_device}": } ->
-    exec { "/sbin/ip addr add ${external_ip_subnet} dev br-ex": }
+  $external_device = hiera('havana::network::external::device')
+
+  vs_port { $external_device:
+    ensure  => present,
+    bridge  => 'br-ex',
   }
 }

@@ -14,7 +14,7 @@ node 'network.localdomain' {
   include ::havana::role::network
 }
 
-node /compute[0-9]+.localdomain/ {
+node 'compute.localdomain' {
   include ::havana::role::compute
 }
 
