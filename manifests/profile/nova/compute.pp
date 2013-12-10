@@ -47,9 +47,9 @@ class havana::profile::nova::compute {
   exec { '/sbin/iptables -t nat -F POSTROUTING': }
 
   Exec['/sbin/service libvirtd stop'] -> 
-    Exec['/sbin/iptables -t nat -F POSTROUTING'] -> 
-    Class['::firewall'] ->
-    Firewall['00001 - related established']
+  Exec['/sbin/iptables -t nat -F POSTROUTING'] -> 
+  Class['::firewall'] 
+  #Firewall['00001 - related established']
 
   Firewall['99999 - Reject remaining traffic'] -> Service['libvirt']
 }

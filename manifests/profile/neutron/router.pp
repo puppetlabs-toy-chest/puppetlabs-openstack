@@ -42,5 +42,6 @@ class havana::profile::neutron::router {
   vs_port { $external_device:
     ensure  => present,
     bridge  => 'br-ex',
+    keep_ip => true,
   }
 }

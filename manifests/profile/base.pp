@@ -5,4 +5,15 @@ class havana::profile::base {
 
   # all nodes need the OpenStack repository
   class { '::openstack::repo': }
+
+  package { 'python-heatclient':
+    ensure  => present,
+    version => '0.2.4.1',
+  }
+
+  package { 'python-swiftclient':
+    ensure  => present,
+    version => '1.7.0',
+  }
+
 }

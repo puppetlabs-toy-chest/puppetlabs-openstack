@@ -5,7 +5,13 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "vagrant-scientific64-x64"
+  #config.vm.box = "vagrant-scientific64-x64"
+  config.vm.box = "sl6464"
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = false
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
 
   config.vm.define "puppet" do |puppet|
     puppet.vm.network :private_network, ip: "192.168.11.3"
@@ -66,6 +72,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     compute.vm.network :private_network, ip: "172.16.44.7"
 
     compute.vm.hostname = "compute"
+    compute.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "2048"
+    end
   end
 
 
