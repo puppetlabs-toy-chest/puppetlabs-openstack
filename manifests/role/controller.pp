@@ -1,4 +1,5 @@
 class grizzly::role::controller inherits ::grizzly::role {
+  class { '::grizzly::profile::firewall': }
   class { '::grizzly::profile::rabbitmq': } ->
   class { '::grizzly::profile::memcache': } ->
   class { '::grizzly::profile::mysql': } ->

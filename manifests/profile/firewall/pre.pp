@@ -1,6 +1,27 @@
 # Starts up standard firewall rules. Pre-runs
 
 class grizzly::profile::firewall::pre {
+
+  # The ordering of the firewall purge needs to happen after
+  # all of the packages have been updated. Otherwise it's
+  # possible that all network traffic will be locked out
+  # while the Firewall flails
+  if $::osfamily == 'RedHat' {
+    resources { 'firewall':
+      purge   => true,
+      require => [ Class['::openstack::repo::epel'],
+                   Class['::openstack::repo::rdo'] ],
+    }
+    Package<||> -> Resources['firewall']
+  } elsif $::osfamily == 'Ubuntu' {
+    resources { 'firewall':
+      purge   => true,
+      require => [ Class['::openstack::repo::uca'] ],
+    }
+  } else {
+    fail { "Unsupported Operating System family ${::osfamily}": }
+  }
+
   # Default firewall rules, based on the RHEL defaults
   #Table: filter
   #Chain INPUT (policy ACCEPT)
@@ -28,10 +49,8 @@ class grizzly::profile::firewall::pre {
   # state NEW tcp dpt:22
   firewall { '00022 - ssh':
     proto  => 'tcp',
-    state  => ['NEW'],
+    state  => ['NEW', 'ESTABLISHED', 'RELATED'],
     action => 'accept',
     port   => 22,
-    before => [ Class['::grizzly::profile::firewall::post'], 
-                Class['::openstack::repo'], ]
   }
 }
