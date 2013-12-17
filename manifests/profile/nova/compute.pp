@@ -28,10 +28,11 @@ class grizzly::profile::nova::compute {
 
   # This may only be necessary for RHEL family systems
   file { '/etc/libvirt/qemu.conf':
-    ensure => present,
-    source => 'puppet:///modules/grizzly/qemu.conf',
-    mode   => '0644',
-    notify => Service['libvirtd'],
+    ensure  => present,
+    source  => 'puppet:///modules/grizzly/qemu.conf',
+    mode    => '0644',
+    notify  => Service['libvirtd'],
+    require => Package['libvirt'],
   }
 
   # because firewall is not compatible with libvirtd, we need to flush
@@ -48,8 +49,7 @@ class grizzly::profile::nova::compute {
 
   Exec['/sbin/service libvirtd stop'] -> 
     Exec['/sbin/iptables -t nat -F POSTROUTING'] -> 
-    Class['::firewall'] ->
-    Firewall['00001 - related established']
+    Class['::grizzly::profile::firewall'] 
 
   Firewall['99999 - Reject remaining traffic'] -> Service['libvirt']
 }

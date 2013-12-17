@@ -5,7 +5,7 @@ class grizzly::profile::firewall::post {
     proto  => 'all',
     action => 'accept',
     source => hiera('grizzly::network::management'),
-    before => undef,
+    before => [ Firewall['99999 - Reject remaining traffic'] ],
   }
 
   #6    REJECT     all  --  0.0.0.0/0            0.0.0.0/0
