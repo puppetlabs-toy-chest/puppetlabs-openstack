@@ -74,13 +74,20 @@ havana::nova::password: 'quuk-paj'
 havana::nova::verbose: 'True'
 havana::nova::debug: 'True'
 
-######## neutron
+######## Neutron
 
 havana::neutron::sql::password: 'spal-nyp'
 havana::neutron::password: 'whi-rtuz'
 havana::neutron::shared_secret: 'by-sa-bo'
 havana::neutron::verbose: 'True'
 havana::neutron::debug: 'True'
+
+######## Ceilometer
+havana::ceilometer::mongo::password: 'whi-truz'
+havana::ceilometer::password: 'whi-truz'
+havana::ceilometer::meteringsecret: 'ceilometersecretkey'
+havana::ceilometer::verbose: 'True'
+havana::ceilometer::debug: 'True'
 
 ######## Horizon
 

@@ -7,13 +7,11 @@ class havana::profile::base {
   class { '::openstack::repo': }
 
   package { 'python-heatclient':
-    ensure  => present,
-    version => '0.2.4.1',
+    ensure => '0.2.4.1',
   }
 
   package { 'python-swiftclient':
-    ensure  => present,
-    version => '1.7.0',
+    ensure => '1.7.0',
   }
 
 }

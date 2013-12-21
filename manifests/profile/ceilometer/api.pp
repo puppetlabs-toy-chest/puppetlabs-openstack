@@ -1,5 +1,5 @@
-# The profile to set up the Nova controller (several services)
-class havana::profile::nova::api {
+# The profile to set up the Ceilometer API
+class havana::profile::ceilometer::api {
   $api_device = hiera('havana::network::api::device')
   $management_device = hiera('havana::network::management::device')
   $data_device = hiera('havana::network::data::device')
@@ -15,7 +15,7 @@ class havana::profile::nova::api {
   $controller_api_address = hiera('havana::controller::address::api')
 
   if $management_address != $controller_management_address {
-    fail("Nova API/Scheduler setup failed. The inferred location the
+    fail("Ceilometer API/Scheduler setup failed. The inferred location the
     nova API the havana::network::management::device hiera value is
     ${management_address}. The explicit address
     from havana::controller::address::management is
@@ -23,7 +23,7 @@ class havana::profile::nova::api {
   }
 
   if $api_address != $controller_api_address {
-    fail("Nova API/Scheduler setup failed. The inferred location the
+    fail("Ceilometer API/Scheduler setup failed. The inferred location the
     Cinder API the havana::network::api::device hiera value is
     ${api_address}. The explicit address
     from havana::controller::address::api is ${controller_api_address}. Please
@@ -31,45 +31,35 @@ class havana::profile::nova::api {
   }
 
   # public API access
-  firewall { '8774 - Nova API':
+  firewall { '8777 - Ceilometer API':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
     port   => '8774',
   }
 
-  firewall { '8775 - Nova Metadata':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '8775',
-  }
-
-  firewall { '6080 - Nova NoVncProxy':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '6080',
-  }
-
-  class { '::nova::db::mysql':
-    user          => 'nova',
-    password      => hiera('havana::nova::sql::password'),
-    dbname        => 'nova',
-    allowed_hosts => hiera('havana::mysql::allowed_hosts'),
-  }
-
-  class { '::nova::keystone::auth':
-    password         => hiera('havana::nova::password'),
+  class { '::ceilometer::keystone::auth':
+    password         => hiera('havana::ceilometer::password'),
     public_address   => $api_address,
     admin_address    => $management_address,
     internal_address => $management_address,
     region           => hiera('havana::region'),
-    cinder           => true,
   }
 
-  class { 'havana::profile::nova::common':
+  class { 'ceilometer::agent::central':
+  }
+
+  class { 'ceilometer::expirer':
+    time_to_live => '2592000'
+  }
+
+  class { 'ceilometer::alarm::notifier':
+  }
+
+  class { 'ceilometer::alarm::evaluator':
+  }
+
+  class { '::havana::profile::ceilometer::common':
     is_controller => true,
   }
 }
-
