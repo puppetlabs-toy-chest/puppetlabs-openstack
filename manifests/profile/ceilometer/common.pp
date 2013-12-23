@@ -17,7 +17,7 @@ class havana::profile::ceilometer::common (
 
   $mongo_password = hiera('havana::ceilometer::mongo::password')
   $mongo_connection = 
-    "mongodb://ceilometer:${mongo_password}@${controller_management_address}/ceilometer"
+    "mongodb://${management_address}:27017/ceilometer"
 
   class { '::ceilometer':
     metering_secret => hiera('havana::ceilometer::meteringsecret'),
@@ -39,8 +39,8 @@ class havana::profile::ceilometer::common (
   }
 
   class { 'ceilometer::agent::auth':
-    auth_url      => 'http://localhost:35357/v2.0',
-    auth_password => 'tralalerotralala'
+    auth_url      => "http://${management_address}:5000/v2.0",
+    auth_password => hiera('havana::ceilometer::password'),
   }
 }
 

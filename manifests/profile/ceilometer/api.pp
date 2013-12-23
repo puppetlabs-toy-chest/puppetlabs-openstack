@@ -35,7 +35,7 @@ class havana::profile::ceilometer::api {
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '8774',
+    port   => '8777',
   }
 
   class { '::ceilometer::keystone::auth':
