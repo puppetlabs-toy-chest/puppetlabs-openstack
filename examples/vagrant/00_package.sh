@@ -1,6 +1,7 @@
 #!/bin/sh
 rm *gz
-cd ../../
+cd puppetlabs-havana
 rm pkg/*gz
 puppet module build
-cp pkg/*gz examples/vagrant/.
+cp pkg/*gz ../.
+cd ..
