@@ -46,18 +46,20 @@ class havana::profile::ceilometer::api {
     region           => hiera('havana::region'),
   }
 
-  class { 'ceilometer::agent::central':
+  class { '::ceilometer::agent::central':
   }
 
-  class { 'ceilometer::expirer':
+  class { '::ceilometer::expirer':
     time_to_live => '2592000'
   }
 
-  class { 'ceilometer::alarm::notifier':
+  class { '::ceilometer::alarm::notifier':
   }
 
-  class { 'ceilometer::alarm::evaluator':
+  class { '::ceilometer::alarm::evaluator':
   }
+
+  class { '::ceilometer::collector': }
 
   class { '::havana::profile::ceilometer::common':
     is_controller => true,
