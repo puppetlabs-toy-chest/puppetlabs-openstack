@@ -15,12 +15,12 @@ define havana::resources::user (
   
   if $admin == true { 
     keystone_user_role { "$name@$tenant": 
-      roles  => ['Member', 'admin'], 
+      roles  => ['_member_', 'admin'],
       ensure => present, 
     } 
   } else { 
     keystone_user_role { "$name@$tenant": 
-      roles  => ['Member'], 
+      roles  => ['_member_'],
       ensure => present, 
     } 
   }

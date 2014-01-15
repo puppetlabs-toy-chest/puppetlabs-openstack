@@ -1,4 +1,4 @@
-# The profile to set up the Ceilometer API
+#The profile to set up the Ceilometer API
 class havana::profile::ceilometer::api {
   $api_device = hiera('havana::network::api::device')
   $management_device = hiera('havana::network::management::device')
@@ -63,5 +63,20 @@ class havana::profile::ceilometer::api {
 
   class { '::havana::profile::ceilometer::common':
     is_controller => true,
+  }
+
+  mongodb_database { 'ceilometer':
+    ensure  => present,
+    tries   => 10,
+    require => Class['mongodb::server'],
+  }
+
+  mongodb_user { 'ceilometer':
+    ensure        => present,
+    password_hash => mongodb_password('ceilometer', 'password'),
+    database      => ceilometer,
+    roles         => ['readWrite', 'dbAdmin'],
+    tries         => 10,
+    require       => Class['mongodb::server'],
   }
 }
