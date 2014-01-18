@@ -40,9 +40,10 @@ class havana::profile::ceilometer::common (
     database_connection => $mongo_connection,
   }
 
-  class { 'ceilometer::agent::auth':
+  class { '::ceilometer::agent::auth':
     auth_url      => "http://${controller_management_address}:5000/v2.0",
     auth_password => hiera('havana::ceilometer::password'),
+    auth_region   => hiera('havana::region'),
   }
 }
 

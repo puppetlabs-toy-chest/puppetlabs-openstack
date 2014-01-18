@@ -14,4 +14,6 @@ class havana::profile::mongodb {
   class { '::mongodb::server':
     bind_ip => ['127.0.0.1', hiera('havana::controller::address::management')],
   }
+
+  class { '::mongodb::client': }
 }

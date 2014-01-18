@@ -67,9 +67,9 @@ class havana::profile::ceilometer::api {
 
   mongodb_database { 'ceilometer':
     ensure  => present,
-    tries   => 10,
+    tries   => 20,
     require => Class['mongodb::server'],
-  }
+  } 
 
   mongodb_user { 'ceilometer':
     ensure        => present,
@@ -77,6 +77,8 @@ class havana::profile::ceilometer::api {
     database      => ceilometer,
     roles         => ['readWrite', 'dbAdmin'],
     tries         => 10,
-    require       => Class['mongodb::server'],
+    require       => [Class['mongodb::server'], Class['mongodb::client']],
   }
+
+  Class['::mongodb::server'] -> Class['::mongodb::client'] -> Exec['ceilometer-dbsync']
 }
