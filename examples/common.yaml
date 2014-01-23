@@ -89,6 +89,14 @@ havana::ceilometer::meteringsecret: 'ceilometersecretkey'
 havana::ceilometer::verbose: 'True'
 havana::ceilometer::debug: 'True'
 
+######## Heat
+havana::heat::sql::password: 'whi-truz'
+havana::heat::password: 'zap-bang'
+havana::heat::encryption_key: 'heatsecretkey'
+havana::heat::verbose: 'True'
+havana::heat::debug: 'True'
+
+
 ######## Horizon
 
 havana::horizon::secret_key: 'whu-ghuk'
