@@ -10,6 +10,7 @@ class havana::role::controller inherits ::havana::role {
   class { '::havana::profile::cinder::api': } ->
   class { '::havana::profile::nova::api': } ->
   class { '::havana::profile::neutron::server': } ->
+  class { '::havana::profile::heat::api': } ->
   class { '::havana::profile::horizon': }
   class { '::havana::profile::auth_file': }
 }
