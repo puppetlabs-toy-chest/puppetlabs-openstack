@@ -33,6 +33,7 @@ class havana::profile::nova::compute {
     mode   => '0644',
     notify => Service['libvirtd'],
   }
+  Package['libvirt'] -> File['/etc/libvirt/qemu.conf']
 
   # because firewall is not compatible with libvirtd, we need to flush
   # and update rules and services
