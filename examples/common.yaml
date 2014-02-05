@@ -66,6 +66,11 @@ havana::cinder::debug: 'True'
 
 havana::cinder::volume_size: '4G'
 
+######## Swift
+
+havana::swift::password: 'dexc-flo'
+havana::swift::hash_suffix: 'pop-bang'
+
 ######## Nova
 
 havana::nova::libvirt_type: 'kvm'
