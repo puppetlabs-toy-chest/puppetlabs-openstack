@@ -77,6 +77,41 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define "swiftstore1" do |swiftstore1|
+    swiftstore1.vm.network :private_network, ip: "192.168.11.8"
+    swiftstore1.vm.network :private_network, ip: "192.168.22.8"
+    swiftstore1.vm.network :private_network, ip: "172.16.33.8"
+    swiftstore1.vm.network :private_network, ip: "172.16.44.8"
+
+    swiftstore1.vm.hostname = "swiftstore1"
+    swiftstore1.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "swiftstore2" do |swiftstore2|
+    swiftstore2.vm.network :private_network, ip: "192.168.11.9"
+    swiftstore2.vm.network :private_network, ip: "192.168.22.9"
+    swiftstore2.vm.network :private_network, ip: "172.16.33.9"
+    swiftstore2.vm.network :private_network, ip: "172.16.44.9"
+
+    swiftstore2.vm.hostname = "swiftstore2"
+    swiftstore2.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "swiftstore3" do |swiftstore3|
+    swiftstore3.vm.network :private_network, ip: "192.168.11.10"
+    swiftstore3.vm.network :private_network, ip: "192.168.22.10"
+    swiftstore3.vm.network :private_network, ip: "172.16.33.10"
+    swiftstore3.vm.network :private_network, ip: "172.16.44.10"
+
+    swiftstore3.vm.hostname = "swiftstore3"
+    swiftstore3.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "512"
+    end
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
