@@ -19,7 +19,8 @@ This module is used to deploy a multi-node installation of OpenStack havana.
 
 ##Overview
 
-The Puppetlabs havana module  is used to deploy a multi-node installation of OpenStack havana.
+The Puppetlabs havana module is used to deploy a multi-node installation of OpenStack havana.
+This is a pre-release version as I tidy up some loose ends.
 
 ##Module Description
 
@@ -31,8 +32,7 @@ of nodes are created for the deployment:
 * A storage node that hosts volumes, image storage, and the image storage api.
 * A network node that performs L2 routing, L3 routing, and DHCP services.
 * A compute node to run guest operating systems.
-
-Installation and maintenace of object storage is outside the scope of this module.
+* Swift nodes (three zones) that host the object store.
 
 ##Setup
 
@@ -49,11 +49,12 @@ interfaces are divided into two groups.
   * Management network.
   * Data network.
 
-This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera.
+This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera. Object
+sore support depends upon exported resources and PuppetDB.
 
 ###Beginning with havana
 
-To begin, you will need to do some basic setup on the compute node. selinux needs to be disabled
+To begin, you will need to do some basic setup on the compute node. SELinux needs to be disabled
 on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
 services. This is the only node that SELinux needs to be disabled on.
 
@@ -109,6 +110,49 @@ configurations to the worker nodes.
 You will need to reboot all of the nodes after installation to ensure that the kernel
 module that provides network namespaces, required by Open VSwitch, is loaded.
 
+### Object Store Nodes
+
+Begin by setting up PuppetDB. The easiest way to do this is to use the module provided
+by Puppet Labs. The module only needs to be installed on the master, and should be
+used after the agent on the master has connected to itself. For example, you can do a
+complete installation with the following commands:
+
+```
+# connect the puppet master to itself for a first run
+sudo puppet agent -t
+
+# install the PuppetDB module
+sudo puppet module install puppetlabs/puppetdb
+
+# install the module on the puppet master node
+sudo puppet apply --modulepath /etc/puppet/modules -e \"class { '::puppetdb': listen_address => '0.0.0.0', ssl_listen_address => '0.0.0.0' } class { 'puppetdb::master::config': puppetdb_server => 'puppet'}\""
+```
+
+You will need to create three nodes as object stores for Swift, assigning three zones:
+
+```
+node /swift[0-9]+zone1.localdomain/ {
+  class { '::havana::role::swiftstorage':
+    zone => '1',
+  }
+
+node /swift[0-9]+zone2.localdomain/ {
+  class { '::havana::role::swiftstorage':
+    zone => '2',
+  }
+
+node /swift[0-9]+zone3.localdomain/ {
+  class { '::havana::role::swiftstorage':
+    zone => '3',
+  }
+```
+
+Because of the use of exported resources, puppet will need multiple runs to converge. First run the Puppet Agent
+on all of the Swift nodes, which will build out the basic storage and store the exported resource information
+in PuppetDB. Then run the agent on the control node, which will build out the ring files required by Swift.
+Finally, run Puppet against the Swift storage nodes again to copy the ring files over and successfully start
+the Swift services.
+
 ##Reference
 
 The puppetlabs-havana module is built on the 'Roles and Profiles' pattern. Every node
@@ -140,7 +184,7 @@ Addressing these limitations is planned for the forthcoming puppet-havana module
 Puppet havana Module - Puppet module for multi-node OpenStack havana installation
 
 Copyright (C) 2013 Puppet Labs, Inc.
-Copyright (C) 2013 Christian Hoge
+Author: Christian Hoge
 
 Puppet Labs can be contacted at: info@puppetlabs.com
 
