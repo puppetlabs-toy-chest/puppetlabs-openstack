@@ -8,6 +8,7 @@ class havana::role::controller inherits ::havana::role {
   class { '::havana::profile::ceilometer::api': } ->
   class { '::havana::profile::glance::auth': } ->
   class { '::havana::profile::cinder::api': } ->
+  class { '::havana::profile::swift::proxy': } ->
   class { '::havana::profile::nova::api': } ->
   class { '::havana::profile::neutron::server': } ->
   class { '::havana::profile::heat::api': } ->
