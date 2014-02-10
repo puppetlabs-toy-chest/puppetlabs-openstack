@@ -1,21 +1,7 @@
 # The puppet module to set up a Nova Compute node
 class havana::profile::nova::compute {
-
-  $controller_address = hiera('havana::controller::address::management')
-  $storage_address = hiera('havana::storage::address::management')
-
-  $api_device = hiera('havana::network::api::device')
-  $api_address = getvar("ipaddress_${api_device}")
-
   $management_device = hiera('havana::network::management::device')
   $management_address = getvar("ipaddress_${management_device}")
-
-
-  $data_device = hiera('havana::network::data::device')
-  $data_address = getvar("ipaddress_${data_device}")
-
-  $sql_password = hiera('havana::nova::sql::password')
-  $sql_connection = "mysql://nova:${sql_password}@${management_address}/nova"
 
   class { 'havana::profile::nova::common':
     is_compute => true,

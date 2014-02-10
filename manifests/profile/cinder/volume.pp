@@ -1,12 +1,7 @@
 # The profile to install the volume service
 class havana::profile::cinder::volume {
 
-  firewall { '03260 - iscsi API':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '3260',
-  }
+  havana::resources::firewall { 'ISCSI API': port => '3260', }
 
   include '::havana::profile::cinder::common'
   class { '::cinder::setup_test_volume': 

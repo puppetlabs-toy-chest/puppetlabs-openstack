@@ -23,6 +23,7 @@ havana::storage::address::management: '172.16.33.5'
 ######## Database
 
 havana::mysql::root_password: 'spam-gak'
+havana::mysql::service_password: 'fuva-wax'
 havana::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
 
 ######## RabbitMQ
@@ -33,7 +34,6 @@ havana::rabbitmq::password: 'pose-vix'
 ######## Keystone
 
 havana::keystone::admin_token: 'sosp-kyl'
-havana::keystone::sql::password: 'fuva-wax'
 havana::keystone::admin_email: 'chris.hoge@puppetlabs.com'
 havana::keystone::admin_password: 'fyby-tet'
 havana::keystone::verbose: 'True'
@@ -52,14 +52,12 @@ havana::users:
 
 ######## Glance
 
-havana::glance::sql::password: 'bo-xy-hi'
 havana::glance::password: 'na-mu-va'
 havana::glance::verbose: 'True'
 havana::glance::debug: 'True'
 
 ######## Cinder
 
-havana::cinder::sql::password: 'meto-jag'
 havana::cinder::password: 'zi-co-se'
 havana::cinder::verbose: 'True'
 havana::cinder::debug: 'True'
@@ -74,14 +72,12 @@ havana::swift::hash_suffix: 'pop-bang'
 ######## Nova
 
 havana::nova::libvirt_type: 'kvm'
-havana::nova::sql::password: 'li-hu-py'
 havana::nova::password: 'quuk-paj'
 havana::nova::verbose: 'True'
 havana::nova::debug: 'True'
 
 ######## Neutron
 
-havana::neutron::sql::password: 'spal-nyp'
 havana::neutron::password: 'whi-rtuz'
 havana::neutron::shared_secret: 'by-sa-bo'
 havana::neutron::verbose: 'True'
@@ -95,7 +91,6 @@ havana::ceilometer::verbose: 'True'
 havana::ceilometer::debug: 'True'
 
 ######## Heat
-havana::heat::sql::password: 'whi-truz'
 havana::heat::password: 'zap-bang'
 havana::heat::encryption_key: 'heatsecretkey'
 havana::heat::verbose: 'True'

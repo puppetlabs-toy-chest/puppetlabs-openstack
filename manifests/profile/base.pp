@@ -5,4 +5,7 @@ class havana::profile::base {
 
   # all nodes need the OpenStack repository
   class { '::openstack::repo': }
+
+  # database connectors
+  class { '::havana::resources::connectors': }
 }
