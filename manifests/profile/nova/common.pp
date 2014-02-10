@@ -3,32 +3,18 @@ class havana::profile::nova::common (
   $is_controller = false,
   $is_compute    = false,
 ) {
-  $api_device = hiera('havana::network::api::device')
   $management_device = hiera('havana::network::management::device')
-  $data_device = hiera('havana::network::data::device')
-  $external_device = hiera('havana::network::external::device')
-
-  $api_address = getvar("ipaddress_${api_device}")
   $management_address = getvar("ipaddress_${management_device}")
-  $data_address = getvar("ipaddress_${data_device}")
-  $external_address = getvar("ipaddress_${external_device}")
-
-  $controller_management_address =
-    hiera('havana::controller::address::management')
-  $controller_api_address = hiera('havana::controller::address::api')
 
   $storage_management_address = hiera('havana::storage::address::management')
-  $storage_api_address = hiera('havana::storage::address::api')
 
-  $glance_api_server = "http://${storage_management_address}:9292"
-
-  $sql_password = hiera('havana::nova::sql::password')
-  $sql_connection =
-    "mysql://nova:${sql_password}@${controller_management_address}/nova"
+  $sql_password = hiera('havana::mysql::service_password')
+  $controller_management_address = hiera('havana::controller::address::management')
+  $sql_connection = "mysql://nova:${sql_password}@${controller_management_address}/nova"
 
   class { '::nova':
     sql_connection     => $sql_connection,
-    glance_api_servers => $glance_api_server,
+    glance_api_servers => "http://${storage_management_address}:9292",
     memcached_servers  => ["${controller_management_address}:11211"],
     rabbit_hosts       => [$controller_management_address],
     rabbit_userid      => hiera('havana::rabbitmq::user'),
@@ -45,7 +31,7 @@ class havana::profile::nova::common (
   }
 
   class { '::nova::vncproxy':
-    host    => $controller_api_address,
+    host    => hiera('havana::controller::address::api'),
     enabled => $is_controller,
   }
 
@@ -64,7 +50,7 @@ class havana::profile::nova::common (
     enabled                       => $is_compute,
     vnc_enabled                   => true,
     vncserver_proxyclient_address => $management_address,
-    vncproxy_host                 => $controller_api_address,
+    vncproxy_host                 => hiera('havana::controller::address::api'),
   }
 
   class { '::nova::compute::neutron': }

@@ -1,21 +1,8 @@
 class havana::profile::ceilometer::common (
   $is_controller = false,
 ) {
-  $api_device = hiera('havana::network::api::device')
-  $management_device = hiera('havana::network::management::device')
-  $data_device = hiera('havana::network::data::device')
-  $external_device = hiera('havana::network::external::device')
-
-  $api_address = getvar("ipaddress_${api_device}")
-  $management_address = getvar("ipaddress_${management_device}")
-  $data_address = getvar("ipaddress_${data_device}")
-  $external_address = getvar("ipaddress_${external_device}")
-
   $controller_management_address =
     hiera('havana::controller::address::management')
-  $controller_api_address = hiera('havana::controller::address::api')
-
-  notify { "${controller_management_address}": }
 
   $mongo_password = hiera('havana::ceilometer::mongo::password')
   $mongo_connection = 

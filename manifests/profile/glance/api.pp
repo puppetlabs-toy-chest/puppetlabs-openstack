@@ -29,31 +29,12 @@ class havana::profile::glance::api {
     Please correct this difference.")
   }
 
-  # public API access
-  firewall { '09292 - Glance API':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '9292',
-  }
-
-  # public API access
-  firewall { '09191 - Glance Registry':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '9191',
-  }
-
-  $sql_password = hiera('havana::glance::sql::password')
-  $sql_connection =
-    "mysql://glance:${sql_password}@${controller_address}/glance"
-
-  # database setup
+  havana::resources::firewall { 'Glance API': port      => '9292', }
+  havana::resources::firewall { 'Glance Registry': port => '9191', }
 
   class { '::glance::api':
     keystone_password => hiera('havana::glance::password'),
-    auth_host         => $controller_address,
+    auth_host         => hiera('havana::controller::address::management'),
     keystone_tenant   => 'services',
     keystone_user     => 'glance',
     sql_connection    => $sql_connection,
@@ -66,8 +47,8 @@ class havana::profile::glance::api {
 
   class { '::glance::registry':
     keystone_password => hiera('havana::glance::password'),
-    sql_connection    => $sql_connection,
-    auth_host         => $controller_address,
+    sql_connection    => $::havana::resources::connectors::glance,
+    auth_host         => hiera('havana::controller::address::management'),
     keystone_tenant   => 'services',
     keystone_user     => 'glance',
     verbose           => true,
