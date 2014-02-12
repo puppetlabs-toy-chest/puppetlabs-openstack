@@ -8,10 +8,6 @@ class havana::profile::neutron::common {
   $data_device = hiera('havana::network::data::device')
   $data_address = getvar("ipaddress_${data_device}")
 
-  $sql_password = hiera('havana::mysql::service_password')
-  $sql_connection =
-    "mysql://neutron:${sql_password}@${controller_management_address}/neutron"
-
   class { '::neutron':
     rabbit_host        => $controller_management_address,
     rabbit_user        => hiera('havana::rabbitmq::user'),
@@ -30,7 +26,7 @@ class havana::profile::neutron::common {
 
   # everyone gets an ovs plugin (TODO true?)
   class  { '::neutron::plugins::ovs':
-    sql_connection      => $sql_connection,
+    sql_connection      => $::havana::resources::connectors::neutron,
     tenant_network_type => 'gre',
   }
 }

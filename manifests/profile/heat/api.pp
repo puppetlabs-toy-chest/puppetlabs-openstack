@@ -5,9 +5,7 @@ class havana::profile::heat::api {
   havana::resources::firewall { 'Heat API': port     => '8004', }
   havana::resources::firewall { 'Heat CFN API': port => '8000', }
 
-  $sql_password = hiera('havana::mysql::service_password')
   $controller_management_address = hiera('havana::controller::address::management')
-  $sql_connection = "mysql://heat:${sql_password}@${controller_management_address}/heat"
 
   class { '::heat::keystone::auth':
     password         => hiera('havana::heat::password'),
@@ -26,7 +24,7 @@ class havana::profile::heat::api {
   }
 
   class { '::heat':
-    sql_connection    => $sql_connection,
+    sql_connection    => $::havana::resources::connectors::heat,
     rabbit_host       => hiera('havana::controller::address::management'),
     rabbit_userid     => hiera('havana::rabbitmq::user'),
     rabbit_password   => hiera('havana::rabbitmq::password'),
