@@ -8,12 +8,10 @@ class havana::profile::nova::common (
 
   $storage_management_address = hiera('havana::storage::address::management')
 
-  $sql_password = hiera('havana::mysql::service_password')
   $controller_management_address = hiera('havana::controller::address::management')
-  $sql_connection = "mysql://nova:${sql_password}@${controller_management_address}/nova"
 
   class { '::nova':
-    sql_connection     => $sql_connection,
+    sql_connection     => $::havana::resources::connectors::nova,
     glance_api_servers => "http://${storage_management_address}:9292",
     memcached_servers  => ["${controller_management_address}:11211"],
     rabbit_hosts       => [$controller_management_address],

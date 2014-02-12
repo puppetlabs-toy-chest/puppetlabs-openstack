@@ -37,7 +37,7 @@ class havana::profile::glance::api {
     auth_host         => hiera('havana::controller::address::management'),
     keystone_tenant   => 'services',
     keystone_user     => 'glance',
-    sql_connection    => $sql_connection,
+    sql_connection    => $:havana::resources::connectors::glance,
     registry_host     => hiera('havana::storage::address::management'),
     verbose           => hiera('havana::glance::verbose'),
     debug             => hiera('havana::glance::debug'),
