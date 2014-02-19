@@ -21,10 +21,16 @@ class havana::profile::ceilometer::api {
     time_to_live => '2592000'
   }
 
-  class { '::ceilometer::alarm::notifier':
-  }
+  # For the time being no upstart script are provided
+  # in Ubuntu 12.04 Cloud Archive. Bug report filed
+  # https://bugs.launchpad.net/cloud-archive/+bug/1281722
+  # https://bugs.launchpad.net/ubuntu/+source/ceilometer/+bug/1250002/comments/5
+  if $::osfamily != 'Debian' {
+    class { '::ceilometer::alarm::notifier':
+    }
 
-  class { '::ceilometer::alarm::evaluator':
+    class { '::ceilometer::alarm::evaluator':
+    }
   }
 
   class { '::ceilometer::collector': }
