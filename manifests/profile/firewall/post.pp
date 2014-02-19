@@ -1,17 +1,14 @@
 # post-firewall rules to reject remaining traffic
 class havana::profile::firewall::post {
-  firewall { '99998 - Accept all management network traffic':
+  firewall { '8999 - Accept all management network traffic':
     proto  => 'all',
+    state  => ['NEW'],
     action => 'accept',
     source => hiera('havana::network::management'),
-    before => [ Firewall['99999 - Reject remaining traffic'] ],
-  } 
-
-  #6    REJECT     all  --  0.0.0.0/0            0.0.0.0/0
-  #reject-with icmp-host-prohibited
-  firewall { '99999 - Reject remaining traffic':
-    action => 'reject',
+  }  ->
+  firewall { '9999 - Reject remaining traffic':
     proto  => 'all',
+    action => 'reject',
     reject => 'icmp-host-prohibited',
     source => '0.0.0.0/0',
   }

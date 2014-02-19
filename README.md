@@ -38,9 +38,9 @@ of nodes are created for the deployment:
 
 ###Setup Requirements
 
-This module assumes multiple nodes running a Red Hat 6 variant (RHEL, CentOS, or Scientific Linux).
-Additionally, each node needs a minumum of two network interfaces, and up to four. The network
-interfaces are divided into two groups. 
+This module assumes multiple nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
+or Ubuntu LTS 12.04. Additionally, each node needs a minumum of two network interfaces, and up to four.
+The network interfaces are divided into two groups.
 
 - Public interfaces:
   * API network.
@@ -119,6 +119,7 @@ complete installation with the following commands:
 
 ```
 # connect the puppet master to itself for a first run
+
 sudo puppet agent -t
 
 # install the PuppetDB module
@@ -163,8 +164,6 @@ but should serve as a useful example of how to build profiles from modules for c
 and maintainable OpenStack deployments.
 
 ##Limitations
-
-This module is only tested with RedHat based operating systems.
 
 High availability and SSL-enabled endpoints are not provided by this module.
 

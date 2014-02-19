@@ -7,21 +7,9 @@ class havana::profile::horizon {
 
   }
 
-  # public API access
-  firewall { '00080 - Apache (Horizon)':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '80',
-  }
 
-  # public API access
-  firewall { '00443 - Apache SSL (Horizon)':
-    proto  => 'tcp',
-    state  => ['NEW'],
-    action => 'accept',
-    port   => '443',
-  }
+  havana::resources::firewall { 'Apache (Horizon)': port => '80' }
+  havana::resources::firewall { 'Apache SSL (Horizon)': port => '443' }
 
   if $::selinux and str2bool($::selinux) != false {
     selboolean{'httpd_can_network_connect':
