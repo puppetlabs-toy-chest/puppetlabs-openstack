@@ -6,12 +6,12 @@ sudo puppet module install puppetlabs/puppetdb; \
 sudo puppet module install puppetlabs/ntp; \
 sudo puppet module install puppetlabs/firewall; \
 sudo puppet module install puppetlabs/mysql --version 0.6.1; \
-sudo puppet module install puppetlabs/openstack --version 3.0.0-rc2; \
+sudo puppet module install puppetlabs/openstack; \
 sudo puppet module install puppetlabs/mongodb; \
 cd /etc/puppet/modules; \
 sudo tar -xvzf /vagrant/*gz; \
 sudo rm -rf havana
-sudo mv puppetlabs-havana-3.0.0 havana; \
+sudo mv puppetlabs-havana* havana; \
 sudo cp /vagrant/site.pp /etc/puppet/manifests/site.pp; \
 sudo chown root:puppet /etc/puppet/manifests/site.pp; \
 sudo cp /vagrant/hiera.yaml /etc/puppet/hiera.yaml; \
