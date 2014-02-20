@@ -50,7 +50,7 @@ The network interfaces are divided into two groups.
   * Data network.
 
 This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera. Object
-sore support depends upon exported resources and PuppetDB.
+store support depends upon exported resources and PuppetDB.
 
 ###Beginning with havana
 
