@@ -33,6 +33,17 @@ class havana::profile::neutron::router {
     enabled       => true,
   }
 
+  # Temporarily fix a bug on RHEL packaging
+  if $::osfamily == 'RedHat' {
+    file { '/usr/lib/python2.6/site-packages/neutronclient/client.py':
+      ensure  => present,
+      source  => 'puppet:///modules/havana/client.py',
+      mode    => '0644',
+      notify  => Service['neutron-metadata-agent'],
+      require => Package['openstack-neutron'],
+    }
+  }
+
   vs_bridge { 'br-ex':
     ensure => present,
   }
