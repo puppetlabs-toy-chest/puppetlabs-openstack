@@ -1,5 +1,5 @@
 name    'puppetlabs-havana'
-version '0.0.2'
+version '0.5.0'
 source 'Chris Hoge'
 author 'puppetlabs'
 license 'Apache License, Version 2.0'
