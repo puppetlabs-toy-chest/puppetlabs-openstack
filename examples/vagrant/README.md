@@ -27,9 +27,9 @@ The IP address reservation is
 * 0.0.0.5  : OS Storage
 * 0.0.0.6  : OS Networking
 * 0.0.0.7  : OS Compute
-* 0.0.0.8  : OS Compute
-* 0.0.0.9  : OS Compute
-* 0.0.0.10 : OS Compute
+* 0.0.0.8  : Swift Storage Zone 1
+* 0.0.0.9  : Swift Storage Zone 2
+* 0.0.0.10 : Swift Storage Zone 3
 
 Vagrant needs the hostfile plugin installed:
 
