@@ -1,14 +1,14 @@
-This module is used to deploy a multi-node installation of OpenStack havana.
+This module is used to deploy a multi-node installation of OpenStack Havana.
 
 #puppetlabs-havana
 
 ####Table of Contents
 
-1. [Overview - What is the havana module?](#overview)
+1. [Overview - What is the Havana module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
-3. [Setup - The basics of getting started with havana](#setup)
+3. [Setup - The basics of getting started with Havana](#setup)
     * [Setup Requirements](#setup-requirements)
-    * [Beginning with havana](#beginning-with-havana)
+    * [Beginning with Havana](#beginning-with-havana)
 4. [Usage - Configuration and customization options](#usage)
     * [Hiera configuration](#hiera-configuration)
     * [Controller Node](#controller-node)
@@ -19,13 +19,14 @@ This module is used to deploy a multi-node installation of OpenStack havana.
 
 ##Overview
 
-The Puppetlabs havana module is used to deploy a multi-node installation of OpenStack havana.
-This is a pre-release version as I tidy up some loose ends.
+The puppetlabs-havana module is used to deploy a multi-node installation of OpenStack Havana.
+0.5 is a pre-release version. Bug reports and improvements leading to the 1.0 release are
+welcome.
 
 ##Module Description
 
-Using the stable/havana branch of the puppet-openstack modules, puppetlabs-havana allows
-for the rapid deployment of a multi-node installation of OpenStack havana. Four types
+Using the stable/havana branch of the puppetlabs-openstack modules, puppetlabs-havana allows
+for the rapid deployment of a multi-node installation of OpenStack Havana. Four types
 of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
@@ -52,9 +53,9 @@ The network interfaces are divided into two groups.
 This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera. Object
 store support depends upon exported resources and PuppetDB.
 
-###Beginning with havana
+###Beginning with Havana
 
-To begin, you will need to do some basic setup on the compute node. SELinux needs to be disabled
+To begin, you will need to do some basic setup on the compute node. SElinux needs to be disabled
 on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
 services. This is the only node that SELinux needs to be disabled on.
 
@@ -177,13 +178,13 @@ iptables -F -t nat
 service iptables stop
 ```
 
-Addressing these limitations is planned for the forthcoming puppet-havana module.
+Addressing these limitations is planned for the forthcoming puppetlabs-havana module.
 
 ##License
-Puppet havana Module - Puppet module for multi-node OpenStack havana installation
+Puppet Labs Havana - A Puppet Module for a Multi-Node OpenStack Havana Installation.
 
 Copyright (C) 2013 Puppet Labs, Inc.
-Author: Christian Hoge
+Author - Christian Hoge
 
 Puppet Labs can be contacted at: info@puppetlabs.com
 
