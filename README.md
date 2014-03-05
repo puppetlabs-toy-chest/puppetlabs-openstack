@@ -19,14 +19,14 @@ This module is used to deploy a multi-node installation of OpenStack Havana.
 
 ##Overview
 
-The puppetlabs-havana module is used to deploy a multi-node installation of OpenStack Havana.
-0.5 is a pre-release version. Bug reports and improvements leading to the 1.0 release are
-welcome.
+The puppetlabs-havana module is used to deploy a multi-node or all-in-one installation of 
+OpenStack Havana. 0.5 is a pre-release version. Bug reports and improvements leading to 
+the 1.0 release are welcome.
 
 ##Module Description
 
 Using the stable/havana branch of the puppetlabs-openstack modules, puppetlabs-havana allows
-for the rapid deployment of a multi-node installation of OpenStack Havana. Four types
+for the rapid deployment of an installation of OpenStack Havana. For the multi-node, four types
 of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
@@ -35,11 +35,13 @@ of nodes are created for the deployment:
 * A compute node to run guest operating systems.
 * Swift nodes (three zones) that host the object store.
 
+The all-in-one deployment sets up all of the services except for Swift on a single node.
+
 ##Setup
 
 ###Setup Requirements
 
-This module assumes multiple nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
+This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
 or Ubuntu LTS 12.04. Additionally, each node needs a minumum of two network interfaces, and up to four.
 The network interfaces are divided into two groups.
 
