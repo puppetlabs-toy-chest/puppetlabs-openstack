@@ -1,9 +1,9 @@
 # The puppet module to set up a Nova Compute node
 class havana::profile::nova::compute {
-  $management_device = hiera('havana::network::management::device')
-  $management_address = getvar("ipaddress_${management_device}")
+  $management_network = hiera('havana::network::management')
+  $management_address = ip_for_network($management_network)
 
-  class { 'havana::profile::nova::common':
+  class { 'havana::common::nova':
     is_compute => true,
   }
 

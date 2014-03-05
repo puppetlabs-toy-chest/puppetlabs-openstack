@@ -13,7 +13,7 @@ class havana::profile::cinder::api {
     region           => hiera('havana::region'),
   }
 
-  include '::havana::profile::cinder::common'
+  include ::havana::common::cinder
 
   class { '::cinder::api':
     keystone_password  => hiera('havana::cinder::password'),

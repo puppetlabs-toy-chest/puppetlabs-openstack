@@ -2,8 +2,8 @@
 class havana::profile::swift::storage (
   $zone = undef,
 ) {
-  $management_device = hiera('havana::network::management::device')
-  $management_address = getvar("ipaddress_${management_device}")
+  $management_network = hiera('havana::network::management')
+  $management_address = ip_for_network($management_network)
 
   firewall { '6000 - Swift Object Store':
     proto  => 'tcp',

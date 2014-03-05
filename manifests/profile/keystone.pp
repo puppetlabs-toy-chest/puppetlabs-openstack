@@ -8,8 +8,8 @@ class havana::profile::keystone {
   class { '::keystone':
     admin_token    => hiera('havana::keystone::admin_token'),
     sql_connection => $::havana::resources::connectors::keystone,
-    verbose        => hiera('havana::keystone::verbose'),
-    debug          => hiera('havana::keystone::debug'),
+    verbose        => hiera('havana::verbose'),
+    debug          => hiera('havana::debug'),
   }
 
   class { '::keystone::roles::admin':

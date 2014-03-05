@@ -28,8 +28,8 @@ class havana::profile::heat::api {
     rabbit_host       => hiera('havana::controller::address::management'),
     rabbit_userid     => hiera('havana::rabbitmq::user'),
     rabbit_password   => hiera('havana::rabbitmq::password'),
-    debug             => hiera('havana::cinder::debug'),
-    verbose           => hiera('havana::cinder::verbose'),
+    debug             => hiera('havana::debug'),
+    verbose           => hiera('havana::verbose'),
     keystone_host     => hiera('havana::controller::address::management'),
     keystone_password => hiera('havana::heat::password'),
   }

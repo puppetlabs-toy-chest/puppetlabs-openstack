@@ -2,11 +2,11 @@
 # Note that for this configuration API controls the storage,
 # so it is on the storage node instead of the control node
 class havana::profile::glance::api {
-  $api_device = hiera('havana::network::api::device')
-  $api_address = getvar("ipaddress_${api_device}")
+  $api_network = hiera('havana::network::api')
+  $api_address = ip_for_network($api_network)
 
-  $management_device = hiera('havana::network::management::device')
-  $management_address = getvar("ipaddress_${management_device}")
+  $management_network = hiera('havana::network::management')
+  $management_address = ip_for_network($management_network)
 
   $explicit_management_address = hiera('havana::storage::address::management')
   $explicit_api_address = hiera('havana::storage::address::api')
@@ -15,7 +15,7 @@ class havana::profile::glance::api {
 
   if $management_address != $explicit_management_address {
     fail("Glance Auth setup failed. The inferred location of Glance from
-    the havana::network::management::device hiera value i
+    the havana::network::management hiera value is
     ${management_address}. The explicit address from
     havana::storage::address::management is ${explicit_management_address}.
     Please correct this difference.")
@@ -23,7 +23,7 @@ class havana::profile::glance::api {
 
   if $api_address != $explicit_api_address {
     fail("Glance Auth setup failed. The inferred location of Glance from
-    the havana::network::management::device hiera value is
+    the havana::network::management hiera value is
     ${api_address}. The explicit address from
     havana::storage::address::api is ${explicit_api_address}.
     Please correct this difference.")
@@ -39,8 +39,8 @@ class havana::profile::glance::api {
     keystone_user     => 'glance',
     sql_connection    => $::havana::resources::connectors::glance,
     registry_host     => hiera('havana::storage::address::management'),
-    verbose           => hiera('havana::glance::verbose'),
-    debug             => hiera('havana::glance::debug'),
+    verbose           => hiera('havana::verbose'),
+    debug             => hiera('havana::debug'),
   }
 
   class { '::glance::backend::file': }
@@ -51,8 +51,8 @@ class havana::profile::glance::api {
     auth_host         => hiera('havana::controller::address::management'),
     keystone_tenant   => 'services',
     keystone_user     => 'glance',
-    verbose           => true,
-    debug             => true,
+    verbose           => hiera('havana::verbose'),
+    debug             => hiera('havana::debug'),
   }
 
   class { '::glance::notify::rabbitmq': 

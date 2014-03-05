@@ -1,13 +1,15 @@
-# common configuration for the nova services
-class havana::profile::nova::common (
-  $is_controller = false,
-  $is_compute    = false,
-) {
-  $management_device = hiera('havana::network::management::device')
-  $management_address = getvar("ipaddress_${management_device}")
+# Common class for nova installation
+# Private, and should not be used on its own
+# usage: include from controller, declare from worker
+# This is to handle dependency
+# depends on havana::profile::base having been added to a node
+class havana::common::nova ($is_compute    = false) {
+  $is_controller = $::havana::profile::base::is_controller
+
+  $management_network = hiera('havana::network::management')
+  $management_address = ip_for_network($management_network)
 
   $storage_management_address = hiera('havana::storage::address::management')
-
   $controller_management_address = hiera('havana::controller::address::management')
 
   class { '::nova':
@@ -17,8 +19,8 @@ class havana::profile::nova::common (
     rabbit_hosts       => [$controller_management_address],
     rabbit_userid      => hiera('havana::rabbitmq::user'),
     rabbit_password    => hiera('havana::rabbitmq::password'),
-    debug              => hiera('havana::nova::debug'),
-    verbose            => hiera('havana::nova::verbose'),
+    debug              => hiera('havana::debug'),
+    verbose            => hiera('havana::verbose'),
   }
 
   class { '::nova::api':

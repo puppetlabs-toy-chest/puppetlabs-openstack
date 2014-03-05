@@ -1,4 +1,6 @@
-#The profile to set up the Ceilometer API
+# The profile to set up the Ceilometer API
+# For co-located api and worker nodes this appear
+# after havana::profile::ceilometer::agent
 class havana::profile::ceilometer::api {
   havana::resources::controller { 'ceilometer': }
 
@@ -8,9 +10,9 @@ class havana::profile::ceilometer::api {
 
   class { '::ceilometer::keystone::auth':
     password         => hiera('havana::ceilometer::password'),
-    public_address   => $api_address,
-    admin_address    => $management_address,
-    internal_address => $management_address,
+    public_address   => hiera('havana::controller::address::api'),
+    admin_address    => hiera('havana::controller::address::management'),
+    internal_address => hiera('havana::controller::address::management'),
     region           => hiera('havana::region'),
   }
 
@@ -35,9 +37,7 @@ class havana::profile::ceilometer::api {
 
   class { '::ceilometer::collector': }
 
-  class { '::havana::profile::ceilometer::common':
-    is_controller => true,
-  }
+  include ::havana::common::ceilometer
 
   mongodb_database { 'ceilometer':
     ensure  => present,
