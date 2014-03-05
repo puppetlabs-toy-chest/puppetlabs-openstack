@@ -1,29 +1,18 @@
 # A basic defined resource that only checks for controller
 # configuration consistency with the Hiera data
 define havana::resources::controller () {
-  $api_device = hiera('havana::network::api::device')
-  $api_address = getvar("ipaddress_${api_device}")
+  $api_address = hiera('havana::controller::address::api')
+  $management_address = hiera('havana::controller::address::management')
 
-  $management_device = hiera('havana::network::management::device')
-  $management_address = getvar("ipaddress_${management_device}")
-
-  $explicit_management_address =
-    hiera('havana::controller::address::management')
-  $explicit_api_address = hiera('havana::controller::address::api')
-
-  if $management_address != $explicit_management_address {
-    fail("${title} setup failed. The inferred location of ${title}
-    from the havana::network::management::device hiera value is
-    ${management_address}. The explicit address
-    from havana::controller::address is ${explicit_management_address}.
-    Please correct this difference.")
+  unless has_ip_address($api_address) {
+    fail("${title} setup failed. This node is listed
+    as a controller, but does not have the api ip address
+    ${api_address}.")
   }
 
-  if $api_address != $explicit_api_address {
-    fail("${title} setup failed. The inferred location of ${title}
-    from the havana::network::api::device hiera value is
-    ${api_address}. The explicit address
-    from havana::controller::address::api is ${explicit_api_address}.
-    Please correct this difference.")
+  unless has_ip_address($management_address) {
+    fail("${title} setup failed. This node is listed
+    as a controller, but does not have the management ip address
+    ${management_address}.")
   }
 }

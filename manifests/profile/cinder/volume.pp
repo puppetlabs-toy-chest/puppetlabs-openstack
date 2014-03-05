@@ -3,7 +3,8 @@ class havana::profile::cinder::volume {
 
   havana::resources::firewall { 'ISCSI API': port => '3260', }
 
-  include '::havana::profile::cinder::common'
+  include ::havana::common::cinder
+
   class { '::cinder::setup_test_volume': 
     volume_name => 'cinder-volumes',
     size        => hiera('havana::cinder::volume_size')

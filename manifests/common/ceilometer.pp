@@ -1,8 +1,9 @@
-class havana::profile::ceilometer::common (
-  $is_controller = false,
-) {
-  $controller_management_address =
-    hiera('havana::controller::address::management')
+# Common class for ceilometer installation
+# Private, and should not be used on its own
+class havana::common::ceilometer {
+  $is_controller = $::havana::profile::base::is_controller
+
+  $controller_management_address = hiera('havana::controller::address::management')
 
   $mongo_password = hiera('havana::ceilometer::mongo::password')
   $mongo_connection = 
@@ -10,8 +11,8 @@ class havana::profile::ceilometer::common (
 
   class { '::ceilometer':
     metering_secret => hiera('havana::ceilometer::meteringsecret'),
-    debug           => hiera('havana::ceilometer::debug'),
-    verbose         => hiera('havana::ceilometer::verbose'),
+    debug           => hiera('havana::debug'),
+    verbose         => hiera('havana::verbose'),
     rabbit_hosts    => [$controller_management_address],
     rabbit_userid   => hiera('havana::rabbitmq::user'),
     rabbit_password => hiera('havana::rabbitmq::password'),

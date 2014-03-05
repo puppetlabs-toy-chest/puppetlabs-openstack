@@ -6,7 +6,6 @@ class havana::profile::nova::api {
   havana::resources::firewall { 'Nova Metadata': port => '8775', }
   havana::resources::firewall { 'Nova NoVncProxy': port => '6080', }
 
-
   class { '::nova::keystone::auth':
     password         => hiera('havana::nova::password'),
     public_address   => hiera('havana::controller::address::api'),
@@ -16,8 +15,6 @@ class havana::profile::nova::api {
     cinder           => true,
   }
 
-  class { 'havana::profile::nova::common':
-    is_controller => true,
-  }
+  include ::havana::common::nova
 }
 

@@ -18,5 +18,5 @@ class havana::profile::neutron::server {
     enabled       => true,
   }
 
-  include 'havana::profile::neutron::common'
+  include ::havana::common::neutron
 }

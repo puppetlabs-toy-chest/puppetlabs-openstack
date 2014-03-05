@@ -10,8 +10,8 @@ havana::network::data: '172.16.44.0/24'
 
 havana::controller::address::api: '192.168.11.4'
 havana::controller::address::management: '172.16.33.4'
-havana::storage::address::api: '192.168.11.5'
-havana::storage::address::management: '172.16.33.5'
+havana::storage::address::api: '192.168.11.4'
+havana::storage::address::management: '172.16.33.4'
 
 ######## Database
 
