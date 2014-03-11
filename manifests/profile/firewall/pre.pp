@@ -4,16 +4,17 @@ class havana::profile::firewall::pre {
 
   # Set up the initial firewall rules for all nodes
   if $::osfamily == 'RedHat' {
-    resources { 'firewall':
+    firewallchain { 'INPUT:filter:IPv4':
       purge   => true,
+      ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
       require => [ Class['::openstack::repo::epel'],
                    Class['::openstack::repo::rdo'] ],
     }
   } elsif $::osfamily == 'Debian' {
-    notify { 'purged firewall for Debian Family': }
-    resources { 'firewall':
+    firewallchain { 'INPUT:filter:IPv4':
       purge   => true,
+      ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
       require => [ Class['::openstack::repo::uca'] ],
     }
