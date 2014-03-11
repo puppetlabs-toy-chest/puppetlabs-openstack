@@ -41,6 +41,13 @@ havana::users:
         email: "test@example.com"
         admin: true
 
+havana::users:
+    "demo":
+        password: "abc123"
+        tenant: "test"
+        email: "demo@example.com"
+        admin: false
+
 ######## Glance
 
 havana::glance::password: 'na-mu-va'
