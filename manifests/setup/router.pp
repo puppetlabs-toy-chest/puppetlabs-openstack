@@ -1,5 +1,4 @@
 define havana::setup::router {
-
   $subnet = hiera('havana::network::neutron::private')
 
   neutron_router { $title:
