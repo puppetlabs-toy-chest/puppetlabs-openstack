@@ -21,6 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     puppet.vm.hostname = "puppet"
 
+    puppet.vm.synced_folder "../../", "/havana"
+
     puppet.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
     end

@@ -1,13 +1,7 @@
 #!/bin/bash
-# Move the Havana module to the Puppet Master
-vagrant ssh puppet -c "cd /etc/puppet/modules; \
-sudo tar -xvzf /vagrant/*gz; \
-sudo rm -rf havana
-sudo mv puppetlabs-havana* havana; \
-sudo cp /vagrant/hiera.yaml /etc/puppet/hiera.yaml; \
-sudo chown root:puppet /etc/puppet/hiera.yaml; \
-sudo mkdir /etc/puppet/hieradata; \
-sudo chown root:puppet /etc/puppet/hieradata; \
-sudo cp /etc/puppet/modules/havana/examples/allinone.yaml /etc/puppet/hieradata/common.yaml; \
-sudo chown root:puppet /etc/puppet/hieradata/common.yaml; \
+# Mount the Havana module on the Puppet Master
+vagrant ssh puppet -c "sudo ln -s /havana /etc/puppet/modules; \
+sudo ln -s /havana/examples/hiera.yaml /etc/puppet/hiera.yaml; \
+sudo mkdir -p /etc/puppet/hieradata; \
+sudo ln -s /havana/examples/allinone.yaml /etc/puppet/hieradata/common.yaml; \
 sudo service puppetmaster restart;"
