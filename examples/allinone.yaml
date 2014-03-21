@@ -6,6 +6,15 @@ havana::network::external: '192.168.22.0/24'
 havana::network::management: '172.16.33.0/24'
 havana::network::data: '172.16.44.0/24'
 
+havana::network::external::ippool::start: 192.168.22.100
+havana::network::external::ippool::end: 192.168.22.200
+havana::network::external::gateway: 192.168.22.2
+havana::network::external::dns: 192.168.22.2
+
+######## Private Neutron Network
+
+havana::network::neutron::private: '10.0.0.0/24'
+
 ######## Fixed IPs (controllers)
 
 havana::controller::address::api: '192.168.11.4'
@@ -40,8 +49,6 @@ havana::users:
         tenant: "test"
         email: "test@example.com"
         admin: true
-
-havana::users:
     "demo":
         password: "abc123"
         tenant: "test"
