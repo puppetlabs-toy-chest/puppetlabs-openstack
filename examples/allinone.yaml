@@ -40,8 +40,6 @@ havana::users:
         tenant: "test"
         email: "test@example.com"
         admin: true
-
-havana::users:
     "demo":
         password: "abc123"
         tenant: "test"

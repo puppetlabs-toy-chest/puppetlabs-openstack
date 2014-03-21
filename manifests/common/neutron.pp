@@ -30,4 +30,11 @@ class havana::common::neutron {
     sql_connection      => $::havana::resources::connectors::neutron,
     tenant_network_type => 'gre',
   }
+
+  if $::osfamily == 'redhat' {
+    package { 'iproute':
+        ensure => latest,
+        before => Class['::neutron']
+    }
+  }
 }
