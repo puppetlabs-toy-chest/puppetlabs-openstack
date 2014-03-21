@@ -7,11 +7,7 @@ class havana::setup::sharednetwork {
   $gateway  = hiera('havana::network::external::gateway')
   $dns      = hiera('havana::network::external::dns')
 
-<<<<<<< HEAD
   $private_network = hiera('havana::network::neutron::private')
-=======
-  $private_network = hiera('havana::newtork::neutron::private')
->>>>>>> a18e4e1c72bdefb3a952438bdeca9646df3c932f
 
   neutron_network { 'public':
     tenant_name              => 'services',
