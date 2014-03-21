@@ -1,6 +1,5 @@
 #!/bin/bash
-./00_package.sh
-./05_swiftup
+./06_swiftup
 ./10_setup_master.sh
 ./11_setup_havana.sh
 ./15_setup_swiftnodes.sh
