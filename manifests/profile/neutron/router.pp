@@ -44,16 +44,20 @@ class havana::profile::neutron::router {
     }
   }
 
-  vs_bridge { 'br-ex':
-    ensure => present,
-  }
-
+  $external_bridge = 'br-ex'
   $external_network = hiera('havana::network::external')
   $external_device = device_for_network($external_network)
-
-  vs_port { $external_device:
-    ensure  => present,
-    bridge  => 'br-ex',
-    keep_ip => true,
+  vs_bridge { $external_bridge:
+    ensure => present,
+  }
+  if $external_device != $external_bridge {
+    vs_port { $external_device:
+      ensure  => present,
+      bridge  => $external_bridge,
+      keep_ip => true,
+    }
+  } else {
+    # External bridge already has the external device's IP, thus the external
+    # device has already been linked
   }
 }
