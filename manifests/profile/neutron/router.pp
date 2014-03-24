@@ -44,7 +44,7 @@ class havana::profile::neutron::router {
     }
   }
 
-  $external_bridge = 'br-ex'
+  $external_bridge = 'brex'
   $external_network = hiera('havana::network::external')
   $external_device = device_for_network($external_network)
   vs_bridge { $external_bridge:
