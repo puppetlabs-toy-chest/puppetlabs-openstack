@@ -10,11 +10,12 @@ class havana::common::neutron {
   $data_address = ip_for_network($data_network)
 
   class { '::neutron':
-    rabbit_host        => $controller_management_address,
-    rabbit_user        => hiera('havana::rabbitmq::user'),
-    rabbit_password    => hiera('havana::rabbitmq::password'),
-    debug              => hiera('havana::debug'),
-    verbose            => hiera('havana::verbose'),
+    rabbit_host     => $controller_management_address,
+    core_plugin     => 'neutron.plugins.openvswitch.ovs_neutron_plugin.OVSNeutronPluginV2',
+    rabbit_user     => hiera('havana::rabbitmq::user'),
+    rabbit_password => hiera('havana::rabbitmq::password'),
+    debug           => hiera('havana::debug'),
+    verbose         => hiera('havana::verbose'),
   }
 
   # everone gets an ovs agent (TODO true?)
