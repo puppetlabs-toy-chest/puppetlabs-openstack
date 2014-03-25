@@ -14,8 +14,9 @@ class havana::profile::neutron::router {
 
   ### Router service installation
   class { '::neutron::agents::l3':
-    debug   => hiera('havana::debug'),
-    enabled => true,
+    debug                   => hiera('havana::debug'),
+    external_network_bridge => 'brex',
+    enabled                 => true,
   }
 
   class { '::neutron::agents::dhcp':
