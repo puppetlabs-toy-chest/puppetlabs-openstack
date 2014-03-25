@@ -43,8 +43,10 @@ class havana::setup::sharednetwork {
     network_name     => 'private',
     tenant_name      => 'services',
     dns_nameservers  => [$dns],
-  } 
+  }
 
-  havana::setup::router { 'services': }
-  havana::setup::router { 'test': }
+  havana::setup::router { ['services','test']:
+    network => 'private',
+    subnet  => $private_network,
+  }
 }
