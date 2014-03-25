@@ -1,0 +1,98 @@
+havana::region: 'openstack'
+
+######## Networks
+havana::network::api: '192.168.11.0/24'
+havana::network::external: '192.168.22.0/24'
+havana::network::management: '172.16.33.0/24'
+havana::network::data: '172.16.44.0/24'
+
+havana::network::external::ippool::start: 192.168.22.100
+havana::network::external::ippool::end: 192.168.22.200
+havana::network::external::gateway: 192.168.22.2
+havana::network::external::dns: 192.168.22.2
+
+######## Private Neutron Network
+
+havana::network::neutron::private: '10.0.0.0/24'
+
+######## Fixed IPs (controllers)
+
+havana::controller::address::api: '192.168.11.4'
+havana::controller::address::management: '172.16.33.4'
+havana::storage::address::api: '192.168.11.4'
+havana::storage::address::management: '172.16.33.4'
+
+######## Database
+
+havana::mysql::root_password: 'spam-gak'
+havana::mysql::service_password: 'fuva-wax'
+havana::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
+
+######## RabbitMQ
+
+havana::rabbitmq::user: 'openstack'
+havana::rabbitmq::password: 'pose-vix'
+
+######## Keystone
+
+havana::keystone::admin_token: 'sosp-kyl'
+havana::keystone::admin_email: 'chris.hoge@puppetlabs.com'
+havana::keystone::admin_password: 'fyby-tet'
+
+havana::tenants:
+    "test":
+        description: "Test tenant"
+
+havana::users:
+    "test":
+        password: "abc123"
+        tenant: "test"
+        email: "test@example.com"
+        admin: true
+    "demo":
+        password: "abc123"
+        tenant: "test"
+        email: "demo@example.com"
+        admin: false
+
+######## Glance
+
+havana::glance::password: 'na-mu-va'
+
+######## Cinder
+
+havana::cinder::password: 'zi-co-se'
+havana::cinder::volume_size: '4G'
+
+######## Swift
+
+havana::swift::password: 'dexc-flo'
+havana::swift::hash_suffix: 'pop-bang'
+
+######## Nova
+
+havana::nova::libvirt_type: 'kvm'
+havana::nova::password: 'quuk-paj'
+
+######## Neutron
+
+havana::neutron::password: 'whi-rtuz'
+havana::neutron::shared_secret: 'by-sa-bo'
+
+######## Ceilometer
+havana::ceilometer::mongo::password: 'whi-truz'
+havana::ceilometer::password: 'whi-truz'
+havana::ceilometer::meteringsecret: 'ceilometersecretkey'
+
+######## Heat
+havana::heat::password: 'zap-bang'
+havana::heat::encryption_key: 'heatsecretkey'
+
+
+######## Horizon
+
+havana::horizon::secret_key: 'whu-ghuk'
+
+######## Log levels
+havana::verbose: 'True'
+havana::debug: 'True'
