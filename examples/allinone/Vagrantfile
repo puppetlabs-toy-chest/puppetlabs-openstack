@@ -35,6 +35,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     allinone.vm.hostname = "allinone"
 
+    allinone.vm.synced_folder "../../", "/havana"
+
     allinone.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "6144"
     end
