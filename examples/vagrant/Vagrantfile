@@ -36,6 +36,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     control.vm.hostname = "control"
 
+    control.vm.synced_folder "../../", "/havana"
+
     control.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
     end
@@ -48,6 +50,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     storage.vm.network :private_network, ip: "172.16.44.5"
 
     storage.vm.hostname = "storage"
+
+    storage.vm.synced_folder "../../", "/havana"
 
     storage.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -62,6 +66,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     network.vm.hostname = "network"
 
+    network.vm.synced_folder "../../", "/havana"
+
     network.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
     end
@@ -74,6 +80,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     compute.vm.network :private_network, ip: "172.16.44.7"
 
     compute.vm.hostname = "compute"
+
+    compute.vm.synced_folder "../../", "/havana"
+
     compute.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "2048"
     end
@@ -86,6 +95,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore1.vm.network :private_network, ip: "172.16.44.8"
 
     swiftstore1.vm.hostname = "swiftstore1"
+
+    swiftstore1.vm.synced_folder "../../", "/havana"
+
     swiftstore1.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
     end
@@ -98,6 +110,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore2.vm.network :private_network, ip: "172.16.44.9"
 
     swiftstore2.vm.hostname = "swiftstore2"
+
+    swiftstore2.vm.synced_folder "../../", "/havana"
+
     swiftstore2.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
     end
@@ -110,6 +125,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore3.vm.network :private_network, ip: "172.16.44.10"
 
     swiftstore3.vm.hostname = "swiftstore3"
+
+    swiftstore3.vm.synced_folder "../../", "/havana"
+
     swiftstore3.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "512"
     end
