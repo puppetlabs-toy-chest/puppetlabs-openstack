@@ -1,19 +1,14 @@
-puppetlabs-openstack
-====================
-
-Puppet Labs Reference and Testing Deployment Module for OpenStack
-=======
+#puppetlabs-openstack
+Puppet Labs Reference and Testing Deployment Module for OpenStack.
 This module is used to deploy a multi-node installation of OpenStack Havana.
-
-#puppetlabs-havana
 
 ####Table of Contents
 
-1. [Overview - What is the Havana module?](#overview)
+1. [Overview - What is the puppetlabs-openstack module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
-3. [Setup - The basics of getting started with Havana](#setup)
+3. [Setup - The basics of getting started with OpenStack](#setup)
     * [Setup Requirements](#setup-requirements)
-    * [Beginning with Havana](#beginning-with-havana)
+    * [Beginning with OpenStack](#beginning-with-openstack)
 4. [Usage - Configuration and customization options](#usage)
     * [Hiera configuration](#hiera-configuration)
     * [Controller Node](#controller-node)
@@ -24,13 +19,13 @@ This module is used to deploy a multi-node installation of OpenStack Havana.
 
 ##Overview
 
-The puppetlabs-havana module is used to deploy a multi-node or all-in-one installation of 
-OpenStack Havana. 0.5 is a pre-release version. Bug reports and improvements leading to 
+The puppetlabs-openstack module is used to deploy a multi-node or all-in-one installation of 
+OpenStack Havana. This is a pre-release version. Bug reports and improvements leading to 
 the 1.0 release are welcome.
 
 ##Module Description
 
-Using the stable/havana branch of the puppetlabs-openstack modules, puppetlabs-havana allows
+Using the stable/havana branch of the puppet-openstack modules, puppetlabs-openstack allows
 for the rapid deployment of an installation of OpenStack Havana. For the multi-node, four types
 of nodes are created for the deployment:
 
@@ -47,7 +42,7 @@ The all-in-one deployment sets up all of the services except for Swift on a sing
 ###Setup Requirements
 
 This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
-or Ubuntu LTS 12.04. Additionally, each node needs a minumum of two network interfaces, and up to four.
+or Ubuntu LTS 12.04. Additionally, each node needs a minimum of two network interfaces, and up to four.
 The network interfaces are divided into two groups.
 
 - Public interfaces:
@@ -58,9 +53,9 @@ The network interfaces are divided into two groups.
   * Data network.
 
 This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera. Object
-store support depends upon exported resources and PuppetDB.
+store support (Swift) depends upon exported resources and PuppetDB.
 
-###Beginning with Havana
+###Beginning with OpenStack
 
 To begin, you will need to do some basic setup on the compute node. SElinux needs to be disabled
 on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
@@ -69,10 +64,13 @@ services. This is the only node that SELinux needs to be disabled on.
 Additionally, you need to know the network addres ranges for all four of the public/private networks,
 and the specific ip addresses of the controller node and the storage node.
 
+If you are running VMWare Fusion, and Vagrant with the Fusion provider, a CentOS 6.5 image is provided
+to help you get started. See the examples/vagrant and examples/allinone for details.
+
 ##Usage
 
 ###Hiera Configuration
-The first step to using the puppetlabs-havana module is to configure hiera with settings specific
+The first step to using the puppetlabs-openstack module is to configure hiera with settings specific
 to your installation. In this module, the example directory contains a sample common.yaml file
 with all of the settings required by this module, as well as a example user to test your deployment
 with. These configuration options include network settings, locations of specific nodes, and
@@ -164,10 +162,10 @@ the Swift services.
 
 ##Reference
 
-The puppetlabs-havana module is built on the 'Roles and Profiles' pattern. Every node
+The puppetlabs-openstack module is built on the 'Roles and Profiles' pattern. Every node
 in a deployment is assigned a single role. Every role is composed of some number of
 profiles, which ideally should be independent of one another, allowing for composition
-of new roles. The puppetlabs-havana module does not strictly adhere to this pattern,
+of new roles. The puppetlabs-openstack module does not strictly adhere to this pattern,
 but should serve as a useful example of how to build profiles from modules for customized
 and maintainable OpenStack deployments.
 
@@ -185,13 +183,13 @@ iptables -F -t nat
 service iptables stop
 ```
 
-Addressing these limitations is planned for the forthcoming puppetlabs-havana module.
+Addressing these limitations is planned for the forthcoming puppetlabs-openstack module.
 
 ##License
 Puppet Labs Havana - A Puppet Module for a Multi-Node OpenStack Havana Installation.
 
-Copyright (C) 2013 Puppet Labs, Inc.
-Author - Christian Hoge
+Copyright (C) 2013, 2014 Puppet Labs, Inc.
+Original Author - Christian Hoge
 
 Puppet Labs can be contacted at: info@puppetlabs.com
 
