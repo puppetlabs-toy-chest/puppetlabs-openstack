@@ -124,6 +124,6 @@ mod "postgresql",
   :ref => "3.3.x"
 
 mod "puppetdb",
-  :git => "git://github.com/puppetlabs/puppet-puppetdb",
+  :git => "git://github.com/puppetlabs/puppetlabs-puppetdb",
   :ref => "1.5.x"
 
