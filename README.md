@@ -1,6 +1,6 @@
-This module is used to deploy a multi-node installation of OpenStack Grizzly.
-
 #puppetlabs-grizzly
+
+This module is used to deploy a multi-node installation of OpenStack Grizzly.
 
 ####Table of Contents
 
