@@ -1,9 +1,1 @@
-forge "http://forge.puppetlabs.com"
-
-mod "puppetlabs/puppetdb"
-mod "puppetlabs/ntp"
-mod "puppetlabs/openstack"
-mod "puppetlabs/mysql", "0.6.1"
-mod "puppetlabs/mongodb"
-
-# vim:ft=ruby
+/havana/Puppetfile
