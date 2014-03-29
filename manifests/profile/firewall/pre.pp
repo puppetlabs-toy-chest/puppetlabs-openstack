@@ -8,15 +8,15 @@ class havana::profile::firewall::pre {
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::repo::epel'],
-                   Class['::openstack::repo::rdo'] ],
+      require => [ Class['::havana::resources::repo::epel'],
+                   Class['::havana::resources::repo::rdo'] ],
     }
   } elsif $::osfamily == 'Debian' {
     firewallchain { 'INPUT:filter:IPv4':
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::repo::uca'] ],
+      require => [ Class['::havana::resources::repo::uca'] ],
     }
   }
 
