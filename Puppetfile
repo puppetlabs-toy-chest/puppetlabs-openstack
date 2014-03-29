@@ -2,10 +2,6 @@ forge "http://forge.puppetlabs.com"
 
 ## The core OpenStack modules
 
-mod "openstack",
-  :git => "git://github.com/stackforge/puppet-openstack",
-  :ref => "stable/havana"
-
 mod "keystone",
   :git => "git://github.com/stackforge/puppet-keystone",
   :ref => "stable/havana"
