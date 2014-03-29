@@ -1,3 +1,10 @@
+# A static class to set up a shared network. Should appear on the
+# controller node. It sets up the public network, a private network,
+# two subnets (one for admin, one for test), and the routers that
+# connect the subnets to the public network.
+#
+# After this class has run, you should have a functional network
+# avaiable for your test user to launch and connect machines to.
 class havana::setup::sharednetwork {
 
   $external_network = hiera('havana::network::external')
@@ -45,6 +52,15 @@ class havana::setup::sharednetwork {
     dns_nameservers  => [$dns],
   } 
 
-  havana::setup::router { 'services': }
-  havana::setup::router { 'test': }
+  neutron_subnet { '10.0.2.0/24':
+    cidr             => '10.0.2.0/24',
+    ip_version       => '4',
+    enable_dhcp      => true,
+    network_name     => 'private',
+    tenant_name      => 'test',
+    dns_nameservers  => [$dns],
+  }
+
+  havana::setup::router { "services:${private_network}": }
+  havana::setup::router { 'test:10.0.2.0/24': }
 }
