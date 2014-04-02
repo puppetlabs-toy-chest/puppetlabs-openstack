@@ -97,6 +97,10 @@ mod "rabbitmq",
   :git => "git://github.com/puppetlabs/puppetlabs-rabbitmq",
   :ref => "2.1.0"
 
+mod "vcsrepo",
+  :git => "git://github.com/puppetlabs/puppetlabs-vcsrepo",
+  :ref => "0.2.0"
+
 # indirect dependencies
 
 mod "firewall",

@@ -42,6 +42,8 @@ havana::keystone::admin_password: 'fyby-tet'
 havana::tenants:
     "test":
         description: "Test tenant"
+    "test2":
+        description: "Test tenant"
 
 havana::users:
     "test":
@@ -52,6 +54,11 @@ havana::users:
     "demo":
         password: "abc123"
         tenant: "test"
+        email: "demo@example.com"
+        admin: false
+    "demo2":
+        password: "abc123"
+        tenant: "test2"
         email: "demo@example.com"
         admin: false
 
@@ -92,6 +99,24 @@ havana::heat::encryption_key: 'heatsecretkey'
 ######## Horizon
 
 havana::horizon::secret_key: 'whu-ghuk'
+
+######## Tempest
+
+havana::tempest::configure_images    : true
+havana::tempest::image_name          : 'cirros'
+havana::tempest::image_name_alt      : 'cirros'
+havana::tempest::username            : 'demo'
+havana::tempest::username_alt        : 'demo2'
+havana::tempest::username_admin      : 'test'
+havana::tempest::configure_network   : true
+havana::tempest::public_network_name : 'public'
+havana::tempest::cinder_available    : true
+havana::tempest::glance_available    : true
+havana::tempest::horizon_available   : true
+havana::tempest::nova_available      : true
+havana::tempest::neutron_available   : true
+havana::tempest::heat_available      : false
+havana::tempest::swift_available     : false
 
 ######## Log levels
 havana::verbose: 'True'
