@@ -24,8 +24,8 @@ class havana::profile::base {
   $is_controller = ($management_matches and $api_matches)
 
   if $is_controller {
-    notify { "This node is a controller node. ${management_address} == ${controller_management_address} and ${api_address} == ${controller_api_address}": }
+    notice("This node is a controller node. ${management_address} == ${controller_management_address} and ${api_address} == ${controller_api_address}")
   } else {
-    notify { "This node is not a controller node. ${management_address} != ${controller_management_address} or ${api_address} != ${controller_api_address}": }
+    notice("This node is not a controller node. ${management_address} != ${controller_management_address} or ${api_address} != ${controller_api_address}")
   }
 }
