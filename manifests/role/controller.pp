@@ -14,5 +14,5 @@ class havana::role::controller inherits ::havana::role {
   class { '::havana::profile::heat::api': } ->
   class { '::havana::profile::horizon': }
   class { '::havana::profile::auth_file': }
-  class { '::havana::profile::tempest': }
+  #class { '::havana::profile::tempest': }
 }

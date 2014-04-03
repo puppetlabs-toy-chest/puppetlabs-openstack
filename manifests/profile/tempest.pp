@@ -32,6 +32,6 @@ class havana::profile::tempest {
     alt_username          => $alt_user,
     alt_password          => $users[$alt_user]['password'],
     alt_tenant_name       => $users[$alt_user]['tenant'],
-    require               => Neutron_network[$public_network_name],
+    #require              => Neutron_network[$public_network_name],
   }
 }
