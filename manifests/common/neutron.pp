@@ -3,19 +3,19 @@
 # Sets up configuration common to all neutron nodes.
 # Flags install individual services as needed
 # This follows the suggest deployment from the neutron Administrator Guide.
-class havana::common::neutron {
-  $controller_management_address = hiera('havana::controller::address::management')
+class openstack::common::neutron {
+  $controller_management_address = hiera('openstack::controller::address::management')
 
-  $data_network = hiera('havana::network::data')
+  $data_network = hiera('openstack::network::data')
   $data_address = ip_for_network($data_network)
 
   class { '::neutron':
     rabbit_host     => $controller_management_address,
     core_plugin     => 'neutron.plugins.openvswitch.ovs_neutron_plugin.OVSNeutronPluginV2',
-    rabbit_user     => hiera('havana::rabbitmq::user'),
-    rabbit_password => hiera('havana::rabbitmq::password'),
-    debug           => hiera('havana::debug'),
-    verbose         => hiera('havana::verbose'),
+    rabbit_user     => hiera('openstack::rabbitmq::user'),
+    rabbit_password => hiera('openstack::rabbitmq::password'),
+    debug           => hiera('openstack::debug'),
+    verbose         => hiera('openstack::verbose'),
   }
 
   # everone gets an ovs agent (TODO true?)
@@ -28,7 +28,7 @@ class havana::common::neutron {
 
   # everyone gets an ovs plugin (TODO true?)
   class  { '::neutron::plugins::ovs':
-    sql_connection      => $::havana::resources::connectors::neutron,
+    sql_connection      => $::openstack::resources::connectors::neutron,
     tenant_network_type => 'gre',
   }
 

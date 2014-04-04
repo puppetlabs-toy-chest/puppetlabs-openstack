@@ -8,5 +8,5 @@
 #
 # Copyright 2013 Puppet Labs.
 #
-class havana {
+class openstack {
 }

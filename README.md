@@ -82,7 +82,7 @@ For your controller node, you need to assign your node the controller role. For 
 
 ```
 node 'control.localdomain' {
-  include ::havana::role::controller
+  include ::openstack::role::controller
 }
 ```
 
@@ -95,15 +95,15 @@ node.
 For the remainder nodes, there are roles to assign for each. For example:
 ```
 node 'storage.localdomain' {
-  include ::havana::role::storage
+  include ::openstack::role::storage
 }
 
 node 'network.localdomain' {
-  include ::havana::role::network
+  include ::openstack::role::network
 }
 
 node /compute[0-9]+.localdomain/ {
-  include ::havana::role::compute
+  include ::openstack::role::compute
 }
 ```
 
@@ -139,17 +139,17 @@ You will need to create three nodes as object stores for Swift, assigning three 
 
 ```
 node /swift[0-9]+zone1.localdomain/ {
-  class { '::havana::role::swiftstorage':
+  class { '::openstack::role::swiftstorage':
     zone => '1',
   }
 
 node /swift[0-9]+zone2.localdomain/ {
-  class { '::havana::role::swiftstorage':
+  class { '::openstack::role::swiftstorage':
     zone => '2',
   }
 
 node /swift[0-9]+zone3.localdomain/ {
-  class { '::havana::role::swiftstorage':
+  class { '::openstack::role::swiftstorage':
     zone => '3',
   }
 ```

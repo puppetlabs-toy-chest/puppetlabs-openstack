@@ -1,5 +1,5 @@
-class havana::profile::firewall::puppet {
-  havana::resources::firewall { 'Puppet': port => '8140' }
-  havana::resources::firewall { 'Puppet Orchestration': port => '61613' }
-  havana::resources::firewall { 'Puppet Console': port => '443' }
+class openstack::profile::firewall::puppet {
+  openstack::resources::firewall { 'Puppet': port => '8140' }
+  openstack::resources::firewall { 'Puppet Orchestration': port => '61613' }
+  openstack::resources::firewall { 'Puppet Console': port => '443' }
 }

@@ -1,4 +1,4 @@
-class havana::role::network inherits ::havana::role {
-  class { '::havana::profile::firewall': }
-  class { '::havana::profile::neutron::router': }
+class openstack::role::network inherits ::openstack::role {
+  class { '::openstack::profile::firewall': }
+  class { '::openstack::profile::neutron::router': }
 }

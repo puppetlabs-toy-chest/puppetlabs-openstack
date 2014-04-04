@@ -1,6 +1,6 @@
-class havana::role::swiftstorage (
+class openstack::role::swiftstorage (
   $zone = undef,
-) inherits ::havana::role  {
-  class { '::havana::profile::firewall': }
-  class { '::havana::profile::swift::storage': zone => $zone }
+) inherits ::openstack::role  {
+  class { '::openstack::profile::firewall': }
+  class { '::openstack::profile::swift::storage': zone => $zone }
 }

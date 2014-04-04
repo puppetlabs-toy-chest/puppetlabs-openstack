@@ -1,4 +1,4 @@
-# == Class: havana::resources::auth_file
+# == Class: openstack::resources::auth_file
 #
 # Creates an auth file that can be used to export
 # environment variables that can be used to authenticate
@@ -34,7 +34,7 @@
 # [*neutron_endpoint_type*]
 #   (optional) Defaults to 'publicURL'.
 #
-class havana::resources::auth_file(
+class openstack::resources::auth_file(
   $admin_password,
   $controller_node          = '127.0.0.1',
   $keystone_admin_token     = undef,
