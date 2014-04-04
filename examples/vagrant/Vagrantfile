@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     puppet.vm.hostname = "puppet"
 
-    puppet.vm.synced_folder "../../", "/havana"
+    puppet.vm.synced_folder "../../", "/openstack"
 
     puppet.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     control.vm.hostname = "control"
 
-    control.vm.synced_folder "../../", "/havana"
+    control.vm.synced_folder "../../", "/openstack"
 
     control.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -51,7 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     storage.vm.hostname = "storage"
 
-    storage.vm.synced_folder "../../", "/havana"
+    storage.vm.synced_folder "../../", "/openstack"
 
     storage.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -66,7 +66,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     network.vm.hostname = "network"
 
-    network.vm.synced_folder "../../", "/havana"
+    network.vm.synced_folder "../../", "/openstack"
 
     network.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -81,7 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     compute.vm.hostname = "compute"
 
-    compute.vm.synced_folder "../../", "/havana"
+    compute.vm.synced_folder "../../", "/openstack"
 
     compute.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "2048"
@@ -96,7 +96,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore1.vm.hostname = "swiftstore1"
 
-    swiftstore1.vm.synced_folder "../../", "/havana"
+    swiftstore1.vm.synced_folder "../../", "/openstack"
 
     swiftstore1.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -111,7 +111,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore2.vm.hostname = "swiftstore2"
 
-    swiftstore2.vm.synced_folder "../../", "/havana"
+    swiftstore2.vm.synced_folder "../../", "/openstack"
 
     swiftstore2.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -126,7 +126,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore3.vm.hostname = "swiftstore3"
 
-    swiftstore3.vm.synced_folder "../../", "/havana"
+    swiftstore3.vm.synced_folder "../../", "/openstack"
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "512"

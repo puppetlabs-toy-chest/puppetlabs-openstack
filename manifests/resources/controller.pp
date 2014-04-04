@@ -1,8 +1,8 @@
 # A basic defined resource that only checks for controller
 # configuration consistency with the Hiera data
-define havana::resources::controller () {
-  $api_address = hiera('havana::controller::address::api')
-  $management_address = hiera('havana::controller::address::management')
+define openstack::resources::controller () {
+  $api_address = hiera('openstack::controller::address::api')
+  $management_address = hiera('openstack::controller::address::management')
 
   unless has_ip_address($api_address) {
     fail("${title} setup failed. This node is listed

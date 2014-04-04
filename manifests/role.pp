@@ -1,3 +1,3 @@
-class havana::role {
-  include havana::profile::base
+class openstack::role {
+  include openstack::profile::base
 }

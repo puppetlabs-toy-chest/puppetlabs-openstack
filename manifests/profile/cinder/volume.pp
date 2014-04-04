@@ -1,15 +1,15 @@
 # The profile to install the volume service
-class havana::profile::cinder::volume {
-  $management_network = hiera('havana::network::management')
+class openstack::profile::cinder::volume {
+  $management_network = hiera('openstack::network::management')
   $management_address = ip_for_network($management_network)
 
-  havana::resources::firewall { 'ISCSI API': port => '3260', }
+  openstack::resources::firewall { 'ISCSI API': port => '3260', }
 
-  include ::havana::common::cinder
+  include ::openstack::common::cinder
 
   class { '::cinder::setup_test_volume':
     volume_name => 'cinder-volumes',
-    size        => hiera('havana::cinder::volume_size')
+    size        => hiera('openstack::cinder::volume_size')
   } ->
 
   class { '::cinder::volume':

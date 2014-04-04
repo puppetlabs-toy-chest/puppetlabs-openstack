@@ -1,8 +1,8 @@
 # RDO repo (supports both RHEL-alikes and Fedora, requires EPEL)
-class havana::resources::repo::rdo(
+class openstack::resources::repo::rdo(
   $release = 'havana'
 ) {
-  include havana::resources::repo::epel
+  include openstack::resources::repo::epel
 
   $release_cap = capitalize($release)
 
@@ -24,7 +24,7 @@ class havana::resources::repo::rdo(
       notify   => Exec['yum_refresh'],
     }
     file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-${release_cap}":
-      source => "puppet:///modules/havana/RPM-GPG-KEY-RDO-${release_cap}",
+      source => "puppet:///modules/openstack/RPM-GPG-KEY-RDO-${release_cap}",
       owner  => root,
       group  => root,
       mode   => '0644',

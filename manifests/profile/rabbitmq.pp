@@ -1,8 +1,8 @@
 # The profile to install rabbitmq and set the firewall
-class havana::profile::rabbitmq {
+class openstack::profile::rabbitmq {
   class { '::nova::rabbitmq':
-    userid             => hiera('havana::rabbitmq::user'),
-    password           => hiera('havana::rabbitmq::password'),
-    cluster_disk_nodes => hiera('havana::controller::address::management'),
+    userid             => hiera('openstack::rabbitmq::user'),
+    password           => hiera('openstack::rabbitmq::password'),
+    cluster_disk_nodes => hiera('openstack::controller::address::management'),
   }
 }

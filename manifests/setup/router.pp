@@ -5,7 +5,7 @@
 # the router to and subnet is the name of the
 # subnet to connect the router to.
 
-define havana::setup::router {
+define openstack::setup::router {
   $valarray = split($title, ':')
   $tenant = $valarray[0]
   $subnet = $valarray[1]

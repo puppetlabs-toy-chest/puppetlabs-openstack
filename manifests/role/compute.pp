@@ -1,6 +1,6 @@
-class havana::role::compute inherits ::havana::role {
-  class { '::havana::profile::firewall': }
-  class { '::havana::profile::neutron::agent': }
-  class { '::havana::profile::nova::compute': }
-  class { '::havana::profile::ceilometer::agent': }
+class openstack::role::compute inherits ::openstack::role {
+  class { '::openstack::profile::firewall': }
+  class { '::openstack::profile::neutron::agent': }
+  class { '::openstack::profile::nova::compute': }
+  class { '::openstack::profile::ceilometer::agent': }
 }

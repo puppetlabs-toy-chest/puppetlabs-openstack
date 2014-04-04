@@ -5,16 +5,16 @@
 #
 # After this class has run, you should have a functional network
 # avaiable for your test user to launch and connect machines to.
-class havana::setup::sharednetwork {
+class openstack::setup::sharednetwork {
 
-  $external_network = hiera('havana::network::external')
-  $start_ip = hiera('havana::network::external::ippool::start')
-  $end_ip   = hiera('havana::network::external::ippool::end')
+  $external_network = hiera('openstack::network::external')
+  $start_ip = hiera('openstack::network::external::ippool::start')
+  $end_ip   = hiera('openstack::network::external::ippool::end')
   $ip_range = "start=${start_ip},end=${end_ip}"
-  $gateway  = hiera('havana::network::external::gateway')
-  $dns      = hiera('havana::network::external::dns')
+  $gateway  = hiera('openstack::network::external::gateway')
+  $dns      = hiera('openstack::network::external::dns')
 
-  $private_network = hiera('havana::network::neutron::private')
+  $private_network = hiera('openstack::network::neutron::private')
 
   neutron_network { 'public':
     tenant_name              => 'services',
@@ -61,6 +61,6 @@ class havana::setup::sharednetwork {
     dns_nameservers  => [$dns],
   }
 
-  havana::setup::router { "services:${private_network}": }
-  havana::setup::router { 'test:10.0.2.0/24': }
+  openstack::setup::router { "services:${private_network}": }
+  openstack::setup::router { 'test:10.0.2.0/24': }
 }

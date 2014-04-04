@@ -1,32 +1,32 @@
 # The profile to install the Keystone service
-class havana::profile::keystone {
+class openstack::profile::keystone {
 
-  havana::resources::controller { 'keystone': }
-  havana::resources::database { 'keystone': }
-  havana::resources::firewall { 'Keystone API': port => '5000', }
+  openstack::resources::controller { 'keystone': }
+  openstack::resources::database { 'keystone': }
+  openstack::resources::firewall { 'Keystone API': port => '5000', }
 
   class { '::keystone':
-    admin_token    => hiera('havana::keystone::admin_token'),
-    sql_connection => $::havana::resources::connectors::keystone,
-    verbose        => hiera('havana::verbose'),
-    debug          => hiera('havana::debug'),
+    admin_token    => hiera('openstack::keystone::admin_token'),
+    sql_connection => $::openstack::resources::connectors::keystone,
+    verbose        => hiera('openstack::verbose'),
+    debug          => hiera('openstack::debug'),
   }
 
   class { '::keystone::roles::admin':
-    email        => hiera('havana::keystone::admin_email'),
-    password     => hiera('havana::keystone::admin_password'),
+    email        => hiera('openstack::keystone::admin_email'),
+    password     => hiera('openstack::keystone::admin_password'),
     admin_tenant => 'admin',
   }
 
   class { 'keystone::endpoint':
-    public_address   => hiera('havana::controller::address::api'),
-    admin_address    => hiera('havana::controller::address::management'),
-    internal_address => hiera('havana::controller::address::management'),
-    region           => hiera('havana::region'),
+    public_address   => hiera('openstack::controller::address::api'),
+    admin_address    => hiera('openstack::controller::address::management'),
+    internal_address => hiera('openstack::controller::address::management'),
+    region           => hiera('openstack::region'),
   }
 
-  $tenants = hiera('havana::tenants')
-  $users = hiera('havana::users')
-  create_resources('havana::resources::tenant', $tenants)
-  create_resources('havana::resources::user', $users)
+  $tenants = hiera('openstack::tenants')
+  $users = hiera('openstack::users')
+  create_resources('openstack::resources::tenant', $tenants)
+  create_resources('openstack::resources::user', $users)
 }

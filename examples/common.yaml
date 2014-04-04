@@ -1,51 +1,51 @@
-havana::region: 'openstack'
+openstack::region: 'openstack'
 
 ######## Networks
-havana::network::api: '192.168.11.0/24'
-havana::network::external: '192.168.22.0/24'
-havana::network::management: '172.16.33.0/24'
-havana::network::data: '172.16.44.0/24'
+openstack::network::api: '192.168.11.0/24'
+openstack::network::external: '192.168.22.0/24'
+openstack::network::management: '172.16.33.0/24'
+openstack::network::data: '172.16.44.0/24'
 
-havana::network::external::ippool::start: 192.168.22.100
-havana::network::external::ippool::end: 192.168.22.200
-havana::network::external::gateway: 192.168.22.2
-havana::network::external::dns: 192.168.22.2
+openstack::network::external::ippool::start: 192.168.22.100
+openstack::network::external::ippool::end: 192.168.22.200
+openstack::network::external::gateway: 192.168.22.2
+openstack::network::external::dns: 192.168.22.2
 
 ######## Private Neutron Network
 
-havana::network::neutron::private: '10.0.0.0/24'
+openstack::network::neutron::private: '10.0.0.0/24'
 
 ######## Fixed IPs (controllers)
 
-havana::controller::address::api: '192.168.11.4'
-havana::controller::address::management: '172.16.33.4'
-havana::storage::address::api: '192.168.11.5'
-havana::storage::address::management: '172.16.33.5'
+openstack::controller::address::api: '192.168.11.4'
+openstack::controller::address::management: '172.16.33.4'
+openstack::storage::address::api: '192.168.11.5'
+openstack::storage::address::management: '172.16.33.5'
 
 ######## Database
 
-havana::mysql::root_password: 'spam-gak'
-havana::mysql::service_password: 'fuva-wax'
-havana::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
+openstack::mysql::root_password: 'spam-gak'
+openstack::mysql::service_password: 'fuva-wax'
+openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
 
 ######## RabbitMQ
 
-havana::rabbitmq::user: 'openstack'
-havana::rabbitmq::password: 'pose-vix'
+openstack::rabbitmq::user: 'openstack'
+openstack::rabbitmq::password: 'pose-vix'
 
 ######## Keystone
 
-havana::keystone::admin_token: 'sosp-kyl'
-havana::keystone::admin_email: 'chris.hoge@puppetlabs.com'
-havana::keystone::admin_password: 'fyby-tet'
+openstack::keystone::admin_token: 'sosp-kyl'
+openstack::keystone::admin_email: 'chris.hoge@puppetlabs.com'
+openstack::keystone::admin_password: 'fyby-tet'
 
-havana::tenants:
+openstack::tenants:
     "test":
         description: "Test tenant"
     "test2":
         description: "Test tenant"
 
-havana::users:
+openstack::users:
     "test":
         password: "abc123"
         tenant: "test"
@@ -64,60 +64,60 @@ havana::users:
 
 ######## Glance
 
-havana::glance::password: 'na-mu-va'
+openstack::glance::password: 'na-mu-va'
 
 ######## Cinder
 
-havana::cinder::password: 'zi-co-se'
-havana::cinder::volume_size: '4G'
+openstack::cinder::password: 'zi-co-se'
+openstack::cinder::volume_size: '4G'
 
 ######## Swift
 
-havana::swift::password: 'dexc-flo'
-havana::swift::hash_suffix: 'pop-bang'
+openstack::swift::password: 'dexc-flo'
+openstack::swift::hash_suffix: 'pop-bang'
 
 ######## Nova
 
-havana::nova::libvirt_type: 'kvm'
-havana::nova::password: 'quuk-paj'
+openstack::nova::libvirt_type: 'kvm'
+openstack::nova::password: 'quuk-paj'
 
 ######## Neutron
 
-havana::neutron::password: 'whi-rtuz'
-havana::neutron::shared_secret: 'by-sa-bo'
+openstack::neutron::password: 'whi-rtuz'
+openstack::neutron::shared_secret: 'by-sa-bo'
 
 ######## Ceilometer
-havana::ceilometer::mongo::password: 'whi-truz'
-havana::ceilometer::password: 'whi-truz'
-havana::ceilometer::meteringsecret: 'ceilometersecretkey'
+openstack::ceilometer::mongo::password: 'whi-truz'
+openstack::ceilometer::password: 'whi-truz'
+openstack::ceilometer::meteringsecret: 'ceilometersecretkey'
 
 ######## Heat
-havana::heat::password: 'zap-bang'
-havana::heat::encryption_key: 'heatsecretkey'
+openstack::heat::password: 'zap-bang'
+openstack::heat::encryption_key: 'heatsecretkey'
 
 
 ######## Horizon
 
-havana::horizon::secret_key: 'whu-ghuk'
+openstack::horizon::secret_key: 'whu-ghuk'
 
 ######## Tempest
 
-havana::tempest::configure_images    : true
-havana::tempest::image_name          : 'cirros'
-havana::tempest::image_name_alt      : 'cirros'
-havana::tempest::username            : 'demo'
-havana::tempest::username_alt        : 'demo2'
-havana::tempest::username_admin      : 'test'
-havana::tempest::configure_network   : true
-havana::tempest::public_network_name : 'public'
-havana::tempest::cinder_available    : true
-havana::tempest::glance_available    : true
-havana::tempest::horizon_available   : true
-havana::tempest::nova_available      : true
-havana::tempest::neutron_available   : true
-havana::tempest::heat_available      : false
-havana::tempest::swift_available     : false
+openstack::tempest::configure_images    : true
+openstack::tempest::image_name          : 'cirros'
+openstack::tempest::image_name_alt      : 'cirros'
+openstack::tempest::username            : 'demo'
+openstack::tempest::username_alt        : 'demo2'
+openstack::tempest::username_admin      : 'test'
+openstack::tempest::configure_network   : true
+openstack::tempest::public_network_name : 'public'
+openstack::tempest::cinder_available    : true
+openstack::tempest::glance_available    : true
+openstack::tempest::horizon_available   : true
+openstack::tempest::nova_available      : true
+openstack::tempest::neutron_available   : true
+openstack::tempest::heat_available      : false
+openstack::tempest::swift_available     : false
 
 ######## Log levels
-havana::verbose: 'True'
-havana::debug: 'True'
+openstack::verbose: 'True'
+openstack::debug: 'True'

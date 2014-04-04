@@ -1,10 +1,10 @@
 # post-firewall rules to reject remaining traffic
-class havana::profile::firewall::post {
+class openstack::profile::firewall::post {
   firewall { '8999 - Accept all management network traffic':
     proto  => 'all',
     state  => ['NEW'],
     action => 'accept',
-    source => hiera('havana::network::management'),
+    source => hiera('openstack::network::management'),
   }  ->
   firewall { '9999 - Reject remaining traffic':
     proto  => 'all',
