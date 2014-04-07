@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     puppet.vm.hostname = "puppet"
 
-    puppet.vm.synced_folder "../../", "/havana"
+    puppet.vm.synced_folder "../../", "/openstack"
 
     puppet.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     allinone.vm.hostname = "allinone"
 
-    allinone.vm.synced_folder "../../", "/havana"
+    allinone.vm.synced_folder "../../", "/openstack"
 
     allinone.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "6144"
