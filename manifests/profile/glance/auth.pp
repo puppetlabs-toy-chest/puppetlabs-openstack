@@ -1,4 +1,5 @@
 # The profile to set up the endpoints, auth, and database for Glance
+# Because of the include, api must come before auth if colocated
 class openstack::profile::glance::auth {
   openstack::resources::controller { 'glance': }
   openstack::resources::database { 'glance': }
@@ -10,4 +11,6 @@ class openstack::profile::glance::auth {
     internal_address => hiera('openstack::storage::address::management'),
     region           => hiera('openstack::region'),
   }
+
+  include ::openstack::common::glance
 }
