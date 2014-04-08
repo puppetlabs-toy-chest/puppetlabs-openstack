@@ -32,16 +32,7 @@ class openstack::profile::glance::api {
   openstack::resources::firewall { 'Glance API': port      => '9292', }
   openstack::resources::firewall { 'Glance Registry': port => '9191', }
 
-  class { '::glance::api':
-    keystone_password => hiera('openstack::glance::password'),
-    auth_host         => hiera('openstack::controller::address::management'),
-    keystone_tenant   => 'services',
-    keystone_user     => 'glance',
-    sql_connection    => $::openstack::resources::connectors::glance,
-    registry_host     => hiera('openstack::storage::address::management'),
-    verbose           => hiera('openstack::verbose'),
-    debug             => hiera('openstack::debug'),
-  }
+  include ::openstack::common::glance
 
   class { '::glance::backend::file': }
 
