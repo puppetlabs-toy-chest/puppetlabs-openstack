@@ -10,12 +10,13 @@ class openstack::common::neutron {
   $data_address = ip_for_network($data_network)
 
   class { '::neutron':
-    rabbit_host     => $controller_management_address,
-    core_plugin     => 'neutron.plugins.openvswitch.ovs_neutron_plugin.OVSNeutronPluginV2',
-    rabbit_user     => hiera('openstack::rabbitmq::user'),
-    rabbit_password => hiera('openstack::rabbitmq::password'),
-    debug           => hiera('openstack::debug'),
-    verbose         => hiera('openstack::verbose'),
+    rabbit_host           => $controller_management_address,
+    core_plugin           => 'neutron.plugins.openvswitch.ovs_neutron_plugin.OVSNeutronPluginV2',
+    allow_overlapping_ips => true,
+    rabbit_user           => hiera('openstack::rabbitmq::user'),
+    rabbit_password       => hiera('openstack::rabbitmq::password'),
+    debug                 => hiera('openstack::debug'),
+    verbose               => hiera('openstack::verbose'),
   }
 
   # everone gets an ovs agent (TODO true?)
