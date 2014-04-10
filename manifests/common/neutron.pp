@@ -17,6 +17,8 @@ class openstack::common::neutron {
     rabbit_password       => hiera('openstack::rabbitmq::password'),
     debug                 => hiera('openstack::debug'),
     verbose               => hiera('openstack::verbose'),
+    service_plugins       => ['neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
+                              'neutron.services.vpn.plugin.VPNDriverPlugin'],
   }
 
   # everone gets an ovs agent (TODO true?)

@@ -23,6 +23,8 @@ class openstack::common::nova ($is_compute    = false) {
     verbose            => hiera('openstack::verbose'),
   }
 
+  nova_config { 'DEFAULT/default_floating_pool': value => 'public' }
+
   class { '::nova::api':
     admin_password                       => hiera('openstack::nova::password'),
     auth_host                            => $controller_management_address,

@@ -69,7 +69,7 @@ openstack::glance::password: 'na-mu-va'
 ######## Cinder
 
 openstack::cinder::password: 'zi-co-se'
-openstack::cinder::volume_size: '4G'
+openstack::cinder::volume_size: '8G'
 
 ######## Swift
 
@@ -103,8 +103,8 @@ openstack::horizon::secret_key: 'whu-ghuk'
 ######## Tempest
 
 openstack::tempest::configure_images    : true
-openstack::tempest::image_name          : 'cirros'
-openstack::tempest::image_name_alt      : 'cirros'
+openstack::tempest::image_name          : 'Cirros'
+openstack::tempest::image_name_alt      : 'Cirros'
 openstack::tempest::username            : 'demo'
 openstack::tempest::username_alt        : 'demo2'
 openstack::tempest::username_admin      : 'test'
