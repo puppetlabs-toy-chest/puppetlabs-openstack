@@ -1,5 +1,5 @@
 class openstack::setup::cirros {
-  glance_image { 'cirros':
+  glance_image { 'Cirros':
     ensure           => present,
     name             => 'Cirros',
     is_public        => 'yes',

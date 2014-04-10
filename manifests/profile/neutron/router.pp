@@ -34,6 +34,15 @@ class openstack::profile::neutron::router {
     enabled       => true,
   }
 
+  class { '::neutron::agents::lbaas':
+    debug   => hiera('openstack::debug'),
+    enabled => true,
+  }
+
+  class { '::neutron::agents::vpnaas':
+    enabled => true,
+  }
+
   # Temporarily fix a bug on RHEL packaging
   if $::osfamily == 'RedHat' {
     file { '/usr/lib/python2.6/site-packages/neutronclient/client.py':

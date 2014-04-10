@@ -40,7 +40,7 @@ mod "horizon",
 
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
-  :ref => "stable/havana"
+  :ref => "master"
 
 mod "vswitch",
   :git => "git://github.com/stackforge/puppet-vswitch",
