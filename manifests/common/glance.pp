@@ -4,8 +4,6 @@
 # set so that services like Tempest can access credentials
 # on the controller
 class openstack::common::glance {
-  $is_storage = $::openstack::profile::base::is_storage
-
   class { '::glance::api':
     keystone_password => hiera('openstack::glance::password'),
     auth_host         => hiera('openstack::controller::address::management'),
@@ -15,6 +13,6 @@ class openstack::common::glance {
     registry_host     => hiera('openstack::storage::address::management'),
     verbose           => hiera('openstack::verbose'),
     debug             => hiera('openstack::debug'),
-    enabled           => $is_storage,
+    enabled           => $::openstack::profile::base::is_storage,
   }
 }

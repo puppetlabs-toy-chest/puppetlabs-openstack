@@ -5,7 +5,6 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  #config.vm.box = "vagrant-scientific64-x64"
   config.vm.box = "puppetlabs/centos-65-x64-openstack"
 
   config.hostmanager.enabled = true
@@ -130,6 +129,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "512"
+    end
+  end
+
+  config.vm.define "tempest" do |tempest|
+    tempest.vm.network :private_network, ip: "192.168.11.11"
+    tempest.vm.network :private_network, ip: "192.168.22.11"
+
+    tempest.vm.hostname = "tempest"
+
+    tempest.vm.synced_folder "../../", "/openstack"
+
+    tempest.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = "512"
     end
   end
 

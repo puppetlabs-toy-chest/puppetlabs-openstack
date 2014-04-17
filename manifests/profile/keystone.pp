@@ -5,18 +5,7 @@ class openstack::profile::keystone {
   openstack::resources::database { 'keystone': }
   openstack::resources::firewall { 'Keystone API': port => '5000', }
 
-  class { '::keystone':
-    admin_token    => hiera('openstack::keystone::admin_token'),
-    sql_connection => $::openstack::resources::connectors::keystone,
-    verbose        => hiera('openstack::verbose'),
-    debug          => hiera('openstack::debug'),
-  }
-
-  class { '::keystone::roles::admin':
-    email        => hiera('openstack::keystone::admin_email'),
-    password     => hiera('openstack::keystone::admin_password'),
-    admin_tenant => 'admin',
-  }
+  include ::openstack::common::keystone
 
   class { 'keystone::endpoint':
     public_address   => hiera('openstack::controller::address::api'),

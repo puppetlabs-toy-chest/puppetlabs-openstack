@@ -21,18 +21,20 @@ class openstack::common::neutron {
                               'neutron.services.vpn.plugin.VPNDriverPlugin'],
   }
 
-  # everone gets an ovs agent (TODO true?)
-  class { '::neutron::agents::ovs':
-    enable_tunneling => 'True',
-    local_ip         => $data_address,
-    enabled          => true,
-    tunnel_types     => ['gre',],
+  class { '::neutron::keystone::auth':
+    password         => hiera('openstack::neutron::password'),
+    public_address   => hiera('openstack::controller::address::api'),
+    admin_address    => hiera('openstack::controller::address::management'),
+    internal_address => hiera('openstack::controller::address::management'),
+    region           => hiera('openstack::region'),
   }
 
-  # everyone gets an ovs plugin (TODO true?)
-  class  { '::neutron::plugins::ovs':
-    sql_connection      => $::openstack::resources::connectors::neutron,
-    tenant_network_type => 'gre',
+  class { '::neutron::server':
+    auth_host           => hiera('openstack::controller::address::management'),
+    auth_password       => hiera('openstack::neutron::password'),
+    database_connection => $::openstack::resources::connectors::neutron,
+    enabled             => $::openstack::profile::base::is_controller,
+    sync_db             => $::openstack::profile::base::is_controller,
   }
 
   if $::osfamily == 'redhat' {
