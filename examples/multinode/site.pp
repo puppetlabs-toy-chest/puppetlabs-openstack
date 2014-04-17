@@ -35,3 +35,8 @@ node 'swiftstore3.localdomain' {
     zone => '3'
   }
 }
+
+node 'tempest.localdomain' {
+  include ::openstack::role::tempest
+}
+

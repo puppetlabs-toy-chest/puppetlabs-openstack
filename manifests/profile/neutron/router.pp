@@ -11,6 +11,7 @@ class openstack::profile::neutron::router {
 
   $controller_management_address = hiera('openstack::controller::address::management')
   include ::openstack::common::neutron
+  include ::openstack::common::ovs
 
   ### Router service installation
   class { '::neutron::agents::l3':

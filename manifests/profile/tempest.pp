@@ -7,6 +7,10 @@ class openstack::profile::tempest {
   $alt_user   = hiera('openstack::tempest::username_alt')
   $public_network_name = hiera('openstack::tempest::public_network_name')
 
+  include ::openstack::common::keystone
+  include ::openstack::common::glance
+  include ::openstack::common::neutron
+
   class { '::tempest':
     setup_venv             => true,
     tempest_repo_revision  => 'stable/havana',
