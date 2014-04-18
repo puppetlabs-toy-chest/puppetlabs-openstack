@@ -1,5 +1,4 @@
 class openstack::common::keystone {
-
   if $::openstack::profile::base::is_controller {
     $admin_bind_host = '0.0.0.0'
   } else {
@@ -20,5 +19,4 @@ class openstack::common::keystone {
     password     => hiera('openstack::keystone::admin_password'),
     admin_tenant => 'admin',
   }
-
 }
