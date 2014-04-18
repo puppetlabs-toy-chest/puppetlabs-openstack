@@ -1,6 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
-This module is used to deploy a multi-node installation of OpenStack Havana.
+
+Version 3.0.0 / 2013.2 / Havana
 
 ####Table of Contents
 
@@ -20,22 +21,23 @@ This module is used to deploy a multi-node installation of OpenStack Havana.
 ##Overview
 
 The puppetlabs-openstack module is used to deploy a multi-node or all-in-one installation of 
-OpenStack Havana. This is a pre-release version. Bug reports and improvements leading to 
-the 1.0 release are welcome.
+OpenStack Havana.
 
 ##Module Description
 
 Using the stable/havana branch of the puppet-openstack modules, puppetlabs-openstack allows
-for the rapid deployment of an installation of OpenStack Havana. For the multi-node, four types
-of nodes are created for the deployment:
+for the rapid deployment of an installation of OpenStack Havana. For the multi-node, up to five 
+types of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
 * A storage node that hosts volumes, image storage, and the image storage api.
 * A network node that performs L2 routing, L3 routing, and DHCP services.
 * A compute node to run guest operating systems.
-* Swift nodes (three zones) that host the object store.
+* Optional Swift nodes (three zones) that host the object store (under development).
+* An optional Tempest node to test your deployment.
 
-The all-in-one deployment sets up all of the services except for Swift on a single node.
+The all-in-one deployment sets up all of the services except for Swift on a single node,
+including the Tempest testing.
 
 ##Setup
 
@@ -52,7 +54,7 @@ The network interfaces are divided into two groups.
   * Management network.
   * Data network.
 
-This module have been tested with Puppet 3.3. Additionally, this module depends upon Hiera. Object
+This module have been tested with Puppet 3.4. This module depends upon Hiera. Object
 store support (Swift) depends upon exported resources and PuppetDB.
 
 ###Beginning with OpenStack
@@ -61,21 +63,23 @@ To begin, you will need to do some basic setup on the compute node. SElinux need
 on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
 services. This is the only node that SELinux needs to be disabled on.
 
-Additionally, you need to know the network addres ranges for all four of the public/private networks,
-and the specific ip addresses of the controller node and the storage node.
+Additionally, you need to know the network address ranges for all four of the public/private networks,
+and the specific ip addresses of the controller node and the storage node. Keep in mind that your
+public networks can overlap with one another, as can the private networks.
 
 If you are running VMWare Fusion, and Vagrant with the Fusion provider, a CentOS 6.5 image is provided
-to help you get started. See the examples/vagrant and examples/allinone for details.
+to help you get started. It is stored in the Vagrant Cloud, and will be downloaded automatically.
+See the examples/multinode and examples/allinone directories for details.
 
 ##Usage
 
 ###Hiera Configuration
 The first step to using the puppetlabs-openstack module is to configure hiera with settings specific
-to your installation. In this module, the example directory contains a sample common.yaml file
-with all of the settings required by this module, as well as a example user to test your deployment
-with. These configuration options include network settings, locations of specific nodes, and
-passwords for Keystone and databases. If any of these settings are undefined or not properly set, your
-deployment may fail.
+to your installation. In this module, the example directory contains sample common.yaml (for multi-node)
+and allinone.yaml (for all-in-one) files with all of the settings required by this module, as well as an
+example user and networks to test your deployment with. These configuration options include network settings,
+locations of specific nodes, and passwords for Keystone and databases. If any of these settings are
+undefined or not properly set, your deployment may fail.
 
 ###Controller Node
 For your controller node, you need to assign your node the controller role. For example:
@@ -171,24 +175,15 @@ and maintainable OpenStack deployments.
 
 ##Limitations
 
-High availability and SSL-enabled endpoints are not provided by this module.
+* High availability and SSL-enabled endpoints are not provided by this module.
+* The puppet-openstack modules for Havana do not support recent versions of puppetlabs-mysql, which will cause problems on Puppet Enterprise.
 
-Due to a bug in the Firewall module, some configurations may not be
-applied correctly. The workaround is to flush the firewall rules and shut down
-the firewall before a run.
-
-```
-iptables -F
-iptables -F -t nat
-service iptables stop
-```
-
-Addressing these limitations is planned for the forthcoming puppetlabs-openstack module.
+Addressing these limitations is planned for the forthcoming Icehouse release of the puppetlabs-openstack module.
 
 ##License
 Puppet Labs Havana - A Puppet Module for a Multi-Node OpenStack Havana Installation.
 
-Copyright (C) 2013, 2014 Puppet Labs, Inc.
+Copyright (C) 2013, 2014 Puppet Labs, Inc. and Authors
 Original Author - Christian Hoge
 
 Puppet Labs can be contacted at: info@puppetlabs.com
