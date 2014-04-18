@@ -1,3 +1,3 @@
 #!/bin/bash
 # Run tempest
-vagrant ssh allinone -c "sudo /var/lib/tempest/run_tests.sh -s"
+vagrant ssh allinone -c "sudo /openstack/examples/allinone/run_tempest.sh"
