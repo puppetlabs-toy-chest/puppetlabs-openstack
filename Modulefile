@@ -1,5 +1,5 @@
 name    'puppetlabs-openstack'
-version '2013.2.0-devel'
+version '3.0.0-devel'
 source 'Chris Hoge'
 author 'puppetlabs'
 license 'Apache License, Version 2.0'
