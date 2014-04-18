@@ -23,14 +23,7 @@ The IP address reservation is
 * 0.0.0.1  : Host OS
 * 0.0.0.2  : VMWare Router
 * 0.0.0.3  : Puppet Master
-* 0.0.0.4  : OS Controller
-* 0.0.0.5  : OS Storage
-* 0.0.0.6  : OS Networking
-* 0.0.0.7  : OS Compute
-* 0.0.0.8  : Swift Storage Zone 1
-* 0.0.0.9  : Swift Storage Zone 2
-* 0.0.0.10 : Swift Storage Zone 3
-* 0.0.0.11 : Tempest
+* 0.0.0.4  : All in One Node
 
 Vagrant needs the hostfile plugin installed:
 
@@ -39,9 +32,6 @@ vagrant plugin install vagrant-hostfile
 ```
 
 The Vagrantfile will automatically download a prepared CentOS box for you.
-
-If you want to bring OpenStack up without Swift, use and look at the firstrun.sh script.
-If you want to bring up Swift, use and look at the swiftrun.sh script.
 
 You need to have R10K installed. You can use the one provided by the rubygem.
 

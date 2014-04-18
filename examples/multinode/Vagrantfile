@@ -135,6 +135,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "tempest" do |tempest|
     tempest.vm.network :private_network, ip: "192.168.11.11"
     tempest.vm.network :private_network, ip: "192.168.22.11"
+    tempest.vm.network :private_network, ip: "172.16.33.11"
+    tempest.vm.network :private_network, ip: "172.16.44.11"
 
     tempest.vm.hostname = "tempest"
 
