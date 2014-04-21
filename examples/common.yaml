@@ -69,7 +69,7 @@ openstack::glance::password: 'na-mu-va'
 ######## Cinder
 
 openstack::cinder::password: 'zi-co-se'
-openstack::cinder::volume_size: '4G'
+openstack::cinder::volume_size: '8G'
 
 ######## Swift
 

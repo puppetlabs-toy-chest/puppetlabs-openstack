@@ -8,7 +8,6 @@ class openstack::role::controller inherits ::openstack::role {
   class { '::openstack::profile::ceilometer::api': } ->
   class { '::openstack::profile::glance::auth': } ->
   class { '::openstack::profile::cinder::api': } ->
-  class { '::openstack::profile::swift::proxy': } ->
   class { '::openstack::profile::nova::api': } ->
   class { '::openstack::profile::neutron::server': } ->
   class { '::openstack::profile::heat::api': } ->

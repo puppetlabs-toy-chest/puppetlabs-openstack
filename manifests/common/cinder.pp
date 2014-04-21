@@ -9,4 +9,11 @@ class openstack::common::cinder {
     debug             => hiera('openstack::debug'),
     verbose           => hiera('openstack::verbose'),
   }
+
+  $storage_server = hiera('openstack::storage::address::api')
+  $glance_api_server = "${storage_server}:9292"
+
+  class { '::cinder::glance':
+    glance_api_servers => [ $glance_api_server ],
+  }
 }
