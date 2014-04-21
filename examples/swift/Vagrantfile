@@ -1,0 +1,128 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "puppetlabs/centos-65-x64-openstack"
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = false
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  config.vm.define "puppet" do |puppet|
+    puppet.vm.network :private_network, ip: "192.168.11.3"
+    puppet.vm.network :private_network, ip: "192.168.22.3"
+    puppet.vm.network :private_network, ip: "172.16.33.3"
+    puppet.vm.network :private_network, ip: "172.16.44.3"
+
+    puppet.vm.hostname = "puppet"
+
+    puppet.vm.synced_folder "../../", "/openstack"
+
+    puppet.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "control" do |control|
+    control.vm.network :private_network, ip: "192.168.11.4"
+    control.vm.network :private_network, ip: "192.168.22.4"
+    control.vm.network :private_network, ip: "172.16.33.4"
+    control.vm.network :private_network, ip: "172.16.44.4"
+
+    control.vm.hostname = "control"
+
+    control.vm.synced_folder "../../", "/openstack"
+
+    control.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "swiftstore1" do |swiftstore1|
+    swiftstore1.vm.network :private_network, ip: "192.168.11.8"
+    swiftstore1.vm.network :private_network, ip: "192.168.22.8"
+    swiftstore1.vm.network :private_network, ip: "172.16.33.8"
+    swiftstore1.vm.network :private_network, ip: "172.16.44.8"
+
+    swiftstore1.vm.hostname = "swiftstore1"
+
+    swiftstore1.vm.synced_folder "../../", "/openstack"
+
+    swiftstore1.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "swiftstore2" do |swiftstore2|
+    swiftstore2.vm.network :private_network, ip: "192.168.11.9"
+    swiftstore2.vm.network :private_network, ip: "192.168.22.9"
+    swiftstore2.vm.network :private_network, ip: "172.16.33.9"
+    swiftstore2.vm.network :private_network, ip: "172.16.44.9"
+
+    swiftstore2.vm.hostname = "swiftstore2"
+
+    swiftstore2.vm.synced_folder "../../", "/openstack"
+
+    swiftstore2.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "swiftstore3" do |swiftstore3|
+    swiftstore3.vm.network :private_network, ip: "192.168.11.10"
+    swiftstore3.vm.network :private_network, ip: "192.168.22.10"
+    swiftstore3.vm.network :private_network, ip: "172.16.33.10"
+    swiftstore3.vm.network :private_network, ip: "172.16.44.10"
+
+    swiftstore3.vm.hostname = "swiftstore3"
+
+    swiftstore3.vm.synced_folder "../../", "/openstack"
+
+    swiftstore3.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "512"
+    end
+  end
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  # config.vm.provider :virtualbox do |vb|
+  #   # Don't boot with headless mode
+  #   vb.gui = true
+  #
+  #   # Use VBoxManage to customize the VM. For example to change memory:
+  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+  # end
+  #
+  # View the documentation for the provider you're using for more
+  # information on available options.
+
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  # You will need to create the manifests directory and a manifest in
+  # the file base.pp in the manifests_path directory.
+  #
+  # An example Puppet manifest to provision the message of the day:
+  #
+  # # group { "puppet":
+  # #   ensure => "present",
+  # # }
+  # #
+  # # File { owner => 0, group => 0, mode => 0644 }
+  # #
+  # # file { '/etc/motd':
+  # #   content => "Welcome to your Vagrant-built virtual machine!
+  # #               Managed by Puppet.\n"
+  # # }
+  #
+  # config.vm.provision :puppet do |puppet|
+  #   puppet.manifests_path = "manifests"
+  #   puppet.manifest_file  = "site.pp"
+  # end
+
+end

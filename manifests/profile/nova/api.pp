@@ -4,7 +4,8 @@ class openstack::profile::nova::api {
   openstack::resources::database { 'nova': }
   openstack::resources::firewall { 'Nova API': port => '8774', }
   openstack::resources::firewall { 'Nova Metadata': port => '8775', }
-  openstack::resources::firewall { 'Nova NoVncProxy': port => '6080', }
+  openstack::resources::firewall { 'Nova EC2': port => '8773', }
+  openstack::resources::firewall { 'Nova S3': port => '3333', }
 
   class { '::nova::keystone::auth':
     password         => hiera('openstack::nova::password'),
@@ -17,4 +18,3 @@ class openstack::profile::nova::api {
 
   include ::openstack::common::nova
 }
-
