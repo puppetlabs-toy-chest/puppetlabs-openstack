@@ -1,9 +1,9 @@
 # The profile for installing the heat API
-class openstack::profile::heat::api {
-  openstack::resources::controller { 'heat': }
-  openstack::resources::database { 'heat': }
-  openstack::resources::firewall { 'Heat API': port     => '8004', }
-  openstack::resources::firewall { 'Heat CFN API': port => '8000', }
+class havana::profile::heat::api {
+  ::havana::resources::controller { 'heat': }
+  ::havana::resources::database { 'heat': }
+  ::havana::resources::firewall { 'Heat API': port     => '8004', }
+  ::havana::resources::firewall { 'Heat CFN API': port => '8000', }
 
   $controller_management_address = hiera('openstack::controller::address::management')
 
@@ -24,7 +24,7 @@ class openstack::profile::heat::api {
   }
 
   class { '::heat':
-    sql_connection    => $::openstack::resources::connectors::heat,
+    sql_connection    => $::havana::resources::connectors::heat,
     rabbit_host       => hiera('openstack::controller::address::management'),
     rabbit_userid     => hiera('openstack::rabbitmq::user'),
     rabbit_password   => hiera('openstack::rabbitmq::password'),

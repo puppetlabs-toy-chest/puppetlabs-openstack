@@ -1,4 +1,4 @@
-define openstack::resources::tenant (
+define havana::resources::tenant (
   $description,
   $enabled = true,
 ) {

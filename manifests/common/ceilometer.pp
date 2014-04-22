@@ -1,7 +1,7 @@
 # Common class for ceilometer installation
 # Private, and should not be used on its own
-class openstack::common::ceilometer {
-  $is_controller = $::openstack::profile::base::is_controller
+class havana::common::ceilometer {
+  $is_controller = $::havana::profile::base::is_controller
 
   $controller_management_address = hiera('openstack::controller::address::management')
 

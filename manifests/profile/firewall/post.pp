@@ -1,5 +1,5 @@
 # post-firewall rules to reject remaining traffic
-class openstack::profile::firewall::post {
+class havana::profile::firewall::post {
   firewall { '8999 - Accept all management network traffic':
     proto  => 'all',
     state  => ['NEW'],

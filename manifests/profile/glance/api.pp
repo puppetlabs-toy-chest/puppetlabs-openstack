@@ -1,7 +1,7 @@
 # The profile to install the Glance API and Registry services
 # Note that for this configuration API controls the storage,
 # so it is on the storage node instead of the control node
-class openstack::profile::glance::api {
+class havana::profile::glance::api {
   $api_network = hiera('openstack::network::api')
   $api_address = ip_for_network($api_network)
 
@@ -29,16 +29,16 @@ class openstack::profile::glance::api {
     Please correct this difference.")
   }
 
-  openstack::resources::firewall { 'Glance API': port      => '9292', }
-  openstack::resources::firewall { 'Glance Registry': port => '9191', }
+  ::havana::resources::firewall { 'Glance API': port      => '9292', }
+  ::havana::resources::firewall { 'Glance Registry': port => '9191', }
 
-  include ::openstack::common::glance
+  include ::havana::common::glance
 
   class { '::glance::backend::file': }
 
   class { '::glance::registry':
     keystone_password => hiera('openstack::glance::password'),
-    sql_connection    => $::openstack::resources::connectors::glance,
+    sql_connection    => $::havana::resources::connectors::glance,
     auth_host         => hiera('openstack::controller::address::management'),
     keystone_tenant   => 'services',
     keystone_user     => 'glance',

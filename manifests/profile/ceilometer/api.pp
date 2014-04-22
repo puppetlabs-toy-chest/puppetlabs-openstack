@@ -1,10 +1,10 @@
 # The profile to set up the Ceilometer API
 # For co-located api and worker nodes this appear
 # after openstack::profile::ceilometer::agent
-class openstack::profile::ceilometer::api {
-  openstack::resources::controller { 'ceilometer': }
+class havana::profile::ceilometer::api {
+  ::havana::resources::controller { 'ceilometer': }
 
-  openstack::resources::firewall { 'Ceilometer API':
+  ::havana::resources::firewall { 'Ceilometer API':
     port => '8777',
   }
 
@@ -37,7 +37,7 @@ class openstack::profile::ceilometer::api {
 
   class { '::ceilometer::collector': }
 
-  include ::openstack::common::ceilometer
+  include ::havana::common::ceilometer
 
   mongodb_database { 'ceilometer':
     ensure  => present,

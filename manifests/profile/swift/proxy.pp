@@ -1,10 +1,10 @@
 # The profile for installing the Swift Proxy
-class openstack::profile::swift::proxy {
+class havana::profile::swift::proxy {
 
-  openstack::resources::controller { 'swift': }
-  openstack::resources::firewall { 'Swift Proxy': port => '8080', }
+  ::havana::resources::controller { 'swift': }
+  ::havana::resources::firewall { 'Swift Proxy': port => '8080', }
 
-  class { 'swift::keystone::auth':
+  class { '::swift::keystone::auth':
     password         => hiera('openstack::swift::password'),
     public_address   => hiera('openstack::controller::address::api'),
     admin_address    => hiera('openstack::controller::address::management'),
@@ -51,14 +51,14 @@ class openstack::profile::swift::proxy {
   Ring_container_device <<| |>>
   Ring_account_device <<| |>>
 
-  class { 'swift::ringbuilder':
+  class { '::swift::ringbuilder':
     part_power     => 18,
     replicas       => 3,
     min_part_hours => 1,
     require        => Class['::swift'],
   }
 
-  class { 'swift::ringserver':
+  class { '::swift::ringserver':
     local_net_ip => hiera('openstack::controller::address::management'),
   }
 

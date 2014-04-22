@@ -1,4 +1,4 @@
-class openstack::profile::ceilometer::agent {
-  class { '::openstack::common::ceilometer': } ->
+class havana::profile::ceilometer::agent {
+  class { '::havana::common::ceilometer': } ->
   class { '::ceilometer::agent::compute': }
 }

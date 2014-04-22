@@ -1,8 +1,8 @@
 # The profile to set up the endpoints, auth, and database for Glance
 # Because of the include, api must come before auth if colocated
-class openstack::profile::glance::auth {
-  openstack::resources::controller { 'glance': }
-  openstack::resources::database { 'glance': }
+class havana::profile::glance::auth {
+  ::havana::resources::controller { 'glance': }
+  ::havana::resources::database { 'glance': }
 
   class  { '::glance::keystone::auth':
     password         => hiera('openstack::glance::password'),
@@ -12,5 +12,5 @@ class openstack::profile::glance::auth {
     region           => hiera('openstack::region'),
   }
 
-  include ::openstack::common::glance
+  include ::havana::common::glance
 }

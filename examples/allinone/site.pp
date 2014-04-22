@@ -3,5 +3,5 @@ node 'puppet' {
 }
 
 node 'allinone.localdomain' {
-  include ::openstack::role::allinone
+  include ::havana::role::allinone
 }

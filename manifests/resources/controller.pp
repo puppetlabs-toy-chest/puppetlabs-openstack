@@ -1,6 +1,6 @@
 # A basic defined resource that only checks for controller
 # configuration consistency with the Hiera data
-define openstack::resources::controller () {
+define havana::resources::controller () {
   $api_address = hiera('openstack::controller::address::api')
   $management_address = hiera('openstack::controller::address::management')
 

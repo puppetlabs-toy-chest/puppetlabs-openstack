@@ -1,4 +1,4 @@
-class openstack::common::ovs {
+class havana::common::ovs {
   $data_network = hiera('openstack::network::data')
   $data_address = ip_for_network($data_network)
 

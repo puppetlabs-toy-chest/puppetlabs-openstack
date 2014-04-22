@@ -31,10 +31,10 @@ puppet-openstack modules are as follows:
 
 ```
 Puppet Module :: OpenStack Version :: OpenStack Codename
-2.0.0         -> 2013.1.0          -> Grizzly
-3.0.0         -> 2013.2.0          -> Havana
-4.0.0         -> 2014.1.0          -> Icehouse
-5.0.0         -> 2014.2.0          -> Juno
+        2.0.0 ->      2013.1.0     -> Grizzly
+        3.0.0 ->      2013.2.0     -> Havana
+        4.0.0 ->      2014.1.0     -> Icehouse
+        5.0.0 ->      2014.2.0     -> Juno
 ```
 
 This module is titled `puppetlabs-havana`. As of the 4.0.0 release it will be titled

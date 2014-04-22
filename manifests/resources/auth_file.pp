@@ -34,7 +34,7 @@
 # [*neutron_endpoint_type*]
 #   (optional) Defaults to 'publicURL'.
 #
-class openstack::resources::auth_file(
+class havana::resources::auth_file(
   $admin_password,
   $controller_node          = '127.0.0.1',
   $keystone_admin_token     = undef,

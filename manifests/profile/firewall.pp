@@ -1,5 +1,5 @@
-class openstack::profile::firewall {
-  class { '::openstack::profile::firewall::pre': }
-  class { '::openstack::profile::firewall::puppet': }
-  class { '::openstack::profile::firewall::post': }
+class havana::profile::firewall {
+  class { '::havana::profile::firewall::pre': }
+  class { '::havana::profile::firewall::puppet': }
+  class { '::havana::profile::firewall::post': }
 }
