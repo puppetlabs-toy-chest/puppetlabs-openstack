@@ -1,10 +1,10 @@
-name    'puppetlabs-openstack'
-version '3.0.0-devel'
+name    'puppetlabs-havana'
+version '3.0.0'
 source 'Chris Hoge'
-author 'puppetlabs'
+author 'Puppet Labs and Authors'
 license 'Apache License, Version 2.0'
 summary 'Simplified OpenStack Havana Deployment with Puppet.'
-description 'Using a hiera-based roles and profiles model, simplify OpenStack deployments.'
+description 'Using a hiera-based roles and profiles model, do simple OpenStack deployments.'
 project_page 'https://github.com/puppetlabs/puppetlabs-openstack'
 
 ## OpenStack Dependencies

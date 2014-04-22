@@ -1,11 +1,12 @@
-#puppetlabs-openstack
+#puppetlabs-havana
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
 Version 3.0.0 / 2013.2 / Havana
 
 ####Table of Contents
 
-1. [Overview - What is the puppetlabs-openstack module?](#overview)
+1. [Overview - What is the puppetlabs-havana module?](#overview)
+2. [A Note on Versioniong](#versioning)
 2. [Module Description - What does the module do?](#module-description)
 3. [Setup - The basics of getting started with OpenStack](#setup)
     * [Setup Requirements](#setup-requirements)
@@ -20,12 +21,30 @@ Version 3.0.0 / 2013.2 / Havana
 
 ##Overview
 
-The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or swift-only installation of 
+The puppetlabs-havana module is used to deploy a multi-node, all-in-one, or swift-only installation of 
 OpenStack Havana.
+
+##Versioning
+
+This module has been given version 3 to track the puppet-openstack modules. The versioning for the
+puppet-openstack modules are as follows:
+
+```
+Puppet Module :: OpenStack Version :: OpenStack Codename
+2.0.0         -> 2013.1.0          -> Grizzly
+3.0.0         -> 2013.2.0          -> Havana
+4.0.0         -> 2014.1.0          -> Icehouse
+5.0.0         -> 2014.2.0          -> Juno
+```
+
+This module is titled `puppetlabs-havana`. As of the 4.0.0 release it will be titled
+`puppetlabs-openstack`, replacing the deprecated 3.0.0 module. The github repository for this
+module is located at the [puppetlabs-openstack](https://github.com/puppetlabs/puppetlabs-openstack)
+project.
 
 ##Module Description
 
-Using the stable/havana branch of the puppet-openstack modules, puppetlabs-openstack allows
+Using the stable/havana branch of the puppet-openstack modules, puppetlabs-havana allows
 for the rapid deployment of an installation of OpenStack Havana. For the multi-node, up to five 
 types of nodes are created for the deployment:
 
@@ -58,7 +77,7 @@ The network interfaces are divided into two groups.
   * Management network.
   * Data network.
 
-This module have been tested with Puppet 3.4. This module depends upon Hiera. Object
+This module have been tested with Puppet 3.5. This module depends upon Hiera. Object
 store support (Swift) depends upon exported resources and PuppetDB.
 
 ###Beginning with OpenStack
@@ -78,7 +97,7 @@ See the examples/multinode and examples/allinone directories for details.
 ##Usage
 
 ###Hiera Configuration
-The first step to using the puppetlabs-openstack module is to configure hiera with settings specific
+The first step to using the puppetlabs-havana module is to configure hiera with settings specific
 to your installation. In this module, the example directory contains sample common.yaml (for multi-node)
 and allinone.yaml (for all-in-one) files with all of the settings required by this module, as well as an
 example user and networks to test your deployment with. These configuration options include network settings,
@@ -170,10 +189,10 @@ the Swift services.
 
 ##Reference
 
-The puppetlabs-openstack module is built on the 'Roles and Profiles' pattern. Every node
+The puppetlabs-havana module is built on the 'Roles and Profiles' pattern. Every node
 in a deployment is assigned a single role. Every role is composed of some number of
 profiles, which ideally should be independent of one another, allowing for composition
-of new roles. The puppetlabs-openstack module does not strictly adhere to this pattern,
+of new roles. The puppetlabs-havana module does not strictly adhere to this pattern,
 but should serve as a useful example of how to build profiles from modules for customized
 and maintainable OpenStack deployments.
 
@@ -182,7 +201,7 @@ and maintainable OpenStack deployments.
 * High availability and SSL-enabled endpoints are not provided by this module.
 * The puppet-openstack modules for Havana do not support recent versions of puppetlabs-mysql, which will cause problems on Puppet Enterprise.
 
-Addressing these limitations is planned for the forthcoming Icehouse release of the puppetlabs-openstack module.
+Addressing these limitations is planned for the forthcoming Icehouse release of the puppetlabs-havana module.
 
 ##License
 Puppet Labs Havana - A Puppet Module for a Multi-Node OpenStack Havana Installation.

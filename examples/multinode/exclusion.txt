@@ -1,0 +1,12 @@
+ERROR: test suite for <class 'tempest.api.compute.images.test_images_oneserver.ImagesOneServerTestJSON'>
+ERROR: test suite for <class 'tempest.api.compute.images.test_images_oneserver.ImagesOneServerTestXML'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_create_server.ServersTestJSON'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_create_server.ServersTestManualDisk'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_create_server.ServersTestXML'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_server_actions.ServerActionsTestJSON'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_server_actions.ServerActionsTestXML'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_server_addresses.ServerAddressesTest'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_server_addresses.ServerAddressesTestXML'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_server_rescue.ServerRescueTestJSON'>
+ERROR: test suite for <class 'tempest.api.compute.servers.test_server_rescue.ServerRescueTestXML'>
+ERROR: test suite for <class 'tempest.scenario.test_network_basic_ops.TestNetworkBasicOps'>
