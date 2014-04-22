@@ -48,7 +48,7 @@ class havana::profile::neutron::router {
   if $::osfamily == 'RedHat' {
     file { '/usr/lib/python2.6/site-packages/neutronclient/client.py':
       ensure  => present,
-      source  => 'puppet:///modules/openstack/client.py',
+      source  => 'puppet:///modules/havana/client.py',
       mode    => '0644',
       notify  => Service['neutron-metadata-agent'],
       require => Package['openstack-neutron'],

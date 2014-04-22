@@ -14,7 +14,7 @@ class havana::profile::nova::compute {
 
   file { '/etc/libvirt/qemu.conf':
     ensure => present,
-    source => 'puppet:///modules/openstack/qemu.conf',
+    source => 'puppet:///modules/havana/qemu.conf',
     mode   => '0644',
     notify => Service['libvirt'],
   }
