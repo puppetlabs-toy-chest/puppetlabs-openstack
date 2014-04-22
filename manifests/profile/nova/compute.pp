@@ -3,7 +3,7 @@ class havana::profile::nova::compute {
   $management_network = hiera('openstack::network::management')
   $management_address = ip_for_network($management_network)
 
-  class { 'openstack::common::nova':
+  class { '::havana::common::nova':
     is_compute => true,
   }
 
