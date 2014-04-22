@@ -1,24 +1,24 @@
-class openstack::role::allinone inherits ::openstack::role {
-  class { '::openstack::profile::firewall': }
-  class { '::openstack::profile::rabbitmq': }
-  class { '::openstack::profile::memcache': }
-  class { '::openstack::profile::mysql': }
-  class { '::openstack::profile::mongodb': }
-  class { '::openstack::profile::keystone': } 
-  class { '::openstack::profile::ceilometer::agent': }
-  class { '::openstack::profile::ceilometer::api': }
-  class { '::openstack::profile::glance::api': } ->
-  class { '::openstack::profile::glance::auth': }
-  class { '::openstack::profile::cinder::volume': }
-  class { '::openstack::profile::cinder::api': }
-  class { '::openstack::profile::nova::compute': }
-  class { '::openstack::profile::nova::api': }
-  class { '::openstack::profile::neutron::router': }
-  class { '::openstack::profile::neutron::server': }
-  class { '::openstack::profile::heat::api': }
-  class { '::openstack::profile::horizon': }
-  class { '::openstack::profile::auth_file': }
-  class { '::openstack::setup::sharednetwork': }
-  class { '::openstack::setup::cirros': }
-  class { '::openstack::profile::tempest': }
+class havana::role::allinone inherits ::havana::role {
+  class { '::havana::profile::firewall': }
+  class { '::havana::profile::rabbitmq': }
+  class { '::havana::profile::memcache': }
+  class { '::havana::profile::mysql': }
+  class { '::havana::profile::mongodb': }
+  class { '::havana::profile::keystone': } 
+  class { '::havana::profile::ceilometer::agent': }
+  class { '::havana::profile::ceilometer::api': }
+  class { '::havana::profile::glance::api': } ->
+  class { '::havana::profile::glance::auth': }
+  class { '::havana::profile::cinder::volume': }
+  class { '::havana::profile::cinder::api': }
+  class { '::havana::profile::nova::compute': }
+  class { '::havana::profile::nova::api': }
+  class { '::havana::profile::neutron::router': }
+  class { '::havana::profile::neutron::server': }
+  class { '::havana::profile::heat::api': }
+  class { '::havana::profile::horizon': }
+  class { '::havana::profile::auth_file': }
+  class { '::havana::setup::sharednetwork': }
+  class { '::havana::setup::cirros': }
+  class { '::havana::profile::tempest': }
 }

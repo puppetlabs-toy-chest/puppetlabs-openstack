@@ -1,5 +1,5 @@
 # Ubuntu Cloud Archive repo
-class openstack::resources::repo::uca(
+class havana::resources::repo::uca(
   $release = 'havana',
   $repo    = 'updates'
 ) {

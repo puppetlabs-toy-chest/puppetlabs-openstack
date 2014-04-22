@@ -1,5 +1,5 @@
 # Profile to install the tempest service
-class openstack::profile::tempest {
+class havana::profile::tempest {
   $users      = hiera('openstack::users')
   $api_ip     = hiera('openstack::controller::address::api')
   $admin_user = hiera('openstack::tempest::username_admin')
@@ -7,9 +7,9 @@ class openstack::profile::tempest {
   $alt_user   = hiera('openstack::tempest::username_alt')
   $public_network_name = hiera('openstack::tempest::public_network_name')
 
-  include ::openstack::common::keystone
-  include ::openstack::common::glance
-  include ::openstack::common::neutron
+  include ::havana::common::keystone
+  include ::havana::common::glance
+  include ::havana::common::neutron
 
   class { '::tempest':
     setup_venv             => true,

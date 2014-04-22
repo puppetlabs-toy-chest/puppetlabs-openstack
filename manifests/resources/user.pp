@@ -1,4 +1,4 @@
-define openstack::resources::user (
+define havana::resources::user (
   $password,
   $tenant,
   $email,

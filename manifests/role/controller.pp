@@ -1,16 +1,16 @@
-class openstack::role::controller inherits ::openstack::role {
-  class { '::openstack::profile::firewall': }
-  class { '::openstack::profile::rabbitmq': } ->
-  class { '::openstack::profile::memcache': } ->
-  class { '::openstack::profile::mysql': } ->
-  class { '::openstack::profile::mongodb': } ->
-  class { '::openstack::profile::keystone': } ->
-  class { '::openstack::profile::ceilometer::api': } ->
-  class { '::openstack::profile::glance::auth': } ->
-  class { '::openstack::profile::cinder::api': } ->
-  class { '::openstack::profile::nova::api': } ->
-  class { '::openstack::profile::neutron::server': } ->
-  class { '::openstack::profile::heat::api': } ->
-  class { '::openstack::profile::horizon': }
-  class { '::openstack::profile::auth_file': }
+class havana::role::controller inherits ::havana::role {
+  class { '::havana::profile::firewall': }
+  class { '::havana::profile::rabbitmq': } ->
+  class { '::havana::profile::memcache': } ->
+  class { '::havana::profile::mysql': } ->
+  class { '::havana::profile::mongodb': } ->
+  class { '::havana::profile::keystone': } ->
+  class { '::havana::profile::ceilometer::api': } ->
+  class { '::havana::profile::glance::auth': } ->
+  class { '::havana::profile::cinder::api': } ->
+  class { '::havana::profile::nova::api': } ->
+  class { '::havana::profile::neutron::server': } ->
+  class { '::havana::profile::heat::api': } ->
+  class { '::havana::profile::horizon': }
+  class { '::havana::profile::auth_file': }
 }

@@ -1,13 +1,13 @@
 # The base profile for OpenStack. Installs the repository and ntp
-class openstack::profile::base {
+class havana::profile::base {
   # everyone also needs to be on the same clock
   class { '::ntp': }
 
   # all nodes need the OpenStack repository
-  class { '::openstack::resources::repo': }
+  class { '::havana::resources::repo': }
 
   # database connectors
-  class { '::openstack::resources::connectors': }
+  class { '::havana::resources::connectors': }
 
   $management_network = hiera('openstack::network::management')
   $management_address = ip_for_network($management_network)

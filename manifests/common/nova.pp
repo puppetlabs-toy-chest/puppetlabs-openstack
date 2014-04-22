@@ -3,8 +3,8 @@
 # usage: include from controller, declare from worker
 # This is to handle dependency
 # depends on openstack::profile::base having been added to a node
-class openstack::common::nova ($is_compute    = false) {
-  $is_controller = $::openstack::profile::base::is_controller
+class havana::common::nova ($is_compute = false) {
+  $is_controller = $::havana::profile::base::is_controller
 
   $management_network = hiera('openstack::network::management')
   $management_address = ip_for_network($management_network)
@@ -13,7 +13,7 @@ class openstack::common::nova ($is_compute    = false) {
   $controller_management_address = hiera('openstack::controller::address::management')
 
   class { '::nova':
-    sql_connection     => $::openstack::resources::connectors::nova,
+    sql_connection     => $::havana::resources::connectors::nova,
     glance_api_servers => "http://${storage_management_address}:9292",
     memcached_servers  => ["${controller_management_address}:11211"],
     rabbit_hosts       => [$controller_management_address],

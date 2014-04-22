@@ -1,6 +1,5 @@
 # Starts up standard firewall rules. Pre-runs
-
-class openstack::profile::firewall::pre {
+class havana::profile::firewall::pre {
 
   # Set up the initial firewall rules for all nodes
   if $::osfamily == 'RedHat' {
@@ -8,15 +7,15 @@ class openstack::profile::firewall::pre {
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::resources::repo::epel'],
-                   Class['::openstack::resources::repo::rdo'] ],
+      require => [ Class['::havana::resources::repo::epel'],
+                   Class['::havana::resources::repo::rdo'] ],
     }
   } elsif $::osfamily == 'Debian' {
     firewallchain { 'INPUT:filter:IPv4':
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::resources::repo::uca'] ],
+      require => [ Class['::havana::resources::repo::uca'] ],
     }
   }
 

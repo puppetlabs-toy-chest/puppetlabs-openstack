@@ -1,4 +1,4 @@
-class openstack::resources::connectors {
+class havana::resources::connectors {
 
   $management_address = hiera('openstack::controller::address::management')
   $password = hiera('openstack::mysql::service_password')

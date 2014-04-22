@@ -1,4 +1,4 @@
-define openstack::resources::firewall ( $port ) {
+define havana::resources::firewall ( $port ) {
   # The firewall module can not handle managed rules with a leading 9 properly
   if $port =~ /9[0-9]+/ {
     firewall { "8${port} - ${title}":
