@@ -1,5 +1,5 @@
 name    'puppetlabs-havana'
-version '3.0.0-rc4'
+version '3.0.0-rc5'
 source 'Chris Hoge'
 author 'Puppet Labs and Authors'
 license 'Apache License, Version 2.0'
@@ -20,6 +20,6 @@ dependency 'puppetlabs/horizon',     '>=3.1.0 <4.0.0'
 
 # Other Dependencies
 dependency 'puppetlabs/ntp',         '>=2.0.0 <3.0.0'
-dependency 'puppetlabs/firewall',    '>=0.0.4 <1.0.0'
+dependency 'puppetlabs/firewall',    '>=1.0.0 <2.0.0'
 dependency 'puppetlabs/vswitch',     '>=0.2.0 <1.0.0'
 dependency 'puppetlabs/mongodb',     '>=0.6.0 <1.0.0'
