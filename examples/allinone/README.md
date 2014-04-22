@@ -46,15 +46,19 @@ using the Python script in the ../../tools directory you can apply pending patch
 from Stackforge to the dependencies, giving you an opportunity to test out changes
 before they're merged. To try it out use the command:
 
+```
 python ../../tools/review_checkout.py -u <gerrit_username> -c <review_id>
+```
 
 The <review_id> refers to the URL for OpenStack Gerrit. So, if your review was located at 
-https://review.openstack.org/#/c/81989/ the <review_id> would be 81989.
+https://review.openstack.org/#/c/81989/ the `<review_id>` would be 81989.
 
 Running the script will produce output that is itself a script. You can apply the patch by
 piping it to a shell.
 
+```
 python ../../tools/review_checkout.py -u <gerrit_username> -c <review_id> | sh
+```
 
 You can log into your console through the API network and the
 [Horizon interface](http://192.168.11.4).

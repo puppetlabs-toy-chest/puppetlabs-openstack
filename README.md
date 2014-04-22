@@ -20,7 +20,7 @@ Version 3.0.0 / 2013.2 / Havana
 
 ##Overview
 
-The puppetlabs-openstack module is used to deploy a multi-node or all-in-one installation of 
+The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or swift-only installation of 
 OpenStack Havana.
 
 ##Module Description
@@ -33,11 +33,15 @@ types of nodes are created for the deployment:
 * A storage node that hosts volumes, image storage, and the image storage api.
 * A network node that performs L2 routing, L3 routing, and DHCP services.
 * A compute node to run guest operating systems.
-* Optional Swift nodes (three zones) that host the object store (under development).
 * An optional Tempest node to test your deployment.
 
 The all-in-one deployment sets up all of the services except for Swift on a single node,
 including the Tempest testing.
+
+The Swift deployment sets up:
+
+* A controller node that hosts databases, message queues and caches, and the Swift API.
+* Three storage nodes in different Swift Zones.
 
 ##Setup
 

@@ -24,9 +24,9 @@ The IP address reservation is
 * 0.0.0.2  : VMWare Router
 * 0.0.0.3  : Puppet Master
 * 0.0.0.4  : OS Controller
-* 0.0.0.5  : OS Storage
-* 0.0.0.6  : OS Networking
-* 0.0.0.7  : OS Compute
+* 0.0.0.8  : Swift Storage Zone 1
+* 0.0.0.9  : Swift Storage Zone 2
+* 0.0.0.10 : Swift Storage Zone 3
 * 0.0.0.11 : Tempest
 
 Vagrant needs the hostfile plugin installed:
@@ -36,6 +36,8 @@ vagrant plugin install vagrant-hostfile
 ```
 
 The Vagrantfile will automatically download a prepared CentOS box for you.
+You can bring up the entire Swift cluster with the firstrun.sh script.
+
 
 You need to have R10K installed. You can use the one provided by the rubygem.
 
