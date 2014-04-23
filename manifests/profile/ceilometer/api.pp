@@ -48,7 +48,7 @@ class openstack::profile::ceilometer::api {
   mongodb_user { 'ceilometer':
     ensure        => present,
     password_hash => mongodb_password('ceilometer', 'password'),
-    database      => ceilometer,
+    database      => 'ceilometer',
     roles         => ['readWrite', 'dbAdmin'],
     tries         => 10,
     require       => [Class['mongodb::server'], Class['mongodb::client']],

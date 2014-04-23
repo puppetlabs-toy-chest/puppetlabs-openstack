@@ -3,7 +3,7 @@
 # on RHEL-alikes and Ubuntu
 #
 class openstack::resources::repo(
-  $release = 'havana'
+  $release = 'icehouse'
 ) {
   case $release {
     'icehouse', 'havana', 'grizzly': {

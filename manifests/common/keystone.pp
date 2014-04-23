@@ -6,12 +6,13 @@ class openstack::common::keystone {
   }
 
   class { '::keystone':
-    admin_token    => hiera('openstack::keystone::admin_token'),
-    sql_connection => $::openstack::resources::connectors::keystone,
-    verbose        => hiera('openstack::verbose'),
-    debug          => hiera('openstack::debug'),
-    enabled        => $::openstack::profile::base::is_controller,
-    bind_host      => $admin_bind_host, # TODO change to admin_bind_host for Icehouse
+    admin_token     => hiera('openstack::keystone::admin_token'),
+    sql_connection  => $::openstack::resources::connectors::keystone,
+    verbose         => hiera('openstack::verbose'),
+    debug           => hiera('openstack::debug'),
+    enabled         => $::openstack::profile::base::is_controller,
+    admin_bind_host => $admin_bind_host,
+    mysql_module    => '2.2',
   }
 
   class { '::keystone::roles::admin':

@@ -26,6 +26,7 @@ class openstack::common::ceilometer {
 
   class { '::ceilometer::db':
     database_connection => $mongo_connection,
+    mysql_module        => '2.2',
   }
 
   class { '::ceilometer::agent::auth':

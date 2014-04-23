@@ -1,6 +1,6 @@
 # RDO repo (supports both RHEL-alikes and Fedora, requires EPEL)
 class openstack::resources::repo::rdo(
-  $release = 'havana'
+  $release = 'icehouse'
 ) {
   include openstack::resources::repo::epel
 

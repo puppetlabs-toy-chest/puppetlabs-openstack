@@ -1,4 +1,4 @@
-# == Class: havana
+# == Class: openstack
 #
 # === Authors
 #
