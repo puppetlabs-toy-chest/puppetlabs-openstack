@@ -32,6 +32,7 @@ class openstack::profile::heat::api {
     verbose           => hiera('openstack::verbose'),
     keystone_host     => hiera('openstack::controller::address::management'),
     keystone_password => hiera('openstack::heat::password'),
+    mysql_module      => '2.2',
   }
 
   class { '::heat::api':

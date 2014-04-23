@@ -12,11 +12,19 @@ class openstack::profile::mysql {
     is ${explicit_address}. Please correct this difference.")
   }
 
-  class { 'mysql::server':
-    config_hash       => {
-      'root_password' => hiera('openstack::mysql::root_password'),
-      'bind_address'  => hiera('openstack::controller::address::management'),
-    },
+  class { '::mysql::server':
+    root_password                => hiera('openstack::mysql::root_password'),
+    override_options             => {
+      'mysqld'                   => {
+        'bind_address'           => hiera('openstack::controller::address::management'),
+        'default-storage-engine' => 'innodb',
+      }
+    }
+  }
+
+  class { '::mysql::bindings':
+    python_enable => true,
+    ruby_enable   => true,
   }
 
   class { 'mysql::server::account_security': }

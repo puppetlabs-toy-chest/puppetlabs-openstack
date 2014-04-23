@@ -1,6 +1,6 @@
 # Ubuntu Cloud Archive repo
 class openstack::resources::repo::uca(
-  $release = 'havana',
+  $release = 'icehouse',
   $repo    = 'updates'
 ) {
   if ($::operatingsystem == 'Ubuntu' and

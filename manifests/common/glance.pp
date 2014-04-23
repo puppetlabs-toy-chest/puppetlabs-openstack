@@ -14,5 +14,6 @@ class openstack::common::glance {
     verbose           => hiera('openstack::verbose'),
     debug             => hiera('openstack::debug'),
     enabled           => $::openstack::profile::base::is_storage,
+    mysql_module      => '2.2',
   }
 }

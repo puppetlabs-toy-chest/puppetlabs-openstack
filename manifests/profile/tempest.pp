@@ -13,7 +13,7 @@ class openstack::profile::tempest {
 
   class { '::tempest':
     setup_venv             => true,
-    tempest_repo_revision  => 'stable/havana',
+    tempest_repo_revision  => 'master',
     cinder_available       => hiera('openstack::tempest::cinder_available'),
     glance_available       => hiera('openstack::tempest::glance_available'),
     heat_available         => hiera('openstack::tempest::heat_available'),
