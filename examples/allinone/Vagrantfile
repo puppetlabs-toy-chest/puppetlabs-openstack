@@ -39,6 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     allinone.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "6144"
+        v.vmx["numvcpus"] = "4"
     end
   end
 

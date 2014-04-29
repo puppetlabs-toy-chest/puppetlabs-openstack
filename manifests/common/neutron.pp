@@ -41,6 +41,13 @@ class openstack::common::neutron {
     mysql_module        => '2.2',
   }
 
+  class { '::neutron::server::notifications':
+    nova_url            => "http://${controller_management_address}:8774/v2/",
+    nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
+    nova_admin_password => hiera('openstack::nova::password'),
+    nova_region_name    => hiera('openstack::region'),
+  }
+
   if $::osfamily == 'redhat' {
     package { 'iproute':
         ensure => latest,
