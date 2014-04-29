@@ -32,7 +32,7 @@ The IP address reservation is
 Vagrant needs the hostfile plugin installed:
 
 ```
-vagrant plugin install vagrant-hostfile
+vagrant plugin install vagrant-hostmanager
 ```
 
 The Vagrantfile will automatically download a prepared CentOS box for you.
