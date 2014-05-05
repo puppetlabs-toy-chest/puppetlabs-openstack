@@ -7,4 +7,5 @@ class openstack::role::swiftcontroller inherits ::openstack::role {
   class { '::openstack::profile::swift::proxy': }
   class { '::openstack::profile::horizon': }
   class { '::openstack::profile::auth_file': }
+  class { '::openstack::profile::nova::api': }
 }
