@@ -21,7 +21,9 @@ class openstack::common::neutron {
     debug                 => hiera('openstack::debug'),
     verbose               => hiera('openstack::verbose'),
     service_plugins       => ['neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
-                              'neutron.services.vpn.plugin.VPNDriverPlugin'],
+                              'neutron.services.vpn.plugin.VPNDriverPlugin',
+                              'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
+                              'neutron.services.metering.metering_plugin.MeteringPlugin'],
   }
 
   class { '::neutron::keystone::auth':
