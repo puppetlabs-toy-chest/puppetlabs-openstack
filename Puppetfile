@@ -64,7 +64,7 @@ mod "mysql",
 
 mod "stdlib",
   :git => "git://github.com/puppetlabs/puppetlabs-stdlib",
-  :ref => "4.x"
+  :ref => "3.2.x"
 
 mod "rsync",
   :git => "git://github.com/puppetlabs/puppetlabs-rsync",

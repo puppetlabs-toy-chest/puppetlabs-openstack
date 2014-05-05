@@ -44,6 +44,14 @@ class openstack::profile::neutron::router {
     enabled => true,
   }
 
+  class { '::neutron::agents::metering':
+    enabled => true,
+  }
+
+  class { '::neutron::services::fwaas':
+    enabled => true,
+  }
+
   # Temporarily fix a bug on RHEL packaging
   if $::osfamily == 'RedHat' {
     file { '/usr/lib/python2.6/site-packages/neutronclient/client.py':

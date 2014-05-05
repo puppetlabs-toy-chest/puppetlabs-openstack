@@ -1,4 +1,5 @@
 #!/bin/bash
+./00_download_modules.sh
 ./05_up.sh
 ./10_setup_master.sh
 ./11_setup_openstack.sh
