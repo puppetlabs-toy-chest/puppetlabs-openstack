@@ -14,6 +14,7 @@ class openstack::profile::mysql {
 
   class { '::mysql::server':
     root_password                => hiera('openstack::mysql::root_password'),
+    restart                      => true,
     override_options             => {
       'mysqld'                   => {
         'bind_address'           => hiera('openstack::controller::address::management'),
@@ -26,6 +27,8 @@ class openstack::profile::mysql {
     python_enable => true,
     ruby_enable   => true,
   }
+
+  Service['mysqld'] -> Anchor['database-service']
 
   class { 'mysql::server::account_security': }
 }

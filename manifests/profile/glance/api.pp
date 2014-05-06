@@ -52,4 +52,8 @@ class openstack::profile::glance::api {
     rabbit_userid   => hiera('openstack::rabbitmq::user'),
     rabbit_host     => hiera('openstack::controller::address::management'),
   }
+
+  if $::osfamily == 'Debian' {
+    glance_api_config { 'DEFAULT/image_cache_dir': value => '/var/lib/glance/image-cache/'}
+  }
 }
