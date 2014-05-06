@@ -9,6 +9,7 @@ class openstack::resources::repo(
     'icehouse', 'havana', 'grizzly': {
       if $::osfamily == 'RedHat' {
         class {'openstack::resources::repo::rdo': release => $release }
+        class {'openstack::resources::repo::erlang': }
       } elsif $::operatingsystem == 'Ubuntu' {
         class {'openstack::resources::repo::uca': release => $release }
       }
