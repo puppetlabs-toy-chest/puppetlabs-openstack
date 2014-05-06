@@ -9,6 +9,9 @@ class openstack::profile::base {
   # database connectors
   class { '::openstack::resources::connectors': }
 
+  # database anchor
+  anchor { 'database-service': }
+
   $management_network = hiera('openstack::network::management')
   $management_address = ip_for_network($management_network)
   $controller_management_address = hiera('openstack::controller::address::management')

@@ -5,5 +5,6 @@ define openstack::resources::database () {
     dbname        => $title,
     allowed_hosts => hiera('openstack::mysql::allowed_hosts'),
     mysql_module  => '2.2',
+    require       => Anchor['database-service'],
   }
 }
