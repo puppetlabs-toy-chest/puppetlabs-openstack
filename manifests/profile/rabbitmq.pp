@@ -2,10 +2,12 @@
 class openstack::profile::rabbitmq {
   $management_address = hiera('openstack::controller::address::management')
 
-  package { 'erlang':
-    ensure  => installed,
-    before  => Package['rabbitmq-server'],
-    require => Yumrepo['erlang-solutions'],
+  if $::osfamily == 'RedHat' {
+    package { 'erlang':
+      ensure  => installed,
+      before  => Package['rabbitmq-server'],
+      require => Yumrepo['erlang-solutions'],
+    }
   }
 
   class { '::nova::rabbitmq':
