@@ -61,8 +61,10 @@ The Swift deployment sets up:
 
 ###Setup Requirements
 
-This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
-or Ubuntu LTS 12.04. Additionally, each node needs a minimum of two network interfaces, and up to four.
+This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux),
+on either Puppet Enterprise or Puppet. Ubuntu development is underway.
+
+Each node needs a minimum of two network interfaces, and up to four.
 The network interfaces are divided into two groups.
 
 - Public interfaces:
@@ -72,7 +74,7 @@ The network interfaces are divided into two groups.
   * Management network.
   * Data network.
 
-This module have been tested with Puppet 3.5. This module depends upon Hiera. Object
+This module have been tested with Puppet 3.5 and Puppet Enterprise. This module depends upon Hiera. Object
 store support (Swift) depends upon exported resources and PuppetDB.
 
 ###Beginning with OpenStack
@@ -195,7 +197,7 @@ and maintainable OpenStack deployments.
 
 * High availability and SSL-enabled endpoints are not provided by this module.
 
-Addressing these limitations is planned for the forthcoming Icehouse release of the puppetlabs-openstack module.
+Addressing these limitations is planned for a forthcoming release of the puppetlabs-openstack module.
 
 ##License
 Puppet Labs OpenStack - A Puppet Module for a Multi-Node OpenStack Icehouse Installation.
