@@ -10,7 +10,7 @@ class openstack::resources::repo(
       if $::osfamily == 'RedHat' {
         class {'openstack::resources::repo::rdo': release => $release }
         class {'openstack::resources::repo::erlang': }
-      } elsif $::operatingsystem == 'Ubuntu' {
+      } elsif $::osfamily == 'Debian' {
         class {'openstack::resources::repo::uca': release => $release }
       }
     }
