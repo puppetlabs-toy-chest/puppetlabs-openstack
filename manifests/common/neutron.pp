@@ -14,13 +14,14 @@ class openstack::common::neutron {
 
   class { '::neutron':
     rabbit_host           => $controller_management_address,
-    core_plugin           => 'neutron.plugins.openvswitch.ovs_neutron_plugin.OVSNeutronPluginV2',
+    core_plugin           => 'neutron.plugins.ml2.plugin.Ml2Plugin',
     allow_overlapping_ips => true,
     rabbit_user           => hiera('openstack::rabbitmq::user'),
     rabbit_password       => hiera('openstack::rabbitmq::password'),
     debug                 => hiera('openstack::debug'),
     verbose               => hiera('openstack::verbose'),
-    service_plugins       => ['neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
+    service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
+                              'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
                               'neutron.services.vpn.plugin.VPNDriverPlugin',
                               'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
                               'neutron.services.metering.metering_plugin.MeteringPlugin'],
