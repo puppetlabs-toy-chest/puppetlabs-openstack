@@ -25,10 +25,10 @@ The IP address reservation is
 * 0.0.0.3  : Puppet Master
 * 0.0.0.4  : All in One Node
 
-Vagrant needs the hostfile plugin installed:
+Vagrant needs the hostmanager plugin installed:
 
 ```
-vagrant plugin install vagrant-hostfile
+vagrant plugin install vagrant-hostmanager
 ```
 
 The Vagrantfile will automatically download a prepared CentOS box for you.

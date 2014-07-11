@@ -29,10 +29,10 @@ The IP address reservation is
 * 0.0.0.7  : OS Compute
 * 0.0.0.11 : Tempest
 
-Vagrant needs the hostfile plugin installed:
+Vagrant needs the hostmanager plugin installed:
 
 ```
-vagrant plugin install vagrant-hostfile
+vagrant plugin install vagrant-hostmanager
 ```
 
 The Vagrantfile will automatically download a prepared CentOS box for you.
