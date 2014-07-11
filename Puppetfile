@@ -38,6 +38,10 @@ mod "horizon",
   :git => "git://github.com/stackforge/puppet-horizon",
   :ref => "master"
 
+mod "openstacklib",
+  :git => "git://github.com/stackforge/puppet-openstacklib",
+  :ref => "master"
+
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
   :ref => "master"
