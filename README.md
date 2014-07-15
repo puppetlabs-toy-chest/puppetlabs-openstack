@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 4.0.0 / 2014.1 / Icehouse
+Version 4.1.0 / 2014.1 / Icehouse
 
 ####Table of Contents
 
@@ -61,8 +61,8 @@ The Swift deployment sets up:
 
 ###Setup Requirements
 
-This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux),
-on either Puppet Enterprise or Puppet. Ubuntu development is underway.
+This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
+or Ubuntu 14.04 (Trusty) with on either Puppet Enterprise or Puppet.
 
 Each node needs a minimum of two network interfaces, and up to four.
 The network interfaces are divided into two groups.
