@@ -1,6 +1,6 @@
 # The profile to install the volume service
 class openstack::profile::cinder::volume {
-  $management_network = hiera('openstack::network::management')
+  $management_network = $::openstack::config::network_management
   $management_address = ip_for_network($management_network)
 
   openstack::resources::firewall { 'ISCSI API': port => '3260', }
@@ -9,7 +9,7 @@ class openstack::profile::cinder::volume {
 
   class { '::cinder::setup_test_volume':
     volume_name => 'cinder-volumes',
-    size        => hiera('openstack::cinder::volume_size')
+    size        => $::openstack::config::cinder_volume_size
   } ->
 
   class { '::cinder::volume':

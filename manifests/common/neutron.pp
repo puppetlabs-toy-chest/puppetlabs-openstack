@@ -4,9 +4,9 @@
 # Flags install individual services as needed
 # This follows the suggest deployment from the neutron Administrator Guide.
 class openstack::common::neutron {
-  $controller_management_address = hiera('openstack::controller::address::management')
+  $controller_management_address = $::openstack::config::controller_address_management
 
-  $data_network = hiera('openstack::network::data')
+  $data_network = $::openstack::config::network_data
   $data_address = ip_for_network($data_network)
 
   # neutron auth depends upon a keystone configuration
@@ -16,10 +16,10 @@ class openstack::common::neutron {
     rabbit_host           => $controller_management_address,
     core_plugin           => 'neutron.plugins.ml2.plugin.Ml2Plugin',
     allow_overlapping_ips => true,
-    rabbit_user           => hiera('openstack::rabbitmq::user'),
-    rabbit_password       => hiera('openstack::rabbitmq::password'),
-    debug                 => hiera('openstack::debug'),
-    verbose               => hiera('openstack::verbose'),
+    rabbit_user           => $::openstack::config::rabbitmq_user,
+    rabbit_password       => $::openstack::config::rabbitmq_password,
+    debug                 => $::openstack::config::debug,
+    verbose               => $::openstack::config::verbose,
     service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
                               'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
                               'neutron.services.vpn.plugin.VPNDriverPlugin',
@@ -28,16 +28,16 @@ class openstack::common::neutron {
   }
 
   class { '::neutron::keystone::auth':
-    password         => hiera('openstack::neutron::password'),
-    public_address   => hiera('openstack::controller::address::api'),
-    admin_address    => hiera('openstack::controller::address::management'),
-    internal_address => hiera('openstack::controller::address::management'),
-    region           => hiera('openstack::region'),
+    password         => $::openstack::config::neutron_password,
+    public_address   => $::openstack::config::controller_address_api,
+    admin_address    => $::openstack::config::controller_address_management,
+    internal_address => $::openstack::config::controller_address_management,
+    region           => $::openstack::config::region,
   }
 
   class { '::neutron::server':
-    auth_host           => hiera('openstack::controller::address::management'),
-    auth_password       => hiera('openstack::neutron::password'),
+    auth_host           => $::openstack::config::controller_address_management,
+    auth_password       => $::openstack::config::neutron_password,
     database_connection => $::openstack::resources::connectors::neutron,
     enabled             => $::openstack::profile::base::is_controller,
     sync_db             => $::openstack::profile::base::is_controller,
@@ -47,8 +47,8 @@ class openstack::common::neutron {
   class { '::neutron::server::notifications':
     nova_url            => "http://${controller_management_address}:8774/v2/",
     nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
-    nova_admin_password => hiera('openstack::nova::password'),
-    nova_region_name    => hiera('openstack::region'),
+    nova_admin_password => $::openstack::config::nova_password,
+    nova_region_name    => $::openstack::config::region,
   }
 
   if $::osfamily == 'redhat' {

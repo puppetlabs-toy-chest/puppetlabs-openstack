@@ -1,8 +1,8 @@
 # The profile to install an OpenStack specific MongoDB server
 class openstack::profile::mongodb {
-  $management_network = hiera('openstack::network::management')
+  $management_network = $::openstack::config::network_management
   $inferred_address = ip_for_network($management_network)
-  $explicit_address = hiera('openstack::controller::address::management')
+  $explicit_address = $::openstack::config::controller_address_management
 
   if $inferred_address != $explicit_address {
     fail("MongoDB setup failed. The inferred location of the database based on the
@@ -12,7 +12,7 @@ class openstack::profile::mongodb {
   }
 
   class { '::mongodb::server':
-    bind_ip => ['127.0.0.1', hiera('openstack::controller::address::management')],
+    bind_ip => ['127.0.0.1', $::openstack::config::controller_address_management],
   }
 
   class { '::mongodb::client': }

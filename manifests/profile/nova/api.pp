@@ -9,11 +9,11 @@ class openstack::profile::nova::api {
   openstack::resources::firewall { 'Nova novnc': port => '6080', }
 
   class { '::nova::keystone::auth':
-    password         => hiera('openstack::nova::password'),
-    public_address   => hiera('openstack::controller::address::api'),
-    admin_address    => hiera('openstack::controller::address::management'),
-    internal_address => hiera('openstack::controller::address::management'),
-    region           => hiera('openstack::region'),
+    password         => $::openstack::config::nova_password,
+    public_address   => $::openstack::config::controller_address_api,
+    admin_address    => $::openstack::config::controller_address_management,
+    internal_address => $::openstack::config::controller_address_management,
+    region           => $::openstack::config::region,
     cinder           => true,
   }
 

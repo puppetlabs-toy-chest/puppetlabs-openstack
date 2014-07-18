@@ -4,7 +4,7 @@ class openstack::profile::firewall::post {
     proto  => 'all',
     state  => ['NEW'],
     action => 'accept',
-    source => hiera('openstack::network::management'),
+    source => $::openstack::config::network_management,
   }  ->
   firewall { '9999 - Reject remaining traffic':
     proto  => 'all',

@@ -1,9 +1,9 @@
 # The profile to install an OpenStack specific mysql server
 class openstack::profile::mysql {
 
-  $management_network = hiera('openstack::network::management')
+  $management_network = $::openstack::config::network_management
   $inferred_address = ip_for_network($management_network)
-  $explicit_address = hiera('openstack::controller::address::management')
+  $explicit_address = $::openstack::config::controller_address_management
 
   if $inferred_address != $explicit_address {
     fail("MySQL setup failed. The inferred location of the database based on the
@@ -13,11 +13,11 @@ class openstack::profile::mysql {
   }
 
   class { '::mysql::server':
-    root_password                => hiera('openstack::mysql::root_password'),
+    root_password                => $::openstack::config::mysql_root_password,
     restart                      => true,
     override_options             => {
       'mysqld'                   => {
-        'bind_address'           => hiera('openstack::controller::address::management'),
+        'bind_address'           => $::openstack::config::controller_address_management,
         'default-storage-engine' => 'innodb',
       }
     }

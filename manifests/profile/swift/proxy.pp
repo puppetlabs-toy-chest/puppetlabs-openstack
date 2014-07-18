@@ -5,20 +5,20 @@ class openstack::profile::swift::proxy {
   openstack::resources::firewall { 'Swift Proxy': port => '8080', }
 
   class { 'swift::keystone::auth':
-    password         => hiera('openstack::swift::password'),
-    public_address   => hiera('openstack::controller::address::api'),
-    admin_address    => hiera('openstack::controller::address::management'),
-    internal_address => hiera('openstack::controller::address::management'),
-    region           => hiera('openstack::region'),
+    password         => $::openstack::config::swift_password,
+    public_address   => $::openstack::config::controller_address_api,
+    admin_address    => $::openstack::config::controller_address_management,
+    internal_address => $::openstack::config::controller_address_management,
+    region           => $::openstack::config::region,
   }
 
   class { '::swift':
-    swift_hash_suffix => hiera('openstack::swift::hash_suffix'),
+    swift_hash_suffix => $::openstack::config::swift_hash_suffix,
   }
 
   # sets up the proxy service
   class { '::swift::proxy':
-    proxy_local_net_ip => hiera('openstack::controller::address::api'),
+    proxy_local_net_ip => $::openstack::config::controller_address_api,
     pipeline           => ['catch_errors', 'healthcheck', 'cache',
                            'ratelimit',    'swift3',
                            'authtoken',    'keystone',    'proxy-server'],
@@ -31,15 +31,15 @@ class openstack::profile::swift::proxy {
            '::swift::proxy::healthcheck', ]: }
 
   class { '::swift::proxy::cache':
-    memcache_servers => [ hiera('openstack::controller::address::management'), ]
+    memcache_servers => [ $::openstack::config::controller_address_management, ]
   }
 
   class { ['::swift::proxy::ratelimit',
            '::swift::proxy::swift3', ]: }
 
   class { '::swift::proxy::authtoken':
-    admin_password => hiera('openstack::swift::password'),
-    auth_host      => hiera('openstack::controller::address::management'),
+    admin_password => $::openstack::config::swift_password,
+    auth_host      => $::openstack::config::controller_address_management,
   }
 
   class { '::swift::proxy::keystone': }
@@ -59,7 +59,7 @@ class openstack::profile::swift::proxy {
   }
 
   class { 'swift::ringserver':
-    local_net_ip => hiera('openstack::controller::address::management'),
+    local_net_ip => $::openstack::config::controller_address_management,
   }
 
 }

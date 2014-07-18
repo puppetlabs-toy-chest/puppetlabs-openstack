@@ -1,7 +1,7 @@
 class openstack::resources::connectors {
 
-  $management_address = hiera('openstack::controller::address::management')
-  $password = hiera('openstack::mysql::service_password')
+  $management_address = $::openstack::config::controller_address_management
+  $password = $::openstack::config::mysql_service_password
 
   $keystone = "mysql://keystone:${password}@${management_address}/keystone"
   $cinder   = "mysql://cinder:${password}@${management_address}/cinder"
