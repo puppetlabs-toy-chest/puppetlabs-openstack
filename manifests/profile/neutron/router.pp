@@ -9,34 +9,34 @@ class openstack::profile::neutron::router {
     value     => '1',
   }
 
-  $controller_management_address = hiera('openstack::controller::address::management')
+  $controller_management_address = $::openstack::config::controller_address_management
   include ::openstack::common::neutron
   include ::openstack::common::ovs
 
   ### Router service installation
   class { '::neutron::agents::l3':
-    debug                   => hiera('openstack::debug'),
+    debug                   => $::openstack::config::debug,
     external_network_bridge => 'brex',
     enabled                 => true,
   }
 
   class { '::neutron::agents::dhcp':
-    debug   => hiera('openstack::debug'),
+    debug   => $::openstack::config::debug,
     enabled => true,
   }
 
   class { '::neutron::agents::metadata':
-    auth_password => hiera('openstack::neutron::password'),
-    shared_secret => hiera('openstack::neutron::shared_secret'),
+    auth_password => $::openstack::config::neutron_password,
+    shared_secret => $::openstack::config::neutron_shared_secret,
     auth_url      => "http://${controller_management_address}:35357/v2.0",
-    debug         => hiera('openstack::debug'),
-    auth_region   => hiera('openstack::region'),
+    debug         => $::openstack::config::debug,
+    auth_region   => $::openstack::config::region,
     metadata_ip   => $controller_management_address,
     enabled       => true,
   }
 
   class { '::neutron::agents::lbaas':
-    debug   => hiera('openstack::debug'),
+    debug   => $::openstack::config::debug,
     enabled => true,
   }
 
@@ -64,7 +64,7 @@ class openstack::profile::neutron::router {
   }
 
   $external_bridge = 'brex'
-  $external_network = hiera('openstack::network::external')
+  $external_network = $::openstack::config::network_external
   $external_device = device_for_network($external_network)
   vs_bridge { $external_bridge:
     ensure => present,

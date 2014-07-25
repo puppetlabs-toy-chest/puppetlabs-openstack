@@ -2,16 +2,16 @@
 # Note that for this configuration API controls the storage,
 # so it is on the storage node instead of the control node
 class openstack::profile::glance::api {
-  $api_network = hiera('openstack::network::api')
+  $api_network = $::openstack::config::network_api
   $api_address = ip_for_network($api_network)
 
-  $management_network = hiera('openstack::network::management')
+  $management_network = $::openstack::config::network_management
   $management_address = ip_for_network($management_network)
 
-  $explicit_management_address = hiera('openstack::storage::address::management')
-  $explicit_api_address = hiera('openstack::storage::address::api')
+  $explicit_management_address = $::openstack::config::storage_address_management
+  $explicit_api_address = $::openstack::config::storage_address_api
 
-  $controller_address = hiera('openstack::controller::address::management')
+  $controller_address = $::openstack::config::controller_address_management
 
   if $management_address != $explicit_management_address {
     fail("Glance Auth setup failed. The inferred location of Glance from
@@ -37,19 +37,19 @@ class openstack::profile::glance::api {
   class { '::glance::backend::file': }
 
   class { '::glance::registry':
-    keystone_password => hiera('openstack::glance::password'),
+    keystone_password => $::openstack::config::glance_password,
     sql_connection    => $::openstack::resources::connectors::glance,
-    auth_host         => hiera('openstack::controller::address::management'),
+    auth_host         => $::openstack::config::controller_address_management,
     keystone_tenant   => 'services',
     keystone_user     => 'glance',
-    verbose           => hiera('openstack::verbose'),
-    debug             => hiera('openstack::debug'),
+    verbose           => $::openstack::config::verbose,
+    debug             => $::openstack::config::debug,
     mysql_module      => '2.2',
   }
 
   class { '::glance::notify::rabbitmq': 
-    rabbit_password => hiera('openstack::rabbitmq::password'),
-    rabbit_userid   => hiera('openstack::rabbitmq::user'),
-    rabbit_host     => hiera('openstack::controller::address::management'),
+    rabbit_password => $::openstack::config::rabbitmq_password,
+    rabbit_userid   => $::openstack::config::rabbitmq_user,
+    rabbit_host     => $::openstack::config::controller_address_management,
   }
 }

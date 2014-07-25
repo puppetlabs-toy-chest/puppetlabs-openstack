@@ -2,8 +2,8 @@
 class openstack::profile::auth_file {
   class { '::openstack::resources::auth_file':
     admin_tenant    => 'admin',
-    admin_password  => hiera('openstack::keystone::admin_password'),
-    region_name     => hiera('openstack::region'),
-    controller_node => hiera('openstack::controller::address::api'),
+    admin_password  => $::openstack::config::keystone_admin_password,
+    region_name     => $::openstack::config::region,
+    controller_node => $::openstack::config::controller_address_api,
   }
 }

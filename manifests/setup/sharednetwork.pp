@@ -7,14 +7,14 @@
 # avaiable for your test user to launch and connect machines to.
 class openstack::setup::sharednetwork {
 
-  $external_network = hiera('openstack::network::external')
-  $start_ip = hiera('openstack::network::external::ippool::start')
-  $end_ip   = hiera('openstack::network::external::ippool::end')
+  $external_network = $::openstack::config::network_external
+  $start_ip = $::openstack::config::network_external_ippool_start
+  $end_ip   = $::openstack::config::network_external_ippool_end
   $ip_range = "start=${start_ip},end=${end_ip}"
-  $gateway  = hiera('openstack::network::external::gateway')
-  $dns      = hiera('openstack::network::external::dns')
+  $gateway  = $::openstack::config::network_external_gateway
+  $dns      = $::openstack::config::network_external_dns
 
-  $private_network = hiera('openstack::network::neutron::private')
+  $private_network = $::openstack::config::network_neutron_private
 
   neutron_network { 'public':
     tenant_name              => 'services',

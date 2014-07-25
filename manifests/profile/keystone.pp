@@ -8,10 +8,10 @@ class openstack::profile::keystone {
   include ::openstack::common::keystone
 
   class { 'keystone::endpoint':
-    public_address   => hiera('openstack::controller::address::api'),
-    admin_address    => hiera('openstack::controller::address::management'),
-    internal_address => hiera('openstack::controller::address::management'),
-    region           => hiera('openstack::region'),
+    public_address   => $::openstack::config::controller_address_api,
+    admin_address    => $::openstack::config::controller_address_management,
+    internal_address => $::openstack::config::controller_address_management,
+    region           => $::openstack::config::region,
   }
 
   $tenants = hiera('openstack::tenants')

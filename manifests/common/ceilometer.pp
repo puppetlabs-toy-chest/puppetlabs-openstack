@@ -3,25 +3,25 @@
 class openstack::common::ceilometer {
   $is_controller = $::openstack::profile::base::is_controller
 
-  $controller_management_address = hiera('openstack::controller::address::management')
+  $controller_management_address = $::openstack::config::controller_address_management
 
-  $mongo_password = hiera('openstack::ceilometer::mongo::password')
+  $mongo_password = $::openstack::config::ceilometer_mongo_password
   $mongo_connection = 
     "mongodb://${controller_management_address}:27017/ceilometer"
 
   class { '::ceilometer':
-    metering_secret => hiera('openstack::ceilometer::meteringsecret'),
-    debug           => hiera('openstack::debug'),
-    verbose         => hiera('openstack::verbose'),
+    metering_secret => $::openstack::config::ceilometer_meteringsecret,
+    debug           => $::openstack::config::debug,
+    verbose         => $::openstack::config::verbose,
     rabbit_hosts    => [$controller_management_address],
-    rabbit_userid   => hiera('openstack::rabbitmq::user'),
-    rabbit_password => hiera('openstack::rabbitmq::password'),
+    rabbit_userid   => $::openstack::config::rabbitmq_user,
+    rabbit_password => $::openstack::config::rabbitmq_password,
   }
 
   class { '::ceilometer::api':
     enabled           => $is_controller,
     keystone_host     => $controller_management_address,
-    keystone_password => hiera('openstack::ceilometer::password'),
+    keystone_password => $::openstack::config::ceilometer_password,
   }
 
   class { '::ceilometer::db':
@@ -31,8 +31,8 @@ class openstack::common::ceilometer {
 
   class { '::ceilometer::agent::auth':
     auth_url      => "http://${controller_management_address}:5000/v2.0",
-    auth_password => hiera('openstack::ceilometer::password'),
-    auth_region   => hiera('openstack::region'),
+    auth_password => $::openstack::config::ceilometer_password,
+    auth_region   => $::openstack::config::region,
   }
 }
 

@@ -5,11 +5,11 @@ class openstack::profile::glance::auth {
   openstack::resources::database { 'glance': }
 
   class  { '::glance::keystone::auth':
-    password         => hiera('openstack::glance::password'),
-    public_address   => hiera('openstack::storage::address::api'),
-    admin_address    => hiera('openstack::storage::address::management'),
-    internal_address => hiera('openstack::storage::address::management'),
-    region           => hiera('openstack::region'),
+    password         => $::openstack::config::glance_password,
+    public_address   => $::openstack::config::storage_address_api,
+    admin_address    => $::openstack::config::storage_address_management,
+    internal_address => $::openstack::config::storage_address_management,
+    region           => $::openstack::config::region,
   }
 
   include ::openstack::common::glance

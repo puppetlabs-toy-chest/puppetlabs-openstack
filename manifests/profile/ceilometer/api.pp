@@ -9,11 +9,11 @@ class openstack::profile::ceilometer::api {
   }
 
   class { '::ceilometer::keystone::auth':
-    password         => hiera('openstack::ceilometer::password'),
-    public_address   => hiera('openstack::controller::address::api'),
-    admin_address    => hiera('openstack::controller::address::management'),
-    internal_address => hiera('openstack::controller::address::management'),
-    region           => hiera('openstack::region'),
+    password         => $::openstack::config::ceilometer_password,
+    public_address   => $::openstack::config::controller_address_api,
+    admin_address    => $::openstack::config::controller_address_management,
+    internal_address => $::openstack::config::controller_address_management,
+    region           => $::openstack::config::region,
   }
 
   class { '::ceilometer::agent::central':

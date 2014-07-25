@@ -3,15 +3,15 @@
 class openstack::common::cinder {
   class { '::cinder':
     sql_connection  => $::openstack::resources::connectors::cinder,
-    rabbit_host     => hiera('openstack::controller::address::management'),
-    rabbit_userid   => hiera('openstack::rabbitmq::user'),
-    rabbit_password => hiera('openstack::rabbitmq::password'),
-    debug           => hiera('openstack::debug'),
-    verbose         => hiera('openstack::verbose'),
+    rabbit_host     => $::openstack::config::controller_address_management,
+    rabbit_userid   => $::openstack::config::rabbitmq_user,
+    rabbit_password => $::openstack::config::rabbitmq_password,
+    debug           => $::openstack::config::debug,
+    verbose         => $::openstack::config::verbose,
     mysql_module    => '2.2',
   }
 
-  $storage_server = hiera('openstack::storage::address::api')
+  $storage_server = $::openstack::config::storage_address_api
   $glance_api_server = "${storage_server}:9292"
 
   class { '::cinder::glance':
