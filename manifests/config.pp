@@ -23,6 +23,8 @@ class openstack::config (
   $keystone_admin_token = undef,
   $keystone_admin_email = undef,
   $keystone_admin_password = undef,
+  $keystone_tenants = undef,
+  $keysotne_users = undef,
   $glance_password = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
