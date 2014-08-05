@@ -94,6 +94,18 @@
 # [*keystone_admin_password*]
 #   The password for keystone user in Keystone.
 #
+# [*keystone_tenants*]
+#   The intial keystone tenants to create. Should be a Hash in the form of: 
+#   {'tenant_name1' => { 'descritpion' => 'Tenant Description 1'}, 
+#    'tenant_name2' => {'description' => 'Tenant Description 2'}}
+#
+# [*keystone_users*]
+#   The intial keystone users to create. Should be a Hash in the form of:
+#   {'user1' => {'password' => 'somepass1', 'tenant' => 'some_preexisting_tenant',
+#                'email' => 'foo@example.com', 'admin'  =>  'true'},
+#   'user2' => {'password' => 'somepass2', 'tenant' => 'some_preexisting_tenant',
+#                'email' => 'foo2@example.com', 'admin'  =>  'false'}} 
+#
 # == Glance
 # [*glance_password*]
 #   The password for the glance user in Keystone.
@@ -250,6 +262,8 @@ class openstack (
   $keystone_admin_token = undef,
   $keystone_admin_email = undef,
   $keystone_admin_password = undef,
+  $keystone_tenants = undef,
+  $keystone_users = undef,
   $glance_password = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
@@ -313,6 +327,8 @@ class openstack (
       keystone_admin_token          => hiera(openstack::keystone::admin_token),
       keystone_admin_email          => hiera(openstack::keystone::admin_email),
       keystone_admin_password       => hiera(openstack::keystone::admin_password),
+      keystone_tenants              => hiera(openstack::keystone::tenants),
+      keystone_users                => hiera(openstack::keystone::users),
       glance_password               => hiera(openstack::glance::password),
       cinder_password               => hiera(openstack::cinder::password),
       cinder_volume_size            => hiera(openstack::cinder::volume_size),
@@ -376,6 +392,8 @@ class openstack (
       keystone_admin_token          => $keystone_admin_token,
       keystone_admin_email          => $keystone_admin_email,
       keystone_admin_password       => $keystone_admin_password,
+      keystone_tenants              => $keystone_tenants,
+      keystone_users                => $keystone_users,
       glance_password               => $glance_password,
       cinder_password               => $cinder_password,
       cinder_volume_size            => $cinder_volume_size,

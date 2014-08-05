@@ -14,8 +14,8 @@ class openstack::profile::keystone {
     region           => $::openstack::config::region,
   }
 
-  $tenants = hiera('openstack::tenants')
-  $users = hiera('openstack::users')
+  $tenants = $::openstack::config::keystone_tenants
+  $users   = $::openstack::config::keystone_users
   create_resources('openstack::resources::tenant', $tenants)
   create_resources('openstack::resources::user', $users)
 }
