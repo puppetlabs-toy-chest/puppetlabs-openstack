@@ -8,3 +8,4 @@ nodes:
     data_address  : 172.16.44.4
     memsize       : 6144
     numvcpus      : 4
+    role          : allinone

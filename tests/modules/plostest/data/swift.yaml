@@ -8,6 +8,7 @@ nodes:
     data_address  : 172.16.44.4
     memsize       : 1024
     numvcpus      : 1
+    role          : control
 
   swiftstore1:
     api_address   : 192.168.11.8
@@ -16,6 +17,9 @@ nodes:
     data_address  : 172.16.44.8
     memsize       : 1024
     numvcpus      : 1
+    role          : swiftstorage
+    role_params   :
+      zone        : 1
 
   swiftstore2:
     api_address   : 192.168.11.9
@@ -24,6 +28,9 @@ nodes:
     data_address  : 172.16.44.9
     memsize       : 1024
     numvcpus      : 1
+    role          : swiftstorage
+    role_params   :
+      zone        : 2
 
   swiftstore3:
     api_address   : 192.168.11.10
@@ -32,3 +39,7 @@ nodes:
     data_address  : 172.16.44.10
     memsize       : 1024
     numvcpus      : 1
+    role          : swiftstorage
+    role_params   :
+      zone        : 3
+

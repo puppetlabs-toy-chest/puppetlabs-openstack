@@ -8,6 +8,7 @@ nodes:
     data_address  : 172.16.44.4
     memsize       : 1024
     numvcpus      : 1
+    role          : controller
 
   storage:
     api_address   : 192.168.11.5
@@ -16,6 +17,7 @@ nodes:
     data_address  : 172.16.44.5
     memsize       : 1024
     numvcpus      : 1
+    role          : storage
 
   network:
     api_address   : 192.168.11.6
@@ -24,6 +26,7 @@ nodes:
     data_address  : 172.16.44.6
     memsize       : 1024
     numvcpus      : 1
+    role          : network
 
   compute:
     api_address   : 192.168.11.7
@@ -32,3 +35,4 @@ nodes:
     data_address  : 172.16.44.7
     memsize       : 2048
     numvcpus      : 1
+    role          : compute
