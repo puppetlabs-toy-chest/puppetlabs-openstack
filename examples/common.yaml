@@ -39,13 +39,13 @@ openstack::keystone::admin_token: 'sosp-kyl'
 openstack::keystone::admin_email: 'chris.hoge@puppetlabs.com'
 openstack::keystone::admin_password: 'fyby-tet'
 
-openstack::tenants:
+openstack::keystone::tenants:
     "test":
         description: "Test tenant"
     "test2":
         description: "Test tenant"
 
-openstack::users:
+openstack::keystone::users:
     "test":
         password: "abc123"
         tenant: "test"

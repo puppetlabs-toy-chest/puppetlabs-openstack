@@ -24,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     puppet.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -39,6 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     control.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -54,6 +56,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     storage.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -69,6 +72,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     network.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -83,7 +87,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     compute.vm.synced_folder "../../", "/openstack"
 
     compute.vm.provider "vmware_fusion" do |v|
+        v.vmx["numvcpus"] = "2"
         v.vmx["memsize"] =  "2048"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -99,6 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore1.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -114,6 +121,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore2.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -129,6 +137,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "512"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
@@ -144,6 +153,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     tempest.vm.provider "vmware_fusion" do |v|
       v.vmx["memsize"] = "512"
+      v.vmx["vhv.enable"] = "TRUE"
     end
   end
 
