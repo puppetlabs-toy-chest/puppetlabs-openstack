@@ -1,0 +1,46 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "<%= @vagrant_box %>"
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = false
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  config.vm.define "puppet" do |puppet|
+    puppet.vm.network :private_network, ip: "192.168.11.3"
+    puppet.vm.network :private_network, ip: "192.168.22.3"
+    puppet.vm.network :private_network, ip: "172.16.33.3"
+    puppet.vm.network :private_network, ip: "172.16.44.3"
+
+    puppet.vm.hostname = "puppet"
+
+    puppet.vm.synced_folder "../../", "/openstack"
+
+    puppet.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  <% @scenario['nodes'].each_pair do |nodename, nodedata| %>
+  config.vm.define "<%= nodename %>" do |<%= nodename %>|
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['api_address'] %>"
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['public_address'] %>"
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['admin_address'] %>"
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['data_address'] %>"
+
+    <%= nodename %>.vm.hostname = "<%= nodename %>"
+
+    <%= nodename %>.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"]  = "<%= nodedata['memsize'] %>"
+        v.vmx["numvcpus"] = "<%= nodedata['numvcpus'] %>"
+    end
+  end
+
+  <% end %>
+end
