@@ -1,23 +1,23 @@
---
+---
 forge: "http://forge.puppetlabs.com"
 dependencies:
   stackforge:
     forge_namespace: puppetlabs
     repos:
-        keystone: ~
-        swift: ~
-        glance: ~
-        cinder: ~
-        neutron: ~
-        nova: ~
-        heat: ~
-        ceilometer: ~
-        horizon: ~
-        openstacklib: ~
-          forge: undef
-        tempest: ~
-          forge: undef
-        vswitch: ~
+      keystone: ~
+      swift: ~
+      glance: ~
+      cinder: ~
+      neutron: ~
+      nova: ~
+      heat: ~
+      ceilometer: ~
+      horizon: ~
+      openstacklib:
+        forge: undef
+      tempest:
+        forge: undef
+      vswitch: ~
   puppetlabs:
     git_prefix: puppetlabs
     repos:
