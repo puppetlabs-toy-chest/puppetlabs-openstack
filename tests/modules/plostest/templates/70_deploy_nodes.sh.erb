@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Remainder of nodes follow
+
+<%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
+  <%- if (not nodedata.has_key?('is_control') or (not nodedata['is_control'])) then -%>
+vagrant ssh <%= nodename %> -c "sudo puppet agent -t"
+  <%- end -%>
+<%- end -%>
+
+wait

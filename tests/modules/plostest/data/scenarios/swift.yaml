@@ -9,6 +9,7 @@ nodes:
     memsize       : 1024
     numvcpus      : 1
     role          : control
+    is_control    : true
 
   swiftstore1:
     api_address   : 192.168.11.8

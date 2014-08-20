@@ -9,6 +9,7 @@ nodes:
     memsize       : 1024
     numvcpus      : 1
     role          : controller
+    is_control    : true
 
   storage:
     api_address   : 192.168.11.5

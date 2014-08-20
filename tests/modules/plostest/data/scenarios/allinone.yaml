@@ -9,3 +9,4 @@ nodes:
     memsize       : 6144
     numvcpus      : 4
     role          : allinone
+    is_control    : true
