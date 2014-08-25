@@ -8,23 +8,28 @@ class openstack::common::neutron {
 
   $data_network = $::openstack::config::network_data
   $data_address = ip_for_network($data_network)
-
+  $core_plugin  = $::openstack::config::enable_plumgrid ? {
+                    true => 'neutron.plugins.plumgrid.plumgrid_plugin.plumgrid_plugin.NeutronPluginPLUMgridV2',
+                    default => 'neutron.plugins.ml2.plugin.Ml2Plugin',}
+  $service_plugins = $::openstack::config::enable_plumgrid ? {
+                      true => [''],
+                      default => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
+                                 'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
+                                 'neutron.services.vpn.plugin.VPNDriverPlugin',
+                                 'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
+                                 'neutron.services.metering.metering_plugin.MeteringPlugin'],}
   # neutron auth depends upon a keystone configuration
   include ::openstack::common::keystone
 
   class { '::neutron':
     rabbit_host           => $controller_management_address,
-    core_plugin           => 'neutron.plugins.ml2.plugin.Ml2Plugin',
+    core_plugin           => $core_plugin,
     allow_overlapping_ips => true,
     rabbit_user           => $::openstack::config::rabbitmq_user,
     rabbit_password       => $::openstack::config::rabbitmq_password,
     debug                 => $::openstack::config::debug,
     verbose               => $::openstack::config::verbose,
-    service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
-                              'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
-                              'neutron.services.vpn.plugin.VPNDriverPlugin',
-                              'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
-                              'neutron.services.metering.metering_plugin.MeteringPlugin'],
+    service_plugins       => $service_plugins
   }
 
   class { '::neutron::keystone::auth':
