@@ -12,11 +12,13 @@ class openstack::profile::nova::compute {
     vncserver_listen => $management_address,
   }
 
-  file { '/etc/libvirt/qemu.conf':
-    ensure => present,
-    source => 'puppet:///modules/openstack/qemu.conf',
-    mode   => '0644',
-    notify => Service['libvirt'],
+  if ! $::openstack::config::enable_plumgrid {
+    file { '/etc/libvirt/qemu.conf':
+      ensure => present,
+      source => 'puppet:///modules/openstack/qemu.conf',
+      mode   => '0644',
+      notify => Service['libvirt'],
+    }
   }
 
   Package['libvirt'] -> File['/etc/libvirt/qemu.conf']

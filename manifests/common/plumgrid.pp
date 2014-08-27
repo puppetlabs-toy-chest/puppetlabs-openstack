@@ -32,13 +32,6 @@ class openstack::common::plumgrid {
   if $::openstack::config::pg_compute { 
     include nova::params
 
-    class { 'nova::api':
-      admin_password    => $nova_user_password,
-      enabled           => true,
-      auth_host         => $controller_node_address,
-      admin_tenant_name => $nova_admin_tenant_name,
-    }
-
     nova_config { 'DEFAULT/scheduler_driver': value => 'nova.scheduler.filter_scheduler.FilterScheduler' }
     nova_config { 'DEFAULT/libvirt_vif_type': value => 'ethernet'}
     nova_config { 'DEFAULT/libvirt_cpu_mode': value => 'none'}
@@ -70,6 +63,9 @@ class openstack::common::plumgrid {
                clear_emulator_capabilities => { value => 0 },
                user => { value => "root" },
         },
+      libvirtd_config => {
+         max_clients => { value => 20 },
+       },
     }
 
     file { "/etc/sudoers.d/ifc_ctl_sudoers":
