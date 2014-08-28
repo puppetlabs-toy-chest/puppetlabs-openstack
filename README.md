@@ -6,7 +6,7 @@ Version 4.1.0 / 2014.1 / Icehouse
 ####Table of Contents
 
 1. [Overview - What is the puppetlabs-openstack module?](#overview)
-2. [A Note on Versioniong](#versioning)
+2. [A Note on Versioning](#versioning)
 2. [Module Description - What does the module do?](#module-description)
 3. [Setup - The basics of getting started with OpenStack](#setup)
     * [Setup Requirements](#setup-requirements)
