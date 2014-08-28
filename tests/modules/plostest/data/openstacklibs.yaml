@@ -1,0 +1,70 @@
+---
+forge: "http://forge.puppetlabs.com"
+dependencies:
+  stackforge:
+    forge_namespace: puppetlabs
+    git_prefix: puppet
+    repos:
+      keystone: ~
+      swift: ~
+      glance: ~
+      cinder: ~
+      neutron: ~
+      nova: ~
+      heat: ~
+      ceilometer: ~
+      horizon: ~
+      openstacklib:
+        forge: undef
+      tempest:
+        forge: undef
+      vswitch: ~
+  puppetlabs:
+    git_prefix: puppetlabs
+    repos:
+      apache:
+        ref: 1.1.x
+      inifile:
+        ref: 1.0.x
+      mysql:
+        ref: 2.2.x
+      stdlib:
+        ref: 3.2.x
+      rsync:
+        ref: 0.2.0
+      xinetd:
+        ref: 1.2.0
+      concat:
+        ref: 1.0.2
+      rabbitmq:
+        ref: 3.1.0
+      vcsrepo:
+        ref: 0.2.0
+      firewall:
+        ref: 1.0.x
+      apt:
+        ref: 1.4.x
+      mongodb:
+        ref: 0.7.0
+      ntp:
+        ref: 3.0.x
+      postgresql:
+        ref: 3.3.x
+      puppetdb:
+        ref: 3.0.1
+  saz:
+    git_prefix: puppet
+    repos:
+      ssh:
+        ref: a0f5d5da20c91775c76c77d3b57b41f4245a260a
+      memcached:
+        ref: 658374848a6d2cf07f0bf714bc34709e9d0ee109
+  dprince:
+    git_prefix: puppet
+    repos:
+      qpid:
+        ref: 1.0.2
+  duritong:
+    git_prefix: puppet
+    repos:
+      sysctl: ~

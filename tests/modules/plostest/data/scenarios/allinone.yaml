@@ -1,0 +1,13 @@
+---
+scenario: allinone
+nodes:
+  allinone:
+    api_address   : 192.168.11.4
+    public_address: 192.168.22.4
+    admin_address : 172.16.33.4
+    data_address  : 172.16.44.4
+    memsize       : 6144
+    numvcpus      : 4
+    role          : allinone
+    is_control    : true
+    is_storage    : true

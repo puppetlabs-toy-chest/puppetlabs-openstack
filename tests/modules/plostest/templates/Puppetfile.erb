@@ -1,0 +1,14 @@
+forge "<%= @depdata['forge'] %>"
+
+<%- @depdata['dependencies'].each_pair do |namespace,repos| -%>
+  <%- repos.has_key?('forge_namespace') ? forge_namespace = repos['forge_namespace'] : forge_namespace = namespace -%>
+  <%- repos.has_key?('git_prefix') ? git_prefix = repos['git_prefix'] : git_prefix = namespace -%>
+## <%= namespace %> modules
+  <%- repos['repos'].each_pair do |project,info| -%>
+    <%- (info and info.has_key?('ref')) ? ref = info['ref'] : ref = 'master' -%>
+mod "<%= project %>",
+  :git => "git://github.com/<%= namespace %>/<%= git_prefix %>-<%= project %>",
+  :ref => "<%= ref %>"
+  <%- end -%>
+
+<%- end -%>

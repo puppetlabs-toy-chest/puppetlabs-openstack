@@ -1,0 +1,131 @@
+openstack::region: 'openstack'
+
+######## Networks
+openstack::network::api: '192.168.11.0/24'
+openstack::network::external: '192.168.22.0/24'
+openstack::network::management: '172.16.33.0/24'
+openstack::network::data: '172.16.44.0/24'
+
+openstack::network::external::ippool::start: 192.168.22.100
+openstack::network::external::ippool::end: 192.168.22.200
+openstack::network::external::gateway: 192.168.22.2
+openstack::network::external::dns: 192.168.22.2
+
+######## Private Neutron Network
+
+openstack::network::neutron::private: '10.0.0.0/24'
+
+######## Fixed IPs (controllers)
+<%- control_set = false; storage_set = false -%>
+<%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
+  <%- if ((not control_set) and nodedata.has_key?('is_control') and nodedata['is_control']) -%>
+    <%- control_set = true -%>
+openstack::controller::address::api: '<%= nodedata["api_address"] %>'
+openstack::controller::address::management: '<%= nodedata["admin_address"] %>'
+  <%- end -%>
+  <%- if (nodedata.has_key?('is_storage') and nodedata['is_storage']) -%>
+    <%- storage_set = true -%>
+openstack::storage::address::api: '<%= nodedata["api_address"] %>'
+openstack::storage::address::management: '<%= nodedata["admin_address"] %>'
+  <%- end -%>
+<%- end -%>
+
+######## Database
+
+openstack::mysql::root_password: 'spam-gak'
+openstack::mysql::service_password: 'fuva-wax'
+openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
+
+######## RabbitMQ
+
+openstack::rabbitmq::user: 'openstack'
+openstack::rabbitmq::password: 'pose-vix'
+
+######## Keystone
+
+openstack::keystone::admin_token: 'sosp-kyl'
+openstack::keystone::admin_email: 'example@puppetlabs.com'
+openstack::keystone::admin_password: 'fyby-tet'
+
+openstack::tenants:
+    "test":
+        description: "Test tenant"
+    "test2":
+        description: "Test tenant"
+
+openstack::users:
+    "test":
+        password: "abc123"
+        tenant: "test"
+        email: "test@example.com"
+        admin: true
+    "demo":
+        password: "abc123"
+        tenant: "test"
+        email: "demo@example.com"
+        admin: false
+    "demo2":
+        password: "abc123"
+        tenant: "test2"
+        email: "demo@example.com"
+        admin: false
+
+######## Glance
+
+openstack::glance::password: 'na-mu-va'
+
+######## Cinder
+
+openstack::cinder::password: 'zi-co-se'
+openstack::cinder::volume_size: '8G'
+
+######## Swift
+
+openstack::swift::password: 'dexc-flo'
+openstack::swift::hash_suffix: 'pop-bang'
+
+######## Nova
+
+openstack::nova::libvirt_type: 'kvm'
+openstack::nova::password: 'quuk-paj'
+
+######## Neutron
+
+openstack::neutron::password: 'whi-rtuz'
+openstack::neutron::shared_secret: 'by-sa-bo'
+
+######## Ceilometer
+openstack::ceilometer::mongo::password: 'whi-truz'
+openstack::ceilometer::password: 'whi-truz'
+openstack::ceilometer::meteringsecret: 'ceilometersecretkey'
+
+######## Heat
+openstack::heat::password: 'zap-bang'
+openstack::heat::encryption_key: 'heatsecretkey'
+
+
+######## Horizon
+
+openstack::horizon::secret_key: 'whu-ghuk'
+
+######## Tempest
+
+openstack::tempest::configure_images    : true
+openstack::tempest::image_name          : 'Cirros'
+openstack::tempest::image_name_alt      : 'Cirros'
+openstack::tempest::username            : 'demo'
+openstack::tempest::username_alt        : 'demo2'
+openstack::tempest::username_admin      : 'test'
+openstack::tempest::configure_network   : true
+openstack::tempest::public_network_name : 'public'
+openstack::tempest::cinder_available    : true
+openstack::tempest::glance_available    : true
+openstack::tempest::horizon_available   : true
+openstack::tempest::nova_available      : true
+openstack::tempest::neutron_available   : true
+openstack::tempest::heat_available      : false
+openstack::tempest::swift_available     : false
+
+######## Log levels
+openstack::verbose: 'True'
+openstack::debug: 'True'

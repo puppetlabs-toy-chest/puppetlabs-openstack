@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Kick off the puppet runs, control is first for databases and api
+<%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
+  <%- if (nodedata.has_key?('is_control') and nodedata['is_control']) then -%>
+vagrant ssh <%= nodename %> -c "sudo puppet agent -t"
+  <%- end -%>
+<%- end -%>

@@ -1,0 +1,40 @@
+---
+scenario: multinode
+nodes:
+  control:
+    api_address   : 192.168.11.4
+    public_address: 192.168.22.4
+    admin_address : 172.16.33.4
+    data_address  : 172.16.44.4
+    memsize       : 1024
+    numvcpus      : 1
+    role          : controller
+    is_control    : true
+
+  storage:
+    api_address   : 192.168.11.5
+    public_address: 192.168.22.5
+    admin_address : 172.16.33.5
+    data_address  : 172.16.44.5
+    memsize       : 1024
+    numvcpus      : 1
+    role          : storage
+    is_storage    : true
+
+  network:
+    api_address   : 192.168.11.6
+    public_address: 192.168.22.6
+    admin_address : 172.16.33.6
+    data_address  : 172.16.44.6
+    memsize       : 1024
+    numvcpus      : 1
+    role          : network
+
+  compute:
+    api_address   : 192.168.11.7
+    public_address: 192.168.22.7
+    admin_address : 172.16.33.7
+    data_address  : 172.16.44.7
+    memsize       : 2048
+    numvcpus      : 1
+    role          : compute

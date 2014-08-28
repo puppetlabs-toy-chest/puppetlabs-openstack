@@ -1,0 +1,18 @@
+node 'puppet' {
+  include ::ntp
+}
+
+<%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
+node '<%= nodename %>.localdomain' {
+  <%- if nodedata.has_key?("role_params") -%>
+  class { '::openstack::role::<%= nodedata['role'] %>':
+    <%- nodedata['role_params'].each_pair do |param, paramvalue| -%>
+    <%= param %> => '<%= paramvalue %>',
+    <%- end -%>
+  }
+  <%- else -%>
+  include ::openstack::role::<%= nodedata['role'] %>
+  <%- end -%>
+}
+
+<%- end -%>
