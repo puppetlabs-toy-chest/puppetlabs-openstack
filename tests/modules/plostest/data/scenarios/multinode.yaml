@@ -19,6 +19,7 @@ nodes:
     memsize       : 1024
     numvcpus      : 1
     role          : storage
+    is_storage    : true
 
   network:
     api_address   : 192.168.11.6

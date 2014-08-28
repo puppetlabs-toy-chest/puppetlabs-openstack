@@ -10,3 +10,4 @@ nodes:
     numvcpus      : 4
     role          : allinone
     is_control    : true
+    is_storage    : true

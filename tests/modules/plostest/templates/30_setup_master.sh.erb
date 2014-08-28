@@ -8,8 +8,8 @@ sudo yum install -y puppet-server; \
 <%- elsif (@ostarget == "ubuntu") then -%>
 wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb; \
 sudo dpkg -i puppetlabs-release-trusty.deb; \
-sudo apt-get update; \
-sudo apt-get install puppetmaster; \
+sudo apt-get -y update; \
+sudo apt-get -y install puppetmaster; \
 <%- end -%>
 sudo rmdir /etc/puppet/modules || sudo unlink /etc/puppet/modules; \
 sudo ln -s /vagrant/modules /etc/puppet/modules; \

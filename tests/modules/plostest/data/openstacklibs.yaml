@@ -3,6 +3,7 @@ forge: "http://forge.puppetlabs.com"
 dependencies:
   stackforge:
     forge_namespace: puppetlabs
+    git_prefix: puppet
     repos:
       keystone: ~
       swift: ~
@@ -21,7 +22,8 @@ dependencies:
   puppetlabs:
     git_prefix: puppetlabs
     repos:
-      apache: ~
+      apache:
+        ref: 1.1.x
       inifile:
         ref: 1.0.x
       mysql:
@@ -34,8 +36,6 @@ dependencies:
         ref: 1.2.0
       concat:
         ref: 1.0.2
-      memcached:
-        ref: 658374848a6d2cf07f0bf714bc34709e9d0ee109
       rabbitmq:
         ref: 3.1.0
       vcsrepo:
@@ -53,13 +53,18 @@ dependencies:
       puppetdb:
         ref: 3.0.1
   saz:
+    git_prefix: puppet
     repos:
       ssh:
         ref: a0f5d5da20c91775c76c77d3b57b41f4245a260a
+      memcached:
+        ref: 658374848a6d2cf07f0bf714bc34709e9d0ee109
   dprince:
+    git_prefix: puppet
     repos:
       qpid:
         ref: 1.0.2
   duritong:
+    git_prefix: puppet
     repos:
       sysctl: ~
