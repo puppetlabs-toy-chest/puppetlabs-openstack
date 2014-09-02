@@ -12,7 +12,8 @@ ip_for_network("127.0.0.0/24") => 127.0.0.1
 
     range = IPAddr.new(args[0])
     facts = compiler.node.facts.values
-    ip_addresses = facts.select { |key, value| key.match /^ipaddress/ }
+    #ip_addresses = facts.select { |key, value| key.match /^ipaddress/ }
+    ip_addresses = facts.select { |key, value| key =~ /^ipaddress/ }
 
     ip_addresses.each do |pair|
       key = pair[0]
