@@ -21,6 +21,8 @@ class openstack::common::neutron {
   # neutron auth depends upon a keystone configuration
   include ::openstack::common::keystone
 
+  Class['::neutron'] ->  Class['::neutron::server::notifications']
+
   class { '::neutron':
     rabbit_host           => $controller_management_address,
     core_plugin           => $core_plugin,
