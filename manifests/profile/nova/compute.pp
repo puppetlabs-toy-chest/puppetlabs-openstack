@@ -19,7 +19,7 @@ class openstack::profile::nova::compute {
       mode   => '0644',
       notify => Service['libvirt'],
     }
-  }
 
-  Package['libvirt'] -> File['/etc/libvirt/qemu.conf']
+    Package['libvirt'] -> File['/etc/libvirt/qemu.conf']
+  }
 }
