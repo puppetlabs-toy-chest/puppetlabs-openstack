@@ -162,6 +162,24 @@
 #   Neutron tunnel id ranges.
 #   Defaults to ['1:1000']
 #
+# [*neutron_bridge_uplinks*]
+#   (optional) List of interfaces to connect to the bridge when doing
+#   bridge mapping.
+#   Defaults to empty list
+#
+# [*neutron_bridge_mappings*]
+#   (optional) List of <physical_network>:<bridge>
+#   Defaults to empty list
+#
+# [*neutron_vlan_ranges*]
+#   (optional) List of <physical_network>:<vlan_min>:<vlan_max> or
+#   <physical_network> specifying physical_network names
+#   usable for VLAN provider and tenant networks, as
+#   well as ranges of VLAN tags on each available for
+#   allocation to tenant networks.
+#   Should be an array with vlan_min = 1 & vlan_max = 4094 (IEEE 802.1Q)
+#   Default to empty.
+#
 # == Ceilometer
 # [*ceilometer_mongo_password*]
 #   The password for the MongoDB Ceilometer user.
@@ -279,6 +297,9 @@ class openstack (
   $neutron_type_drivers = ['gre'],
   $neutron_mechanism_drivers = ['openvswitch'],
   $neutron_tunnel_id_ranges = ['1:1000'],
+  $neutron_bridge_uplinks = undef,
+  $neutron_bridge_mappings = undef,
+  $neutron_network_vlan_ranges = undef,
   $ceilometer_mongo_password = undef,
   $ceilometer_password = undef,
   $ceilometer_meteringsecret = undef,
@@ -344,6 +365,9 @@ class openstack (
       neutron_type_drivers          => hiera(openstack::neutron::neutron_type_drivers, $neutron_type_drivers),
       neutron_mechanism_drivers     => hiera(openstack::neutron::neutron_mechanism_drivers, $neutron_mechanism_drivers),
       neutron_tunnel_id_ranges      => hiera(openstack::neutron::neutron_tunnel_id_ranges, $neutron_tunnel_id_ranges),
+      neutron_bridge_uplinks        => hiera(openstack::neutron::neutron_bridge_uplinks, $neutron_bridge_uplinks),
+      neutron_bridge_mappings       => hiera(openstack::neutron::neutron_bridge_mappings, $neutron_bridge_mappings),
+      neutron_network_vlan_ranges   => hiera(openstack::neutron::neutron_network_vlan_ranges, $neutron_network_vlan_ranges),
       ceilometer_mongo_password     => hiera(openstack::ceilometer::mongo::password),
       ceilometer_password           => hiera(openstack::ceilometer::password),
       ceilometer_meteringsecret     => hiera(openstack::ceilometer::meteringsecret),
@@ -409,6 +433,9 @@ class openstack (
       neutron_type_drivers          => $neutron_type_drivers,
       neutron_mechanism_drivers     => $neutron_mechanism_drivers,
       neutron_tunnel_id_ranges      => $neutron_tunnel_id_ranges,
+      neutron_bridge_uplinks        => $neutron_bridge_uplinks,
+      neutron_bridge_mappings       => $neutron_bridge_mappings,
+      neutron_network_vlan_ranges   => $neutron_network_vlan_ranges,
       ceilometer_mongo_password     => $ceilometer_mongo_password,
       ceilometer_password           => $ceilometer_password,
       ceilometer_meteringsecret     => $ceilometer_meteringsecret,
