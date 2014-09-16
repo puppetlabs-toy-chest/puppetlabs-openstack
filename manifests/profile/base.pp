@@ -4,7 +4,7 @@ class openstack::profile::base {
   include ::openstack
 
   # everyone also needs to be on the same clock
-  class { '::ntp': }
+  include ::ntp
 
   # all nodes need the OpenStack repository
   class { '::openstack::resources::repo': }
