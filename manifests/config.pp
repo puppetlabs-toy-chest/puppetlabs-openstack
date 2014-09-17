@@ -1,6 +1,7 @@
 # private global parameters class. Do not use directly!
 class openstack::config (
   $use_hiera = undef,
+  $rdo_repo = false,
   $region = undef,
   $network_api = undef,
   $network_external = undef,

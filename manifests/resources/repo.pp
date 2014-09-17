@@ -8,7 +8,10 @@ class openstack::resources::repo(
   case $release {
     'icehouse', 'havana', 'grizzly': {
       if $::osfamily == 'RedHat' {
-        class {'openstack::resources::repo::rdo': release => $release }
+        if $::openstack::config::rdo_repo {
+          class {'openstack::resources::repo::rdo': release => $release }
+        }
+        class {'openstack::resources::repo::epel': }
         class {'openstack::resources::repo::erlang': }
       } elsif $::osfamily == 'Debian' {
         class {'openstack::resources::repo::uca': release => $release }

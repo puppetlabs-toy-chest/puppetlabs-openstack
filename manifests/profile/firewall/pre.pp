@@ -8,8 +8,7 @@ class openstack::profile::firewall::pre {
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::resources::repo::epel'],
-                   Class['::openstack::resources::repo::rdo'] ],
+      require => [ Class['::openstack::resources::repo::epel'], ],
     }
   } elsif $::osfamily == 'Debian' {
     firewallchain { 'INPUT:filter:IPv4':
