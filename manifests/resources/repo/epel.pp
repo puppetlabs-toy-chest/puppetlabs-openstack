@@ -5,7 +5,7 @@ class openstack::resources::repo::epel {
     include openstack::resources::repo::yum_refresh
 
     yumrepo { 'epel':
-      mirrorlist     => 'https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch',
+      mirrorlist     => 'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch',
       descr          => 'Extra Packages for Enterprise Linux 7 - $basearch',
       enabled        => 1,
       gpgcheck       => 1,
