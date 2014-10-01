@@ -13,11 +13,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.include_offline = true
 
   config.vm.define "puppet" do |puppet|
-    puppet.vm.network :private_network, ip: "192.168.11.3"
-    puppet.vm.network :private_network, ip: "192.168.22.3"
-    puppet.vm.network :private_network, ip: "172.16.33.3"
-    puppet.vm.network :private_network, ip: "172.16.44.3"
-
     puppet.vm.hostname = "puppet"
 
     puppet.vm.synced_folder "../../", "/openstack"
@@ -29,10 +24,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   <% @scenario['nodes'].each_pair do |nodename, nodedata| %>
   config.vm.define "<%= nodename %>" do |<%= nodename %>|
-    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['api_address'] %>"
-    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['public_address'] %>"
-    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['admin_address'] %>"
-    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['data_address'] %>"
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['api_address'] %>", type: "dhcp", auto_config: false
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['public_address'] %>", type: "dhcp", auto_config: false
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['admin_address'] %>", type: "dhcp", auto_config: false
+    <%= nodename %>.vm.network :private_network, ip: "<%= nodedata['data_address'] %>", type: "dhcp", auto_config: false
 
     <%= nodename %>.vm.hostname = "<%= nodename %>"
 

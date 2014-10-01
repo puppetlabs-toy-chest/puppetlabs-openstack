@@ -6,8 +6,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.box = "puppetlabs/centos-65-x64-openstack"
-  #config.vm.box = "centos-6-64"
-  config.vm.box = "ubuntu-14-64"
+  config.vm.box = "centos-7-64-openstack"
+  #config.vm.box = "ubuntu-14-64"
 
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = false
@@ -15,10 +15,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.include_offline = true
 
   config.vm.define "puppet" do |puppet|
-    puppet.vm.network :private_network, ip: "192.168.11.3"
-    puppet.vm.network :private_network, ip: "192.168.22.3"
-    puppet.vm.network :private_network, ip: "172.16.33.3"
-    puppet.vm.network :private_network, ip: "172.16.44.3"
+    puppet.vm.network :private_network, ip: "192.168.11.3", type: "dhcp", auto_config: false
+    puppet.vm.network :private_network, ip: "192.168.22.3", type: "dhcp", auto_config: false
+    puppet.vm.network :private_network, ip: "172.16.33.3", type: "dhcp", auto_config: false
+    puppet.vm.network :private_network, ip: "172.16.44.3", type: "dhcp", auto_config: false
 
     puppet.vm.hostname = "puppet"
 
@@ -30,10 +30,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "allinone" do |allinone|
-    allinone.vm.network :private_network, ip: "192.168.11.4"
-    allinone.vm.network :private_network, ip: "192.168.22.4"
-    allinone.vm.network :private_network, ip: "172.16.33.4"
-    allinone.vm.network :private_network, ip: "172.16.44.4"
+    allinone.vm.network :private_network, ip: "192.168.11.4", type: "dhcp", auto_config: false
+    allinone.vm.network :private_network, ip: "192.168.22.4", type: "dhcp", auto_config: false
+    allinone.vm.network :private_network, ip: "172.16.33.4", type: "dhcp", auto_config: false
+    allinone.vm.network :private_network, ip: "172.16.44.4", type: "dhcp", auto_config: false
 
     allinone.vm.hostname = "allinone"
 
