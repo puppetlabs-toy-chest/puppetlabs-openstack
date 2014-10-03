@@ -1,11 +1,17 @@
 ---
 scenario: allinone
+networks:
+    api: 192.168.11.0/24
+    public: 192.168.22.0/24
+    admin: 172.16.33.0/24
+    data: 172.16.44.0/24
+    public_access:
+        start: 20
+        end: 99
+        gateway: 192.168.22.2
+        dns: 192.168.22.2
 nodes:
   allinone:
-    api_address   : 192.168.11.4
-    public_address: 192.168.22.4
-    admin_address : 172.16.33.4
-    data_address  : 172.16.44.4
     memsize       : 6144
     numvcpus      : 4
     role          : allinone

@@ -1,15 +1,15 @@
 openstack::region: 'openstack'
 
 ######## Networks
-openstack::network::api: '192.168.11.0/24'
-openstack::network::external: '192.168.22.0/24'
-openstack::network::management: '172.16.33.0/24'
-openstack::network::data: '172.16.44.0/24'
+openstack::network::api: '<%= @api_cidr %>'
+openstack::network::external: '<%= @public_cidr %>'
+openstack::network::management: '<%= @admin_cidr %>'
+openstack::network::data: '<%= @data_cidr %>'
 
-openstack::network::external::ippool::start: 192.168.22.100
-openstack::network::external::ippool::end: 192.168.22.200
-openstack::network::external::gateway: 192.168.22.2
-openstack::network::external::dns: 192.168.22.2
+openstack::network::external::ippool::start: '<%= @public_template %><%= @scenario['networks']['public_access']['start']%>'
+openstack::network::external::ippool::end: '<%= @public_template %><%= @scenario['networks']['public_access']['end']%>'
+openstack::network::external::gateway: '<%= @scenario['networks']['public_access']['gateway'] %>'
+openstack::network::external::dns: '<%= @scenario['networks']['public_access']['dns']%>'
 
 ######## Private Neutron Network
 
@@ -20,13 +20,13 @@ openstack::network::neutron::private: '10.0.0.0/24'
 <%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
   <%- if ((not control_set) and nodedata.has_key?('is_control') and nodedata['is_control']) -%>
     <%- control_set = true -%>
-openstack::controller::address::api: '<%= nodedata["api_address"] %>'
-openstack::controller::address::management: '<%= nodedata["admin_address"] %>'
+openstack::controller::address::api: '<%%= @control_api_address %>'
+openstack::controller::address::management: '<%%= @control_admin_address %>'
   <%- end -%>
   <%- if (nodedata.has_key?('is_storage') and nodedata['is_storage']) -%>
     <%- storage_set = true -%>
-openstack::storage::address::api: '<%= nodedata["api_address"] %>'
-openstack::storage::address::management: '<%= nodedata["admin_address"] %>'
+openstack::storage::address::api: '<%%= @storage_api_address %>'
+openstack::storage::address::management: '<%%= @storage_admin_address %>'
   <%- end -%>
 <%- end -%>
 
@@ -34,7 +34,7 @@ openstack::storage::address::management: '<%= nodedata["admin_address"] %>'
 
 openstack::mysql::root_password: 'spam-gak'
 openstack::mysql::service_password: 'fuva-wax'
-openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
+openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '<%= @allowed_hosts %>']
 
 ######## RabbitMQ
 

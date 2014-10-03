@@ -15,6 +15,10 @@ sudo apt-get -y install puppetmaster; \
 sudo rmdir /etc/puppet/modules || sudo unlink /etc/puppet/modules; \
 sudo ln -s /vagrant/modules /etc/puppet/modules; \
 sudo ln -s /vagrant/site.pp /etc/puppet/manifests/site.pp; \
+sudo mkdir -p /etc/puppet/hieradata; \
+sudo ln -s /openstack/examples/<%= @testhome %>/hiera.yaml /etc/puppet/hiera.yaml; \
+sudo ln -s /openstack/examples/<%= @testhome %>/addresses.yaml /etc/puppet/hieradata/addresses.yaml; \
+sudo ln -s /openstack /etc/puppet/modules; \
 sudo service puppetmaster restart;\
 sleep 4;\
 sudo puppet agent -t;"

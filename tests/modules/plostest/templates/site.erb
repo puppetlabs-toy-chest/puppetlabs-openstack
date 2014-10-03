@@ -1,5 +1,17 @@
 node 'puppet' {
   include ::ntp
+
+  $control_api_address = hiera('control_api_address')
+  $control_admin_address = hiera('control_admin_address')
+  $storage_api_address = hiera('storage_api_address')
+  $storage_admin_address = hiera('storage_admin_address')
+
+  file { '/etc/puppet/hieradata/common.yaml':
+    ensure  => present,
+    content => template('openstack/openstack.yaml.erb'),
+    mode    => '0660',
+    group   => 'puppet',
+  }
 }
 
 <%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>

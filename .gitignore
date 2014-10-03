@@ -1,2 +1,3 @@
 examples/allinone/Puppetfile
 examples/multinode/Puppetfile
+templates/openstack.yaml.erb

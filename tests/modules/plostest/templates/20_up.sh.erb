@@ -1,3 +1,6 @@
 #!/bin/bash
 # This is the script for bringing up Vagrant
 vagrant up --provider vmware_fusion
+sh get_ips.sh > addresses.yaml
+sh fix_hosts.sh
+cp openstack.yaml.erb ../../templates/.

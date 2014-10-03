@@ -1,0 +1,4 @@
+<%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
+vagrant ssh <%= nodename %> -c "sudo facter | grep ipaddress_ | cut -d ' ' -f 3 | grep <%= @admin_template %> | sed 's/\(.*\)/\sudo puppet apply -e \"host { \\\\\"<%= nodename %>\\\\\": ensure => present, ip => \\\\\"\1\\\\\" }\"/' | sh"
+<%- end -%>
+
