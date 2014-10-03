@@ -28,7 +28,6 @@ dependencies:
       inifile:
         ref: 1.0.x
       mysql:
-        ref: 2.3.x
       stdlib:
         ref: 4.3.x
       rsync:
