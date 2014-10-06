@@ -16,9 +16,9 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::neutron::router': }
   class { '::openstack::profile::neutron::server': }
   class { '::openstack::profile::heat::api': }
+  class { '::openstack::profile::trove': }
   class { '::openstack::profile::horizon': }
   class { '::openstack::profile::auth_file': }
   class { '::openstack::setup::sharednetwork': }
   class { '::openstack::setup::cirros': }
-  class { '::openstack::profile::tempest': }
 }
