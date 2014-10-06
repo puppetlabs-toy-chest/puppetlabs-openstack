@@ -41,7 +41,8 @@ class openstack::profile::neutron::router {
   }
 
   class { '::neutron::agents::vpnaas':
-    enabled => true,
+    enabled                 => true,
+    external_network_bridge => 'brex',
   }
 
   class { '::neutron::agents::metering':
