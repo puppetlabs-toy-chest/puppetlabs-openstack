@@ -68,8 +68,8 @@ The Swift deployment sets up:
 To run the integrated testing infrastructure you need the following requirements on your workstation:
 
 * VMWare Fusion/Desktop, with the network set to not require authentication for "promiscuous mode"
-* Vagrant plugin for VMWare.
-* Puppet 3.x.
+* Vagrant plugin for VMWare Fusion/Desktop.
+* Puppet 3.x (`sudo gem install puppet`)
 * A CentOS 7 minimal image, loaded into Vagrant with the name 'centos-7-64-openstack'.
 
 Start by creating a working test system in the examples directory:
