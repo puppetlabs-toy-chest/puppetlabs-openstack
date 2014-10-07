@@ -26,9 +26,7 @@ class openstack::profile::swift::storage (
     port   => '6002',
   }
 
-  class { '::swift':
-    swift_hash_suffix => $::openstack::config::swift_hash_suffix,
-  }
+  include ::openstack::common::swift
 
   swift::storage::loopback { '1':
     base_dir     => '/srv/swift-loopback',

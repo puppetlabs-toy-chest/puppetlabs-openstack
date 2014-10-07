@@ -1,6 +1,7 @@
 # The profile for installing the Swift Proxy
-class openstack::profile::swift::proxy {
-
+class openstack::profile::swift::proxy ( 
+  $replicas = 3 
+) {
   openstack::resources::controller { 'swift': }
   openstack::resources::firewall { 'Swift Proxy': port => '8080', }
 
@@ -12,9 +13,7 @@ class openstack::profile::swift::proxy {
     region           => $::openstack::config::region,
   }
 
-  class { '::swift':
-    swift_hash_suffix => $::openstack::config::swift_hash_suffix,
-  }
+  include ::openstack::common::swift
 
   # sets up the proxy service
   class { '::swift::proxy':
@@ -53,7 +52,7 @@ class openstack::profile::swift::proxy {
 
   class { 'swift::ringbuilder':
     part_power     => 18,
-    replicas       => 3,
+    replicas       => $replicas,
     min_part_hours => 1,
     require        => Class['::swift'],
   }
