@@ -4,12 +4,10 @@
 vagrant ssh puppet -c "sudo service iptables stop; \
 <%- if (@ostarget == "rhel") then -%>
 sudo rpm -i http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm; \
-sudo yum update -y; \
 sudo yum install -y puppet-server; \
 <%- elsif (@ostarget == "ubuntu") then -%>
 wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb; \
 sudo dpkg -i puppetlabs-release-trusty.deb; \
-sudo apt-get -y update; \
 sudo apt-get -y install puppetmaster; \
 <%- end -%>
 sudo rmdir /etc/puppet/modules || sudo unlink /etc/puppet/modules; \

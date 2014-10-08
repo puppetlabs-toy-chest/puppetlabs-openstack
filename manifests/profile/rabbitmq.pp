@@ -11,7 +11,6 @@ class openstack::profile::rabbitmq {
   class { '::nova::rabbitmq':
     userid             => $::openstack::config::rabbitmq_user,
     password           => $::openstack::config::rabbitmq_password,
-    cluster_disk_nodes => [$management_address],
     rabbitmq_class     => '::rabbitmq',
   }
 }
