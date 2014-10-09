@@ -80,7 +80,7 @@ mod "xinetd",
 
 mod "concat",
   :git => "git://github.com/puppetlabs/puppetlabs-concat",
-  :ref => "1.0.2"
+  :ref => "1.1.x"
 
 mod "memcached",
   :git => "git://github.com/saz/puppet-memcached",
