@@ -1,5 +1,11 @@
 # post-firewall rules to reject remaining traffic
 class openstack::profile::firewall::post {
+  firewall { '8998 - Accept all management network traffic':
+    proto  => 'all',
+    state  => ['NEW'],
+    action => 'accept',
+    source => $::openstack::config::network_data,
+  }  ->
   firewall { '8999 - Accept all management network traffic':
     proto  => 'all',
     state  => ['NEW'],

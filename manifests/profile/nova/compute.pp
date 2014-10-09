@@ -12,7 +12,7 @@ class openstack::profile::nova::compute {
     vncserver_listen => $management_address,
   }
 
-  file { '/etc/libvirt/qemu.conf':
+    file { '/etc/libvirt/qemu.conf':
     ensure => present,
     source => 'puppet:///modules/openstack/qemu.conf',
     mode   => '0644',

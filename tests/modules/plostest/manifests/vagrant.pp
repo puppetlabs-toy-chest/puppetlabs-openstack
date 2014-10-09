@@ -41,9 +41,7 @@ class plostest::vagrant {
     '60_deploy_control.sh'   => { templatename => '60_deploy_control.sh.erb', filemode   => '0744',},
     '70_deploy_nodes.sh'     => { templatename => '70_deploy_nodes.sh.erb', filemode     => '0744',},
     '80_destroy_nodes.sh'    => { templatename => '80_destroy_nodes.sh.erb', filemode    => '0744',},
-    'openstack.yaml.erb'     => { templatename => 'openstack.yaml.erb.erb' },
-    'get_ips.sh'             => { templatename => 'get_ips.sh.erb' },
-    'fix_hosts.sh'           => { templatename => 'fix_hosts.sh.erb' },
+    'openstack.yaml'         => { templatename => 'openstack.yaml.erb' },
     'hiera.yaml'             => { templatename => 'hiera.yaml.erb' },
   }
 

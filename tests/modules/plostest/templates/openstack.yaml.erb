@@ -20,13 +20,13 @@ openstack::network::neutron::private: '10.0.0.0/24'
 <%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
   <%- if ((not control_set) and nodedata.has_key?('is_control') and nodedata['is_control']) -%>
     <%- control_set = true -%>
-openstack::controller::address::api: '<%%= @control_api_address %>'
-openstack::controller::address::management: '<%%= @control_admin_address %>'
+openstack::controller::address::api: '<%= nodedata['api_address'] %>'
+openstack::controller::address::management: '<%= nodedata['admin_address'] %>'
   <%- end -%>
   <%- if (nodedata.has_key?('is_storage') and nodedata['is_storage']) -%>
     <%- storage_set = true -%>
-openstack::storage::address::api: '<%%= @storage_api_address %>'
-openstack::storage::address::management: '<%%= @storage_admin_address %>'
+openstack::storage::address::api: '<%= nodedata['api_address'] %>'
+openstack::storage::address::management: '<%= nodedata['admin_address'] %>'
   <%- end -%>
 <%- end -%>
 
