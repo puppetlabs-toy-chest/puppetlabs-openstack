@@ -4,6 +4,22 @@ class openstack::profile::trove {
   openstack::resources::database { 'trove': } 
   $controller_management_address = $::openstack::config::controller_address_management
 
+  file { '/etc/trove/api-paste.ini':
+    ensure  => link,
+    target  => '/usr/share/trove/trove-dist-paste.ini',
+    require => Package['openstack-trove-api'],
+  }
+
+  file { '/var/log/trove/trove-api.log':
+    owner   => 'trove',
+    group   => 'trove',
+    ensure  => present,
+    require => Package['openstack-trove-api'],
+    before  => Service['openstack-trove-api'],
+  }
+
+  File['/etc/trove/api-paste.ini'] -> Trove_config<||>
+
   class { '::trove::keystone::auth':
     password         => $::openstack::config::trove_password,
     public_address   => $::openstack::config::controller_address_api,
@@ -53,6 +69,6 @@ class openstack::profile::trove {
   }
 
   trove_taskmanager_config { 'DEFAULT/nova_compute_url':
-    value => "http://${::controller_management_address}:8774/v2",
+    value => "http://${controller_management_address}:8774/v2",
   }
 }

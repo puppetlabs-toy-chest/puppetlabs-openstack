@@ -24,9 +24,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   <% @scenario['nodes'].each_pair do |nodename, nodedata| %>
   config.vm.define "<%= nodename %>" do |<%= nodename %>|
-    <%= nodename %>.vm.network :private_network, ip: "<%= @admin_address %>", type: "dhcp", auto_config: false
     <%= nodename %>.vm.network :private_network, ip: "<%= @api_address %>", type: "dhcp", auto_config: false
     <%= nodename %>.vm.network :private_network, ip: "<%= @public_address %>", type: "dhcp", auto_config: false
+    <%= nodename %>.vm.network :private_network, ip: "<%= @admin_address %>", type: "dhcp", auto_config: false
     <%= nodename %>.vm.network :private_network, ip: "<%= @data_address %>", type: "dhcp", auto_config: false
 
     <%= nodename %>.vm.hostname = "<%= nodename %>"

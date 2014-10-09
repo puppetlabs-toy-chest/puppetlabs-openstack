@@ -2,6 +2,8 @@
 class openstack::profile::rabbitmq {
   $management_address = $::openstack::config::controller_address_management
 
+  ::openstack::resources::firewall { 'RabbitMQ': port => '5672' }
+
   package { 'erlang':
     ensure => present,
   }
