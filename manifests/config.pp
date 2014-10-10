@@ -48,7 +48,6 @@ class openstack::config (
   $pg_username = undef,
   $pg_password = undef,
   $pg_enable_metadata_agent = false,
-  $pg_fabric_eth = 'eth1',
   $ceilometer_mongo_password = undef,
   $ceilometer_password = undef,
   $ceilometer_meteringsecret = undef,

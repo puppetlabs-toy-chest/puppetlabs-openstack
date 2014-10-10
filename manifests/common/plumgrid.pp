@@ -7,20 +7,22 @@ class openstack::common::plumgrid {
   $pg_password             = $::openstack::config::pg_password
   $pg_servertimeout        = '70'
   $pg_enable_metadata_agent = $::openstack::config::pg_enable_metadata_agent
-  $pg_fabric_eth           = $::openstack::config::pg_fabric_eth
+  $admin_password          = $::openstack::config::keystone_admin_password
+  $metadata_proxy_secret   = $::openstack::config::neutron_shared_secret
 
   ### PLUMgrid Controller Node Configuration
   if $::openstack::config::pg_controller { 
     class { '::neutron::plugins::plumgrid':
      package_ensure          => $pg_package_ensure,
-     connection              => $pg_connection,
+     pg_connection           => $pg_connection,
      pg_director_server      => $pg_director_server,
      pg_director_server_port => $pg_director_server_port,
      pg_username             => $pg_username,
      pg_password             => $pg_password,
      pg_servertimeout        => $pg_servertimeout,
-     enable_metadata_agent   => $pg_enable_metadata_agent,
-     fabric_eth              => $pg_fabric_eth,
+     pg_enable_metadata_agent=> $pg_enable_metadata_agent,
+     admin_password          => $admin_password,
+     metadata_proxy_secret   => $metadata_proxy_secret,
     }
 
     nova_config { 'DEFAULT/scheduler_driver': value => 'nova.scheduler.filter_scheduler.FilterScheduler' }
