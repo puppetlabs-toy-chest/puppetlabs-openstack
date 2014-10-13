@@ -56,7 +56,7 @@ mod "vswitch",
 
 mod "apache",
   :git => "git://github.com/puppetlabs/puppetlabs-apache",
-  :ref => "master"
+  :ref => "1.1.1"
 
 mod "inifile",
   :git => "git://github.com/puppetlabs/puppetlabs-inifile",
