@@ -1,2 +1,5 @@
 examples/allinone/Puppetfile
 examples/multinode/Puppetfile
+**/.vagrant
+examples/allinone/modules
+examples/multinode/modules

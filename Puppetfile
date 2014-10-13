@@ -56,7 +56,7 @@ mod "vswitch",
 
 mod "apache",
   :git => "git://github.com/puppetlabs/puppetlabs-apache",
-  :ref => "master"
+  :ref => "1.1.1"
 
 mod "inifile",
   :git => "git://github.com/puppetlabs/puppetlabs-inifile",
@@ -68,7 +68,7 @@ mod "mysql",
 
 mod "stdlib",
   :git => "git://github.com/puppetlabs/puppetlabs-stdlib",
-  :ref => "3.2.x"
+  :ref => "4.3.x"
 
 mod "rsync",
   :git => "git://github.com/puppetlabs/puppetlabs-rsync",
@@ -80,7 +80,7 @@ mod "xinetd",
 
 mod "concat",
   :git => "git://github.com/puppetlabs/puppetlabs-concat",
-  :ref => "1.0.2"
+  :ref => "1.1.x"
 
 mod "memcached",
   :git => "git://github.com/saz/puppet-memcached",
