@@ -13,7 +13,7 @@ class openstack::profile::cinder::volume {
   } ->
 
   class { '::cinder::volume':
-    package_ensure => true,
+    package_ensure => present,
     enabled        => true,
   }
 
