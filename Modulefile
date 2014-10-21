@@ -17,7 +17,6 @@ dependency 'puppetlabs/nova',        '>=4.0.0 <5.0.0'
 dependency 'puppetlabs/heat',        '>=4.0.0 <5.0.0'
 dependency 'puppetlabs/ceilometer',  '>=4.0.0 <5.0.0'
 dependency 'puppetlabs/horizon',     '>=4.0.0 <5.0.0'
-dependency 'puppetlabs/tempest',     '>=3.0.0 <5.0.0'
 
 # Other Dependencies
 dependency 'puppetlabs/ntp',         '>=3.0.0 <4.0.0'

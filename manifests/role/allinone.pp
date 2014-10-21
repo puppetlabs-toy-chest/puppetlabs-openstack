@@ -20,5 +20,4 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::auth_file': }
   class { '::openstack::setup::sharednetwork': }
   class { '::openstack::setup::cirros': }
-  class { '::openstack::profile::tempest': }
 }
