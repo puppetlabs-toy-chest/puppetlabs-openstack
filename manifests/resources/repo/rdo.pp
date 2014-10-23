@@ -30,6 +30,6 @@ class openstack::resources::repo::rdo(
       mode   => '0644',
       before => Yumrepo['rdo-release'],
     }
-    Yumrepo['rdo-release'] -> Package<||>
+    Yumrepo<||> -> Package<||>
   }
 }
