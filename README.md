@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 4.1.0 / 2014.1 / Icehouse
+Version 4.2.0 / 2014.1 / Icehouse
 
 ####Table of Contents
 
