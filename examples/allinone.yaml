@@ -93,7 +93,7 @@ openstack::ceilometer::meteringsecret: 'ceilometersecretkey'
 
 ######## Heat
 openstack::heat::password: 'zap-bang'
-openstack::heat::encryption_key: 'heatsecretkey'
+openstack::heat::encryption_key: 'heatsecretkey123'
 
 
 ######## Horizon
