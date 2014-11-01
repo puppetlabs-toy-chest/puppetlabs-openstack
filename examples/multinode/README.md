@@ -1,4 +1,18 @@
-A few notes on using Vagrant and VMWare Fusion to test the Havana module:
+# Multinode deployment
+
+## Notes about the Multinode deployment example
+
+This example setup configures a controller node, a block storage node, a compute
+node, and a network node. The controller node is equipt to act as a proxy for a
+swift setup and will set up swift endpoints, but swift is not set up
+automatically. To get swift up and running, you need to install puppetdb on the
+pupept master, include the openstack::role::swiftstorage class on your swift
+nodes, run puppet on them, and then run puppet on the controller once more. See
+the swift examples directory for example setup.
+
+## Notes about setting up Vagrant and VMWare
+
+A few notes on using Vagrant and VMWare Fusion to test the OpenStack module:
 
 Five networks need to be setup in VMWare Fusion. The default net for
 Vagrant, and the four OpenStack networks.
@@ -40,7 +54,7 @@ The Vagrantfile will automatically download a prepared CentOS box for you.
 You need to have R10K installed. You can use the one provided by the rubygem.
 
 ```
-ruby gem install R10K
+gem install R10K
 ```
 
 Using R10K, module dependencies are automatically downloaded and the root of the module

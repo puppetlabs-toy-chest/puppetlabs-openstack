@@ -1,4 +1,13 @@
-A few notes on using Vagrant and VMWare Fusion to test the Havana module:
+# Allinone deployment
+
+## Notes about the Swift deployment example
+
+This example setup configures control, compute, network, and block storage on a
+single node.
+
+## Notes about setting up Vagrant and VMWare
+
+A few notes on using Vagrant and VMWare Fusion to test the OpenStack module:
 
 Five networks need to be setup in VMWare Fusion. The default net for
 Vagrant, and the four OpenStack networks.
