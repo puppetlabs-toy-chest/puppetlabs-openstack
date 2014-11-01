@@ -113,7 +113,7 @@ mod "vcsrepo",
 
 mod "firewall",
   :git => "git://github.com/puppetlabs/puppetlabs-firewall",
-  :ref => "1.0.x"
+  :ref => "master"
 
 mod "apt",
   :git => "git://github.com/puppetlabs/puppetlabs-apt",
