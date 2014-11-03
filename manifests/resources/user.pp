@@ -15,7 +15,7 @@ define openstack::resources::user (
   
   if $admin == true { 
     keystone_user_role { "$name@$tenant": 
-      roles  => ['_member_', 'admin'],
+      roles  => ['_member_', 'admin', 'heat_stack_owner'],
       ensure => present, 
     } 
   } else { 

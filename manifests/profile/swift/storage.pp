@@ -9,7 +9,7 @@ class openstack::profile::swift::storage (
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '',
+    port   => '6000',
   }
 
   firewall { '6001 - Swift Container Store':

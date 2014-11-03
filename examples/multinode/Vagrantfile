@@ -5,7 +5,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "puppetlabs/centos-65-x64-openstack"
+
+  config.vm.box = "jeffmccune/centos7"
 
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = false
@@ -13,6 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.include_offline = true
 
   config.vm.define "puppet" do |puppet|
+    puppet.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     puppet.vm.network :private_network, ip: "192.168.11.3"
     puppet.vm.network :private_network, ip: "192.168.22.3"
     puppet.vm.network :private_network, ip: "172.16.33.3"

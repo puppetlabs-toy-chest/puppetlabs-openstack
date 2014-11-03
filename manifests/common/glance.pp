@@ -15,5 +15,6 @@ class openstack::common::glance {
     debug             => $::openstack::config::debug,
     enabled           => $::openstack::profile::base::is_storage,
     mysql_module      => '2.2',
+    os_region_name    => $::openstack::region,
   }
 }

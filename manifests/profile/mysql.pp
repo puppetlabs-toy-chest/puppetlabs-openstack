@@ -25,7 +25,6 @@ class openstack::profile::mysql {
 
   class { '::mysql::bindings':
     python_enable => true,
-    ruby_enable   => true,
   }
 
   Service['mysqld'] -> Anchor['database-service']

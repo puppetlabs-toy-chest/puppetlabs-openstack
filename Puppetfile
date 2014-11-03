@@ -58,13 +58,17 @@ mod "apache",
   :git => "git://github.com/puppetlabs/puppetlabs-apache",
   :ref => "1.1.1"
 
+mod "epel",
+  :git => "git://github.com/stahnma/puppet-module-epel",
+  :ref => "master"
+
 mod "inifile",
   :git => "git://github.com/puppetlabs/puppetlabs-inifile",
   :ref => "1.0.x"
 
 mod "mysql",
   :git => "git://github.com/puppetlabs/puppetlabs-mysql",
-  :ref => "2.2.x"
+  :ref => "master"
 
 mod "stdlib",
   :git => "git://github.com/puppetlabs/puppetlabs-stdlib",
@@ -109,7 +113,7 @@ mod "vcsrepo",
 
 mod "firewall",
   :git => "git://github.com/puppetlabs/puppetlabs-firewall",
-  :ref => "1.0.x"
+  :ref => "master"
 
 mod "apt",
   :git => "git://github.com/puppetlabs/puppetlabs-apt",
