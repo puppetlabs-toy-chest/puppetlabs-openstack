@@ -12,7 +12,7 @@ class openstack::common::neutron {
                     true => 'neutron.plugins.plumgrid.plumgrid_plugin.plumgrid_plugin.NeutronPluginPLUMgridV2',
                     default => 'neutron.plugins.ml2.plugin.Ml2Plugin',}
   $service_plugins = $::openstack::config::enable_plumgrid ? {
-                      true => [''],
+                      true => undef,
                       default => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
                                  'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
                                  'neutron.services.vpn.plugin.VPNDriverPlugin',
