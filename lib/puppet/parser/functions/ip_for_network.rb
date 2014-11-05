@@ -26,6 +26,6 @@ ip_for_network("127.0.0.0/24") => 127.0.0.1
 
     # TODO don't be a dork dork with the return
     # handle multiple values!
-    return addresses_in_range.first
+    return addresses_in_range
   end
 end

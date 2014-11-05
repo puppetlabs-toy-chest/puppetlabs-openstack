@@ -9,7 +9,7 @@ class openstack::profile::nova::compute {
 
   class { '::nova::compute::libvirt':
     libvirt_type     => $::openstack::config::nova_libvirt_type,
-    vncserver_listen => $management_address,
+    vncserver_listen => $management_address[0],
   }
 
   if ! $::openstack::config::enable_plumgrid {
