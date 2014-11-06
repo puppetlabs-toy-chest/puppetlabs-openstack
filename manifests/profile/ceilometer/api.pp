@@ -43,7 +43,7 @@ class openstack::profile::ceilometer::api {
     ensure  => present,
     tries   => 20,
     require => Class['mongodb::server'],
-  } 
+  }
 
   mongodb_user { 'ceilometer':
     ensure        => present,

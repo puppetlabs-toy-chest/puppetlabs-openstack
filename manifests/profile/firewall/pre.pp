@@ -8,8 +8,10 @@ class openstack::profile::firewall::pre {
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::resources::repo::epel'],
-                   Class['::openstack::resources::repo::rdo'] ],
+      require => [
+                  Class['::openstack::resources::repo::epel'],
+                  Class['::openstack::resources::repo::rdo'],
+      ],
     }
   } elsif $::osfamily == 'Debian' {
     firewallchain { 'INPUT:filter:IPv4':
@@ -24,10 +26,10 @@ class openstack::profile::firewall::pre {
 
   # Default firewall rules, based on the RHEL defaults
   firewall { '0001 - related established':
-    proto   => 'all',
-    state   => ['RELATED', 'ESTABLISHED'],
-    action  => 'accept',
-    before  => [ Class['::firewall'] ],
+    proto  => 'all',
+    state  => ['RELATED', 'ESTABLISHED'],
+    action => 'accept',
+    before => [ Class['::firewall'] ],
   } ->
   firewall { '0002 - localhost':
     proto  => 'icmp',

@@ -58,7 +58,7 @@ class openstack::profile::swift::storage (
     weight => 1,
   }
 
-  swift::ringsync { ['account','container','object']: 
-    ring_server => $::openstack::config::controller_address_management, 
+  swift::ringsync { ['account','container','object']:
+    ring_server => $::openstack::config::controller_address_management,
   }
 }

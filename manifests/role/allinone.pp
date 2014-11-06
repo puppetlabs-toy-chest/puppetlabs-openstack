@@ -4,7 +4,7 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::memcache': }
   class { '::openstack::profile::mysql': }
   class { '::openstack::profile::mongodb': }
-  class { '::openstack::profile::keystone': } 
+  class { '::openstack::profile::keystone': }
   class { '::openstack::profile::ceilometer::agent': }
   class { '::openstack::profile::ceilometer::api': }
   class { '::openstack::profile::glance::api': } ->

@@ -44,13 +44,13 @@ class openstack::setup::sharednetwork {
   } ->
 
   neutron_subnet { $private_network:
-    cidr             => $private_network,
-    ip_version       => '4',
-    enable_dhcp      => true,
-    network_name     => 'private',
-    tenant_name      => 'services',
-    dns_nameservers  => [$dns],
-  } 
+    cidr            => $private_network,
+    ip_version      => '4',
+    enable_dhcp     => true,
+    network_name    => 'private',
+    tenant_name     => 'services',
+    dns_nameservers => [$dns],
+  }
 
   openstack::setup::router { "test:${private_network}": }
 }

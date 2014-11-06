@@ -13,13 +13,13 @@ class openstack::profile::mysql {
   }
 
   class { '::mysql::server':
-    root_password                => $::openstack::config::mysql_root_password,
-    restart                      => true,
-    override_options             => {
-      'mysqld'                   => {
-        'bind_address'           => $::openstack::config::controller_address_management,
-        'default-storage-engine' => 'innodb',
-      }
+    root_password    => $::openstack::config::mysql_root_password,
+    restart          => true,
+    override_options => {
+      'mysqld' => {
+                    'bind_address'           => $::openstack::config::controller_address_management,
+                    'default-storage-engine' => 'innodb',
+                  }
     }
   }
 

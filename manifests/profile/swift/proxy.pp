@@ -19,23 +19,36 @@ class openstack::profile::swift::proxy {
   # sets up the proxy service
   class { '::swift::proxy':
     proxy_local_net_ip => $::openstack::config::controller_address_api,
-    pipeline           => ['catch_errors', 'healthcheck', 'cache',
-                           'ratelimit',    'swift3',
-                           'authtoken',    'keystone',    'proxy-server'],
+    pipeline           => [
+                          'catch_errors',
+                          'healthcheck',
+                          'cache',
+                          'ratelimit',
+                          'swift3',
+                          'authtoken',
+                          'keystone',
+                          'proxy-server'
+                          ],
     workers            => 1,
     require            => Class['::swift::ringbuilder'],
   }
 
   ### BEGIN Middleware Configuration (declared in pipeline for proxy)
-  class { ['::swift::proxy::catch_errors',
-           '::swift::proxy::healthcheck', ]: }
+  class { [
+          '::swift::proxy::catch_errors',
+          '::swift::proxy::healthcheck',
+          ]:
+  }
 
   class { '::swift::proxy::cache':
     memcache_servers => [ $::openstack::config::controller_address_management, ]
   }
 
-  class { ['::swift::proxy::ratelimit',
-           '::swift::proxy::swift3', ]: }
+  class { [
+          '::swift::proxy::ratelimit',
+          '::swift::proxy::swift3',
+          ]:
+  }
 
   class { '::swift::proxy::authtoken':
     admin_password => $::openstack::config::swift_password,
