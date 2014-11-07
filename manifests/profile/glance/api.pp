@@ -13,7 +13,7 @@ class openstack::profile::glance::api {
 
   $controller_address = $::openstack::config::controller_address_management
 
-  if $management_address != $explicit_management_address {
+  if ! ($explicit_management_address in $management_address) {
     fail("Glance Auth setup failed. The inferred location of Glance from
     the openstack::network::management hiera value is
     ${management_address}. The explicit address from
@@ -21,7 +21,7 @@ class openstack::profile::glance::api {
     Please correct this difference.")
   }
 
-  if $api_address != $explicit_api_address {
+  if ! ($explicit_api_address in $api_address) {
     fail("Glance Auth setup failed. The inferred location of Glance from
     the openstack::network::management hiera value is
     ${api_address}. The explicit address from

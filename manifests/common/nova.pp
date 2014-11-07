@@ -52,7 +52,7 @@ class openstack::common::nova ($is_compute    = false) {
   class { '::nova::compute':
     enabled                       => $is_compute,
     vnc_enabled                   => true,
-    vncserver_proxyclient_address => $management_address,
+    vncserver_proxyclient_address => $management_address[0],
     vncproxy_host                 => $::openstack::config::controller_address_api,
   }
 

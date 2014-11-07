@@ -3,7 +3,8 @@ class openstack::profile::swift::storage (
   $zone = undef,
 ) {
   $management_network = $::openstack::config::network_management
-  $management_address = ip_for_network($management_network)
+  $management_address = $::openstack::config::storage_address_management
+#  $management_address = ip_for_network($management_network)
 
   firewall { '6000 - Swift Object Store':
     proto  => 'tcp',
