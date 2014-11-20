@@ -1,14 +1,15 @@
 class openstack::common::plumgrid {
-  $pg_package_ensure       = 'latest'
-  $pg_connection           = $::openstack::resources::connectors::neutron
-  $pg_director_server      = $::openstack::config::pg_director_server
-  $pg_director_server_port = '443'
-  $pg_username             = $::openstack::config::pg_username
-  $pg_password             = $::openstack::config::pg_password
-  $pg_servertimeout        = '70'
+  $pg_package_ensure        = 'latest'
+  $pg_connection            = $::openstack::resources::connectors::neutron
+  $pg_director_server       = $::openstack::config::pg_director_server
+  $pg_director_server_port  = '443'
+  $pg_username              = $::openstack::config::pg_username
+  $pg_password              = $::openstack::config::pg_password
+  $pg_servertimeout         = '70'
   $pg_enable_metadata_agent = $::openstack::config::pg_enable_metadata_agent
-  $admin_password          = $::openstack::config::keystone_admin_password
-  $metadata_proxy_secret   = $::openstack::config::neutron_shared_secret
+  $admin_password           = $::openstack::config::keystone_admin_password
+  $metadata_proxy_secret    = $::openstack::config::neutron_shared_secret
+  $controller_priv_host     = $::openstack::config::controller_address_management
 
   ### PLUMgrid Controller Node Configuration
   if $::openstack::config::pg_controller { 
@@ -23,6 +24,7 @@ class openstack::common::plumgrid {
      pg_enable_metadata_agent=> $pg_enable_metadata_agent,
      admin_password          => $admin_password,
      metadata_proxy_secret   => $metadata_proxy_secret,
+     controller_priv_host    => $controller_priv_host,
     }
 
     nova_config { 'DEFAULT/scheduler_driver': value => 'nova.scheduler.filter_scheduler.FilterScheduler' }
