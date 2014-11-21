@@ -3,7 +3,7 @@ version '4.2.0'
 source 'Chris Hoge'
 author 'Puppet Labs and Community Contributors'
 license 'Apache License, Version 2.0'
-summary 'Deploys various types of installations of OpenStack Icehouses.'
+summary 'Deploy various types of installations of OpenStack Icehouse.'
 description 'Using a hiera-based roles and profiles model, do simple OpenStack deployments.'
 project_page 'https://github.com/puppetlabs/puppetlabs-openstack'
 
