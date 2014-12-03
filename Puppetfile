@@ -4,47 +4,47 @@ forge "http://forge.puppetlabs.com"
 
 mod "keystone",
   :git => "git://github.com/stackforge/puppet-keystone",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "swift",
   :git => "git://github.com/stackforge/puppet-swift",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "glance",
   :git => "git://github.com/stackforge/puppet-glance",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "cinder",
   :git => "git://github.com/stackforge/puppet-cinder",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "neutron",
   :git => "git://github.com/stackforge/puppet-neutron",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "nova",
   :git => "git://github.com/stackforge/puppet-nova",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "heat",
   :git => "git://github.com/stackforge/puppet-heat",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "ceilometer",
   :git => "git://github.com/stackforge/puppet-ceilometer",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "horizon",
   :git => "git://github.com/stackforge/puppet-horizon",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
-  :ref => "master"
+  :ref => "5.0.0"
 
 mod "vswitch",
   :git => "git://github.com/stackforge/puppet-vswitch",
