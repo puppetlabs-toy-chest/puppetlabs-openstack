@@ -13,7 +13,7 @@ define openstack::setup::router {
   neutron_router { $tenant:
     tenant_name          => $tenant,
     gateway_network_name => 'public',
-    require              => [Neutron_network['public'], Neutron_subnet["${subnet}"]]
+    require              => [Neutron_network['public'], Neutron_subnet[$subnet]]
   } ->
 
   neutron_router_interface  { $title:

@@ -4,24 +4,24 @@ define openstack::resources::user (
   $email,
   $admin   = false,
   $enabled = true,
-) { 
-  keystone_user { "$name": 
-    ensure   => present, 
+) {
+  keystone_user { $name:
+    ensure   => present,
     enabled  => $enabled,
     password => $password,
     tenant   => $tenant,
-    email    => $email, 
-  } 
-  
-  if $admin == true { 
-    keystone_user_role { "$name@$tenant": 
+    email    => $email,
+  }
+
+  if $admin == true {
+    keystone_user_role { "${name}@${tenant}":
+      ensure => present,
       roles  => ['_member_', 'admin', 'heat_stack_owner'],
-      ensure => present, 
-    } 
-  } else { 
-    keystone_user_role { "$name@$tenant": 
+    }
+  } else {
+    keystone_user_role { "${name}@${tenant}":
+      ensure => present,
       roles  => ['_member_'],
-      ensure => present, 
-    } 
+    }
   }
 }

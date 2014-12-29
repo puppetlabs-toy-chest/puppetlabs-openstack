@@ -11,7 +11,7 @@ class plostest::vagrant {
 
   file { $testhomename:
     ensure => directory,
-  } 
+  }
 
   $tests = {
     'Vagrantfile'            => { templatename => 'Vagrantfile.erb', },
@@ -29,5 +29,5 @@ class plostest::vagrant {
     'hiera.yaml'             => { templatename => 'hiera.yaml.erb' },
   }
 
-  create_resources( '::plostest::testtemplate', $tests, { filehome => $testhomename} ) 
+  create_resources( '::plostest::testtemplate', $tests, { filehome => $testhomename} )
 }

@@ -15,7 +15,7 @@ class openstack::profile::heat::api {
     region           => $::openstack::config::region,
   }
 
-  class { '::heat::keystone::auth_cfn': 
+  class { '::heat::keystone::auth_cfn':
     password         => $::openstack::config::heat_password,
     public_address   => $::openstack::config::controller_address_api,
     admin_address    => $::openstack::config::controller_address_management,

@@ -1,8 +1,8 @@
 class openstack::resources::repo::erlang {
   if $::osfamily == 'RedHat' {
     case $::operatingsystem {
-      centos, redhat, scientific, slc: { $dist = 'centos' }
       fedora: { $dist = 'fedora' }
+      default: { $dist = 'centos' }
     }
 
     $osver = regsubst($::operatingsystemrelease, '(\d+)\..*', '\1')

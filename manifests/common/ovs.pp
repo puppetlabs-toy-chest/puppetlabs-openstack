@@ -16,9 +16,9 @@ class openstack::common::ovs {
   }
 
   class  { '::neutron::plugins::ml2':
-    type_drivers      => $type_drivers,
+    type_drivers         => $type_drivers,
     tenant_network_types => $tenant_network_type,
-    mechanism_drivers => $mechanism_drivers,
-    tunnel_id_ranges  => $tunnel_id_ranges
+    mechanism_drivers    => $mechanism_drivers,
+    tunnel_id_ranges     => $tunnel_id_ranges
   }
 }

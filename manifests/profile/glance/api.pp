@@ -26,7 +26,7 @@ class openstack::profile::glance::api {
     the openstack::network::management hiera value is
     ${api_address}. The explicit address from
     openstack::storage::address::api is ${explicit_api_address}.
-    Please correct this difference.")
+     Please correct this difference.")
   }
 
   openstack::resources::firewall { 'Glance API': port      => '9292', }
@@ -47,7 +47,7 @@ class openstack::profile::glance::api {
     mysql_module      => '2.2',
   }
 
-  class { '::glance::notify::rabbitmq': 
+  class { '::glance::notify::rabbitmq':
     rabbit_password => $::openstack::config::rabbitmq_password,
     rabbit_userid   => $::openstack::config::rabbitmq_user,
     rabbit_host     => $::openstack::config::controller_address_management,

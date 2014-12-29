@@ -18,7 +18,7 @@ class openstack::profile::cinder::volume {
   }
 
   class { '::cinder::volume::iscsi':
-    iscsi_ip_address  => $management_address,
-    volume_group      => 'cinder-volumes',
+    iscsi_ip_address => $management_address,
+    volume_group     => 'cinder-volumes',
   }
 }

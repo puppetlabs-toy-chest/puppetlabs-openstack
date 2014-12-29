@@ -3,11 +3,11 @@ class openstack::profile::rabbitmq {
   $management_address = $::openstack::config::controller_address_management
 
   if $::osfamily == 'RedHat' {
-	  package { 'erlang':
-	    ensure  => installed,
-	    before  => Package['rabbitmq-server'],
-	    require => Yumrepo['erlang-solutions'],
-	  }
+    package { 'erlang':
+      ensure  => installed,
+      before  => Package['rabbitmq-server'],
+      require => Yumrepo['erlang-solutions'],
+    }
   }
 
   class { '::nova::rabbitmq':

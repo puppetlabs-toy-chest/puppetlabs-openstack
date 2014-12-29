@@ -1,11 +1,11 @@
 # The profile to set up a neutron ovs network router
 class openstack::profile::neutron::router {
-  Exec { 
-    path => '/usr/bin:/usr/sbin:/bin:/sbin', 
+  Exec {
+    path    => '/usr/bin:/usr/sbin:/bin:/sbin',
     require => Class['openstack::profile::neutron::common'],
-  } 
-  
-  ::sysctl::value { 'net.ipv4.ip_forward': 
+  }
+
+  ::sysctl::value { 'net.ipv4.ip_forward':
     value     => '1',
   }
 
@@ -60,8 +60,8 @@ class openstack::profile::neutron::router {
   }
   if $external_device != $external_bridge {
     vs_port { $external_device:
-      ensure  => present,
-      bridge  => $external_bridge,
+      ensure => present,
+      bridge => $external_bridge,
     }
   } else {
     # External bridge already has the external device's IP, thus the external
