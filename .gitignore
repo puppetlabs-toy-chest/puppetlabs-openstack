@@ -1,3 +1,4 @@
+.bundle/
 examples/allinone/Puppetfile
 examples/multinode/Puppetfile
 examples/swift/Puppetfile
@@ -5,3 +6,4 @@ examples/swift/Puppetfile
 examples/allinone/modules
 examples/multinode/modules
 examples/swift/modules
+Gemfile.lock
