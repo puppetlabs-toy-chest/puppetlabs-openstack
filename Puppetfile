@@ -56,7 +56,7 @@ mod "vswitch",
 
 mod "apache",
   :git => "git://github.com/puppetlabs/puppetlabs-apache",
-  :ref => "1.1.1"
+  :ref => "1.2.x"
 
 mod "epel",
   :git => "git://github.com/stahnma/puppet-module-epel",
