@@ -38,7 +38,7 @@ class openstack::profile::glance::api {
 
   class { '::glance::registry':
     keystone_password => $::openstack::config::glance_password,
-    sql_connection    => $::openstack::resources::connectors::glance,
+    database_connection    => $::openstack::resources::connectors::glance,
     auth_host         => $::openstack::config::controller_address_management,
     keystone_tenant   => 'services',
     keystone_user     => 'glance',

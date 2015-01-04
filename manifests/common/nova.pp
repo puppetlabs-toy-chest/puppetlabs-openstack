@@ -13,7 +13,7 @@ class openstack::common::nova ($is_compute    = false) {
   $controller_management_address = $::openstack::config::controller_address_management
 
   class { '::nova':
-    sql_connection     => $::openstack::resources::connectors::nova,
+    database_connection     => $::openstack::resources::connectors::nova,
     glance_api_servers => "http://${storage_management_address}:9292",
     memcached_servers  => ["${controller_management_address}:11211"],
     rabbit_hosts       => [$controller_management_address],

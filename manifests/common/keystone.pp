@@ -7,7 +7,7 @@ class openstack::common::keystone {
 
   class { '::keystone':
     admin_token     => $::openstack::config::keystone_admin_token,
-    sql_connection  => $::openstack::resources::connectors::keystone,
+    database_connection  => $::openstack::resources::connectors::keystone,
     verbose         => $::openstack::config::verbose,
     debug           => $::openstack::config::debug,
     enabled         => $::openstack::profile::base::is_controller,

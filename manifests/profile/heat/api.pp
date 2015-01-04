@@ -24,7 +24,7 @@ class openstack::profile::heat::api {
   }
 
   class { '::heat':
-    sql_connection    => $::openstack::resources::connectors::heat,
+    database_connection    => $::openstack::resources::connectors::heat,
     rabbit_host       => $::openstack::config::controller_address_management,
     rabbit_userid     => $::openstack::config::rabbitmq_user,
     rabbit_password   => $::openstack::config::rabbitmq_password,
