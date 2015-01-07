@@ -47,6 +47,7 @@ class openstack::config (
   $heat_encryption_key = undef,
   $heat_password = undef,
   $trove_password = undef,
+  $sahara_password = undef,
   $horizon_secret_key = undef,
   $tempest_configure_images    = undef,
   $tempest_image_name          = undef,

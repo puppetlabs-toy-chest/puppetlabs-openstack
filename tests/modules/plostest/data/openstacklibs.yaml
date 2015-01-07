@@ -15,6 +15,7 @@ dependencies:
       ceilometer: ~
       horizon: ~
       trove: ~
+      sahara: ~
       openstacklib:
         forge: undef
       tempest:

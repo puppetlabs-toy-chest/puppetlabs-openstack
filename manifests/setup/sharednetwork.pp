@@ -1,10 +1,10 @@
 # A static class to set up a shared network. Should appear on the
 # controller node. It sets up the public network, a private network,
-# two subnets (one for admin, one for test), and the routers that
+# two subnets (one for admin, one for openstack), and the routers that
 # connect the subnets to the public network.
 #
 # After this class has run, you should have a functional network
-# avaiable for your test user to launch and connect machines to.
+# avaiable for your openstack user to launch and connect machines to.
 class openstack::setup::sharednetwork {
 
   $external_network = $::openstack::config::network_external
@@ -52,5 +52,5 @@ class openstack::setup::sharednetwork {
     dns_nameservers  => [$dns],
   } 
 
-  openstack::setup::router { "test:${private_network}": }
+  openstack::setup::router { "openstack:${private_network}": }
 }

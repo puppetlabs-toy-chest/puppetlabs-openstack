@@ -48,25 +48,18 @@ openstack::keystone::admin_email: 'example@puppetlabs.com'
 openstack::keystone::admin_password: 'fyby-tet'
 
 openstack::keystone::tenants:
-    "test":
-        description: "Test tenant"
-    "test2":
-        description: "Test tenant"
+    "openstack":
+        description: "Generic OpenStack tenant"
 
 openstack::keystone::users:
-    "test":
-        password: "abc123"
-        tenant: "test"
-        email: "test@example.com"
+    "openstack":
+        password: "openstack"
+        tenant: "openstack"
+        email: "example@openstack.org"
         admin: true
     "demo":
-        password: "abc123"
-        tenant: "test"
-        email: "demo@example.com"
-        admin: false
-    "demo2":
-        password: "abc123"
-        tenant: "test2"
+        password: "demo"
+        tenant: "openstack"
         email: "demo@example.com"
         admin: false
 
@@ -105,6 +98,9 @@ openstack::heat::encryption_key: 'heatsecretkey'
 
 ######## Trove
 openstack::trove::password: 'jit-jig'
+
+######## Sahara
+openstack::sahara::password: 'grit-barrel'
 
 ######## Horizon
 
