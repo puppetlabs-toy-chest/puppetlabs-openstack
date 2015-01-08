@@ -15,6 +15,8 @@ class openstack::profile::nova::compute {
   file { '/etc/libvirt/qemu.conf':
     ensure => present,
     source => 'puppet:///modules/openstack/qemu.conf',
+    owner  => 'root',
+    group  => 'root',
     mode   => '0644',
     notify => Service['libvirt'],
   }
