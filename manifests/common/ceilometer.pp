@@ -12,7 +12,7 @@ class openstack::common::ceilometer {
     metering_secret => $::openstack::config::ceilometer_meteringsecret,
     debug           => $::openstack::config::debug,
     verbose         => $::openstack::config::verbose,
-    rabbit_hosts    => [$controller_management_address],
+    rabbit_hosts    => $::openstack::config::rabbitmq_hosts,
     rabbit_userid   => $::openstack::config::rabbitmq_user,
     rabbit_password => $::openstack::config::rabbitmq_password,
   }

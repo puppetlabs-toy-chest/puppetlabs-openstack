@@ -18,6 +18,7 @@ class openstack::common::neutron {
     allow_overlapping_ips => true,
     rabbit_user           => $::openstack::config::rabbitmq_user,
     rabbit_password       => $::openstack::config::rabbitmq_password,
+    rabbit_hosts          => $::openstack::config::rabbitmq_hosts,
     debug                 => $::openstack::config::debug,
     verbose               => $::openstack::config::verbose,
     service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
