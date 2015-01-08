@@ -5,6 +5,7 @@ class openstack::common::ceilometer {
 
   $controller_management_address = $::openstack::config::controller_address_management
 
+  $mongo_username = $::openstack::config::ceilometer_mongo_username
   $mongo_password = $::openstack::config::ceilometer_mongo_password
   $mongo_connection = "mongodb://${controller_management_address}:27017/ceilometer"
 
