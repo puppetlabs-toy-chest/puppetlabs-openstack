@@ -3,11 +3,12 @@
 class openstack::common::ceilometer {
   $is_controller = $::openstack::profile::base::is_controller
 
+  $ceilometer_management_address = $::openstack::config::ceilometer_address_management
   $controller_management_address = $::openstack::config::controller_address_management
 
   $mongo_username = $::openstack::config::ceilometer_mongo_username
   $mongo_password = $::openstack::config::ceilometer_mongo_password
-  $mongo_connection = "mongodb://${controller_management_address}:27017/ceilometer"
+  $mongo_connection = "mongodb://${ceilometer_management_address}:27017/ceilometer"
 
   class { '::ceilometer':
     metering_secret => $::openstack::config::ceilometer_meteringsecret,
