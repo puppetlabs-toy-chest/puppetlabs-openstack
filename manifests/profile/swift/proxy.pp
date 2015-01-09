@@ -33,6 +33,13 @@ class openstack::profile::swift::proxy {
     require            => Class['::swift::ringbuilder'],
   }
 
+  # Don't try to start the service if the ring device resources haven't been collected yet
+  if !defined(ring_object_device) and !defined(ring_container_device) and !defined(ring_account_device) {
+    Service <| title == 'swift-proxy' |> {
+      ensure => stopped,
+    }
+  }
+
   ### BEGIN Middleware Configuration (declared in pipeline for proxy)
   class { [
           '::swift::proxy::catch_errors',
