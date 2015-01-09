@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     control.vm.synced_folder "../../", "/openstack"
 
     control.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "2048"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
