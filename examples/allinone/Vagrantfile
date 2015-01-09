@@ -36,6 +36,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     allinone.vm.hostname = "allinone"
 
+    allinone.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = "provision_manifests"
+      puppet.manifest_file = "base.pp"
+    end
+
     allinone.vm.synced_folder "../../", "/openstack"
 
     allinone.vm.provider "vmware_fusion" do |v|

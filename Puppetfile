@@ -103,7 +103,11 @@ mod "sysctl",
 
 mod "rabbitmq",
   :git => "git://github.com/puppetlabs/puppetlabs-rabbitmq",
-  :ref => "3.1.0"
+  :ref => "5.0.0"
+
+mod "staging",
+  :git => "git://github.com/nanliu/puppet-staging",
+  :ref => "1.x"
 
 mod "vcsrepo",
   :git => "git://github.com/puppetlabs/puppetlabs-vcsrepo",
