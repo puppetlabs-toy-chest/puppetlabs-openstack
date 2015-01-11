@@ -77,6 +77,42 @@
 #   Array of hosts that are allowed to access the MySQL database. Should include all of the network_management CIDR.
 #   Example configuration: ['localhost', '127.0.0.1', '172.16.33.%']
 #
+# [*mysql_user_keystone*]
+#   The database username for keystone service.
+#
+# [*mysql_pass_keystone*]
+#   The database password for keystone service.
+#
+# [*mysql_user_cinder*]
+#   The database username for cinder service.
+#
+# [*mysql_pass_cinder*]
+#   The database password for cinder service.
+#
+# [*mysql_user_glance*]
+#   The database username for glance service.
+#
+# [*mysql_pass_glance*]
+#   The database password for glance service.
+#
+# [*mysql_user_nova*]
+#   The database username for nova service.
+#
+# [*mysql_pass_nova*]
+#   The database password for nova service.
+#
+# [*mysql_user_neutron*]
+#   The database username for neutron service.
+#
+# [*mysql_pass_neutron*]
+#   The database password for neutron service.
+#
+# [*mysql_user_heat*]
+#   The database username for heat service.
+#
+# [*mysql_pass_heat*]
+#   The database password for heat service.
+#
 # == RabbitMQ
 # [*rabbitmq_hosts*]
 #   The host list for the RabbitMQ service.
@@ -266,6 +302,18 @@ class openstack (
   $mysql_root_password = undef,
   $mysql_service_password = undef,
   $mysql_allowed_hosts = undef,
+  $mysql_user_keystone = undef,
+  $mysql_pass_keystone = undef,
+  $mysql_user_cinder = undef,
+  $mysql_pass_cinder = undef,
+  $mysql_user_glance = undef,
+  $mysql_pass_glance = undef,
+  $mysql_user_nova = undef,
+  $mysql_pass_nova = undef,
+  $mysql_user_neutron = undef,
+  $mysql_pass_neutron = undef,
+  $mysql_user_heat = undef,
+  $mysql_pass_heat = undef,
   $rabbitmq_hosts = undef,
   $rabbitmq_user = undef,
   $rabbitmq_password = undef,
@@ -334,6 +382,18 @@ class openstack (
       mysql_root_password           => hiera(openstack::mysql::root_password),
       mysql_service_password        => hiera(openstack::mysql::service_password),
       mysql_allowed_hosts           => hiera(openstack::mysql::allowed_hosts),
+      mysql_user_keystone           => hiera(openstack::mysql::keystone::user),
+      mysql_pass_keystone           => hiera(openstack::mysql::keystone::pass),
+      mysql_user_cinder             => hiera(openstack::mysql::cinder::user),
+      mysql_pass_cinder             => hiera(openstack::mysql::cinder::pass),
+      mysql_user_glance             => hiera(openstack::mysql::glance::user),
+      mysql_pass_glance             => hiera(openstack::mysql::glance::pass),
+      mysql_user_nova               => hiera(openstack::mysql::nova::user),
+      mysql_pass_nova               => hiera(openstack::mysql::nova::pass),
+      mysql_user_neutron            => hiera(openstack::mysql::neutron::user),
+      mysql_pass_neutron            => hiera(openstack::mysql::neutron::pass),
+      mysql_user_heat               => hiera(openstack::mysql::heat::user),
+      mysql_pass_heat               => hiera(openstack::mysql::heat::pass),
       rabbitmq_hosts                => hiera(openstack::rabbitmq::hosts),
       rabbitmq_user                 => hiera(openstack::rabbitmq::user),
       rabbitmq_password             => hiera(openstack::rabbitmq::password),
@@ -402,6 +462,18 @@ class openstack (
       mysql_root_password           => $mysql_root_password,
       mysql_service_password        => $mysql_service_password,
       mysql_allowed_hosts           => $mysql_allowed_hosts,
+      mysql_user_keystone           => $mysql_user_keystone,
+      mysql_pass_keystone           => $mysql_pass_keystone,
+      mysql_user_cinder             => $mysql_user_cinder,
+      mysql_pass_cinder             => $mysql_pass_cinder,
+      mysql_user_glance             => $mysql_user_glance,
+      mysql_pass_glance             => $mysql_pass_glance,
+      mysql_user_nova               => $mysql_user_nova,
+      mysql_pass_nova               => $mysql_pass_nova,
+      mysql_user_neutron            => $mysql_user_neutron,
+      mysql_pass_neutron            => $mysql_pass_neutron,
+      mysql_user_heat               => $mysql_user_heat,
+      mysql_pass_heat               => $mysql_pass_heat,
       rabbitmq_hosts                => $rabbitmq_hosts,
       rabbitmq_user                 => $rabbitmq_user,
       rabbitmq_password             => $rabbitmq_password,
