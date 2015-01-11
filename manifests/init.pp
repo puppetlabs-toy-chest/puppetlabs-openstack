@@ -142,6 +142,12 @@
 # [*neutron_shared_secret*]
 #   The shared secret to allow for communication between Neutron and Nova.
 #
+# [*neutron_core_plugin*]
+#   The core_plugin for the neutron service
+#
+# [*neutron_service_plugins*]
+#   The service_plugins for neutron service
+#
 # [*neutron_tunneling*] (Deprecated)
 #   Boolean. Whether to enable Neutron tunneling.
 #   Default to true.
@@ -283,6 +289,8 @@ class openstack (
   $nova_password = undef,
   $neutron_password = undef,
   $neutron_shared_secret = undef,
+  $neutron_core_plugin = undef,
+  $neutron_service_plugins = undef,
   $neutron_tunneling = true,
   $neutron_tunnel_types = ['gre'],
   $neutron_tenant_network_type = ['gre'],
@@ -351,6 +359,8 @@ class openstack (
       nova_password                 => hiera(openstack::nova::password),
       neutron_password              => hiera(openstack::neutron::password),
       neutron_shared_secret         => hiera(openstack::neutron::shared_secret),
+      neutron_core_plugin           => hiera(openstack::neutron::core_plugin),
+      neutron_service_plugins       => hiera(openstack::neutron::service_plugins),
       neutron_tunneling             => hiera(openstack::neutron::neutron_tunneling, $neutron_tunneling),
       neutron_tunnel_types          => hiera(openstack::neutron::neutron_tunnel_type, $neutron_tunnel_types),
       neutron_tenant_network_type   => hiera(openstack::neutron::neutron_tenant_network_type, $neutron_tenant_network_type),
@@ -419,6 +429,8 @@ class openstack (
       nova_password                 => $nova_password,
       neutron_password              => $neutron_password,
       neutron_shared_secret         => $neutron_shared_secret,
+      neutron_core_plugin           => $neutron_core_plugin,
+      neutron_service_plugins       => $neutron_service_plugins,
       neutron_tunneling             => $neutron_tunneling,
       neutron_tunnel_types          => $neutron_tunnel_types,
       neutron_tenant_network_type   => $neutron_tenant_network_type,

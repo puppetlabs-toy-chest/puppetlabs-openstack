@@ -35,6 +35,8 @@ class openstack::config (
   $nova_password = undef,
   $neutron_password = undef,
   $neutron_shared_secret = undef,
+  $neutron_core_plugin = undef,
+  $neutron_service_plugins = undef,
   $neutron_tunneling = undef,
   $neutron_tunnel_types = undef,
   $neutron_tenant_network_type = undef,
