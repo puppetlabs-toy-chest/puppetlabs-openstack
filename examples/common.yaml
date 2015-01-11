@@ -87,7 +87,7 @@ openstack::neutron::password: 'whi-rtuz'
 openstack::neutron::shared_secret: 'by-sa-bo'
 
 ######## Ceilometer
-openstack::ceilometer::address::management: '192.168.11.4'
+openstack::ceilometer::address::management: '172.16.33.4'
 openstack::ceilometer::mongo::username: 'whi-truz'
 openstack::ceilometer::mongo::password: 'whi-truz'
 openstack::ceilometer::password: 'whi-truz'
