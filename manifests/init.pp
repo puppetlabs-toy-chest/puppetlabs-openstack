@@ -78,6 +78,9 @@
 #   Example configuration: ['localhost', '127.0.0.1', '172.16.33.%']
 #
 # == RabbitMQ
+# [*rabbitmq_hosts*]
+#   The host list for the RabbitMQ service.
+#
 # [*rabbitmq_user*]
 #   The username for the RabbitMQ queues.
 #
@@ -257,6 +260,7 @@ class openstack (
   $mysql_root_password = undef,
   $mysql_service_password = undef,
   $mysql_allowed_hosts = undef,
+  $rabbitmq_hosts = undef,
   $rabbitmq_user = undef,
   $rabbitmq_password = undef,
   $keystone_admin_token = undef,
@@ -322,6 +326,7 @@ class openstack (
       mysql_root_password           => hiera(openstack::mysql::root_password),
       mysql_service_password        => hiera(openstack::mysql::service_password),
       mysql_allowed_hosts           => hiera(openstack::mysql::allowed_hosts),
+      rabbitmq_hosts                => hiera(openstack::rabbitmq::hosts),
       rabbitmq_user                 => hiera(openstack::rabbitmq::user),
       rabbitmq_password             => hiera(openstack::rabbitmq::password),
       keystone_admin_token          => hiera(openstack::keystone::admin_token),
@@ -387,6 +392,7 @@ class openstack (
       mysql_root_password           => $mysql_root_password,
       mysql_service_password        => $mysql_service_password,
       mysql_allowed_hosts           => $mysql_allowed_hosts,
+      rabbitmq_hosts                => $rabbitmq_hosts,
       rabbitmq_user                 => $rabbitmq_user,
       rabbitmq_password             => $rabbitmq_password,
       keystone_admin_token          => $keystone_admin_token,

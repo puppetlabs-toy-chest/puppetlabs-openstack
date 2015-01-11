@@ -18,6 +18,7 @@ class openstack::config (
   $mysql_root_password = undef,
   $mysql_service_password = undef,
   $mysql_allowed_hosts = undef,
+  $rabbitmq_hosts = undef,
   $rabbitmq_user = undef,
   $rabbitmq_password = undef,
   $keystone_admin_token = undef,
