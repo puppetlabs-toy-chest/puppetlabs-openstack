@@ -8,6 +8,15 @@ class openstack::common::ceilometer {
 
   $mongo_username = $::openstack::config::ceilometer_mongo_username
   $mongo_password = $::openstack::config::ceilometer_mongo_password
+
+  if ! $mongo_username {
+    fail('mongo_username must be set when ceilometer is being configured')
+  }
+
+  if ! $mongo_password {
+    fail('mongo_password must be set when ceilometer is being configured')
+  }
+
   $mongo_connection = "mongodb://${mongo_username}:${mongo_password}@${ceilometer_management_address}:27017/ceilometer"
 
   class { '::ceilometer':
