@@ -286,6 +286,7 @@ class openstack (
   $neutron_mechanism_drivers = ['openvswitch'],
   $neutron_tunnel_id_ranges = ['1:1000'],
   $ceilometer_address_management = undef,
+  $ceilometer_mongo_username = undef,
   $ceilometer_mongo_password = undef,
   $ceilometer_password = undef,
   $ceilometer_meteringsecret = undef,
