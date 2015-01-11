@@ -166,6 +166,12 @@
 #   Defaults to ['1:1000']
 #
 # == Ceilometer
+# [*ceilometer_address_management*]
+#   The management IP address of the ceilometer node. Must be in the network_management CIDR.
+#
+# [*ceilometer_mongo_username*]
+#   The username for the MongoDB Ceilometer user.
+#
 # [*ceilometer_mongo_password*]
 #   The password for the MongoDB Ceilometer user.
 #
@@ -283,6 +289,8 @@ class openstack (
   $neutron_type_drivers = ['gre'],
   $neutron_mechanism_drivers = ['openvswitch'],
   $neutron_tunnel_id_ranges = ['1:1000'],
+  $ceilometer_address_management = undef,
+  $ceilometer_mongo_username = undef,
   $ceilometer_mongo_password = undef,
   $ceilometer_password = undef,
   $ceilometer_meteringsecret = undef,
@@ -349,6 +357,8 @@ class openstack (
       neutron_type_drivers          => hiera(openstack::neutron::neutron_type_drivers, $neutron_type_drivers),
       neutron_mechanism_drivers     => hiera(openstack::neutron::neutron_mechanism_drivers, $neutron_mechanism_drivers),
       neutron_tunnel_id_ranges      => hiera(openstack::neutron::neutron_tunnel_id_ranges, $neutron_tunnel_id_ranges),
+      ceilometer_address_management => hiera(openstack::ceilometer::address::management),
+      ceilometer_mongo_username     => hiera(openstack::ceilometer::mongo::username),
       ceilometer_mongo_password     => hiera(openstack::ceilometer::mongo::password),
       ceilometer_password           => hiera(openstack::ceilometer::password),
       ceilometer_meteringsecret     => hiera(openstack::ceilometer::meteringsecret),
@@ -415,6 +425,8 @@ class openstack (
       neutron_type_drivers          => $neutron_type_drivers,
       neutron_mechanism_drivers     => $neutron_mechanism_drivers,
       neutron_tunnel_id_ranges      => $neutron_tunnel_id_ranges,
+      ceilometer_address_management => $ceilometer_address_management,
+      ceilometer_mongo_username     => $ceilometer_mongo_username,
       ceilometer_mongo_password     => $ceilometer_mongo_password,
       ceilometer_password           => $ceilometer_password,
       ceilometer_meteringsecret     => $ceilometer_meteringsecret,
