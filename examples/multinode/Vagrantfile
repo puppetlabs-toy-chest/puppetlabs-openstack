@@ -106,7 +106,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore1.vm.synced_folder "../../", "/openstack"
 
     swiftstore1.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
@@ -122,7 +122,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore2.vm.synced_folder "../../", "/openstack"
 
     swiftstore2.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
@@ -138,7 +138,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore3.vm.synced_folder "../../", "/openstack"
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "512"
+        v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
