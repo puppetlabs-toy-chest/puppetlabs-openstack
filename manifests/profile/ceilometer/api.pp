@@ -45,13 +45,19 @@ class openstack::profile::ceilometer::api {
     require => Class['mongodb::server'],
   }
 
-  mongodb_user { 'ceilometer':
-    ensure        => present,
-    password_hash => mongodb_password('ceilometer', 'password'),
-    database      => 'ceilometer',
-    roles         => ['readWrite', 'dbAdmin'],
-    tries         => 10,
-    require       => [Class['mongodb::server'], Class['mongodb::client']],
+  $mongo_username = $::openstack::config::ceilometer_mongo_username
+  $mongo_password = $::openstack::config::ceilometer_mongo_password
+
+  if $mongo_username and $mongo_password {
+    mongodb_user { $mongo_username:
+      ensure        => present,
+      password_hash => mongodb_password($mongo_username, $mongo_password),
+      database      => 'ceilometer',
+      roles         => ['readWrite', 'dbAdmin'],
+      tries         => 10,
+      require       => [Class['mongodb::server'], Class['mongodb::client']],
+      before        => Exec['ceilometer-dbsync'],
+    }
   }
 
   Class['::mongodb::server'] -> Class['::mongodb::client'] -> Exec['ceilometer-dbsync']
