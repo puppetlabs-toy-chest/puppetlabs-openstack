@@ -35,8 +35,14 @@ class openstack::config (
   $nova_password = undef,
   $neutron_password = undef,
   $neutron_shared_secret = undef,
-  $neutron_core_plugin = undef,
-  $neutron_service_plugins = undef,
+  $neutron_core_plugin = 'neutron.plugins.ml2.plugin.Ml2Plugin',
+  $neutron_service_plugins = [
+  'neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
+  'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
+  'neutron.services.vpn.plugin.VPNDriverPlugin',
+  'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
+  'neutron.services.metering.metering_plugin.MeteringPlugin'
+  ],
   $neutron_tunneling = undef,
   $neutron_tunnel_types = undef,
   $neutron_tenant_network_type = undef,
