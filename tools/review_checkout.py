@@ -9,7 +9,7 @@
 # i.e. in examples/allinone
 # ./05_up
 # ./10_setup_master.sh
-# ./11_setup_havana.sh
+# ./11_setup_openstack.sh
 # python ../../tools/review_checkout.py -c 82324 -u hogepodge | sh -x
 # ./20_setup_node.sh
 # ./30_deploy.sh
