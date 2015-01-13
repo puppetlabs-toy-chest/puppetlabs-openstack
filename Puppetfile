@@ -4,51 +4,51 @@ forge "http://forge.puppetlabs.com"
 
 mod "keystone",
   :git => "git://github.com/stackforge/puppet-keystone",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "swift",
   :git => "git://github.com/stackforge/puppet-swift",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "glance",
   :git => "git://github.com/stackforge/puppet-glance",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "cinder",
   :git => "git://github.com/stackforge/puppet-cinder",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "neutron",
   :git => "git://github.com/stackforge/puppet-neutron",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "nova",
   :git => "git://github.com/stackforge/puppet-nova",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "heat",
   :git => "git://github.com/stackforge/puppet-heat",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "ceilometer",
   :git => "git://github.com/stackforge/puppet-ceilometer",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "horizon",
   :git => "git://github.com/stackforge/puppet-horizon",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
-  :ref => "master"
+  :ref => "stable/juno"
 
 mod "vswitch",
   :git => "git://github.com/stackforge/puppet-vswitch",
-  :ref => "master"
+  :ref => "stable/juno"
 
 ## R10K doesn't handle dependencies, so let's handle them here
 # pointing to as many stable projects as possible
