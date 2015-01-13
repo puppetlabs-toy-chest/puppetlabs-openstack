@@ -36,6 +36,7 @@ openstack::mysql::cinder::pass: 'fuva-wax'
 
 openstack::mysql::glance::user: 'glance'
 openstack::mysql::glance::pass: 'fuva-wax'
+openstack::glance::api_servers: ['172.16.33.4:9292']
 
 openstack::mysql::nova::user: 'nova'
 openstack::mysql::nova::pass: 'fuva-wax'

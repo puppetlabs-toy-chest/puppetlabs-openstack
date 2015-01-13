@@ -149,6 +149,10 @@
 # [*glance_password*]
 #   The password for the glance user in Keystone.
 #
+# [*glance_api_servers*]
+#   Array of api servers, with port setting
+#   Example configuration: ['172.16.33.4:9292'] 
+#
 # ==Cinder
 # [*cinder_password*]
 #   The password for the cinder user in Keystone.
@@ -323,6 +327,7 @@ class openstack (
   $keystone_tenants = undef,
   $keystone_users = undef,
   $glance_password = undef,
+  $glance_api_servers = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
   $swift_password = undef,
@@ -403,6 +408,7 @@ class openstack (
       keystone_tenants              => hiera(openstack::keystone::tenants),
       keystone_users                => hiera(openstack::keystone::users),
       glance_password               => hiera(openstack::glance::password),
+      glance_api_servers            => hiera(openstack::glance::api_servers),
       cinder_password               => hiera(openstack::cinder::password),
       cinder_volume_size            => hiera(openstack::cinder::volume_size),
       swift_password                => hiera(openstack::swift::password),
@@ -483,6 +489,7 @@ class openstack (
       keystone_tenants              => $keystone_tenants,
       keystone_users                => $keystone_users,
       glance_password               => $glance_password,
+      glance_api_servers            => $glance_api_servers,
       cinder_password               => $cinder_password,
       cinder_volume_size            => $cinder_volume_size,
       swift_password                => $swift_password,
