@@ -38,6 +38,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     control.vm.hostname = "control"
 
+    control.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = "provision_manifests"
+      puppet.manifest_file = "base.pp"
+    end
+
     control.vm.synced_folder "../../", "/openstack"
 
     control.vm.provider "vmware_fusion" do |v|
