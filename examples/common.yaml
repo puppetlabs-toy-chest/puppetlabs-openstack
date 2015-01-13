@@ -28,6 +28,24 @@ openstack::mysql::root_password: 'spam-gak'
 openstack::mysql::service_password: 'fuva-wax'
 openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
 
+openstack::mysql::keystone::user: 'keystone'
+openstack::mysql::keystone::pass: 'fuva-wax'
+
+openstack::mysql::cinder::user: 'cinder'
+openstack::mysql::cinder::pass: 'fuva-wax'
+
+openstack::mysql::glance::user: 'glance'
+openstack::mysql::glance::pass: 'fuva-wax'
+
+openstack::mysql::nova::user: 'nova'
+openstack::mysql::nova::pass: 'fuva-wax'
+
+openstack::mysql::neutron::user: 'neutron'
+openstack::mysql::neutron::pass: 'fuva-wax'
+
+openstack::mysql::heat::user: 'heat'
+openstack::mysql::heat::pass: 'fuva-wax'
+
 ######## RabbitMQ
 
 openstack::rabbitmq::user: 'openstack'
