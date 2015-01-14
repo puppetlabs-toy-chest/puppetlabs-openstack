@@ -4,11 +4,8 @@
 
 This example setup configures a controller node, a block storage node, a compute
 node, and a network node. The controller node is equipt to act as a proxy for a
-swift setup and will set up swift endpoints, but swift is not set up
-automatically. To get swift up and running, you need to install puppetdb on the
-pupept master, include the openstack::role::swiftstorage class on your swift
-nodes, run puppet on them, and then run puppet on the controller once more. See
-the swift examples directory for example setup.
+swift setup but the scripts do not set up swift nodes. See the module README and
+the swift example directory.
 
 ## Notes about setting up Vagrant and VMWare
 
