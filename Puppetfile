@@ -125,7 +125,7 @@ mod "apt",
 
 mod "mongodb",
   :git => "git://github.com/puppetlabs/puppetlabs-mongodb",
-  :ref => "0.7.0"
+  :ref => "0.10.0"
 
 mod "ntp",
   :git => "git://github.com/puppetlabs/puppetlabs-ntp",
