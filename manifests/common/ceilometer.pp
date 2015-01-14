@@ -24,10 +24,12 @@ class openstack::common::ceilometer {
     rabbit_password => $::openstack::config::rabbitmq_password,
   }
 
-  class { '::ceilometer::api':
-    enabled           => $is_controller,
-    keystone_host     => $controller_management_address,
-    keystone_password => $::openstack::config::ceilometer_password,
+  if $is_controller {
+    class { '::ceilometer::api':
+      enabled           => $is_controller,
+      keystone_host     => $controller_management_address,
+      keystone_password => $::openstack::config::ceilometer_password,
+    }
   }
 
   class { '::ceilometer::db':
