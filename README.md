@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 5.0.0 / 2014.2 / Juno
+Version 5.0 / 2014.2 / Juno
 
 ####Table of Contents
 
