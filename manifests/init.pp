@@ -77,7 +77,46 @@
 #   Array of hosts that are allowed to access the MySQL database. Should include all of the network_management CIDR.
 #   Example configuration: ['localhost', '127.0.0.1', '172.16.33.%']
 #
+# [*mysql_user_keystone*]
+#   The database username for keystone service.
+#
+# [*mysql_pass_keystone*]
+#   The database password for keystone service.
+#
+# [*mysql_user_cinder*]
+#   The database username for cinder service.
+#
+# [*mysql_pass_cinder*]
+#   The database password for cinder service.
+#
+# [*mysql_user_glance*]
+#   The database username for glance service.
+#
+# [*mysql_pass_glance*]
+#   The database password for glance service.
+#
+# [*mysql_user_nova*]
+#   The database username for nova service.
+#
+# [*mysql_pass_nova*]
+#   The database password for nova service.
+#
+# [*mysql_user_neutron*]
+#   The database username for neutron service.
+#
+# [*mysql_pass_neutron*]
+#   The database password for neutron service.
+#
+# [*mysql_user_heat*]
+#   The database username for heat service.
+#
+# [*mysql_pass_heat*]
+#   The database password for heat service.
+#
 # == RabbitMQ
+# [*rabbitmq_hosts*]
+#   The host list for the RabbitMQ service.
+#
 # [*rabbitmq_user*]
 #   The username for the RabbitMQ queues.
 #
@@ -110,6 +149,10 @@
 # [*glance_password*]
 #   The password for the glance user in Keystone.
 #
+# [*glance_api_servers*]
+#   Array of api servers, with port setting
+#   Example configuration: ['172.16.33.4:9292'] 
+#
 # ==Cinder
 # [*cinder_password*]
 #   The password for the cinder user in Keystone.
@@ -139,6 +182,12 @@
 # [*neutron_shared_secret*]
 #   The shared secret to allow for communication between Neutron and Nova.
 #
+# [*neutron_core_plugin*]
+#   The core_plugin for the neutron service
+#
+# [*neutron_service_plugins*]
+#   The service_plugins for neutron service
+#
 # [*neutron_tunneling*] (Deprecated)
 #   Boolean. Whether to enable Neutron tunneling.
 #   Default to true.
@@ -163,6 +212,12 @@
 #   Defaults to ['1:1000']
 #
 # == Ceilometer
+# [*ceilometer_address_management*]
+#   The management IP address of the ceilometer node. Must be in the network_management CIDR.
+#
+# [*ceilometer_mongo_username*]
+#   The username for the MongoDB Ceilometer user.
+#
 # [*ceilometer_mongo_password*]
 #   The password for the MongoDB Ceilometer user.
 #
@@ -257,6 +312,19 @@ class openstack (
   $mysql_root_password = undef,
   $mysql_service_password = undef,
   $mysql_allowed_hosts = undef,
+  $mysql_user_keystone = undef,
+  $mysql_pass_keystone = undef,
+  $mysql_user_cinder = undef,
+  $mysql_pass_cinder = undef,
+  $mysql_user_glance = undef,
+  $mysql_pass_glance = undef,
+  $mysql_user_nova = undef,
+  $mysql_pass_nova = undef,
+  $mysql_user_neutron = undef,
+  $mysql_pass_neutron = undef,
+  $mysql_user_heat = undef,
+  $mysql_pass_heat = undef,
+  $rabbitmq_hosts = undef,
   $rabbitmq_user = undef,
   $rabbitmq_password = undef,
   $keystone_admin_token = undef,
@@ -265,6 +333,7 @@ class openstack (
   $keystone_tenants = undef,
   $keystone_users = undef,
   $glance_password = undef,
+  $glance_api_servers = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
   $swift_password = undef,
@@ -273,12 +342,16 @@ class openstack (
   $nova_password = undef,
   $neutron_password = undef,
   $neutron_shared_secret = undef,
+  $neutron_core_plugin = undef,
+  $neutron_service_plugins = undef,
   $neutron_tunneling = true,
   $neutron_tunnel_types = ['gre'],
   $neutron_tenant_network_type = ['gre'],
   $neutron_type_drivers = ['gre'],
   $neutron_mechanism_drivers = ['openvswitch'],
   $neutron_tunnel_id_ranges = ['1:1000'],
+  $ceilometer_address_management = undef,
+  $ceilometer_mongo_username = undef,
   $ceilometer_mongo_password = undef,
   $ceilometer_password = undef,
   $ceilometer_meteringsecret = undef,
@@ -322,6 +395,19 @@ class openstack (
       mysql_root_password           => hiera(openstack::mysql::root_password),
       mysql_service_password        => hiera(openstack::mysql::service_password),
       mysql_allowed_hosts           => hiera(openstack::mysql::allowed_hosts),
+      mysql_user_keystone           => pick(hiera(openstack::mysql::keystone::user, undef), 'keystone'),
+      mysql_pass_keystone           => pick(hiera(openstack::mysql::keystone::pass, undef), hiera(openstack::mysql::service_password)),
+      mysql_user_cinder             => pick(hiera(openstack::mysql::cinder::user, undef), 'cinder'),
+      mysql_pass_cinder             => pick(hiera(openstack::mysql::cinder::pass, undef), hiera(openstack::mysql::service_password)),
+      mysql_user_glance             => pick(hiera(openstack::mysql::glance::user, undef), 'glance'),
+      mysql_pass_glance             => pick(hiera(openstack::mysql::glance::pass, undef), hiera(openstack::mysql::service_password)),
+      mysql_user_nova               => pick(hiera(openstack::mysql::nova::user, undef), 'nova'),
+      mysql_pass_nova               => pick(hiera(openstack::mysql::nova::pass, undef), hiera(openstack::mysql::service_password)),
+      mysql_user_neutron            => pick(hiera(openstack::mysql::neutron::user, undef), 'neutron'),
+      mysql_pass_neutron            => pick(hiera(openstack::mysql::neutron::pass, undef), hiera(openstack::mysql::service_password)),
+      mysql_user_heat               => pick(hiera(openstack::mysql::heat::user, undef), 'heat'),
+      mysql_pass_heat               => pick(hiera(openstack::mysql::heat::pass, undef), hiera(openstack::mysql::service_password)),
+      rabbitmq_hosts                => hiera(openstack::rabbitmq::hosts),
       rabbitmq_user                 => hiera(openstack::rabbitmq::user),
       rabbitmq_password             => hiera(openstack::rabbitmq::password),
       keystone_admin_token          => hiera(openstack::keystone::admin_token),
@@ -330,6 +416,7 @@ class openstack (
       keystone_tenants              => hiera(openstack::keystone::tenants),
       keystone_users                => hiera(openstack::keystone::users),
       glance_password               => hiera(openstack::glance::password),
+      glance_api_servers            => hiera(openstack::glance::api_servers),
       cinder_password               => hiera(openstack::cinder::password),
       cinder_volume_size            => hiera(openstack::cinder::volume_size),
       swift_password                => hiera(openstack::swift::password),
@@ -338,12 +425,16 @@ class openstack (
       nova_password                 => hiera(openstack::nova::password),
       neutron_password              => hiera(openstack::neutron::password),
       neutron_shared_secret         => hiera(openstack::neutron::shared_secret),
+      neutron_core_plugin           => hiera(openstack::neutron::core_plugin),
+      neutron_service_plugins       => hiera(openstack::neutron::service_plugins),
       neutron_tunneling             => hiera(openstack::neutron::neutron_tunneling, $neutron_tunneling),
       neutron_tunnel_types          => hiera(openstack::neutron::neutron_tunnel_type, $neutron_tunnel_types),
       neutron_tenant_network_type   => hiera(openstack::neutron::neutron_tenant_network_type, $neutron_tenant_network_type),
       neutron_type_drivers          => hiera(openstack::neutron::neutron_type_drivers, $neutron_type_drivers),
       neutron_mechanism_drivers     => hiera(openstack::neutron::neutron_mechanism_drivers, $neutron_mechanism_drivers),
       neutron_tunnel_id_ranges      => hiera(openstack::neutron::neutron_tunnel_id_ranges, $neutron_tunnel_id_ranges),
+      ceilometer_address_management => hiera(openstack::ceilometer::address::management),
+      ceilometer_mongo_username     => hiera(openstack::ceilometer::mongo::username),
       ceilometer_mongo_password     => hiera(openstack::ceilometer::mongo::password),
       ceilometer_password           => hiera(openstack::ceilometer::password),
       ceilometer_meteringsecret     => hiera(openstack::ceilometer::meteringsecret),
@@ -387,6 +478,19 @@ class openstack (
       mysql_root_password           => $mysql_root_password,
       mysql_service_password        => $mysql_service_password,
       mysql_allowed_hosts           => $mysql_allowed_hosts,
+      mysql_user_keystone           => pick($mysql_user_keystone, 'keystone'),
+      mysql_pass_keystone           => pick($mysql_pass_keystone, $mysql_service_password),
+      mysql_user_cinder             => pick($mysql_user_cinder, 'cinder'),
+      mysql_pass_cinder             => pick($mysql_pass_cinder, $mysql_service_password),
+      mysql_user_glance             => pick($mysql_user_glance, 'glance'),
+      mysql_pass_glance             => pick($mysql_pass_glance, $mysql_service_password),
+      mysql_user_nova               => pick($mysql_user_nova, 'nova'),
+      mysql_pass_nova               => pick($mysql_pass_nova, $mysql_service_password),
+      mysql_user_neutron            => pick($mysql_user_neutron, 'neutron'),
+      mysql_pass_neutron            => pick($mysql_pass_neutron, $mysql_service_password),
+      mysql_user_heat               => pick($mysql_user_heat, 'heat'),
+      mysql_pass_heat               => pick($mysql_pass_heat, $mysql_service_password),
+      rabbitmq_hosts                => $rabbitmq_hosts,
       rabbitmq_user                 => $rabbitmq_user,
       rabbitmq_password             => $rabbitmq_password,
       keystone_admin_token          => $keystone_admin_token,
@@ -395,6 +499,7 @@ class openstack (
       keystone_tenants              => $keystone_tenants,
       keystone_users                => $keystone_users,
       glance_password               => $glance_password,
+      glance_api_servers            => $glance_api_servers,
       cinder_password               => $cinder_password,
       cinder_volume_size            => $cinder_volume_size,
       swift_password                => $swift_password,
@@ -403,12 +508,16 @@ class openstack (
       nova_password                 => $nova_password,
       neutron_password              => $neutron_password,
       neutron_shared_secret         => $neutron_shared_secret,
+      neutron_core_plugin           => $neutron_core_plugin,
+      neutron_service_plugins       => $neutron_service_plugins,
       neutron_tunneling             => $neutron_tunneling,
       neutron_tunnel_types          => $neutron_tunnel_types,
       neutron_tenant_network_type   => $neutron_tenant_network_type,
       neutron_type_drivers          => $neutron_type_drivers,
       neutron_mechanism_drivers     => $neutron_mechanism_drivers,
       neutron_tunnel_id_ranges      => $neutron_tunnel_id_ranges,
+      ceilometer_address_management => $ceilometer_address_management,
+      ceilometer_mongo_username     => $ceilometer_mongo_username,
       ceilometer_mongo_password     => $ceilometer_mongo_password,
       ceilometer_password           => $ceilometer_password,
       ceilometer_meteringsecret     => $ceilometer_meteringsecret,

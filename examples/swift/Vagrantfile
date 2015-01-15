@@ -5,7 +5,6 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "puppetlabs/centos-65-x64-openstack"
 
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = false
@@ -13,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.include_offline = true
 
   config.vm.define "puppet" do |puppet|
+    puppet.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     puppet.vm.network :private_network, ip: "192.168.11.3"
     puppet.vm.network :private_network, ip: "192.168.22.3"
     puppet.vm.network :private_network, ip: "172.16.33.3"
@@ -28,12 +28,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "control" do |control|
+    control.vm.box = "jeffmccune/centos7"
     control.vm.network :private_network, ip: "192.168.11.4"
     control.vm.network :private_network, ip: "192.168.22.4"
     control.vm.network :private_network, ip: "172.16.33.4"
     control.vm.network :private_network, ip: "172.16.44.4"
 
     control.vm.hostname = "control"
+
+    control.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = "provision_manifests"
+      puppet.manifest_file = "base.pp"
+    end
 
     control.vm.synced_folder "../../", "/openstack"
 
@@ -43,6 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "swiftstore1" do |swiftstore1|
+    swiftstore1.vm.box = "jeffmccune/centos7"
     swiftstore1.vm.network :private_network, ip: "192.168.11.8"
     swiftstore1.vm.network :private_network, ip: "192.168.22.8"
     swiftstore1.vm.network :private_network, ip: "172.16.33.8"
@@ -53,11 +60,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore1.vm.synced_folder "../../", "/openstack"
 
     swiftstore1.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "256"
     end
   end
 
   config.vm.define "swiftstore2" do |swiftstore2|
+    swiftstore2.vm.box = "jeffmccune/centos7"
     swiftstore2.vm.network :private_network, ip: "192.168.11.9"
     swiftstore2.vm.network :private_network, ip: "192.168.22.9"
     swiftstore2.vm.network :private_network, ip: "172.16.33.9"
@@ -68,11 +76,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore2.vm.synced_folder "../../", "/openstack"
 
     swiftstore2.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "256"
     end
   end
 
   config.vm.define "swiftstore3" do |swiftstore3|
+    swiftstore3.vm.box = "jeffmccune/centos7"
     swiftstore3.vm.network :private_network, ip: "192.168.11.10"
     swiftstore3.vm.network :private_network, ip: "192.168.22.10"
     swiftstore3.vm.network :private_network, ip: "172.16.33.10"
@@ -83,7 +92,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore3.vm.synced_folder "../../", "/openstack"
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "512"
+        v.vmx["memsize"] =  "256"
     end
   end
 

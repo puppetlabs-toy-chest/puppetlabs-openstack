@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 4.2.0 / 2014.1 / Icehouse
+Version 5.0 / 2014.2 / Juno
 
 ####Table of Contents
 
@@ -22,7 +22,7 @@ Version 4.2.0 / 2014.1 / Icehouse
 ##Overview
 
 The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or swift-only installation of
-OpenStack Icehouse.
+OpenStack Juno.
 
 ##Versioning
 
@@ -39,14 +39,15 @@ Puppet Module :: OpenStack Version :: OpenStack Codename
 
 ##Module Description
 
-Using the stable/icehouse branch of the puppet-openstack modules, puppetlabs-openstack allows
-for the rapid deployment of an installation of OpenStack Icehouse. For the multi-node, up to five
+Using the stable/juno branch of the puppet-openstack modules, puppetlabs-openstack allows
+for the rapid deployment of an installation of OpenStack Juno. For the multi-node, up to six
 types of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
 * A storage node that hosts volumes, image storage, and the image storage api.
 * A network node that performs L2 routing, L3 routing, and DHCP services.
 * A compute node to run guest operating systems.
+* Optional object storage nodes to host an object/blob store.
 * An optional Tempest node to test your deployment.
 
 The all-in-one deployment sets up all of the services except for Swift on a single node,
@@ -61,8 +62,8 @@ The Swift deployment sets up:
 
 ###Setup Requirements
 
-This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
-or Ubuntu 14.04 (Trusty) with on either Puppet Enterprise or Puppet.
+This module assumes nodes running on a RedHat 7 variant (RHEL, CentOS, or Scientific Linux)
+or Ubuntu 14.04 (Trusty) with either Puppet Enterprise or Puppet.
 
 Each node needs a minimum of two network interfaces, and up to four.
 The network interfaces are divided into two groups.
@@ -87,9 +88,8 @@ Additionally, you need to know the network address ranges for all four of the pu
 and the specific ip addresses of the controller node and the storage node. Keep in mind that your
 public networks can overlap with one another, as can the private networks.
 
-If you are running VMWare Fusion, and Vagrant with the Fusion provider, a CentOS 6.5 image is provided
-to help you get started. It is stored in the Vagrant Cloud, and will be downloaded automatically.
-See the examples/multinode and examples/allinone directories for details.
+The examples directory contains Vagrantfiles with CentOS 7 boxes to test out all-in-one, multi-node,
+or swift-only deployments.
 
 ##Usage
 
@@ -143,21 +143,8 @@ module that provides network namespaces, required by Open VSwitch, is loaded.
 ### Object Store Nodes
 
 Begin by setting up PuppetDB. The easiest way to do this is to use the module provided
-by Puppet Labs. The module only needs to be installed on the master, and should be
-used after the agent on the master has connected to itself. For example, you can do a
-complete installation with the following commands:
-
-```
-# connect the puppet master to itself for a first run
-
-sudo puppet agent -t
-
-# install the PuppetDB module
-sudo puppet module install puppetlabs/puppetdb
-
-# install the module on the puppet master node
-sudo puppet apply --modulepath /etc/puppet/modules -e \"class { '::puppetdb': listen_address => '0.0.0.0', ssl_listen_address => '0.0.0.0' } class { 'puppetdb::master::config': puppetdb_server => 'puppet'}\""
-```
+by Puppet Labs. The module only needs to be installed on the master. See the puppet node
+configuration in the multinode or swift site.pp.
 
 You will need to create three nodes as object stores for Swift, assigning three zones:
 
@@ -197,11 +184,8 @@ and maintainable OpenStack deployments.
 
 * High availability and SSL-enabled endpoints are not provided by this module.
 
-* The puppet-tempest module will not be installed as a dependency if this module is installed via the puppet module tool. The reasoning for this is that the puppet-tempest module is currently broken for Puppet Enterprise >= 3.3, which will also break installation of this module. puppet-tempest is not scheduled for release anytime soon. Use r10k with the Puppetfile, download from the puppet-tempest source, or puppet module install stackforge/puppet-tempest (on FOSS puppet) before using the tempest role.
-
-
 ##License
-Puppet Labs OpenStack - A Puppet Module for a Multi-Node OpenStack Icehouse Installation.
+Puppet Labs OpenStack - A Puppet Module for a Multi-Node OpenStack Juno Installation.
 
 Copyright (C) 2013, 2014 Puppet Labs, Inc. and Authors
 

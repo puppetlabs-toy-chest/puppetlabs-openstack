@@ -28,10 +28,30 @@ openstack::mysql::root_password: 'spam-gak'
 openstack::mysql::service_password: 'fuva-wax'
 openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
 
+openstack::mysql::keystone::user: 'keystone'
+openstack::mysql::keystone::pass: 'fuva-wax'
+
+openstack::mysql::cinder::user: 'cinder'
+openstack::mysql::cinder::pass: 'fuva-wax'
+
+openstack::mysql::glance::user: 'glance'
+openstack::mysql::glance::pass: 'fuva-wax'
+openstack::glance::api_servers: ['172.16.33.4:9292']
+
+openstack::mysql::nova::user: 'nova'
+openstack::mysql::nova::pass: 'fuva-wax'
+
+openstack::mysql::neutron::user: 'neutron'
+openstack::mysql::neutron::pass: 'fuva-wax'
+
+openstack::mysql::heat::user: 'heat'
+openstack::mysql::heat::pass: 'fuva-wax'
+
 ######## RabbitMQ
 
 openstack::rabbitmq::user: 'openstack'
 openstack::rabbitmq::password: 'pose-vix'
+openstack::rabbitmq::hosts: ['172.16.33.4:5672']
 
 ######## Keystone
 
@@ -85,9 +105,13 @@ openstack::nova::password: 'quuk-paj'
 
 openstack::neutron::password: 'whi-rtuz'
 openstack::neutron::shared_secret: 'by-sa-bo'
+openstack::neutron::core_plugin: 'ml2'
+openstack::neutron::service_plugins: ['router','firewall','lbaas','vpnaas','metering']
 
 ######## Ceilometer
-openstack::ceilometer::mongo::password: 'whi-truz'
+openstack::ceilometer::address::management: '172.16.33.4'
+openstack::ceilometer::mongo::username: 'mongo'
+openstack::ceilometer::mongo::password: 'mongosecretkey123'
 openstack::ceilometer::password: 'whi-truz'
 openstack::ceilometer::meteringsecret: 'ceilometersecretkey'
 

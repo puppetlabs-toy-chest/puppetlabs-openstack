@@ -14,9 +14,9 @@ class openstack::common::nova ($is_compute    = false) {
 
   class { '::nova':
     database_connection     => $::openstack::resources::connectors::nova,
-    glance_api_servers => "http://${storage_management_address}:9292",
+    glance_api_servers => join($::openstack::config::glance_api_servers, ','),
     memcached_servers  => ["${controller_management_address}:11211"],
-    rabbit_hosts       => [$controller_management_address],
+    rabbit_hosts       => $::openstack::config::rabbitmq_hosts,
     rabbit_userid      => $::openstack::config::rabbitmq_user,
     rabbit_password    => $::openstack::config::rabbitmq_password,
     debug              => $::openstack::config::debug,

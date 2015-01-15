@@ -56,7 +56,7 @@ mod "vswitch",
 
 mod "apache",
   :git => "git://github.com/puppetlabs/puppetlabs-apache",
-  :ref => "1.1.1"
+  :ref => "1.2.x"
 
 mod "epel",
   :git => "git://github.com/stahnma/puppet-module-epel",
@@ -103,7 +103,11 @@ mod "sysctl",
 
 mod "rabbitmq",
   :git => "git://github.com/puppetlabs/puppetlabs-rabbitmq",
-  :ref => "3.1.0"
+  :ref => "5.0.0"
+
+mod "staging",
+  :git => "git://github.com/nanliu/puppet-staging",
+  :ref => "1.x"
 
 mod "vcsrepo",
   :git => "git://github.com/puppetlabs/puppetlabs-vcsrepo",
@@ -121,7 +125,7 @@ mod "apt",
 
 mod "mongodb",
   :git => "git://github.com/puppetlabs/puppetlabs-mongodb",
-  :ref => "0.7.0"
+  :ref => "0.10.0"
 
 mod "ntp",
   :git => "git://github.com/puppetlabs/puppetlabs-ntp",
@@ -133,5 +137,5 @@ mod "postgresql",
 
 mod "puppetdb",
   :git => "git://github.com/puppetlabs/puppetlabs-puppetdb",
-  :ref => "3.0.1"
+  :ref => "4.0.0"
 

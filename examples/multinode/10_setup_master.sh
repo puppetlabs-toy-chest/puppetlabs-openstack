@@ -1,7 +1,7 @@
 #!/bin/bash
 # Set up the Puppet Master
 
-vagrant ssh puppet -c "sudo service iptables stop; \
+vagrant ssh puppet -c "sudo apt-get update; \
 sudo apt-get install -y puppetmaster; \
 sudo rmdir /etc/puppet/modules || sudo unlink /etc/puppet/modules; \
 sudo ln -s /vagrant/modules /etc/puppet/modules; \

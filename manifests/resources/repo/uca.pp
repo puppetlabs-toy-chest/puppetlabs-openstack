@@ -1,10 +1,9 @@
 # Ubuntu Cloud Archive repo
 class openstack::resources::repo::uca(
-  $release = 'icehouse',
+  $release = 'juno',
   $repo    = 'updates'
 ) {
-  if ($::operatingsystem == 'Ubuntu' and
-      $::lsbdistdescription =~ /^.*12\.04.*LTS.*$/) {
+  if ($::operatingsystem == 'Ubuntu') {
     include apt::update
 
     apt::source { 'ubuntu-cloud-archive':

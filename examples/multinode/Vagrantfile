@@ -38,10 +38,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     control.vm.hostname = "control"
 
+    control.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = "provision_manifests"
+      puppet.manifest_file = "base.pp"
+    end
+
     control.vm.synced_folder "../../", "/openstack"
 
     control.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "2048"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
@@ -106,7 +111,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore1.vm.synced_folder "../../", "/openstack"
 
     swiftstore1.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
@@ -122,7 +127,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore2.vm.synced_folder "../../", "/openstack"
 
     swiftstore2.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "1024"
+        v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end
@@ -138,7 +143,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore3.vm.synced_folder "../../", "/openstack"
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"] =  "512"
+        v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
     end
   end

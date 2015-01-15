@@ -15,7 +15,7 @@ class openstack::resources::repo(
       }
     }
     default: {
-      fail { "FAIL: openstack::resources::repo parameter 'release' of '${release}' not recognized; please use one of 'icehouse', 'havana', 'grizzly'.": }
+      fail { "FAIL: openstack::resources::repo parameter 'release' of '${release}' not recognized; please use one of 'juno', 'icehouse', 'havana', 'grizzly'.": }
     }
   }
 }
