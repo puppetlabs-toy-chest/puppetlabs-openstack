@@ -1,3 +1,19 @@
+##2015-01-26 - Release 5.0.2
+###Summary
+
+This is an emergency bugfix release to fix the use of parameters that
+were unexpectedly removed in the stable nova branch, plus a number of
+other bugfixes.
+
+####Bugfixes
+- Fix syntax error in example hiera file
+- Fix Puppetfile dependency for staging module
+- Remove heat_stack_owner from default admin roles
+- Add firewall rule to fix connectivity between guest nodes
+- Have the mongodb module manage the mongodb repo
+- Update libvirt type parameter for nova config
+- Update database connection parameters for keystone endpoint config
+
 ##2015-01-14 - Release 5.0.1
 ###Summary
 
