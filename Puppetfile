@@ -107,7 +107,7 @@ mod "rabbitmq",
 
 mod "staging",
   :git => "git://github.com/nanliu/puppet-staging",
-  :ref => "1.x"
+  :ref => "1.0.2"
 
 mod "vcsrepo",
   :git => "git://github.com/puppetlabs/puppetlabs-vcsrepo",
