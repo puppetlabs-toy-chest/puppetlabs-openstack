@@ -2,13 +2,13 @@
 # Private, and should not be used on its own
 class openstack::common::cinder {
   class { '::cinder':
-    database_connection  => $::openstack::resources::connectors::cinder,
-    rabbit_host     => $::openstack::config::controller_address_management,
-    rabbit_userid   => $::openstack::config::rabbitmq_user,
-    rabbit_password => $::openstack::config::rabbitmq_password,
-    debug           => $::openstack::config::debug,
-    verbose         => $::openstack::config::verbose,
-    mysql_module    => '2.2',
+    database_connection => $::openstack::resources::connectors::cinder,
+    rabbit_host         => $::openstack::config::controller_address_management,
+    rabbit_userid       => $::openstack::config::rabbitmq_user,
+    rabbit_password     => $::openstack::config::rabbitmq_password,
+    debug               => $::openstack::config::debug,
+    verbose             => $::openstack::config::verbose,
+    mysql_module        => '2.2',
   }
 
   $storage_server = $::openstack::config::storage_address_api

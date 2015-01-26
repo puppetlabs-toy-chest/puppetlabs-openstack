@@ -6,13 +6,13 @@ class openstack::common::keystone {
   }
 
   class { '::keystone':
-    admin_token          => $::openstack::config::keystone_admin_token,
-    database_connection  => $::openstack::resources::connectors::keystone,
-    verbose              => $::openstack::config::verbose,
-    debug                => $::openstack::config::debug,
-    enabled              => $::openstack::profile::base::is_controller,
-    admin_bind_host      => $admin_bind_host,
-    mysql_module         => '2.2',
+    admin_token         => $::openstack::config::keystone_admin_token,
+    database_connection => $::openstack::resources::connectors::keystone,
+    verbose             => $::openstack::config::verbose,
+    debug               => $::openstack::config::debug,
+    enabled             => $::openstack::profile::base::is_controller,
+    admin_bind_host     => $admin_bind_host,
+    mysql_module        => '2.2',
   }
 
   class { '::keystone::roles::admin':
