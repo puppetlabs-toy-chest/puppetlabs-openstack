@@ -2,7 +2,7 @@
 # Private, and should not be used on its own
 class openstack::common::cinder {
   class { '::cinder':
-    sql_connection  => $::openstack::resources::connectors::cinder,
+    database_connection  => $::openstack::resources::connectors::cinder,
     rabbit_host     => $::openstack::config::controller_address_management,
     rabbit_userid   => $::openstack::config::rabbitmq_user,
     rabbit_password => $::openstack::config::rabbitmq_password,
