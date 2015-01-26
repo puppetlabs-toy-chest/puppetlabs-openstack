@@ -8,8 +8,8 @@ class openstack::profile::nova::compute {
   }
 
   class { '::nova::compute::libvirt':
-    libvirt_type     => $::openstack::config::nova_libvirt_type,
-    vncserver_listen => $management_address,
+    libvirt_virt_type => $::openstack::config::nova_libvirt_type,
+    vncserver_listen  => $management_address,
   }
 
   class { 'nova::migration::libvirt':
