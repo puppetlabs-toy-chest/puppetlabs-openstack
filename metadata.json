@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-openstack",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "author": "Puppet Labs and Community Contributors",
   "summary": "Install, configure, and manage a full installation of OpenStack Juno",
   "license": "Apache-2.0",
