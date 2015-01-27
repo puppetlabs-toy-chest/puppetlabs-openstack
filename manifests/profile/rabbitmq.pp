@@ -11,10 +11,10 @@ class openstack::profile::rabbitmq {
   }
 
   rabbitmq_user { $::openstack::config::rabbitmq_user:
-    admin     => true,
-    password  => $::openstack::config::rabbitmq_password,
-    provider  => 'rabbitmqctl',
-    require   => Class['::rabbitmq'],
+    admin    => true,
+    password => $::openstack::config::rabbitmq_password,
+    provider => 'rabbitmqctl',
+    require  => Class['::rabbitmq'],
   }
   rabbitmq_user_permissions { "${openstack::config::rabbitmq_user}@/":
     configure_permission => '.*',
