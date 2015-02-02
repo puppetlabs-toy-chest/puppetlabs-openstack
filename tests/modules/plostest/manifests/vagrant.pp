@@ -9,6 +9,22 @@ class plostest::vagrant {
   $vagrant_box  = $::env_vagrantbox
   $ostarget = $::env_ostarget
 
+  $api_cidr = $scenario['networks']['api']
+  $public_cidr = $scenario['networks']['public']
+  $admin_cidr = $scenario['networks']['admin']
+  $data_cidr = $scenario['networks']['data']
+
+  $api_address = regsubst($scenario['networks']['api'],'^(\d+\.\d+\.\d+.\d+)\/\d+','\1')
+  $public_address = regsubst($scenario['networks']['public'],'^(\d+\.\d+\.\d+.\d+)\/\d+','\1')
+  $admin_address = regsubst($scenario['networks']['admin'],'^(\d+\.\d+\.\d+.\d+)\/\d+','\1')
+  $data_address = regsubst($scenario['networks']['data'],'^(\d+\.\d+\.\d+.\d+)\/\d+','\1')
+  $allowed_hosts = regsubst($scenario['networks']['admin'],'^(\d+\.\d+\.\d+.)\d+\/\d+','\1%')
+
+  $api_template = regsubst($api_address, '^(\d+\.\d+\.\d+\.)\d+', '\1')
+  $admin_template = regsubst($admin_address, '^(\d+\.\d+\.\d+\.)\d+', '\1')
+  $data_template = regsubst($data_address, '^(\d+\.\d+\.\d+\.)\d+', '\1')
+  $public_template = regsubst($public_address, '^(\d+\.\d+\.\d+\.)\d+', '\1')
+
   file { $testhomename:
     ensure => directory,
   }

@@ -1,1 +1,1 @@
-OSTARGET=rhel VAGRANTBOX="puppetlabs/centos-65-x64-openstack" SCENARIO=allinone puppet apply --modulepath=../tests/modules -e "include ::plostest::vagrant"
+OSTARGET=rhel VAGRANTBOX="centos-7-64-openstack4" SCENARIO=allinone puppet apply --modulepath=../tests/modules -e "include ::plostest::vagrant"

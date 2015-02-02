@@ -8,26 +8,29 @@ Version 4.2.0 / 2014.1 / Icehouse
 1. [Overview - What is the puppetlabs-openstack module?](#overview)
 2. [A Note on Versioning](#versioning)
 2. [Module Description - What does the module do?](#module-description)
-3. [Setup - The basics of getting started with OpenStack](#setup)
+3. [Quick Start - Up and Running with VMWare Fusion and Vagrant](#quickstart)
+4. [Setup - The basics of getting started with OpenStack](#setup)
     * [Setup Requirements](#setup-requirements)
     * [Beginning with OpenStack](#beginning-with-openstack)
-4. [Usage - Configuration and customization options](#usage)
+5. [Usage - Configuration and customization options](#usage)
     * [Hiera configuration](#hiera-configuration)
     * [Controller Node](#controller-node)
     * [Storage, Network, and Compute Nodes](#other-nodes)
-5. [Reference - An under-the-hood peek at what the module is doing](#reference)
-6. [Limitations - OS compatibility, etc.](#limitations)
-7. [License](#license)
+6. [Reference - An under-the-hood peek at what the module is doing](#reference)
+7. [Limitations - OS compatibility, etc.](#limitations)
+8. [License](#license)
 
 ##Overview
 
 The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or swift-only installation of
-OpenStack Icehouse.
+OpenStack Juno. The module does not build out a high-availability or SSL secured cluster, and should be
+regarded as a learning and testing tool, similar to devstack. My intention is to improve the production
+capabilities of this module as development progresses.
 
 ##Versioning
 
-This module has been given version 4 to track the puppet-openstack modules. The versioning for the
-puppet-openstack modules are as follows:
+This module has been given version 5 to track the stackforge/puppet-openstack modules. The versioning for the
+stackforge/puppet-openstack modules are as follows:
 
 ```
 Puppet Module :: OpenStack Version :: OpenStack Codename
@@ -35,12 +38,13 @@ Puppet Module :: OpenStack Version :: OpenStack Codename
 3.0.0         -> 2013.2.0          -> Havana
 4.0.0         -> 2014.1.0          -> Icehouse
 5.0.0         -> 2014.2.0          -> Juno
+6.0.0         -> 2015.1.0          -> Kilo
 ```
 
 ##Module Description
 
-Using the stable/icehouse branch of the puppet-openstack modules, puppetlabs-openstack allows
-for the rapid deployment of an installation of OpenStack Icehouse. For the multi-node, up to five
+Using the master branch of the puppet-openstack modules, puppetlabs-openstack allows
+for the rapid deployment of an installation of OpenStack Juno. For the multi-node, up to five
 types of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
@@ -49,7 +53,7 @@ types of nodes are created for the deployment:
 * A compute node to run guest operating systems.
 * An optional Tempest node to test your deployment.
 
-The all-in-one deployment sets up all of the services except for Swift on a single node,
+The all-in-one deployment sets up all of the services on a single node,
 including the Tempest testing.
 
 The Swift deployment sets up:
@@ -57,15 +61,70 @@ The Swift deployment sets up:
 * A controller node that hosts databases, message queues and caches, and the Swift API.
 * Three storage nodes in different Swift Zones.
 
+##QuickStart
+
+###Requirements
+
+To run the integrated testing infrastructure you need the following requirements on your workstation:
+
+* VMWare Fusion/Desktop, with the network set to not require authentication for "promiscuous mode"
+* Vagrant plugin for VMWare Fusion/Desktop.
+* Puppet 3.x (`sudo gem install puppet`)
+* A CentOS 7 minimal image, loaded into Vagrant with the name 'centos-7-64-openstack'.
+
+Start by creating a working test system in the examples directory:
+
+```
+cd examples
+./make_rhel_allinone.sh
+```
+
+That script will execute a set of Puppet modules to build out a Red Hat based all-in-one
+test environment. Change into that environment, and start running the scripts in order:
+
+```
+cd rhel_allinone
+# Begin by downloading dependencies from GitHub
+./10_download_modules.sh
+
+# Now start the Vagrant environment and configure networking
+./20_up.sh
+
+# Set up the Puppet Master node
+./30_setup_master.sh
+
+# Set up the openstack modules on the Puppet Master
+./40_setup_openstack.sh
+
+# Connect all of the nodes to the Puppet Master and sign certs
+./50_setup_nodes.sh
+
+# Deploy the control node first
+./60_deploy_control.sh
+
+# Deploy the rest of the cluter nodes
+./70_deploy_nodes.sh
+```
+
+If the Puppet runs complete successfully, you should be able to access the Horizon
+interface on the controller node. The address of the node is at the top of the
+`addresses.yaml` file.
+
+Once you're evaluating and working with the system you can bring the entire cluster
+down with the final script:
+
+```
+# Have Vagrant tear down the nodes
+./80_destroy_nodes.sh
+```
+
 ##Setup
 
 ###Setup Requirements
 
-This module assumes nodes running on a RedHat 6 variant (RHEL, CentOS, or Scientific Linux)
-or Ubuntu 14.04 (Trusty) with on either Puppet Enterprise or Puppet.
-
-Each node needs a minimum of two network interfaces, and up to four.
-The network interfaces are divided into two groups.
+This module assumes nodes running on a RedHat 7 variant (RHEL, CentOS, or Scientific Linux) with
+Puppet. Each node needs a minimum of two network interfaces, and up to four. The network interfaces
+are divided into two groups.
 
 - Public interfaces:
   * API network.

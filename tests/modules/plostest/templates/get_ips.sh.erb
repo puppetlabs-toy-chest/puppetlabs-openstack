@@ -1,0 +1,13 @@
+<%- control_set = false; storage_set = false -%>
+<%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
+  <%- if ((not control_set) and nodedata.has_key?('is_control') and nodedata['is_control']) -%>
+    <%- control_set = true -%>
+vagrant ssh <%= nodename %> -c "facter | grep ipaddress_ | cut -d ' ' -f 3 | grep <%= @api_template %> | sed 's/\(.*\)/control_api_address: \1/'"
+vagrant ssh <%= nodename %> -c "facter | grep ipaddress_ | cut -d ' ' -f 3 | grep <%= @admin_template %> | sed 's/\(.*\)/control_admin_address: \1/'"
+  <%- end -%>
+  <%- if (nodedata.has_key?('is_storage') and nodedata['is_storage']) -%>
+    <%- storage_set = true -%>
+vagrant ssh <%= nodename %> -c "facter | grep ipaddress_ | cut -d ' ' -f 3 | grep <%= @api_template %> | sed 's/\(.*\)/storage_api_address: \1/'"
+vagrant ssh <%= nodename %> -c "facter | grep ipaddress_ | cut -d ' ' -f 3 | grep <%= @admin_template %> | sed 's/\(.*\)/storage_admin_address: \1/'"
+  <%- end -%>
+<%- end -%>

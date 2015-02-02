@@ -1,10 +1,10 @@
 # A static class to set up a shared network. Should appear on the
 # controller node. It sets up the public network, a private network,
-# two subnets (one for admin, one for test), and the routers that
+# two subnets (one for admin, one for openstack), and the routers that
 # connect the subnets to the public network.
 #
 # After this class has run, you should have a functional network
-# avaiable for your test user to launch and connect machines to.
+# avaiable for your openstack user to launch and connect machines to.
 class openstack::setup::sharednetwork {
 
   $external_network = $::openstack::config::network_external
@@ -17,11 +17,11 @@ class openstack::setup::sharednetwork {
   $private_network = $::openstack::config::network_neutron_private
 
   neutron_network { 'public':
-    tenant_name              => 'services',
+    tenant_name              => 'admin',
     provider_network_type    => 'gre',
     router_external          => true,
     provider_segmentation_id => 3604,
-    shared                   => true,
+    shared                   => false,
   } ->
 
   neutron_subnet { $external_network:
@@ -30,17 +30,17 @@ class openstack::setup::sharednetwork {
     gateway_ip       => $gateway,
     enable_dhcp      => false,
     network_name     => 'public',
-    tenant_name      => 'services',
+    tenant_name      => 'admin',
     allocation_pools => [$ip_range],
     dns_nameservers  => [$dns],
   }
 
   neutron_network { 'private':
-    tenant_name              => 'services',
+    tenant_name              => 'admin',
     provider_network_type    => 'gre',
     router_external          => false,
     provider_segmentation_id => 4063,
-    shared                   => true,
+    shared                   => false,
   } ->
 
   neutron_subnet { $private_network:
@@ -48,9 +48,9 @@ class openstack::setup::sharednetwork {
     ip_version      => '4',
     enable_dhcp     => true,
     network_name    => 'private',
-    tenant_name     => 'services',
+    tenant_name     => 'openstack',
     dns_nameservers => [$dns],
   }
 
-  openstack::setup::router { "test:${private_network}": }
+  openstack::setup::router { "openstack:${private_network}": }
 }

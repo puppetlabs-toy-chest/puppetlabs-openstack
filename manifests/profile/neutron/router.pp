@@ -2,7 +2,7 @@
 class openstack::profile::neutron::router {
   Exec {
     path    => '/usr/bin:/usr/sbin:/bin:/sbin',
-    require => Class['openstack::profile::neutron::common'],
+    require => Class['openstack::common::neutron'],
   }
 
   ::sysctl::value { 'net.ipv4.ip_forward':
@@ -41,7 +41,8 @@ class openstack::profile::neutron::router {
   }
 
   class { '::neutron::agents::vpnaas':
-    enabled => true,
+    enabled                 => true,
+    external_network_bridge => 'brex',
   }
 
   class { '::neutron::agents::metering':

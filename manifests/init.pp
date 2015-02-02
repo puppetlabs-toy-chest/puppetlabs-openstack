@@ -180,6 +180,14 @@
 # [*heat_encryption_key*]
 #   The encyption key for the shared heat services.
 #
+# == Trove
+# [*trove_password*]
+#    The password for the Trove user in Keystone.
+#
+# == Sahara
+# [*sahara_password*]
+#    The password for the Sahara user in Keystone.
+#
 # == Horizon
 # [*horizon_secret_key*]
 #   The secret key for the Horizon service.
@@ -284,6 +292,8 @@ class openstack (
   $ceilometer_meteringsecret = undef,
   $heat_password = undef,
   $heat_encryption_key = undef,
+  $trove_password = undef,
+  $sahara_password = undef,
   $horizon_secret_key = undef,
   $tempest_configure_images    = undef,
   $tempest_image_name          = undef,
@@ -349,6 +359,8 @@ class openstack (
       ceilometer_meteringsecret     => hiera(openstack::ceilometer::meteringsecret),
       heat_password                 => hiera(openstack::heat::password),
       heat_encryption_key           => hiera(openstack::heat::encryption_key),
+      trove_password                => hiera(openstack::trove::password),
+      sahara_password               => hiera(openstack::sahara::password),
       horizon_secret_key            => hiera(openstack::horizon::secret_key),
       verbose                       => hiera(openstack::verbose),
       debug                         => hiera(openstack::debug),
@@ -414,6 +426,8 @@ class openstack (
       ceilometer_meteringsecret     => $ceilometer_meteringsecret,
       heat_password                 => $heat_password,
       heat_encryption_key           => $heat_encryption_key,
+      trove_password                => $trove_password,
+      sahara_password               => $sahara_password,
       horizon_secret_key            => $horizon_secret_key,
       verbose                       => $verbose,
       debug                         => $debug,

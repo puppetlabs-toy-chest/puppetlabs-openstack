@@ -12,8 +12,22 @@ class openstack::profile::mongodb {
   }
 
   class { '::mongodb::server':
-    bind_ip => ['127.0.0.1', $::openstack::config::controller_address_management],
+    bind_ip     => ['127.0.0.1', $::openstack::config::controller_address_management],
+    pidfilepath => '/var/run/mongodb/mongod.pid',
   }
+
+  #exec { '/bin/systemctl daemon-reload': 
+  #  before => Service['mongod']
+  #}
+
+  #file { '/usr/lib/systemd/system/mongod.service':
+  #  source => 'puppet:///modules/openstack/mongod.service',
+  #  owner  => root,
+  #  group  => root,
+  #  mode   => '0644',
+  #  before => Service['mongod'],
+  #  notify => Exec['/bin/systemctl daemon-reload']
+  #}
 
   class { '::mongodb::client': }
 }

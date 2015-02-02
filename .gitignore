@@ -7,3 +7,4 @@ examples/allinone/modules
 examples/multinode/modules
 examples/swift/modules
 Gemfile.lock
+templates/openstack.yaml.erb

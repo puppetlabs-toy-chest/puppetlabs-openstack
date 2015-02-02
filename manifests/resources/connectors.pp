@@ -9,4 +9,6 @@ class openstack::resources::connectors {
   $nova     = "mysql://nova:${password}@${management_address}/nova"
   $neutron  = "mysql://neutron:${password}@${management_address}/neutron"
   $heat     = "mysql://heat:${password}@${management_address}/heat"
+  $trove    = "mysql://trove:${password}@${management_address}/trove"
+  $sahara   = "mysql://sahara:${password}@${management_address}/sahara"
 }

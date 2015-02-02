@@ -27,7 +27,7 @@ class openstack::profile::mysql {
     python_enable => true,
   }
 
-  Service['mysqld'] -> Anchor['database-service']
+#  Service['mysqld'] -> Anchor['database-service']
 
   class { 'mysql::server::account_security': }
 }

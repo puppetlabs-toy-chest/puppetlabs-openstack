@@ -14,6 +14,8 @@ dependencies:
       heat: ~
       ceilometer: ~
       horizon: ~
+      trove: ~
+      sahara: ~
       openstacklib:
         forge: undef
       tempest:
@@ -23,19 +25,18 @@ dependencies:
     git_prefix: puppetlabs
     repos:
       apache:
-        ref: 1.1.x
+        ref: 1.2.x
       inifile:
         ref: 1.0.x
       mysql:
-        ref: 2.2.x
       stdlib:
-        ref: 3.2.x
+        ref: 4.3.x
       rsync:
         ref: 0.2.0
       xinetd:
         ref: 1.2.0
       concat:
-        ref: 1.0.2
+        ref: 1.1.0
       rabbitmq:
         ref: 3.1.0
       vcsrepo:
@@ -68,3 +69,7 @@ dependencies:
     git_prefix: puppet
     repos:
       sysctl: ~
+  stahnma:
+    git_prefix: puppet-module
+    repos:
+        epel: ~

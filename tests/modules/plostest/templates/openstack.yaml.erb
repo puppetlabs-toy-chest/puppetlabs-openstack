@@ -1,15 +1,15 @@
 openstack::region: 'openstack'
 
 ######## Networks
-openstack::network::api: '192.168.11.0/24'
-openstack::network::external: '192.168.22.0/24'
-openstack::network::management: '172.16.33.0/24'
-openstack::network::data: '172.16.44.0/24'
+openstack::network::api: '<%= @api_cidr %>'
+openstack::network::external: '<%= @public_cidr %>'
+openstack::network::management: '<%= @admin_cidr %>'
+openstack::network::data: '<%= @data_cidr %>'
 
-openstack::network::external::ippool::start: 192.168.22.100
-openstack::network::external::ippool::end: 192.168.22.200
-openstack::network::external::gateway: 192.168.22.2
-openstack::network::external::dns: 192.168.22.2
+openstack::network::external::ippool::start: '<%= @public_template %><%= @scenario['networks']['public_access']['start']%>'
+openstack::network::external::ippool::end: '<%= @public_template %><%= @scenario['networks']['public_access']['end']%>'
+openstack::network::external::gateway: '<%= @scenario['networks']['public_access']['gateway'] %>'
+openstack::network::external::dns: '<%= @scenario['networks']['public_access']['dns']%>'
 
 ######## Private Neutron Network
 
@@ -20,13 +20,13 @@ openstack::network::neutron::private: '10.0.0.0/24'
 <%- @scenario['nodes'].each_pair do |nodename, nodedata| -%>
   <%- if ((not control_set) and nodedata.has_key?('is_control') and nodedata['is_control']) -%>
     <%- control_set = true -%>
-openstack::controller::address::api: '<%= nodedata["api_address"] %>'
-openstack::controller::address::management: '<%= nodedata["admin_address"] %>'
+openstack::controller::address::api: '<%= nodedata['api_address'] %>'
+openstack::controller::address::management: '<%= nodedata['admin_address'] %>'
   <%- end -%>
   <%- if (nodedata.has_key?('is_storage') and nodedata['is_storage']) -%>
     <%- storage_set = true -%>
-openstack::storage::address::api: '<%= nodedata["api_address"] %>'
-openstack::storage::address::management: '<%= nodedata["admin_address"] %>'
+openstack::storage::address::api: '<%= nodedata['api_address'] %>'
+openstack::storage::address::management: '<%= nodedata['admin_address'] %>'
   <%- end -%>
 <%- end -%>
 
@@ -34,7 +34,7 @@ openstack::storage::address::management: '<%= nodedata["admin_address"] %>'
 
 openstack::mysql::root_password: 'spam-gak'
 openstack::mysql::service_password: 'fuva-wax'
-openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '172.16.33.%']
+openstack::mysql::allowed_hosts: ['localhost', '127.0.0.1', '<%= @allowed_hosts %>']
 
 ######## RabbitMQ
 
@@ -48,25 +48,37 @@ openstack::keystone::admin_email: 'example@puppetlabs.com'
 openstack::keystone::admin_password: 'fyby-tet'
 
 openstack::keystone::tenants:
-    "test":
-        description: "Test tenant"
-    "test2":
-        description: "Test tenant"
+    "openstack":
+        description: "Generic OpenStack tenant"
+    "tempest_1":
+        description: "First test tenant for tempest"
+    "tempest_2":
+        description: "Second test tenant for tempest"
 
 openstack::keystone::users:
-    "test":
-        password: "abc123"
-        tenant: "test"
-        email: "test@example.com"
+    "openstack":
+        password: "openstack"
+        tenant: "openstack"
+        email: "example@openstack.org"
         admin: true
-    "demo":
-        password: "abc123"
-        tenant: "test"
+    "tempest_admin1":
+        password: "tempest_admin1"
+        tenant: "tempest_1"
+        email: "demo@example.com"
+        admin: true
+    "tempest_user1":
+        password: "tempest_user1"
+        tenant: "tempest_1"
         email: "demo@example.com"
         admin: false
-    "demo2":
-        password: "abc123"
-        tenant: "test2"
+    "tempest_admin2":
+        password: "tempest_admin2"
+        tenant: "tempest_2"
+        email: "demo@example.com"
+        admin: true
+    "tempest_user2":
+        password: "tempest_admin2"
+        tenant: "tempest_2"
         email: "demo@example.com"
         admin: false
 
@@ -103,6 +115,11 @@ openstack::ceilometer::meteringsecret: 'ceilometersecretkey'
 openstack::heat::password: 'zap-bang'
 openstack::heat::encryption_key: 'heatsecretkey'
 
+######## Trove
+openstack::trove::password: 'jit-jig'
+
+######## Sahara
+openstack::sahara::password: 'grit-barrel'
 
 ######## Horizon
 
