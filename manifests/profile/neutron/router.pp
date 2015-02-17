@@ -1,10 +1,5 @@
 # The profile to set up a neutron ovs network router
 class openstack::profile::neutron::router {
-  Exec {
-    path    => '/usr/bin:/usr/sbin:/bin:/sbin',
-    require => Class['openstack::profile::neutron::common'],
-  }
-
   ::sysctl::value { 'net.ipv4.ip_forward':
     value     => '1',
   }
