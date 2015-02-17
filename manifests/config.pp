@@ -70,6 +70,8 @@ class openstack::config (
   $heat_password = undef,
   $heat_encryption_key = undef,
   $horizon_secret_key = undef,
+  $horizon_allowed_hosts = undef,
+  $horizon_server_aliases = undef,
   $tempest_configure_images    = undef,
   $tempest_image_name          = undef,
   $tempest_image_name_alt      = undef,
