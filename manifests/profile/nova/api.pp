@@ -14,7 +14,6 @@ class openstack::profile::nova::api {
     admin_address    => $::openstack::config::controller_address_management,
     internal_address => $::openstack::config::controller_address_management,
     region           => $::openstack::config::region,
-    cinder           => true,
   }
 
   include ::openstack::common::nova
