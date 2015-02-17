@@ -295,6 +295,16 @@
 # [*horizon_secret_key*]
 #   The secret key for the Horizon service.
 #
+# [*allowed_hosts*]
+#   List of hosts which will be set as value of ALLOWED_HOSTS
+#   parameter in settings_local.py. This is used by Django for
+#   security reasons. Can be set to * in environments where security is
+#   deemed unimportant.
+#
+# [*server_aliases*]
+#   List of names which should be defined as ServerAlias directives
+#   in vhost.conf.
+#
 # == Log levels
 # [*verbose*]
 #   Boolean. Determines if verbose is enabled for all OpenStack services.
@@ -420,6 +430,8 @@ class openstack (
   $heat_password = undef,
   $heat_encryption_key = undef,
   $horizon_secret_key = undef,
+  $horizon_allowed_hosts = undef,
+  $horizon_server_aliases = undef,
   $tempest_configure_images    = undef,
   $tempest_image_name          = undef,
   $tempest_image_name_alt      = undef,
@@ -504,6 +516,8 @@ class openstack (
       heat_password                 => hiera(openstack::heat::password),
       heat_encryption_key           => hiera(openstack::heat::encryption_key),
       horizon_secret_key            => hiera(openstack::horizon::secret_key),
+      horizon_allowed_hosts         => hiera(openstack::horizon::allowed_hosts, []),
+      horizon_server_aliases        => hiera(openstack::horizon::server_aliases, []),
       verbose                       => hiera(openstack::verbose),
       debug                         => hiera(openstack::debug),
       tempest_configure_images      => hiera(openstack::tempest::configure_images),
@@ -593,6 +607,8 @@ class openstack (
       heat_password                 => $heat_password,
       heat_encryption_key           => $heat_encryption_key,
       horizon_secret_key            => $horizon_secret_key,
+      horizon_allowed_hosts         => [],
+      horizon_server_aliases        => [],
       verbose                       => $verbose,
       debug                         => $debug,
       tempest_configure_images      => $tempest_configure_images,
