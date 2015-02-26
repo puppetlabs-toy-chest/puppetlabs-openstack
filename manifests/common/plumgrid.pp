@@ -23,13 +23,22 @@ class openstack::common::plumgrid {
      pg_servertimeout        => $pg_servertimeout,
      pg_enable_metadata_agent=> $pg_enable_metadata_agent,
      admin_password          => $admin_password,
-     metadata_proxy_secret   => $metadata_proxy_secret,
      controller_priv_host    => $controller_priv_host,
     }
 
     nova_config { 'DEFAULT/scheduler_driver': value => 'nova.scheduler.filter_scheduler.FilterScheduler' }
     nova_config { 'DEFAULT/libvirt_vif_type': value => 'ethernet'}
     nova_config { 'DEFAULT/libvirt_cpu_mode': value => 'none'}
+
+    if $pg_enable_metadata_agent {
+      class { '::neutron::agents::metadata' :
+        auth_password => $admin_password,
+        shared_secret => $metadata_proxy_secret,
+        auth_tenant   => 'admin',
+        auth_user     => 'admin',
+        auth_region   => 'openstack',
+      }
+    }
   }
 
   ### PLUMgrid Compute Node Configuration
