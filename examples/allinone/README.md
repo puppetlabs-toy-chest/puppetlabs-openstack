@@ -45,7 +45,7 @@ The Vagrantfile will automatically download a prepared CentOS box for you.
 You need to have R10K installed. You can use the one provided by the rubygem.
 
 ```
-ruby gem install R10K
+ruby gem install r10k
 ```
 
 Using R10K, module dependencies are automatically downloaded and the root of the module
