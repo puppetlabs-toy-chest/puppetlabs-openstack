@@ -1,5 +1,6 @@
 # The profile to set up a neutron agent
 class openstack::profile::neutron::agent {
   include ::openstack::common::neutron
-  include ::openstack::common::ovs
+  include ::openstack::common::ml2::ovs
+  include ::openstack::common::ml2
 }
