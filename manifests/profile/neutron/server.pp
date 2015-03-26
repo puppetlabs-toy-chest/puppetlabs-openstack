@@ -5,7 +5,7 @@ class openstack::profile::neutron::server {
   openstack::resources::firewall { 'Neutron API': port => '9696', }
 
   include ::openstack::common::neutron
-  include ::openstack::common::ovs
+  include ::openstack::common::ml2
 
   Class['::neutron::db::mysql'] -> Exec['neutron-db-sync']
 }
