@@ -1,9 +1,6 @@
 class openstack::resources::repo::erlang {
-  if $::osfamily == 'RedHat' {
-    case $::operatingsystem {
-      fedora: { $dist = 'fedora' }
-      default: { $dist = 'centos' }
-    }
+  if $::osfamily == 'RedHat' and $::operatingsystem != 'Fedora' {
+    $dist = 'centos' # There isn't a repo for fedora >= 17
 
     $osver = regsubst($::operatingsystemrelease, '(\d+)\..*', '\1')
 

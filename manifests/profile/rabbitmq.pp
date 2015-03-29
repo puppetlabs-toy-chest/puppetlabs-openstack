@@ -4,9 +4,12 @@ class openstack::profile::rabbitmq {
 
   if $::osfamily == 'RedHat' {
     package { 'erlang':
-      ensure  => installed,
-      before  => Package['rabbitmq-server'],
-      require => Yumrepo['erlang-solutions'],
+      ensure => installed,
+      before => Package['rabbitmq-server'],
+    }
+    # Erlang solutions doesn't have a yum repo for Fedora >= 17, but Fedora has an up-to-date erlang
+    if $::operatingsystem != 'Fedora' {
+      Yumrepo['erlang-solutions'] -> Package['erlang']
     }
   }
 
