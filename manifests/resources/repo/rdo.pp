@@ -21,7 +21,6 @@ class openstack::resources::repo::rdo(
       gpgcheck => 1,
       gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-${release_cap}",
       priority => 98,
-      notify   => Exec['yum_refresh'],
     }
     file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-${release_cap}":
       source => "puppet:///modules/openstack/RPM-GPG-KEY-RDO-${release_cap}",
