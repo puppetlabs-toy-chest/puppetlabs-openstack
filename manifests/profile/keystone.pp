@@ -14,6 +14,12 @@ class openstack::profile::keystone {
     region           => $::openstack::config::region,
   }
 
+  if $::openstack::config::keystone_use_httpd == true {
+    class { '::keystone::wsgi::apache':
+      ssl => false,
+    }
+  }
+
   $tenants = $::openstack::config::keystone_tenants
   $users   = $::openstack::config::keystone_users
   create_resources('openstack::resources::tenant', $tenants)

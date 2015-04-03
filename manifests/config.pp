@@ -38,6 +38,7 @@ class openstack::config (
   $keystone_admin_password = undef,
   $keystone_tenants = undef,
   $keystone_users = undef,
+  $keystone_use_httpd = undef,
   $glance_password = undef,
   $glance_api_servers = undef,
   $cinder_password = undef,

@@ -22,4 +22,5 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::setup::cirros': }
 
   Class['::openstack::profile::ceilometer::api'] -> Class['::openstack::setup::cirros']
+  Class['::openstack::profile::keystone'] -> Class['::openstack::setup::cirros']
 }
