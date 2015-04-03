@@ -145,6 +145,14 @@
 #   'user2' => {'password' => 'somepass2', 'tenant' => 'some_preexisting_tenant',
 #                'email' => 'foo2@example.com', 'admin'  =>  'false'}} 
 #
+# [*keystone_use_httpd*]
+#   Whether to set up an Apache web service with mod_wsgi or to use the default
+#   Eventlet service. If false, the default from $keystone::params::service_name
+#   will be used, which will be the default Eventlet service. Set to true to
+#   configure an Apache web service using mod_wsgi, which is currently the only
+#   web service configuration available through the keystone module.
+#   Defaults to false.
+#
 # == Glance
 # [*glance_password*]
 #   The password for the glance user in Keystone.
@@ -332,6 +340,7 @@ class openstack (
   $keystone_admin_password = undef,
   $keystone_tenants = undef,
   $keystone_users = undef,
+  $keystone_use_httpd = false,
   $glance_password = undef,
   $glance_api_servers = undef,
   $cinder_password = undef,
@@ -415,6 +424,7 @@ class openstack (
       keystone_admin_password       => hiera(openstack::keystone::admin_password),
       keystone_tenants              => hiera(openstack::keystone::tenants),
       keystone_users                => hiera(openstack::keystone::users),
+      keystone_use_httpd            => hiera(openstack::keystone::use_httpd, false),
       glance_password               => hiera(openstack::glance::password),
       glance_api_servers            => hiera(openstack::glance::api_servers),
       cinder_password               => hiera(openstack::cinder::password),
@@ -498,6 +508,7 @@ class openstack (
       keystone_admin_password       => $keystone_admin_password,
       keystone_tenants              => $keystone_tenants,
       keystone_users                => $keystone_users,
+      keystone_use_httpd            => $keystone_use_httpd,
       glance_password               => $glance_password,
       glance_api_servers            => $glance_api_servers,
       cinder_password               => $cinder_password,
