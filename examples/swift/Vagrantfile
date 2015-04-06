@@ -28,7 +28,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "control" do |control|
-    control.vm.box = "jeffmccune/centos7"
+    control.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    control.vm.box_version = "= 1.0.0"
     control.vm.network :private_network, ip: "192.168.11.4"
     control.vm.network :private_network, ip: "192.168.22.4"
     control.vm.network :private_network, ip: "172.16.33.4"
@@ -49,7 +50,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "swiftstore1" do |swiftstore1|
-    swiftstore1.vm.box = "jeffmccune/centos7"
+    swiftstore1.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    swiftstore1.vm.box_version = "= 1.0.0"
     swiftstore1.vm.network :private_network, ip: "192.168.11.8"
     swiftstore1.vm.network :private_network, ip: "192.168.22.8"
     swiftstore1.vm.network :private_network, ip: "172.16.33.8"
@@ -65,7 +67,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "swiftstore2" do |swiftstore2|
-    swiftstore2.vm.box = "jeffmccune/centos7"
+    swiftstore2.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    swiftstore2.vm.box_version = "= 1.0.0"
     swiftstore2.vm.network :private_network, ip: "192.168.11.9"
     swiftstore2.vm.network :private_network, ip: "192.168.22.9"
     swiftstore2.vm.network :private_network, ip: "172.16.33.9"
@@ -81,7 +84,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "swiftstore3" do |swiftstore3|
-    swiftstore3.vm.box = "jeffmccune/centos7"
+    swiftstore3.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    swiftstore3.vm.box_version = "= 1.0.0"
     swiftstore3.vm.network :private_network, ip: "192.168.11.10"
     swiftstore3.vm.network :private_network, ip: "192.168.22.10"
     swiftstore3.vm.network :private_network, ip: "172.16.33.10"

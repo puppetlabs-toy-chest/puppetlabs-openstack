@@ -28,7 +28,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "allinone" do |allinone|
-    allinone.vm.box = "jeffmccune/centos7"
+    allinone.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    allinone.vm.box_version = "= 1.0.0"
     allinone.vm.network :private_network, ip: "192.168.11.4"
     allinone.vm.network :private_network, ip: "192.168.22.4"
     allinone.vm.network :private_network, ip: "172.16.33.4"
