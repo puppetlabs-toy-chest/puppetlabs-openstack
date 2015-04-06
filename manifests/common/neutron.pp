@@ -34,16 +34,17 @@ class openstack::common::neutron {
     region           => $::openstack::config::region,
   }
 
-  if $is_controller {
-    class { '::neutron::server':
-      auth_host           => $::openstack::config::controller_address_management,
-      auth_password       => $::openstack::config::neutron_password,
-      database_connection => $::openstack::resources::connectors::neutron,
-      enabled             => $is_controller,
-      sync_db             => $is_controller,
-      mysql_module        => '2.2',
-    }
+  class { '::neutron::server':
+    auth_host           => $::openstack::config::controller_address_management,
+    auth_password       => $::openstack::config::neutron_password,
+    database_connection => $::openstack::resources::connectors::neutron,
+    package_ensure      => $is_controller,
+    enabled             => $is_controller,
+    sync_db             => $is_controller,
+    mysql_module        => '2.2',
+  }
 
+  if $is_controller {
     class { '::neutron::server::notifications':
       nova_url            => "http://${controller_management_address}:8774/v2/",
       nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
