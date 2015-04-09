@@ -30,7 +30,7 @@ class openstack::setup::sharednetwork {
     gateway_ip       => $gateway,
     enable_dhcp      => false,
     network_name     => 'public',
-    tenant_name      => 'admin',
+    tenant_name      => 'services',
     allocation_pools => [$ip_range],
     dns_nameservers  => [$dns],
   }
@@ -40,7 +40,7 @@ class openstack::setup::sharednetwork {
     provider_network_type    => 'gre',
     router_external          => false,
     provider_segmentation_id => 4063,
-    shared                   => false,
+    shared                   => true,
   } ->
 
   neutron_subnet { $private_network:
@@ -48,9 +48,9 @@ class openstack::setup::sharednetwork {
     ip_version      => '4',
     enable_dhcp     => true,
     network_name    => 'private',
-    tenant_name     => 'openstack',
+    tenant_name     => 'services',
     dns_nameservers => [$dns],
   }
 
-  openstack::setup::router { "openstack:${private_network}": }
+  openstack::setup::router { "services:${private_network}": }
 }

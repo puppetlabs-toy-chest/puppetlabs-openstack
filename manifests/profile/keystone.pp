@@ -8,10 +8,11 @@ class openstack::profile::keystone {
   include ::openstack::common::keystone
 
   class { 'keystone::endpoint':
-    public_url   => "http://${::openstack::config::controller_address_api}:5000/",
-    admin_url    => "http://${::openstack::config::controller_address_management}:35357/",
-    internal_url => "http://${::openstack::config::controller_address_management}:5000/",
+    public_url   => "http://${::openstack::config::controller_address_api}:5000",
+    admin_url    => "http://${::openstack::config::controller_address_management}:35357",
+    internal_url => "http://${::openstack::config::controller_address_management}:5000",
     region       => $::openstack::config::region,
+    version      => 'v2.0',
   }
 
   $tenants = $::openstack::config::keystone_tenants
