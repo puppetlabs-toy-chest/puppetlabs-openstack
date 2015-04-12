@@ -5,8 +5,11 @@ class openstack::profile::neutron::router {
   }
 
   $controller_management_address = $::openstack::config::controller_address_management
+
   include ::openstack::common::neutron
-  include ::openstack::common::ovs
+  include ::openstack::common::ml2::ovs
+  include ::openstack::common::ml2
+
 
   ### Router service installation
   class { '::neutron::agents::l3':
