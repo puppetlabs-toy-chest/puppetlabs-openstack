@@ -38,7 +38,6 @@ class openstack::common::neutron {
     auth_host           => $::openstack::config::controller_address_management,
     auth_password       => $::openstack::config::neutron_password,
     database_connection => $::openstack::resources::connectors::neutron,
-    package_ensure      => $is_controller,
     enabled             => $is_controller,
     sync_db             => $is_controller,
     mysql_module        => '2.2',
