@@ -42,6 +42,10 @@ mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
   :ref => "master"
 
+mod "openstack_extras",
+  :git => "git://github.com/stackforge/puppet-openstack_extras",
+  :ref => "master"
+
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
   :ref => "master"
