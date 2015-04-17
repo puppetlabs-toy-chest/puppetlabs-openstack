@@ -5,13 +5,16 @@ class openstack::profile::glance::api {
   $api_network = $::openstack::config::network_api
   $api_address = ip_for_network($api_network)
 
-  $management_network = $::openstack::config::network_management
-  $management_address = ip_for_network($management_network)
+  $management_network  = $::openstack::config::network_management
+  $management_address  = ip_for_network($management_network)
 
   $explicit_management_address = $::openstack::config::storage_address_management
   $explicit_api_address = $::openstack::config::storage_address_api
 
   $controller_address = $::openstack::config::controller_address_management
+  $user                = $::openstack::config::mysql_user_glance
+  $pass                = $::openstack::config::mysql_pass_glance
+  $database_connection = "mysql://${user}:${pass}@${controller_address}/glance"
 
   if $management_address != $explicit_management_address {
     fail("Glance Auth setup failed. The inferred location of Glance from
@@ -38,7 +41,7 @@ class openstack::profile::glance::api {
 
   class { '::glance::registry':
     keystone_password   => $::openstack::config::glance_password,
-    database_connection => $::openstack::resources::connectors::glance,
+    database_connection => $database_connection,
     auth_host           => $::openstack::config::controller_address_management,
     keystone_tenant     => 'services',
     keystone_user       => 'glance',
