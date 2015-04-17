@@ -62,6 +62,10 @@ mod "epel",
   :git => "git://github.com/stahnma/puppet-module-epel",
   :ref => "master"
 
+mod "erlang",
+  :git => "git://github.com/garethr/garethr-erlang",
+  :ref => "master"
+
 mod "inifile",
   :git => "git://github.com/puppetlabs/puppetlabs-inifile",
   :ref => "1.0.x"
