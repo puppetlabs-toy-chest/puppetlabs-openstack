@@ -5,20 +5,15 @@ class openstack::profile::firewall::pre {
   # Set up the initial firewall rules for all nodes
   if $::osfamily == 'RedHat' {
     firewallchain { 'INPUT:filter:IPv4':
-      purge   => true,
-      ignore  => ['neutron','virbr0'],
-      before  => Firewall['0001 - related established'],
-      require => [
-                  Class['::openstack::resources::repo::epel'],
-                  Class['::openstack::resources::repo::rdo'],
-      ],
+      purge  => true,
+      ignore => ['neutron','virbr0'],
+      before => Firewall['0001 - related established'],
     }
   } elsif $::osfamily == 'Debian' {
     firewallchain { 'INPUT:filter:IPv4':
-      purge   => true,
-      ignore  => ['neutron','virbr0'],
-      before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::resources::repo::uca'] ],
+      purge  => true,
+      ignore => ['neutron','virbr0'],
+      before => Firewall['0001 - related established'],
     }
   }
 
