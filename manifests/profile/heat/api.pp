@@ -6,6 +6,9 @@ class openstack::profile::heat::api {
   openstack::resources::firewall { 'Heat CFN API': port => '8000', }
 
   $controller_management_address = $::openstack::config::controller_address_management
+  $user                          = $::openstack::config::mysql_user_heat
+  $pass                          = $::openstack::config::mysql_pass_heat
+  $database_connection           = "mysql://${user}:${pass}@${controller_management_address}/heat"
 
   class { '::heat::keystone::auth':
     password         => $::openstack::config::heat_password,
@@ -24,7 +27,7 @@ class openstack::profile::heat::api {
   }
 
   class { '::heat':
-    database_connection => $::openstack::resources::connectors::heat,
+    database_connection => $database_connection,
     rabbit_host         => $::openstack::config::controller_address_management,
     rabbit_userid       => $::openstack::config::rabbitmq_user,
     rabbit_password     => $::openstack::config::rabbitmq_password,
