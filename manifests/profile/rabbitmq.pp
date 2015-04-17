@@ -1,6 +1,6 @@
 # The profile to install rabbitmq and set the firewall
 class openstack::profile::rabbitmq {
-  $management_address = $::openstack::config::controller_address_management
+  $management_address = $::openstack::controller_address_management
 
   if $::osfamily == 'RedHat' {
     package { 'erlang':
@@ -13,13 +13,13 @@ class openstack::profile::rabbitmq {
     }
   }
 
-  rabbitmq_user { $::openstack::config::rabbitmq_user:
+  rabbitmq_user { $::openstack::rabbitmq_user:
     admin    => true,
-    password => $::openstack::config::rabbitmq_password,
+    password => $::openstack::rabbitmq_password,
     provider => 'rabbitmqctl',
     require  => Class['::rabbitmq'],
   }
-  rabbitmq_user_permissions { "${openstack::config::rabbitmq_user}@/":
+  rabbitmq_user_permissions { "${openstack::rabbitmq_user}@/":
     configure_permission => '.*',
     write_permission     => '.*',
     read_permission      => '.*',

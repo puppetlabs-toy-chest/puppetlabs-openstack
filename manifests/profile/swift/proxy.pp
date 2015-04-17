@@ -5,20 +5,20 @@ class openstack::profile::swift::proxy {
   openstack::resources::firewall { 'Swift Proxy': port => '8080', }
 
   class { 'swift::keystone::auth':
-    password         => $::openstack::config::swift_password,
-    public_address   => $::openstack::config::controller_address_api,
-    admin_address    => $::openstack::config::controller_address_management,
-    internal_address => $::openstack::config::controller_address_management,
-    region           => $::openstack::config::region,
+    password         => $::openstack::swift_password,
+    public_address   => $::openstack::controller_address_api,
+    admin_address    => $::openstack::controller_address_management,
+    internal_address => $::openstack::controller_address_management,
+    region           => $::openstack::region,
   }
 
   class { '::swift':
-    swift_hash_suffix => $::openstack::config::swift_hash_suffix,
+    swift_hash_suffix => $::openstack::swift_hash_suffix,
   }
 
   # sets up the proxy service
   class { '::swift::proxy':
-    proxy_local_net_ip => $::openstack::config::controller_address_api,
+    proxy_local_net_ip => $::openstack::controller_address_api,
     pipeline           => [
                           'catch_errors',
                           'healthcheck',
@@ -41,7 +41,7 @@ class openstack::profile::swift::proxy {
   }
 
   class { '::swift::proxy::cache':
-    memcache_servers => [ $::openstack::config::controller_address_management, ]
+    memcache_servers => [ $::openstack::controller_address_management, ]
   }
 
   class { [
@@ -51,8 +51,8 @@ class openstack::profile::swift::proxy {
   }
 
   class { '::swift::proxy::authtoken':
-    admin_password => $::openstack::config::swift_password,
-    auth_host      => $::openstack::config::controller_address_management,
+    admin_password => $::openstack::swift_password,
+    auth_host      => $::openstack::controller_address_management,
   }
 
   class { '::swift::proxy::keystone': }
@@ -72,7 +72,7 @@ class openstack::profile::swift::proxy {
   }
 
   class { 'swift::ringserver':
-    local_net_ip => $::openstack::config::controller_address_management,
+    local_net_ip => $::openstack::controller_address_management,
   }
 
 }

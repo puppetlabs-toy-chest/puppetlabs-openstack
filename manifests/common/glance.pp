@@ -6,14 +6,14 @@
 class openstack::common::glance {
   if $::openstack::profile::base::is_storage {
     class { '::glance::api':
-      keystone_password   => $::openstack::config::glance_password,
-      auth_host           => $::openstack::config::controller_address_management,
+      keystone_password   => $::openstack::glance_password,
+      auth_host           => $::openstack::controller_address_management,
       keystone_tenant     => 'services',
       keystone_user       => 'glance',
       database_connection => $::openstack::resources::connectors::glance,
-      registry_host       => $::openstack::config::storage_address_management,
-      verbose             => $::openstack::config::verbose,
-      debug               => $::openstack::config::debug,
+      registry_host       => $::openstack::storage_address_management,
+      verbose             => $::openstack::verbose,
+      debug               => $::openstack::debug,
       enabled             => $::openstack::profile::base::is_storage,
       mysql_module        => '2.2',
       os_region_name      => $::openstack::region,

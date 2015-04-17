@@ -9,11 +9,11 @@ class openstack::profile::ceilometer::api {
   }
 
   class { '::ceilometer::keystone::auth':
-    password         => $::openstack::config::ceilometer_password,
-    public_address   => $::openstack::config::controller_address_api,
-    admin_address    => $::openstack::config::controller_address_management,
-    internal_address => $::openstack::config::controller_address_management,
-    region           => $::openstack::config::region,
+    password         => $::openstack::ceilometer_password,
+    public_address   => $::openstack::controller_address_api,
+    admin_address    => $::openstack::controller_address_management,
+    internal_address => $::openstack::controller_address_management,
+    region           => $::openstack::region,
   }
 
   class { '::ceilometer::agent::central':
@@ -45,8 +45,8 @@ class openstack::profile::ceilometer::api {
     require => Class['mongodb::server'],
   }
 
-  $mongo_username = $::openstack::config::ceilometer_mongo_username
-  $mongo_password = $::openstack::config::ceilometer_mongo_password
+  $mongo_username = $::openstack::ceilometer_mongo_username
+  $mongo_password = $::openstack::ceilometer_mongo_password
 
   if $mongo_username and $mongo_password {
     mongodb_user { $mongo_username:

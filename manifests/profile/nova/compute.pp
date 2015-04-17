@@ -1,6 +1,6 @@
 # The puppet module to set up a Nova Compute node
 class openstack::profile::nova::compute {
-  $management_network = $::openstack::config::network_management
+  $management_network = $::openstack::network_management
   $management_address = ip_for_network($management_network)
 
   class { 'openstack::common::nova':
@@ -8,7 +8,7 @@ class openstack::profile::nova::compute {
   }
 
   class { '::nova::compute::libvirt':
-    libvirt_virt_type => $::openstack::config::nova_libvirt_type,
+    libvirt_virt_type => $::openstack::nova_libvirt_type,
     vncserver_listen  => $management_address,
   }
 

@@ -7,14 +7,14 @@
 # avaiable for your test user to launch and connect machines to.
 class openstack::setup::sharednetwork {
 
-  $external_network = $::openstack::config::network_external
-  $start_ip = $::openstack::config::network_external_ippool_start
-  $end_ip   = $::openstack::config::network_external_ippool_end
+  $external_network = $::openstack::network_external
+  $start_ip = $::openstack::network_external_ippool_start
+  $end_ip   = $::openstack::network_external_ippool_end
   $ip_range = "start=${start_ip},end=${end_ip}"
-  $gateway  = $::openstack::config::network_external_gateway
-  $dns      = $::openstack::config::network_external_dns
+  $gateway  = $::openstack::network_external_gateway
+  $dns      = $::openstack::network_external_dns
 
-  $private_network = $::openstack::config::network_neutron_private
+  $private_network = $::openstack::network_neutron_private
 
   neutron_network { 'public':
     tenant_name              => 'services',

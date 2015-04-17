@@ -6,9 +6,9 @@
 class openstack::common::neutron {
   $is_controller = $::openstack::profile::base::is_controller
 
-  $controller_management_address = $::openstack::config::controller_address_management
+  $controller_management_address = $::openstack::controller_address_management
 
-  $data_network = $::openstack::config::network_data
+  $data_network = $::openstack::network_data
   $data_address = ip_for_network($data_network)
 
   # neutron auth depends upon a keystone configuration
@@ -16,27 +16,27 @@ class openstack::common::neutron {
 
   class { '::neutron':
     rabbit_host           => $controller_management_address,
-    core_plugin           => $::openstack::config::neutron_core_plugin,
+    core_plugin           => $::openstack::neutron_core_plugin,
     allow_overlapping_ips => true,
-    rabbit_user           => $::openstack::config::rabbitmq_user,
-    rabbit_password       => $::openstack::config::rabbitmq_password,
-    rabbit_hosts          => $::openstack::config::rabbitmq_hosts,
-    debug                 => $::openstack::config::debug,
-    verbose               => $::openstack::config::verbose,
-    service_plugins       => $::openstack::config::neutron_service_plugins,
+    rabbit_user           => $::openstack::rabbitmq_user,
+    rabbit_password       => $::openstack::rabbitmq_password,
+    rabbit_hosts          => $::openstack::rabbitmq_hosts,
+    debug                 => $::openstack::debug,
+    verbose               => $::openstack::verbose,
+    service_plugins       => $::openstack::neutron_service_plugins,
   }
 
   class { '::neutron::keystone::auth':
-    password         => $::openstack::config::neutron_password,
-    public_address   => $::openstack::config::controller_address_api,
-    admin_address    => $::openstack::config::controller_address_management,
-    internal_address => $::openstack::config::controller_address_management,
-    region           => $::openstack::config::region,
+    password         => $::openstack::neutron_password,
+    public_address   => $::openstack::controller_address_api,
+    admin_address    => $::openstack::controller_address_management,
+    internal_address => $::openstack::controller_address_management,
+    region           => $::openstack::region,
   }
 
   class { '::neutron::server':
-    auth_host           => $::openstack::config::controller_address_management,
-    auth_password       => $::openstack::config::neutron_password,
+    auth_host           => $::openstack::controller_address_management,
+    auth_password       => $::openstack::neutron_password,
     database_connection => $::openstack::resources::connectors::neutron,
     enabled             => $is_controller,
     sync_db             => $is_controller,
@@ -48,8 +48,8 @@ class openstack::common::neutron {
       class { '::neutron::server::notifications':
         nova_url            => "http://${controller_management_address}:8774/v2/",
         nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
-        nova_admin_password => $::openstack::config::nova_password,
-        nova_region_name    => $::openstack::config::region,
+        nova_admin_password => $::openstack::nova_password,
+        nova_region_name    => $::openstack::region,
       }
     anchor { 'neutron_common_last': }
   }

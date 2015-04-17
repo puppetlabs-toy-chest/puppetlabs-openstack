@@ -2,7 +2,7 @@
 class openstack::profile::swift::storage (
   $zone = undef,
 ) {
-  $management_network = $::openstack::config::network_management
+  $management_network = $::openstack::network_management
   $management_address = ip_for_network($management_network)
 
   firewall { '6000 - Swift Object Store':
@@ -27,7 +27,7 @@ class openstack::profile::swift::storage (
   }
 
   class { '::swift':
-    swift_hash_suffix => $::openstack::config::swift_hash_suffix,
+    swift_hash_suffix => $::openstack::swift_hash_suffix,
   }
 
   swift::storage::loopback { '1':
@@ -59,6 +59,6 @@ class openstack::profile::swift::storage (
   }
 
   swift::ringsync { ['account','container','object']:
-    ring_server => $::openstack::config::controller_address_management,
+    ring_server => $::openstack::controller_address_management,
   }
 }
