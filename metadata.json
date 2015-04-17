@@ -35,6 +35,7 @@
     { "name": "stackforge/keystone", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/neutron", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/nova", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/openstack_extras", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/swift", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/tempest", "version_requirement": ">=5.0.0 <6.0.0" },
 
