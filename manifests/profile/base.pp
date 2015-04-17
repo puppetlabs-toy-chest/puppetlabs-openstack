@@ -9,9 +9,6 @@ class openstack::profile::base {
   # all nodes need the OpenStack repository
   class { '::openstack::resources::repo': }
 
-  # database connectors
-  class { '::openstack::resources::connectors': }
-
   # database anchor
   anchor { 'database-service': }
 
