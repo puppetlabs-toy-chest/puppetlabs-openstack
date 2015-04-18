@@ -41,6 +41,7 @@ class openstack::config (
   $keystone_use_httpd = undef,
   $glance_password = undef,
   $glance_api_servers = undef,
+  $images = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
   $swift_password = undef,

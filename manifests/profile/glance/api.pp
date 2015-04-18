@@ -36,4 +36,8 @@ class openstack::profile::glance::api {
     rabbit_userid   => $::openstack::config::rabbitmq_user,
     rabbit_host     => $::openstack::config::controller_address_management,
   }
+
+  $images = $::openstack::config::images
+
+  create_resources('glance_image', $images)
 }

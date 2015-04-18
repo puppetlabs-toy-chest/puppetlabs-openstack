@@ -154,6 +154,17 @@
 #   Defaults to false.
 #
 # == Glance
+# [*images*]
+#  (optional) Hash of glance_images resources. Example:
+#    {
+#      'Cirros' => {
+#        'container_format' => 'bare',
+#        'disk_format'      => 'qcow2',
+#        'source'           => 'http://download.cirros-cloud.net/0.3.1/cirros-0.3.1-x86_64-disk.img',
+#      }
+#   }
+#  Consult the glance_image documentation for more information.
+#
 # [*glance_password*]
 #   The password for the glance user in Keystone.
 #
@@ -343,6 +354,7 @@ class openstack (
   $keystone_use_httpd = false,
   $glance_password = undef,
   $glance_api_servers = undef,
+  $images = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
   $swift_password = undef,
@@ -427,6 +439,7 @@ class openstack (
       keystone_use_httpd            => hiera(openstack::keystone::use_httpd, false),
       glance_password               => hiera(openstack::glance::password),
       glance_api_servers            => hiera(openstack::glance::api_servers),
+      images                        => hiera(openstack::images),
       cinder_password               => hiera(openstack::cinder::password),
       cinder_volume_size            => hiera(openstack::cinder::volume_size),
       swift_password                => hiera(openstack::swift::password),
@@ -511,6 +524,7 @@ class openstack (
       keystone_use_httpd            => $keystone_use_httpd,
       glance_password               => $glance_password,
       glance_api_servers            => $glance_api_servers,
+      images                        => $images,
       cinder_password               => $cinder_password,
       cinder_volume_size            => $cinder_volume_size,
       swift_password                => $swift_password,
