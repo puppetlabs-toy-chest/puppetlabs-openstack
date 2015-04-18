@@ -2,7 +2,6 @@
 # For co-located api and worker nodes this appear
 # after openstack::profile::ceilometer::agent
 class openstack::profile::ceilometer::api {
-  openstack::resources::controller { 'ceilometer': }
 
   openstack::resources::firewall { 'Ceilometer API':
     port => '8777',
