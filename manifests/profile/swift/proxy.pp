@@ -1,7 +1,6 @@
 # The profile for installing the Swift Proxy
 class openstack::profile::swift::proxy {
 
-  openstack::resources::controller { 'swift': }
   openstack::resources::firewall { 'Swift Proxy': port => '8080', }
 
   class { 'swift::keystone::auth':
