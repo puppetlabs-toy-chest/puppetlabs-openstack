@@ -18,6 +18,5 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::heat::api': }
   class { '::openstack::profile::horizon': }
   class { '::openstack::profile::auth_file': }
-  class { '::openstack::setup::sharednetwork': }
 
 }

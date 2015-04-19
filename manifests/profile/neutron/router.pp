@@ -65,4 +65,11 @@ class openstack::profile::neutron::router {
     # External bridge already has the external device's IP, thus the external
     # device has already been linked
   }
+
+  $defaults = { 'ensure' => 'present' }
+  create_resources('neutron_network', $::openstack::config::networks, $defaults)
+  create_resources('neutron_subnet', $::openstack::config::subnets, $defaults)
+  create_resources('neutron_router', $::openstack::config::routers, $defaults)
+  create_resources('neutron_router_interface', $::openstack::config::router_interfaces, $defaults)
+
 }
