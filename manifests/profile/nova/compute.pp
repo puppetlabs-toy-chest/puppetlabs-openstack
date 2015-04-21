@@ -24,5 +24,11 @@ class openstack::profile::nova::compute {
     notify => Service['libvirt'],
   }
 
+  if $::osfamily == 'RedHat' {
+    package { 'device-mapper':
+      ensure => latest
+    }
+    Package['device-mapper'] ~> Service['libvirtd'] ~> Service['nova-compute']
+  }
   Package['libvirt'] -> File['/etc/libvirt/qemu.conf']
 }
