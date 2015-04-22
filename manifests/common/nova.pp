@@ -3,8 +3,7 @@
 # usage: include from controller, declare from worker
 # This is to handle dependency
 # depends on openstack::profile::base having been added to a node
-class openstack::common::nova ($is_compute    = false) {
-  $is_controller = $::openstack::profile::base::is_controller
+class openstack::common::nova {
 
   $management_network = $::openstack::config::network_management
   $management_address = ip_for_network($management_network)
@@ -29,40 +28,6 @@ class openstack::common::nova ($is_compute    = false) {
   }
 
   nova_config { 'DEFAULT/default_floating_pool': value => 'public' }
-
-  if $is_controller {
-    class { '::nova::api':
-      admin_password                       => $::openstack::config::nova_password,
-      auth_host                            => $controller_management_address,
-      enabled                              => $is_controller,
-      neutron_metadata_proxy_shared_secret => $::openstack::config::neutron_shared_secret,
-    }
-
-    class { '::nova::vncproxy':
-      host    => $::openstack::config::controller_address_api,
-      enabled => $is_controller,
-    }
-
-    class { [
-      'nova::scheduler',
-      'nova::objectstore',
-      'nova::cert',
-      'nova::consoleauth',
-      'nova::conductor'
-    ]:
-      enabled => $is_controller,
-    }
-  }
-
-  # TODO: it's important to set up the vnc properly
-  class { '::nova::compute':
-    enabled                       => $is_compute,
-    vnc_enabled                   => true,
-    vncserver_proxyclient_address => $management_address,
-    vncproxy_host                 => $::openstack::config::controller_address_api,
-  }
-
-  class { '::nova::compute::neutron': }
 
   class { '::nova::network::neutron':
     neutron_admin_password => $::openstack::config::neutron_password,
