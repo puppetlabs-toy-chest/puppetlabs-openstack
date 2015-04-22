@@ -12,5 +12,4 @@ class openstack::profile::glance::auth {
     region           => $::openstack::config::region,
   }
 
-  include ::openstack::common::glance
 }
