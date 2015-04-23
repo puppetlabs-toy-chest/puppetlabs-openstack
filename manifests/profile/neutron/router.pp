@@ -8,7 +8,6 @@ class openstack::profile::neutron::router {
 
   include ::openstack::common::neutron
   include ::openstack::common::ml2::ovs
-  include ::openstack::common::ml2
 
 
   ### Router service installation
