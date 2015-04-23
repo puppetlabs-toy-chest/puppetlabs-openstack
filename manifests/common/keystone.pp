@@ -26,10 +26,4 @@ class openstack::common::keystone {
     service_name        => $service_name,
   }
 
-  class { '::keystone::roles::admin':
-    email        => $::openstack::config::keystone_admin_email,
-    password     => $::openstack::config::keystone_admin_password,
-    admin_tenant => 'admin',
-  }
-
 }
