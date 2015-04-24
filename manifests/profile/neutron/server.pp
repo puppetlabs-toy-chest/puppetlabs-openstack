@@ -19,5 +19,14 @@ class openstack::profile::neutron::server {
     tunnel_id_ranges     => $tunnel_id_ranges
   }
 
+  anchor { 'neutron_common_first': } ->
+  class { '::neutron::server::notifications':
+    nova_url            => "http://${controller_management_address}:8774/v2/",
+    nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
+    nova_admin_password => $::openstack::config::nova_password,
+    nova_region_name    => $::openstack::config::region,
+  } ->
+  anchor { 'neutron_common_last': }
+
   Class['::neutron::db::mysql'] -> Exec['neutron-db-sync']
 }
