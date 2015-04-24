@@ -1,7 +1,6 @@
 # The profile to install the Keystone service
 class openstack::profile::keystone {
 
-  openstack::resources::controller { 'keystone': }
   openstack::resources::database { 'keystone': }
   openstack::resources::firewall { 'Keystone API': port => '5000', }
 
@@ -22,6 +21,6 @@ class openstack::profile::keystone {
 
   $tenants = $::openstack::config::keystone_tenants
   $users   = $::openstack::config::keystone_users
-  create_resources('openstack::resources::tenant', $tenants)
+  create_resources('keystone_tenant', $tenants)
   create_resources('openstack::resources::user', $users)
 }
