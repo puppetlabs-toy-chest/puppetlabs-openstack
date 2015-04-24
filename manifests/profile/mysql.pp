@@ -20,5 +20,5 @@ class openstack::profile::mysql {
 
   Service['mysqld'] -> Anchor['database-service']
 
-  class { 'mysql::server::account_security': }
+  #`class { 'mysql::server::account_security': }
 }
