@@ -1,9 +1,9 @@
 # The profile to install an OpenStack specific mysql server
 class openstack::profile::auth_file {
-  class { '::openstack::resources::auth_file':
-    admin_tenant    => 'admin',
-    admin_password  => $::openstack::config::keystone_admin_password,
-    region_name     => $::openstack::config::region,
-    controller_node => $::openstack::config::controller_address_api,
+  class { '::openstack_extras::auth_file':
+    tenant_name => 'admin',
+    password    => $::openstack::config::keystone_admin_password,
+    auth_url    => "http://${::openstack::config::controller_address_api}:5000/v2.0/",
+    region_name => $::openstack::config::region,
   }
 }

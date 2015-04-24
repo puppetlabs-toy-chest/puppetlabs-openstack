@@ -1,22 +1,25 @@
-#
-# Sets up the package repos necessary to use OpenStack
-# on RHEL-alikes and Ubuntu
-#
 class openstack::resources::repo(
-  $release = 'juno'
-) {
-  case $release {
-    'juno', 'icehouse', 'havana', 'grizzly': {
-      if $::osfamily == 'RedHat' {
-        class {'openstack::resources::repo::rdo': release => $release }
-        class {'openstack::resources::repo::erlang': }
-        class {'openstack::resources::repo::yum_refresh': }
-      } elsif $::osfamily == 'Debian' {
-        class {'openstack::resources::repo::uca': release => $release }
+  $release = 'juno',
+){
+  if $::osfamily == 'Debian' {
+    if $::operatingsystem == 'Ubuntu' {
+      class { '::openstack_extras::repo::debian::ubuntu':
+        release         => $release,
+        package_require => true,
       }
+    } elsif $::operatingsystem == 'Debian' {
+      class { '::openstack_extras::repo::debian::debian':
+        release         => $release,
+        package_require => true,
+      }
+    } else {
+      fail("Operating system ${::operatingsystem} is not supported.")
     }
-    default: {
-      fail { "FAIL: openstack::resources::repo parameter 'release' of '${release}' not recognized; please use one of 'juno', 'icehouse', 'havana', 'grizzly'.": }
-    }
+  } elsif $::osfamily == 'RedHat' {
+      class { '::openstack_extras::repo::redhat::redhat':
+        release => $release
+      }
+  } else {
+      fail("Operating system family ${::osfamily} is not supported.")
   }
 }

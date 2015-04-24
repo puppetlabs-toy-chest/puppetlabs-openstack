@@ -20,7 +20,7 @@ mod "cinder",
 
 mod "neutron",
   :git => "git://github.com/stackforge/puppet-neutron",
-  :ref => "master"
+  :ref => "no_lbaas"
 
 mod "nova",
   :git => "git://github.com/stackforge/puppet-nova",
@@ -42,6 +42,10 @@ mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
   :ref => "master"
 
+mod "openstack_extras",
+  :git => "git://github.com/stackforge/puppet-openstack_extras",
+  :ref => "master"
+
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
   :ref => "master"
@@ -60,6 +64,10 @@ mod "apache",
 
 mod "epel",
   :git => "git://github.com/stahnma/puppet-module-epel",
+  :ref => "master"
+
+mod "erlang",
+  :git => "git://github.com/garethr/garethr-erlang",
   :ref => "master"
 
 mod "inifile",
@@ -92,7 +100,7 @@ mod "memcached",
 
 mod "ssh",
   :git => "git://github.com/saz/puppet-ssh",
-  :ref => "a0f5d5da20c91775c76c77d3b57b41f4245a260a"
+  :ref => "v2.5.0"
 
 mod "qpid",
   :git => "git://github.com/dprince/puppet-qpid",

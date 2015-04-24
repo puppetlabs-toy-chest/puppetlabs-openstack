@@ -11,21 +11,19 @@ class openstack::common::keystone {
     $service_name    = undef
   }
 
+  $management_address  = $::openstack::config::controller_address_management
+  $user                = $::openstack::config::mysql_user_keystone
+  $pass                = $::openstack::config::mysql_pass_keystone
+  $database_connection = "mysql://${user}:${pass}@${management_address}/keystone"
+
   class { '::keystone':
     admin_token         => $::openstack::config::keystone_admin_token,
-    database_connection => $::openstack::resources::connectors::keystone,
+    database_connection => $database_connection,
     verbose             => $::openstack::config::verbose,
     debug               => $::openstack::config::debug,
     enabled             => $::openstack::profile::base::is_controller,
     admin_bind_host     => $admin_bind_host,
-    mysql_module        => '2.2',
     service_name        => $service_name,
-  }
-
-  class { '::keystone::roles::admin':
-    email        => $::openstack::config::keystone_admin_email,
-    password     => $::openstack::config::keystone_admin_password,
-    admin_tenant => 'admin',
   }
 
 }

@@ -35,6 +35,7 @@
     { "name": "stackforge/keystone", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/neutron", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/nova", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/openstack_extras", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/swift", "version_requirement": ">=5.0.0 <6.0.0" },
     { "name": "stackforge/tempest", "version_requirement": ">=5.0.0 <6.0.0" },
 
@@ -46,6 +47,7 @@
     { "name": "puppetlabs/rabbitmq", "version_requirement": ">=3.0.0 <4.0.0" },
     { "name": "stackforge/vswitch", "version_requirement": ">=1.0.0 <2.0.0" },
 
+    { "name": "garethr/erlang", "version_requirement": "0.3.0" },
     { "name": "duritong/sysctl", "version_requirement": "0.0.1" }
   ]
 }

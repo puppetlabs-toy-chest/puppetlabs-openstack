@@ -14,6 +14,11 @@ class openstack::common::neutron {
   # neutron auth depends upon a keystone configuration
   include ::openstack::common::keystone
 
+  $user                = $::openstack::config::mysql_user_neutron
+  $pass                = $::openstack::config::mysql_pass_neutron
+  $database_connection = "mysql://${user}:${pass}@${controller_management_address}/neutron"
+
+
   class { '::neutron':
     rabbit_host           => $controller_management_address,
     core_plugin           => $::openstack::config::neutron_core_plugin,
@@ -37,21 +42,9 @@ class openstack::common::neutron {
   class { '::neutron::server':
     auth_host           => $::openstack::config::controller_address_management,
     auth_password       => $::openstack::config::neutron_password,
-    database_connection => $::openstack::resources::connectors::neutron,
+    database_connection => $database_connection,
     enabled             => $is_controller,
     sync_db             => $is_controller,
-    mysql_module        => '2.2',
-  }
-
-  if $is_controller {
-    anchor { 'neutron_common_first': } ->
-      class { '::neutron::server::notifications':
-        nova_url            => "http://${controller_management_address}:8774/v2/",
-        nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
-        nova_admin_password => $::openstack::config::nova_password,
-        nova_region_name    => $::openstack::config::region,
-      }
-    anchor { 'neutron_common_last': }
   }
 
   if $::osfamily == 'redhat' {

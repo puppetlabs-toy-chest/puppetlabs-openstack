@@ -5,46 +5,40 @@ class openstack::profile::glance::api {
   $api_network = $::openstack::config::network_api
   $api_address = ip_for_network($api_network)
 
-  $management_network = $::openstack::config::network_management
-  $management_address = ip_for_network($management_network)
+  $management_network  = $::openstack::config::network_management
+  $management_address  = ip_for_network($management_network)
 
-  $explicit_management_address = $::openstack::config::storage_address_management
-  $explicit_api_address = $::openstack::config::storage_address_api
-
-  $controller_address = $::openstack::config::controller_address_management
-
-  if $management_address != $explicit_management_address {
-    fail("Glance Auth setup failed. The inferred location of Glance from
-    the openstack::network::management hiera value is
-    ${management_address}. The explicit address from
-    openstack::storage::address::management is ${explicit_management_address}.
-    Please correct this difference.")
-  }
-
-  if $api_address != $explicit_api_address {
-    fail("Glance Auth setup failed. The inferred location of Glance from
-    the openstack::network::management hiera value is
-    ${api_address}. The explicit address from
-    openstack::storage::address::api is ${explicit_api_address}.
-     Please correct this difference.")
-  }
+  $controller_address  = $::openstack::config::controller_address_management
+  $user                = $::openstack::config::mysql_user_glance
+  $pass                = $::openstack::config::mysql_pass_glance
+  $database_connection = "mysql://${user}:${pass}@${controller_address}/glance"
 
   openstack::resources::firewall { 'Glance API': port      => '9292', }
   openstack::resources::firewall { 'Glance Registry': port => '9191', }
 
-  include ::openstack::common::glance
+  class { '::glance::api':
+    keystone_password   => $::openstack::config::glance_password,
+    auth_host           => $::openstack::config::controller_address_management,
+    keystone_tenant     => 'services',
+    keystone_user       => 'glance',
+    database_connection => $database_connection,
+    registry_host       => $::openstack::config::storage_address_management,
+    verbose             => $::openstack::config::verbose,
+    debug               => $::openstack::config::debug,
+    enabled             => $::openstack::profile::base::is_storage,
+    os_region_name      => $::openstack::config::region,
+  }
 
   class { '::glance::backend::file': }
 
   class { '::glance::registry':
     keystone_password   => $::openstack::config::glance_password,
-    database_connection => $::openstack::resources::connectors::glance,
+    database_connection => $database_connection,
     auth_host           => $::openstack::config::controller_address_management,
     keystone_tenant     => 'services',
     keystone_user       => 'glance',
     verbose             => $::openstack::config::verbose,
     debug               => $::openstack::config::debug,
-    mysql_module        => '2.2',
   }
 
   class { '::glance::notify::rabbitmq':
@@ -52,4 +46,8 @@ class openstack::profile::glance::api {
     rabbit_userid   => $::openstack::config::rabbitmq_user,
     rabbit_host     => $::openstack::config::controller_address_management,
   }
+
+  $images = $::openstack::config::images
+
+  create_resources('glance_image', $images)
 }

@@ -24,6 +24,61 @@
 #   The CIDR of the api network. This is the network that all public
 #   api calls are made on, as well as the network to access Horizon.
 #
+# [*networks*]
+#   (optional) Hash of neutron networks. Example:
+#     {
+#       'public' => {
+#         'tenant_name'              => 'services',
+#         'provider_network_type'    => 'gre',
+#         'router_external'          => true,
+#         'provider_segmentation_id' => 3604,
+#         'shared'                   => true,
+#       }
+#     }
+#   Consult the neutron_network documentation for more information.
+#   Defaults to {}.
+#
+# [*subnets*]
+#   (optional) Hash of neutron subnets. Example:
+#     {
+#       '192.168.22.0/24' => {
+#         'cidr'             => '192.168.22.0/24',
+#         'ip_version'       => '4',
+#         'gateway_ip'       => '192.168.22.2',
+#         'enable_dhcp'      => false,
+#         'network_name'     => 'public',
+#         'tenant_name'      => 'services',
+#         'allocation_pools' => ['start=192.168.22.100,end=192.168.22.200'],
+#         'dns_nameservers'  => [192.168.22.2],
+#       }
+#     }
+#   Consult the neutron_subnet documentation for more information.
+#   Defaults to {}.
+#
+# [*routers*]
+#   (optional) Hash of neutron routers. Example:
+#     {
+#       'test' => {
+#         'tenant_name'          => 'test',
+#         'gateway_network_name' => 'public',
+#       }
+#     }
+#   Consult the neutron_router documentation for more information.
+#   Defaults to {}.
+#
+# [*router_interfaces*]
+#   (optional) Hash of neutron router interfaces. The key has the form
+#   tenant:subnet where the subnet is one of the subnets given by the
+#   $subnets parameter. Example:
+#     {
+#       'test:10.0.0.0/24' => {
+#         ensure => present,
+#        }
+#     }
+#   Consult the neutron_router_interface documentation for more
+#   information.
+#   Defaults to {}.
+#
 # [*network_external*]
 #   The CIDR of the external network. May be the same as network_api.
 #   This is the network that floating IP addresses are allocated in
@@ -34,24 +89,6 @@
 #
 # [*network_data*]
 #   The CIDR of the data network. May be the same as network_management.
-#
-# [*network_external_ippool_start*]
-#   The starting address of the external network IP pool. Must be contained
-#   within the network_external CIDR range.
-#
-# [*network_external_ippool_end*]
-#   The end address of the external network IP pool. Must be contained within
-#   the network_external CIDR range, and greater than network_external_ippool_start.
-#
-# [*network_external_gateway*]
-#   The gateway address for the external network.
-#
-# [*network_external_dns*]
-#   The DNS server for the external network.
-#
-# == Private Neutron Network
-# [*network_neutron_private*]
-#   The CIDR of the automatically created private network.
 #
 # == Fixed IPs (controllers)
 # [*controller_address_api*]
@@ -154,6 +191,17 @@
 #   Defaults to false.
 #
 # == Glance
+# [*images*]
+#  (optional) Hash of glance_images resources. Example:
+#    {
+#      'Cirros' => {
+#        'container_format' => 'bare',
+#        'disk_format'      => 'qcow2',
+#        'source'           => 'http://download.cirros-cloud.net/0.3.1/cirros-0.3.1-x86_64-disk.img',
+#      }
+#   }
+#  Consult the glance_image documentation for more information.
+#
 # [*glance_password*]
 #   The password for the glance user in Keystone.
 #
@@ -343,6 +391,7 @@ class openstack (
   $keystone_use_httpd = false,
   $glance_password = undef,
   $glance_api_servers = undef,
+  $images = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
   $swift_password = undef,
@@ -389,14 +438,13 @@ class openstack (
     class { '::openstack::config':
       region                        => hiera(openstack::region),
       network_api                   => hiera(openstack::network::api),
+      networks                      => hiera(openstack::networks, {}),
+      subnets                       => hiera(openstack::subnets, {}),
+      routers                       => hiera(openstack::routers, {}),
+      router_interfaces             => hiera(openstack::router_interfaces, {}),
       network_external              => hiera(openstack::network::external),
       network_management            => hiera(openstack::network::management),
       network_data                  => hiera(openstack::network::data),
-      network_external_ippool_start => hiera(openstack::network::external::ippool::start),
-      network_external_ippool_end   => hiera(openstack::network::external::ippool::end),
-      network_external_gateway      => hiera(openstack::network::external::gateway),
-      network_external_dns          => hiera(openstack::network::external::dns),
-      network_neutron_private       => hiera(openstack::network::neutron::private),
       controller_address_api        => hiera(openstack::controller::address::api),
       controller_address_management => hiera(openstack::controller::address::management),
       storage_address_api           => hiera(openstack::storage::address::api),
@@ -427,6 +475,7 @@ class openstack (
       keystone_use_httpd            => hiera(openstack::keystone::use_httpd, false),
       glance_password               => hiera(openstack::glance::password),
       glance_api_servers            => hiera(openstack::glance::api_servers),
+      images                        => hiera(openstack::images),
       cinder_password               => hiera(openstack::cinder::password),
       cinder_volume_size            => hiera(openstack::cinder::volume_size),
       swift_password                => hiera(openstack::swift::password),
@@ -473,6 +522,10 @@ class openstack (
     class { '::openstack::config':
       region                        => $region,
       network_api                   => $network_api,
+      networks                      => $networks,
+      subnets                       => $subnets,
+      routers                       => $routers,
+      router_interfaces             => $router_interfaces,
       network_external              => $network_external,
       network_management            => $network_management,
       network_data                  => $network_data,
@@ -511,6 +564,7 @@ class openstack (
       keystone_use_httpd            => $keystone_use_httpd,
       glance_password               => $glance_password,
       glance_api_servers            => $glance_api_servers,
+      images                        => $images,
       cinder_password               => $cinder_password,
       cinder_volume_size            => $cinder_volume_size,
       swift_password                => $swift_password,

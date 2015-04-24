@@ -3,17 +3,45 @@ openstack::region: 'openstack'
 ######## Networks
 openstack::network::api: '192.168.11.0/24'
 openstack::network::external: '192.168.22.0/24'
+openstack::networks:
+  public:
+    tenant_name: 'services'
+    provider_network_type: 'gre'
+    router_external: true
+    provider_segmentation_id: 3604
+    shared: true
+  private:
+    tenant_name: 'services'
+    provider_network_type: 'gre'
+    router_external: false
+    provider_segmentation_id: 4063
+    shared: true
+openstack::subnets:
+  '192.168.22.0/24':
+    cidr: '192.168.22.0/24'
+    ip_version: '4'
+    gateway_ip: 192.168.22.2
+    enable_dhcp: false
+    network_name: 'public'
+    tenant_name: 'services'
+    allocation_pools: ['start=192.168.22.100,end=192.168.22.200']
+    dns_nameservers: [192.168.22.2]
+  '10.0.0.0/24':
+    cidr: '10.0.0.0/24'
+    ip_version: '4'
+    enable_dhcp: true
+    network_name: 'private'
+    tenant_name: 'services'
+    dns_nameservers: [192.168.22.2]
+openstack::routers:
+  test:
+    tenant_name: 'test'
+    gateway_network_name: 'public'
+openstack::router_interfaces:
+  'test:10.0.0.0/24': {}
+
 openstack::network::management: '172.16.33.0/24'
 openstack::network::data: '172.16.44.0/24'
-
-openstack::network::external::ippool::start: 192.168.22.100
-openstack::network::external::ippool::end: 192.168.22.200
-openstack::network::external::gateway: 192.168.22.2
-openstack::network::external::dns: 192.168.22.2
-
-######## Private Neutron Network
-
-openstack::network::neutron::private: '10.0.0.0/24'
 
 ######## Fixed IPs (controllers)
 
@@ -83,6 +111,12 @@ openstack::keystone::users:
         admin: false
 
 ######## Glance
+
+openstack::images:
+  Cirros:
+    container_format: 'bare'
+    disk_format: 'qcow2'
+    source: 'http://download.cirros-cloud.net/0.3.1/cirros-0.3.1-x86_64-disk.img'
 
 openstack::glance::password: 'na-mu-va'
 
