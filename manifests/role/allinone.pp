@@ -18,9 +18,5 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::heat::api': }
   class { '::openstack::profile::horizon': }
   class { '::openstack::profile::auth_file': }
-  class { '::openstack::setup::sharednetwork': }
-  class { '::openstack::setup::cirros': }
 
-  Class['::openstack::profile::ceilometer::api'] -> Class['::openstack::setup::cirros']
-  Class['::openstack::profile::keystone'] -> Class['::openstack::setup::cirros']
 }
