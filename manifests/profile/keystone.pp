@@ -8,20 +8,20 @@ class openstack::profile::keystone {
   include ::openstack::common::keystone
 
   class { 'keystone::endpoint':
-    public_url   => "http://${::openstack::config::controller_address_api}:5000",
-    admin_url    => "http://${::openstack::config::controller_address_management}:35357",
-    internal_url => "http://${::openstack::config::controller_address_management}:5000",
-    region       => $::openstack::config::region,
+    public_url   => "http://${::openstack::controller_address_api}:5000",
+    admin_url    => "http://${::openstack::controller_address_management}:35357",
+    internal_url => "http://${::openstack::controller_address_management}:5000",
+    region       => $::openstack::region,
   }
 
-  if $::openstack::config::keystone_use_httpd == true {
+  if $::openstack::keystone_use_httpd == true {
     class { '::keystone::wsgi::apache':
       ssl => false,
     }
   }
 
-  $tenants = $::openstack::config::keystone_tenants
-  $users   = $::openstack::config::keystone_users
+  $tenants = $::openstack::keystone_tenants
+  $users   = $::openstack::keystone_users
   create_resources('openstack::resources::tenant', $tenants)
   create_resources('openstack::resources::user', $users)
 }

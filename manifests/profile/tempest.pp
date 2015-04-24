@@ -1,11 +1,11 @@
 # Profile to install the tempest service
 class openstack::profile::tempest {
   $users      = hiera('openstack::keystone::users')
-  $api_ip     = $::openstack::config::controller_address_api
-  $admin_user = $::openstack::config::tempest_username_admin
-  $user       = $::openstack::config::tempest_username
-  $alt_user   = $::openstack::config::tempest_username_alt
-  $public_network_name = $::openstack::config::tempest_public_network_name
+  $api_ip     = $::openstack::controller_address_api
+  $admin_user = $::openstack::tempest_username_admin
+  $user       = $::openstack::tempest_username
+  $alt_user   = $::openstack::tempest_username_alt
+  $public_network_name = $::openstack::tempest_public_network_name
 
   include ::openstack::common::keystone
   include ::openstack::common::glance
@@ -14,17 +14,17 @@ class openstack::profile::tempest {
   class { '::tempest':
     setup_venv             => true,
     tempest_repo_revision  => 'master',
-    cinder_available       => $::openstack::config::tempest_cinder_available,
-    glance_available       => $::openstack::config::tempest_glance_available,
-    heat_available         => $::openstack::config::tempest_heat_available,
-    horizon_available      => $::openstack::config::tempest_horizon_available,
-    neutron_available      => $::openstack::config::tempest_neutron_available,
-    nova_available         => $::openstack::config::tempest_nova_available,
-    swift_available        => $::openstack::config::tempest_swift_available,
-    configure_images       => $::openstack::config::tempest_configure_images,
-    image_name             => $::openstack::config::tempest_image_name,
-    image_name_alt         => $::openstack::config::tempest_image_name_alt,
-    configure_networks     => $::openstack::config::tempest_configure_network,
+    cinder_available       => $::openstack::tempest_cinder_available,
+    glance_available       => $::openstack::tempest_glance_available,
+    heat_available         => $::openstack::tempest_heat_available,
+    horizon_available      => $::openstack::tempest_horizon_available,
+    neutron_available      => $::openstack::tempest_neutron_available,
+    nova_available         => $::openstack::tempest_nova_available,
+    swift_available        => $::openstack::tempest_swift_available,
+    configure_images       => $::openstack::tempest_configure_images,
+    image_name             => $::openstack::tempest_image_name,
+    image_name_alt         => $::openstack::tempest_image_name_alt,
+    configure_networks     => $::openstack::tempest_configure_network,
     public_network_name    => $public_network_name,
     identity_uri           => "http://${api_ip}:5000/v2.0/",
     admin_username         => $admin_user,
