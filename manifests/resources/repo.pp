@@ -9,7 +9,6 @@ class openstack::resources::repo(
     'juno', 'icehouse', 'havana', 'grizzly': {
       if $::osfamily == 'RedHat' {
         class {'openstack::resources::repo::rdo': release => $release }
-        class {'openstack::resources::repo::erlang': }
         class {'openstack::resources::repo::yum_refresh': }
       } elsif $::osfamily == 'Debian' {
         class {'openstack::resources::repo::uca': release => $release }
