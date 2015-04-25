@@ -16,6 +16,7 @@ dependencies:
       horizon: ~
       trove: ~
       sahara: ~
+      ironic: ~
       openstacklib:
         forge: undef
       tempest:

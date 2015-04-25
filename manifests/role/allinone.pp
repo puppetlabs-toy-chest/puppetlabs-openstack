@@ -8,7 +8,8 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::ceilometer::agent': }
   class { '::openstack::profile::ceilometer::api': }
   class { '::openstack::profile::glance::api': } ->
-  class { '::openstack::profile::glance::auth': }
+  class { '::openstack::profile::glance::auth': } ->
+  class { '::openstack::profile::ironic': }
   class { '::openstack::profile::cinder::volume': }
   class { '::openstack::profile::cinder::api': }
   class { '::openstack::profile::nova::compute': }
