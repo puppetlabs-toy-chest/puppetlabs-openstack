@@ -30,7 +30,7 @@ class openstack::setup::sharednetwork {
     gateway_ip       => $gateway,
     enable_dhcp      => false,
     network_name     => 'public',
-    tenant_name      => 'services',
+    tenant_name      => 'admin',
     allocation_pools => [$ip_range],
     dns_nameservers  => [$dns],
   }
@@ -48,9 +48,9 @@ class openstack::setup::sharednetwork {
     ip_version      => '4',
     enable_dhcp     => true,
     network_name    => 'private',
-    tenant_name     => 'services',
+    tenant_name     => 'admin',
     dns_nameservers => [$dns],
   }
 
-  openstack::setup::router { "services:${private_network}": }
+  openstack::setup::router { "admin:${private_network}": }
 }
