@@ -1,0 +1,19 @@
+diff --git a/manifests/params.pp b/manifests/params.pp
+index 64a6d09..f670ca3 100644
+--- a/manifests/params.pp
++++ b/manifests/params.pp
+@@ -4,11 +4,11 @@ class tuskar::params {
+ 
+   case $::osfamily {
+     'RedHat': {
+-      $client_package_name      = 'openstack-tuskar'
+-      $api_package_name         = 'openstack-tuskar-api'
++      $client_package_name      = 'openstack-tuskarclient'
++      $api_package_name         = 'openstack-tuskar'
+       $api_service_name         = 'openstack-tuskar-api'
+       $ui_package_name          = 'openstack-tuskar-ui'
+-      $ui_extras_package_name   = 'openstack-tuskar-ui-extras'
++      $ui_extras_package_name   = false
+     }
+     'Debian': {
+       $client_package_name      = 'python-tuskarclient'
