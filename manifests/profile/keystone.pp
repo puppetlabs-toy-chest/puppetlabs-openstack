@@ -6,6 +6,12 @@ class openstack::profile::keystone {
 
   include ::openstack::common::keystone
 
+  class { '::keystone::roles::admin':
+    email        => $::openstack::config::keystone_admin_email,
+    password     => $::openstack::config::keystone_admin_password,
+    admin_tenant => 'admin',
+  }
+
   class { 'keystone::endpoint':
     public_url   => "http://${::openstack::config::controller_address_api}:5000",
     admin_url    => "http://${::openstack::config::controller_address_management}:35357",
