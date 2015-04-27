@@ -42,7 +42,6 @@
     { "name": "puppetlabs/apache", "version_requirement": ">=1.2.0 <2.0.0" },
     { "name": "puppetlabs/firewall", "version_requirement": ">=1.0.0 <2.0.0" },
     { "name": "puppetlabs/mongodb", "version_requirement": ">=0.10.0 <0.11.0" },
-    { "name": "puppetlabs/mysql", "version_requirement": ">=2.2.0 <3.0.0" },
     { "name": "puppetlabs/ntp", "version_requirement": ">=3.0.0 <4.0.0" },
     { "name": "puppetlabs/rabbitmq", "version_requirement": ">=3.0.0 <4.0.0" },
     { "name": "stackforge/vswitch", "version_requirement": ">=1.0.0 <2.0.0" },

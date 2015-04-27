@@ -76,7 +76,7 @@ mod "inifile",
 
 mod "mysql",
   :git => "git://github.com/puppetlabs/puppetlabs-mysql",
-  :ref => "master"
+  :ref => "3.3.x"
 
 mod "stdlib",
   :git => "git://github.com/puppetlabs/puppetlabs-stdlib",
