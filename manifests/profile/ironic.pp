@@ -1,7 +1,15 @@
 class openstack::profile::ironic {
   openstack::resources::controller { 'ironic': }
   openstack::resources::firewall { 'Ironic API': port => '6385' }
-  openstack::resources::database { 'trove': }
+
+  class { "::ironic::db::mysql":
+    user          => 'ironic',
+    password      => $::openstack::config::mysql_service_password,
+    dbname        => 'ironic',
+    allowed_hosts => $::openstack::config::mysql_allowed_hosts,
+    require       => Anchor['database-service'],
+  }
+
   $controller_management_address = $::openstack::config::controller_address_management
 
   class { '::ironic::keystone::auth':

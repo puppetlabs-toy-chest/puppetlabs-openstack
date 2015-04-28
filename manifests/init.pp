@@ -132,6 +132,20 @@
 # [*nova_password*]
 #   The password for the nova user in Keystone.
 #
+# == Ironic
+# [*ironic_password*]
+#   The password for the ironic user in Keystone
+#
+# [*ironic_ramdisk*]
+#   The uri of the ramdisk to boot baremetal images from
+#
+# [*ironic_kernel*]
+#   The uri of the kernel to boot baremetal images from
+#
+# == Tuskar
+# [*tuskar_password*]
+#    The password for the tuskar user in Keystone
+#
 # == Neutron
 # [*neutron_password*]
 #   The password for the neutron user in Keystone.
@@ -280,6 +294,10 @@ class openstack (
   $nova_libvirt_type = undef,
   $nova_password = undef,
   $neutron_password = undef,
+  $ironic_password = undef,
+  $ironic_ramdisk = undef,
+  $ironic_kernel = undef,
+  $tuskar_password = undef,
   $neutron_shared_secret = undef,
   $neutron_tunneling = true,
   $neutron_tunnel_types = ['gre'],
@@ -346,6 +364,10 @@ class openstack (
       swift_hash_suffix             => hiera(openstack::swift::hash_suffix),
       nova_libvirt_type             => hiera(openstack::nova::libvirt_type),
       nova_password                 => hiera(openstack::nova::password),
+      ironic_password               => hiera(openstack::ironic::password),
+      ironic_ramdisk                => hiera(openstack::ironic::ramdisk),
+      ironic_kernel                 => hiera(openstack::ironic::kernel),
+      tuskar_password               => hiera(openstack::tuskar::password),
       neutron_password              => hiera(openstack::neutron::password),
       neutron_shared_secret         => hiera(openstack::neutron::shared_secret),
       neutron_tunneling             => hiera(openstack::neutron::neutron_tunneling, $neutron_tunneling),
@@ -413,6 +435,10 @@ class openstack (
       swift_hash_suffix             => $swift_hash_suffix,
       nova_libvirt_type             => $nova_libvirt_type,
       nova_password                 => $nova_password,
+      ironic_password               => $ironic_password,
+      ironic_ramdisk                => $ironic_ramdisk,
+      ironic_kernel                 => $ironic_kernel,
+      tuskar_password               => $tuskar_password,
       neutron_password              => $neutron_password,
       neutron_shared_secret         => $neutron_shared_secret,
       neutron_tunneling             => $neutron_tunneling,

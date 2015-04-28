@@ -21,8 +21,10 @@ class openstack::profile::neutron::router {
   }
 
   class { '::neutron::agents::dhcp':
-    debug   => $::openstack::config::debug,
-    enabled => true,
+    debug                    => $::openstack::config::debug,
+    enabled                  => true,
+    enable_isolated_metadata => true,
+    enable_metadata_network  => true,
   }
 
   class { '::neutron::agents::metadata':
@@ -33,6 +35,11 @@ class openstack::profile::neutron::router {
     auth_region   => $::openstack::config::region,
     metadata_ip   => $controller_management_address,
     enabled       => true,
+  }
+
+  neutron_metadata_agent_config {
+    'DEFAULT/nova_metadata_insecure':
+      value => true
   }
 
   class { '::neutron::agents::lbaas':

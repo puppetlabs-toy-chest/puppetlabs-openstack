@@ -15,7 +15,6 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::profile::nova::compute': }
   class { '::openstack::profile::nova::api': }
   class { '::openstack::profile::heat::api': }
-  #  class { '::openstack::profile::trove': }
   class { '::openstack::profile::swift::storage': zone   => '1', } ->
   class { '::openstack::profile::swift::proxy': replicas => 1, }
   class { '::openstack::profile::neutron::router': }

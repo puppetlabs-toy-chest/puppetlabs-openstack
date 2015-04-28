@@ -1,7 +1,7 @@
 class openstack::setup::cirros {
   glance_image { 'Cirros1':
     ensure           => present,
-    name             => 'Cirros1',
+    name             => 'Linux 1',
     is_public        => 'yes',
     container_format => 'bare',
     disk_format      => 'qcow2',
@@ -10,7 +10,7 @@ class openstack::setup::cirros {
 
   glance_image { 'Cirros2':
     ensure           => present,
-    name             => 'Cirros2',
+    name             => 'Linux 2',
     is_public        => 'yes',
     container_format => 'bare',
     disk_format      => 'qcow2',

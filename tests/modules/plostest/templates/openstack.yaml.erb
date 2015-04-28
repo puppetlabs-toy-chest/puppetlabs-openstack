@@ -47,39 +47,60 @@ openstack::keystone::admin_token: 'sosp-kyl'
 openstack::keystone::admin_email: 'example@puppetlabs.com'
 openstack::keystone::admin_password: 'fyby-tet'
 
+openstack::keystone::roles:
+    "heat_stack_owner":
+    "heat_stack_user":
+
 openstack::keystone::tenants:
     "openstack":
-        description: "Generic OpenStack tenant"
-    "tempest_1":
-        description: "First test tenant for tempest"
-    "tempest_2":
-        description: "Second test tenant for tempest"
+        description: "OpenStack Tenant"
+    "production":
+        description: "Production Tenant"
+    "testing":
+        description: "Testing Tenant"
+    "development":
+        description: "Development Tenant"
 
 openstack::keystone::users:
-    "openstack":
+    "admin":
         password: "openstack"
         tenant: "openstack"
         email: "example@openstack.org"
         admin: true
-    "tempest_admin1":
-        password: "tempest_admin1"
-        tenant: "tempest_1"
-        email: "demo@example.com"
-        admin: true
-    "tempest_user1":
-        password: "tempest_user1"
-        tenant: "tempest_1"
-        email: "demo@example.com"
+    "user":
+        password: "openstack"
+        tenant: "openstack"
+        email: "example@openstack.org"
         admin: false
-    "tempest_admin2":
-        password: "tempest_admin2"
-        tenant: "tempest_2"
-        email: "demo@example.com"
+    "production_admin":
+        password: "openstack"
+        tenant: "production"
+        email: "production_admin@example.com"
         admin: true
-    "tempest_user2":
-        password: "tempest_user2"
-        tenant: "tempest_2"
-        email: "demo@example.com"
+    "production_user":
+        password: "openstack"
+        tenant: "production"
+        email: "production_user@example.com"
+        admin: false
+    "testing_admin":
+        password: "openstack"
+        tenant: "testing"
+        email: "testing_admin@example.com"
+        admin: true
+    "testing_user":
+        password: "openstack"
+        tenant: "testing"
+        email: "testing_user@example.com"
+        admin: false
+    "development_admin":
+        password: "openstack"
+        tenant: "development"
+        email: "development_admin@example.com"
+        admin: true
+    "development_user":
+        password: "openstack"
+        tenant: "development"
+        email: "development_user@example.com"
         admin: false
 
 ######## Glance
@@ -107,6 +128,10 @@ openstack::ironic::password: 'glug-plig'
 openstack::ironic::ramdisk: 'glance://foo'
 openstack::ironic::kernel: 'glance://bar'
 
+######## Tuskar
+
+openstack::tuskar::password: 'bleep-blimblam'
+
 ######## Neutron
 
 openstack::neutron::password: 'whi-rtuz'
@@ -119,7 +144,7 @@ openstack::ceilometer::meteringsecret: 'ceilometersecretkey'
 
 ######## Heat
 openstack::heat::password: 'zap-bang'
-openstack::heat::encryption_key: 'heatsecretkey'
+openstack::heat::encryption_key: 'eight_sixteen_twentyfour'
 
 ######## Trove
 openstack::trove::password: 'jit-jig'
