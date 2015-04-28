@@ -48,8 +48,7 @@ openstack::keystone::admin_email: 'example@puppetlabs.com'
 openstack::keystone::admin_password: 'fyby-tet'
 
 openstack::keystone::roles:
-    "heat_stack_owner":
-    "heat_stack_user":
+    "heat_stack_owner": {}
 
 openstack::keystone::tenants:
     "openstack":
@@ -62,7 +61,7 @@ openstack::keystone::tenants:
         description: "Development Tenant"
 
 openstack::keystone::users:
-    "admin":
+    "superuser":
         password: "openstack"
         tenant: "openstack"
         email: "example@openstack.org"

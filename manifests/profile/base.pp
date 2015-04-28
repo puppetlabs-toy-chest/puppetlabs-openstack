@@ -14,6 +14,7 @@ class openstack::profile::base {
 
   # database anchor
   anchor { 'database-service': }
+  anchor { 'keystone-users': }
 
   $management_network = $::openstack::config::network_management
   $management_address = ip_for_network($management_network)

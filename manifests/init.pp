@@ -94,6 +94,11 @@
 # [*keystone_admin_password*]
 #   The password for keystone user in Keystone.
 #
+# [*keystone_roles*]
+#   The initial keystone roles to create. Empty hash in the form of:
+#   { 'role_name1' => {},
+#     'role_name2' => {}}
+#
 # [*keystone_tenants*]
 #   The intial keystone tenants to create. Should be a Hash in the form of: 
 #   {'tenant_name1' => { 'descritpion' => 'Tenant Description 1'}, 
@@ -284,6 +289,7 @@ class openstack (
   $keystone_admin_token = undef,
   $keystone_admin_email = undef,
   $keystone_admin_password = undef,
+  $keystone_roles = undef,
   $keystone_tenants = undef,
   $keystone_users = undef,
   $glance_password = undef,
@@ -355,6 +361,7 @@ class openstack (
       keystone_admin_token          => hiera(openstack::keystone::admin_token),
       keystone_admin_email          => hiera(openstack::keystone::admin_email),
       keystone_admin_password       => hiera(openstack::keystone::admin_password),
+      keystone_roles                => hiera(openstack::keystone::roles),
       keystone_tenants              => hiera(openstack::keystone::tenants),
       keystone_users                => hiera(openstack::keystone::users),
       glance_password               => hiera(openstack::glance::password),
@@ -426,6 +433,7 @@ class openstack (
       keystone_admin_token          => $keystone_admin_token,
       keystone_admin_email          => $keystone_admin_email,
       keystone_admin_password       => $keystone_admin_password,
+      keystone_roles                => $keystone_roles,
       keystone_tenants              => $keystone_tenants,
       keystone_users                => $keystone_users,
       glance_password               => $glance_password,

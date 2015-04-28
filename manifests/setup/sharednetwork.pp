@@ -35,22 +35,22 @@ class openstack::setup::sharednetwork {
     dns_nameservers  => [$dns],
   }
 
-  neutron_network { 'private':
-    tenant_name              => 'openstack',
-    provider_network_type    => 'gre',
-    router_external          => false,
-    provider_segmentation_id => 4063,
-    shared                   => true,
-  } ->
-
-  neutron_subnet { $private_network:
-    cidr            => $private_network,
-    ip_version      => '4',
-    enable_dhcp     => true,
-    network_name    => 'private',
-    tenant_name     => 'openstack',
-    dns_nameservers => [$dns],
-  }
-
-  openstack::setup::router { "openstack:${private_network}": }
+  #  neutron_network { 'private':
+  #  tenant_name              => 'openstack',
+  #  provider_network_type    => 'gre',
+  #  router_external          => false,
+  #  provider_segmentation_id => 4063,
+  #  shared                   => true,
+  #} ->
+  #
+  #neutron_subnet { $private_network:
+  #  cidr            => $private_network,
+  #  ip_version      => '4',
+  #  enable_dhcp     => true,
+  #  network_name    => 'private',
+  #  tenant_name     => 'openstack',
+  #  dns_nameservers => [$dns],
+  #}
+  #
+  #openstack::setup::router { "openstack:${private_network}": }
 }

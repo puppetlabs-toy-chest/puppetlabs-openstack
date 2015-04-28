@@ -27,6 +27,8 @@ class openstack::common::neutron {
                               'neutron.services.metering.metering_plugin.MeteringPlugin'],
   }
 
+  Anchor['keystone-users'] -> Class['::neutron']
+
   class { '::neutron::keystone::auth':
     password         => $::openstack::config::neutron_password,
     public_address   => $::openstack::config::controller_address_api,

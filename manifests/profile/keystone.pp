@@ -15,10 +15,13 @@ class openstack::profile::keystone {
     version      => 'v2.0',
   }
 
+  Keystone_role<||> -> Keystone_user<||> -> Keystone_user_role<||> -> Anchor['keystone-users']
+
   $roles   = $::openstack::config::keystone_roles
   $tenants = $::openstack::config::keystone_tenants
   $users   = $::openstack::config::keystone_users
-  create_resourcea('openstack::resources::role', $roles)
+
+  create_resources('openstack::resources::role', $roles)
   create_resources('openstack::resources::tenant', $tenants)
   create_resources('openstack::resources::user', $users)
 }
