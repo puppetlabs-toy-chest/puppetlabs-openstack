@@ -1,0 +1,7 @@
+" vim:set sw=2:
+---
+- name: puppet
+    box: puppetlabs/ubuntu-14.04-64-puppet
+    provider: :q
+
+

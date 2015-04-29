@@ -6,9 +6,12 @@ VAGRANTFILE_API_VERSION = "2"
 
 #Load Yaml libraries
 require 'yaml'
+configs = YAML.load_file('config.yaml')
 
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  configs.each do |server|
+    
   config.vm.box = "ubuntu/trusty64"
   config.vm.define "puppet" do |puppet|
 #    puppet.vm.box = "puppet"
@@ -46,4 +49,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     allinone.vm.synced_folder "../../", "/openstack"
   end
 
-end
+nd
