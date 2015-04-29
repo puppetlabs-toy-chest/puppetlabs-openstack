@@ -7,4 +7,13 @@ class openstack::profile::neutron::agent {
     default:    { include ::openstack::common::ml2::ovs }
   }
 
+  ### Router service installation
+  class { '::neutron::agents::l3':
+    debug                    => $::openstack::config::debug,
+    external_network_bridge  => 'brex',
+    enabled                  => true,
+    agent_mode               => 'dvr',
+    router_delete_namespaces => 'True',
+  }
+
 }

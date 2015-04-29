@@ -46,6 +46,7 @@ class openstack::common::neutron {
     enabled             => $is_controller,
     sync_db             => $is_controller,
     mysql_module        => '2.2',
+    router_distributed  => 'True',
   }
 
   if $::osfamily == 'redhat' {
