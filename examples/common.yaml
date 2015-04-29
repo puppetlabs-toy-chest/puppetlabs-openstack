@@ -144,6 +144,7 @@ openstack::neutron::service_plugins: ['router', 'firewall', 'lbaas', 'vpnaas', '
 openstack::neutron::neutron_arp_responder: false
 openstack::neutron::neutron_mechanism_drivers: ['openvswitch', 'l2population']
 openstack::neutron::neutron_l2_population: false
+openstack::neutron::neutron_enable_dvr: false
 
 ######## Ceilometer
 openstack::ceilometer::address::management: '172.16.33.4'
