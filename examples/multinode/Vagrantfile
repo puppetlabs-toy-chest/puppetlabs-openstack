@@ -11,8 +11,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
+  config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
+
   config.vm.define "puppet" do |puppet|
-    puppet.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     puppet.vm.network :private_network, ip: "192.168.11.3"
     puppet.vm.network :private_network, ip: "192.168.22.3"
     puppet.vm.network :private_network, ip: "172.16.33.3"
@@ -26,11 +27,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["memsize"] =  "1024"
         v.vmx["vhv.enable"] = "TRUE"
     end
+    puppet.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        vb.memory = 1024
+    end
   end
 
   config.vm.define "control" do |control|
-    control.vm.box = "puppetlabs/centos-7.0-64-puppet"
-    control.vm.box_version = "= 1.0.0"
     control.vm.network :private_network, ip: "192.168.11.4"
     control.vm.network :private_network, ip: "192.168.22.4"
     control.vm.network :private_network, ip: "172.16.33.4"
@@ -49,11 +52,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["memsize"] =  "2048"
         v.vmx["vhv.enable"] = "TRUE"
     end
+    control.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        vb.memory = 2048
+    end
   end
 
   config.vm.define "storage" do |storage|
-    storage.vm.box = "puppetlabs/centos-7.0-64-puppet"
-    storage.vm.box_version = "= 1.0.0"
     storage.vm.network :private_network, ip: "192.168.11.5"
     storage.vm.network :private_network, ip: "192.168.22.5"
     storage.vm.network :private_network, ip: "172.16.33.5"
@@ -67,11 +72,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["memsize"] =  "1024"
         v.vmx["vhv.enable"] = "TRUE"
     end
+    storage.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        vb.memory   = 1024
+    end
   end
 
   config.vm.define "network" do |network|
-    network.vm.box = "puppetlabs/centos-7.0-64-puppet"
-    network.vm.box_version = "= 1.0.0"
     network.vm.network :private_network, ip: "192.168.11.6"
     network.vm.network :private_network, ip: "192.168.22.6"
     network.vm.network :private_network, ip: "172.16.33.6"
@@ -85,11 +92,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["memsize"] =  "1024"
         v.vmx["vhv.enable"] = "TRUE"
     end
+    network.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+        vb.memory = 1024
+    end
   end
 
   config.vm.define "compute" do |compute|
-    compute.vm.box = "puppetlabs/centos-7.0-64-puppet"
-    compute.vm.box_version = "= 1.0.0"
     compute.vm.network :private_network, ip: "192.168.11.7"
     compute.vm.network :private_network, ip: "192.168.22.7"
     compute.vm.network :private_network, ip: "172.16.33.7"
@@ -103,6 +113,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["numvcpus"] = "2"
         v.vmx["memsize"] =  "2048"
         v.vmx["vhv.enable"] = "TRUE"
+    end
+    compute.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+        vb.cpus = 2
+        vb.memory = 2048
     end
   end
 
