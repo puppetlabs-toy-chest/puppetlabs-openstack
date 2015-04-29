@@ -25,6 +25,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "1024"
     end
+    puppet.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory   = 1024
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    end
   end
 
   config.vm.define "allinone" do |allinone|
@@ -35,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     allinone.vm.network :private_network, ip: "172.16.33.4"
     allinone.vm.network :private_network, ip: "172.16.44.4"
 
-    allinone.vm.hostname = "allinone"
+    allinone.vm.hostname = "allinone.localdomain"
 
     allinone.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "provision_manifests"
@@ -48,6 +53,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["memsize"] =  "6144"
         v.vmx["numvcpus"] = "4"
         v.vmx["vhv.enable"] = "TRUE"
+    end
+    allinone.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+        vb.cpus = 4
+        vb.memory = 6144
+		vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
