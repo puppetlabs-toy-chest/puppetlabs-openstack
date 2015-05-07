@@ -1,5 +1,5 @@
 class openstack::resources::repo(
-  $release = 'juno',
+  $release = 'kilo',
 ){
   if $::osfamily == 'Debian' {
     if $::operatingsystem == 'Ubuntu' {
