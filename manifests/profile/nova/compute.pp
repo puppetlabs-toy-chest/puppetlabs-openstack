@@ -9,13 +9,13 @@ class openstack::profile::nova::compute {
   class { '::nova::compute':
     enabled                       => true,
     vnc_enabled                   => true,
-    vncserver_proxyclient_address => $management_address,
+    vncserver_proxyclient_address => $management_address[0],
     vncproxy_host                 => $::openstack::config::controller_address_api,
   }
 
   class { '::nova::compute::libvirt':
     libvirt_virt_type => $::openstack::config::nova_libvirt_type,
-    vncserver_listen  => $management_address,
+    vncserver_listen  => $management_address[0],
   }
 
   class { 'nova::migration::libvirt':
