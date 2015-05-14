@@ -244,6 +244,15 @@
 # [*neutron_service_plugins*]
 #   The service_plugins for neutron service
 #
+# [*plumgrid_director_vip*]
+#   IP address of the PLUMgrid Director Server
+#
+# [*plumgrid_username*]
+#   PLUMgrid platform username
+#
+# [*plumgrid_password*]
+#   PLUMgrid platform password
+#
 # [*neutron_tunneling*] (Deprecated)
 #   Boolean. Whether to enable Neutron tunneling.
 #   Default to true.
@@ -416,6 +425,9 @@ class openstack (
   $neutron_shared_secret = undef,
   $neutron_core_plugin = undef,
   $neutron_service_plugins = undef,
+  $plumgrid_director_vip = undef,
+  $plumgrid_username = undef,
+  $plumgrid_password = undef,
   $neutron_tunneling = true,
   $neutron_tunnel_types = ['gre'],
   $neutron_tenant_network_type = ['gre'],
@@ -502,6 +514,9 @@ class openstack (
       neutron_shared_secret         => hiera(openstack::neutron::shared_secret),
       neutron_core_plugin           => hiera(openstack::neutron::core_plugin),
       neutron_service_plugins       => hiera(openstack::neutron::service_plugins),
+      plumgrid_director_vip         => hiera(openstack::neutron::plumgrid_director_vip),
+      plumgrid_username             => hiera(openstack::neutron::plumgrid_username),
+      plumgrid_password             => hiera(openstack::neutron::plumgrid_password),
       neutron_tunneling             => hiera(openstack::neutron::neutron_tunneling, $neutron_tunneling),
       neutron_tunnel_types          => hiera(openstack::neutron::neutron_tunnel_type, $neutron_tunnel_types),
       neutron_tenant_network_type   => hiera(openstack::neutron::neutron_tenant_network_type, $neutron_tenant_network_type),
@@ -593,6 +608,9 @@ class openstack (
       neutron_shared_secret         => $neutron_shared_secret,
       neutron_core_plugin           => $neutron_core_plugin,
       neutron_service_plugins       => $neutron_service_plugins,
+      plumgrid_director_vip         => $plumgrid_director_vip,
+      plumgrid_username             => $plumgrid_username,
+      plumgrid_password             => $plumgrid_password,
       neutron_tunneling             => $neutron_tunneling,
       neutron_tunnel_types          => $neutron_tunnel_types,
       neutron_tenant_network_type   => $neutron_tenant_network_type,
