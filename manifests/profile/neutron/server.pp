@@ -12,11 +12,40 @@ class openstack::profile::neutron::server {
   $tunnel_id_ranges              = $::openstack::config::neutron_tunnel_id_ranges # ['1:1000']
   $controller_management_address = $::openstack::config::controller_address_management
 
-  class  { '::neutron::plugins::ml2':
-    type_drivers         => $type_drivers,
-    tenant_network_types => $tenant_network_type,
-    mechanism_drivers    => $mechanism_drivers,
-    tunnel_id_ranges     => $tunnel_id_ranges
+  if ($::openstack::config::neutron_core_plugin == 'ml2') {
+    class  { '::neutron::plugins::ml2':
+      type_drivers         => $type_drivers,
+      tenant_network_types => $tenant_network_type,
+      mechanism_drivers    => $mechanism_drivers,
+      tunnel_id_ranges     => $tunnel_id_ranges
+    }
+  } elsif ($::openstack::config::neutron_core_plugin == 'plumgrid') {
+    $user = $::openstack::config::mysql_user_neutron
+    $pass = $::openstack::config::mysql_pass_neutron
+    $db_connection = "mysql://${user}:${pass}@${controller_management_address}/neutron"
+
+    neutron_config {
+      'DEFAULT/service_plugins': ensure => absent,
+    }
+    ->
+    class { '::neutron::plugins::plumgrid':
+      director_server      => $::openstack::config::plumgrid_director_vip,
+      username             => $::openstack::config::plumgrid_username,
+      password             => $::openstack::config::plumgrid_password,
+      admin_password       => $::openstack::config::keystone_admin_password,
+      controller_priv_host => $controller_management_address,
+      connection           => $db_connection,
+    }
+
+    class { '::neutron::agents::metadata':
+      auth_password => $::openstack::config::neutron_password,
+      shared_secret => $::openstack::config::neutron_shared_secret,
+      auth_url      => "http://${controller_management_address}:35357/v2.0",
+      debug         => $::openstack::config::debug,
+      auth_region   => $::openstack::config::region,
+      metadata_ip   => $controller_management_address,
+      enabled       => true,
+    }
   }
 
   anchor { 'neutron_common_first': } ->
