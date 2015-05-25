@@ -1,0 +1,52 @@
+{
+  "name": "puppetlabs-openstack",
+  "version": "5.0.2",
+  "author": "Puppet Labs and Community Contributors",
+  "summary": "Install, configure, and manage a full installation of OpenStack Juno",
+  "license": "Apache-2.0",
+  "source": "https://github.com/puppetlabs/puppetlabs-openstack.git",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-openstack",
+  "issues_url": "https://github.com/puppetlabs/puppetlabs-openstack/issues",
+  "requirements": [
+    { "name": "pe","version_requirement": "3.x" },
+    { "name": "puppet","version_requirement": "3.x" }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": ["7"]
+    },
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": ["20", "21"]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": ["14.04"]
+    }
+  ],
+  "description": "Using a hiera-based roles and profiles model, do simple OpenStack deployments.",
+  "dependencies": [
+    { "name": "stackforge/ceilometer", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/cinder", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/glance", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/heat", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/horizon", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/keystone", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/neutron", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/nova", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/openstack_extras", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/swift", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "stackforge/tempest", "version_requirement": ">=5.0.0 <6.0.0" },
+
+    { "name": "puppetlabs/apache", "version_requirement": ">=1.2.0 <2.0.0" },
+    { "name": "puppetlabs/firewall", "version_requirement": ">=1.0.0 <2.0.0" },
+    { "name": "puppetlabs/mongodb", "version_requirement": ">=0.10.0 <0.11.0" },
+    { "name": "puppetlabs/ntp", "version_requirement": ">=3.0.0 <4.0.0" },
+    { "name": "puppetlabs/rabbitmq", "version_requirement": ">=3.0.0 <4.0.0" },
+    { "name": "stackforge/vswitch", "version_requirement": ">=1.0.0 <2.0.0" },
+
+    { "name": "garethr/erlang", "version_requirement": "0.3.0" },
+    { "name": "duritong/sysctl", "version_requirement": "0.0.1" }
+  ]
+}

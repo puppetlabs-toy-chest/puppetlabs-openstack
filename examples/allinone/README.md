@@ -1,4 +1,13 @@
-A few notes on using Vagrant and VMWare Fusion to test the Havana module:
+# Allinone deployment
+
+## Notes about the Swift deployment example
+
+This example setup configures control, compute, network, and block storage on a
+single node.
+
+## Notes about setting up Vagrant and VMWare
+
+A few notes on using Vagrant and VMWare Fusion to test the OpenStack module:
 
 Five networks need to be setup in VMWare Fusion. The default net for
 Vagrant, and the four OpenStack networks.
@@ -36,7 +45,7 @@ The Vagrantfile will automatically download a prepared CentOS box for you.
 You need to have R10K installed. You can use the one provided by the rubygem.
 
 ```
-ruby gem install R10K
+gem install r10k
 ```
 
 Using R10K, module dependencies are automatically downloaded and the root of the module

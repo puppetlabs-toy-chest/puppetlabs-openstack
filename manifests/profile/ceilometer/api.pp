@@ -2,11 +2,24 @@
 # For co-located api and worker nodes this appear
 # after openstack::profile::ceilometer::agent
 class openstack::profile::ceilometer::api {
-  openstack::resources::controller { 'ceilometer': }
+
+  $mongo_username                = $::openstack::config::ceilometer_mongo_username
+  $mongo_password                = $::openstack::config::ceilometer_mongo_password
+  $ceilometer_management_address = $::openstack::config::ceilometer_address_management
+  $controller_management_address = $::openstack::config::controller_address_management
+
+
+  if ! $mongo_username or ! $mongo_password {
+    $mongo_connection = "mongodb://${ceilometer_management_address}:27017/ceilometer"
+  } else {
+    $mongo_connection = "mongodb://${mongo_username}:${mongo_password}@${ceilometer_management_address}:27017/ceilometer"
+  }
 
   openstack::resources::firewall { 'Ceilometer API':
     port => '8777',
   }
+
+  include ::openstack::common::ceilometer
 
   class { '::ceilometer::keystone::auth':
     password         => $::openstack::config::ceilometer_password,
@@ -14,6 +27,15 @@ class openstack::profile::ceilometer::api {
     admin_address    => $::openstack::config::controller_address_management,
     internal_address => $::openstack::config::controller_address_management,
     region           => $::openstack::config::region,
+  }
+
+  class { '::ceilometer::api':
+    keystone_host     => $controller_management_address,
+    keystone_password => $::openstack::config::ceilometer_password,
+  }
+
+  class { '::ceilometer::db':
+    database_connection => $mongo_connection,
   }
 
   class { '::ceilometer::agent::central':
@@ -37,21 +59,22 @@ class openstack::profile::ceilometer::api {
 
   class { '::ceilometer::collector': }
 
-  include ::openstack::common::ceilometer
-
   mongodb_database { 'ceilometer':
     ensure  => present,
     tries   => 20,
     require => Class['mongodb::server'],
-  } 
+  }
 
-  mongodb_user { 'ceilometer':
-    ensure        => present,
-    password_hash => mongodb_password('ceilometer', 'password'),
-    database      => 'ceilometer',
-    roles         => ['readWrite', 'dbAdmin'],
-    tries         => 10,
-    require       => [Class['mongodb::server'], Class['mongodb::client']],
+  if $mongo_username and $mongo_password {
+    mongodb_user { $mongo_username:
+      ensure        => present,
+      password_hash => mongodb_password($mongo_username, $mongo_password),
+      database      => 'ceilometer',
+      roles         => ['readWrite', 'dbAdmin'],
+      tries         => 10,
+      require       => [Class['mongodb::server'], Class['mongodb::client']],
+      before        => Exec['ceilometer-dbsync'],
+    }
   }
 
   Class['::mongodb::server'] -> Class['::mongodb::client'] -> Exec['ceilometer-dbsync']

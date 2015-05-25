@@ -5,7 +5,6 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "puppetlabs/centos-65-x64-openstack"
 
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = false
@@ -13,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.include_offline = true
 
   config.vm.define "puppet" do |puppet|
+    puppet.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     puppet.vm.network :private_network, ip: "192.168.11.3"
     puppet.vm.network :private_network, ip: "192.168.22.3"
     puppet.vm.network :private_network, ip: "172.16.33.3"
@@ -28,6 +28,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "allinone" do |allinone|
+    allinone.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    allinone.vm.box_version = "= 1.0.0"
     allinone.vm.network :private_network, ip: "192.168.11.4"
     allinone.vm.network :private_network, ip: "192.168.22.4"
     allinone.vm.network :private_network, ip: "172.16.33.4"
@@ -35,11 +37,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     allinone.vm.hostname = "allinone"
 
+    allinone.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = "provision_manifests"
+      puppet.manifest_file = "base.pp"
+    end
+
     allinone.vm.synced_folder "../../", "/openstack"
 
     allinone.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "6144"
         v.vmx["numvcpus"] = "4"
+        v.vmx["vhv.enable"] = "TRUE"
     end
   end
 

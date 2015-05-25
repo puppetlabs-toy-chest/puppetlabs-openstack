@@ -1,0 +1,17 @@
+{
+  "name": "puppetlabs-plostest",
+  "version": "0.1.0",
+  "author": "puppetlabs",
+  "summary": "Module to test puppetlabs-openstack",
+  "license": "Apache 2.0",
+  "source": "https://github.com/puppetlabs/puppetlabs-openstack/test/modules/plostest",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-openstack/test/modules/plostest",
+  "issues_url": "https://github.com/puppetlabs/puppetlabs-openstack",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}
+

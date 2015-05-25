@@ -5,7 +5,13 @@ class openstack::profile::firewall::post {
     state  => ['NEW'],
     action => 'accept',
     source => $::openstack::config::network_management,
-  }  ->
+  } ->
+  firewall { '9100 - Accept all vm network traffic':
+    proto  => 'all',
+    state  => ['NEW'],
+    action => 'accept',
+    source => $::openstack::config::network_data,
+  } ->
   firewall { '9999 - Reject remaining traffic':
     proto  => 'all',
     action => 'reject',

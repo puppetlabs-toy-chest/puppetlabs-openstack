@@ -13,12 +13,12 @@ class openstack::profile::cinder::volume {
   } ->
 
   class { '::cinder::volume':
-    package_ensure => true,
+    package_ensure => present,
     enabled        => true,
   }
 
   class { '::cinder::volume::iscsi':
-    iscsi_ip_address  => $management_address,
-    volume_group      => 'cinder-volumes',
+    iscsi_ip_address => $management_address,
+    volume_group     => 'cinder-volumes',
   }
 }

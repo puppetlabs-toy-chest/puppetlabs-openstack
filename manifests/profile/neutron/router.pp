@@ -1,17 +1,14 @@
 # The profile to set up a neutron ovs network router
 class openstack::profile::neutron::router {
-  Exec { 
-    path => '/usr/bin:/usr/sbin:/bin:/sbin', 
-    require => Class['openstack::profile::neutron::common'],
-  } 
-  
-  ::sysctl::value { 'net.ipv4.ip_forward': 
+  ::sysctl::value { 'net.ipv4.ip_forward':
     value     => '1',
   }
 
   $controller_management_address = $::openstack::config::controller_address_management
+
   include ::openstack::common::neutron
-  include ::openstack::common::ovs
+  include ::openstack::common::ml2::ovs
+
 
   ### Router service installation
   class { '::neutron::agents::l3':
@@ -52,17 +49,6 @@ class openstack::profile::neutron::router {
     enabled => true,
   }
 
-  # Temporarily fix a bug on RHEL packaging
-  if $::osfamily == 'RedHat' {
-    file { '/usr/lib/python2.6/site-packages/neutronclient/client.py':
-      ensure  => present,
-      source  => 'puppet:///modules/openstack/client.py',
-      mode    => '0644',
-      notify  => Service['neutron-metadata-agent'],
-      require => Package['openstack-neutron'],
-    }
-  }
-
   $external_bridge = 'brex'
   $external_network = $::openstack::config::network_external
   $external_device = device_for_network($external_network)
@@ -71,12 +57,18 @@ class openstack::profile::neutron::router {
   }
   if $external_device != $external_bridge {
     vs_port { $external_device:
-      ensure  => present,
-      bridge  => $external_bridge,
-      keep_ip => true,
+      ensure => present,
+      bridge => $external_bridge,
     }
   } else {
     # External bridge already has the external device's IP, thus the external
     # device has already been linked
   }
+
+  $defaults = { 'ensure' => 'present' }
+  create_resources('neutron_network', $::openstack::config::networks, $defaults)
+  create_resources('neutron_subnet', $::openstack::config::subnets, $defaults)
+  create_resources('neutron_router', $::openstack::config::routers, $defaults)
+  create_resources('neutron_router_interface', $::openstack::config::router_interfaces, $defaults)
+
 }

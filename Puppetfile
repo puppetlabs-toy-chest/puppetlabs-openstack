@@ -42,6 +42,10 @@ mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
   :ref => "master"
 
+mod "openstack_extras",
+  :git => "git://github.com/stackforge/puppet-openstack_extras",
+  :ref => "master"
+
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
   :ref => "master"
@@ -56,6 +60,14 @@ mod "vswitch",
 
 mod "apache",
   :git => "git://github.com/puppetlabs/puppetlabs-apache",
+  :ref => "1.2.x"
+
+mod "epel",
+  :git => "git://github.com/stahnma/puppet-module-epel",
+  :ref => "master"
+
+mod "erlang",
+  :git => "git://github.com/garethr/garethr-erlang",
   :ref => "master"
 
 mod "inifile",
@@ -64,11 +76,11 @@ mod "inifile",
 
 mod "mysql",
   :git => "git://github.com/puppetlabs/puppetlabs-mysql",
-  :ref => "2.2.x"
+  :ref => "3.3.x"
 
 mod "stdlib",
   :git => "git://github.com/puppetlabs/puppetlabs-stdlib",
-  :ref => "3.2.x"
+  :ref => "4.3.x"
 
 mod "rsync",
   :git => "git://github.com/puppetlabs/puppetlabs-rsync",
@@ -80,7 +92,7 @@ mod "xinetd",
 
 mod "concat",
   :git => "git://github.com/puppetlabs/puppetlabs-concat",
-  :ref => "1.0.2"
+  :ref => "1.1.x"
 
 mod "memcached",
   :git => "git://github.com/saz/puppet-memcached",
@@ -99,7 +111,11 @@ mod "sysctl",
 
 mod "rabbitmq",
   :git => "git://github.com/puppetlabs/puppetlabs-rabbitmq",
-  :ref => "3.1.0"
+  :ref => "5.0.0"
+
+mod "staging",
+  :git => "git://github.com/nanliu/puppet-staging",
+  :ref => "1.0.2"
 
 mod "vcsrepo",
   :git => "git://github.com/puppetlabs/puppetlabs-vcsrepo",
@@ -109,7 +125,7 @@ mod "vcsrepo",
 
 mod "firewall",
   :git => "git://github.com/puppetlabs/puppetlabs-firewall",
-  :ref => "1.0.x"
+  :ref => "master"
 
 mod "apt",
   :git => "git://github.com/puppetlabs/puppetlabs-apt",
@@ -117,7 +133,7 @@ mod "apt",
 
 mod "mongodb",
   :git => "git://github.com/puppetlabs/puppetlabs-mongodb",
-  :ref => "0.7.0"
+  :ref => "0.10.0"
 
 mod "ntp",
   :git => "git://github.com/puppetlabs/puppetlabs-ntp",
@@ -129,5 +145,5 @@ mod "postgresql",
 
 mod "puppetdb",
   :git => "git://github.com/puppetlabs/puppetlabs-puppetdb",
-  :ref => "3.0.1"
+  :ref => "4.0.0"
 

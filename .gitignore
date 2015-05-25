@@ -1,2 +1,9 @@
+.bundle/
 examples/allinone/Puppetfile
 examples/multinode/Puppetfile
+examples/swift/Puppetfile
+**/.vagrant
+examples/allinone/modules
+examples/multinode/modules
+examples/swift/modules
+Gemfile.lock

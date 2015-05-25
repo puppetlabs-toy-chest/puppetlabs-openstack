@@ -9,7 +9,7 @@ class openstack::profile::swift::storage (
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '',
+    port   => '6000',
   }
 
   firewall { '6001 - Swift Container Store':
@@ -58,7 +58,7 @@ class openstack::profile::swift::storage (
     weight => 1,
   }
 
-  swift::ringsync { ['account','container','object']: 
-    ring_server => $::openstack::config::controller_address_management, 
+  swift::ringsync { ['account','container','object']:
+    ring_server => $::openstack::config::controller_address_management,
   }
 }
