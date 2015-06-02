@@ -1,5 +1,5 @@
 class openstack::resources::repo(
-  $release = 'juno',
+  $release = 'kilo',
 ){
   if $::osfamily == 'Debian' {
     if $::operatingsystem == 'Ubuntu' {
@@ -17,7 +17,10 @@ class openstack::resources::repo(
     }
   } elsif $::osfamily == 'RedHat' {
       class { '::openstack_extras::repo::redhat::redhat':
-        release => $release
+        release => $release,
+        #RDO and epel repos will be enabled by user.
+        manage_rdo => false,
+        manage_epel => false,
       }
   } else {
       fail("Operating system family ${::osfamily} is not supported.")
