@@ -36,6 +36,12 @@ class openstack::profile::neutron::server {
       controller_priv_host => $controller_management_address,
       connection           => $db_connection,
     }
+    ->
+    package { 'networking-plumgrid':
+      ensure   => present,
+      provider => 'pip',
+      notify   => Service['neutron-server'],
+    }
 
     class { '::neutron::agents::metadata':
       auth_password => $::openstack::config::neutron_password,
