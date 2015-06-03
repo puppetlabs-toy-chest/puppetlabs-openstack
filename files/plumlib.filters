@@ -1,0 +1,10 @@
+[Filters]
+python: CommandFilter, python, root
+ip: CommandFilter, ip, root
+kill: CommandFilter, kill, root
+rm: CommandFilter, rm, root
+ifc_ctl: CommandFilter, /opt/pg/bin/ifc_ctl, root, ifc_ctl
+neutron-ns-metadata-proxy: CommandFilter, /usr/bin/neutron-ns-metadata-proxy, root
+pg-local-metadata: CommandFilter, /usr/local/bin/pg-local-metadata, pg-local-metadata, root
+pg-tunnel-metadata: CommandFilter, /usr/local/bin/pg-tunnel-metadata, pg-tunnel-metadata, root
+ping: RegExpFilter, /bin/ping, root, ping, -w, \d+, -c, \d+, [0-9\.]+

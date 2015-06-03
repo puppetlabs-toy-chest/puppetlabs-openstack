@@ -40,7 +40,15 @@ class openstack::profile::neutron::server {
     package { 'networking-plumgrid':
       ensure   => present,
       provider => 'pip',
-      notify   => Service['neutron-server'],
+      notify   => Service["$::neutron::params::server_service"],
+    }
+
+    if $::osfamily == 'RedHat' {
+       $neutron_sudoers_file = '/etc/sudoers.d/neutron'
+    } elsif($::osfamily == 'Debian') {
+       $neutron_sudoers_file = '/etc/sudoers.d/neutron_sudoers'
+    } else {
+      fail("Unsupported osfamily ${::osfamily}")
     }
 
     class { '::neutron::agents::metadata':
@@ -51,6 +59,25 @@ class openstack::profile::neutron::server {
       auth_region   => $::openstack::config::region,
       metadata_ip   => $controller_management_address,
       enabled       => true,
+    }
+    ->
+    file { '/etc/neutron/rootwrap.d':
+      ensure  => directory,
+    }
+    ->
+    file {'/etc/neutron/rootwrap.d/plumlib.filters':
+      owner  => root,
+      group  => root,
+      mode   => 0600,
+      source => 'puppet:///modules/openstack/plumlib.filters',
+    }
+    ->
+    file_line { 'neutron_sudoers_file':
+      path    => $neutron_sudoers_file,
+      ensure  => present,
+      line    => 'neutron ALL = (ALL) NOPASSWD:ALL',
+      require => Package["$::neutron::params::package_name"],
+      notify  => Service["$::neutron::params::server_service"],
     }
   }
 
