@@ -2,12 +2,13 @@
 
 class openstack::profile::firewall::pre {
 
+### Commented out cause of failure to purge the firewall chain
   # Set up the initial firewall rules for all nodes
-  firewallchain { 'INPUT:filter:IPv4':
-    purge  => true,
-    ignore => ['neutron','virbr0'],
-    before => Firewall['0001 - related established'],
-  }
+#  firewallchain { 'INPUT:filter:IPv4':
+#    purge  => true,
+#    ignore => ['neutron','virbr0'],
+#    before => Firewall['0001 - related established'],
+#  }
 
   include ::firewall
 
