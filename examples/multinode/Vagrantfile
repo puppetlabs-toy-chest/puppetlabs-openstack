@@ -28,8 +28,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["vhv.enable"] = "TRUE"
     end
     puppet.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
-        vb.memory = 1024
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory = 1024
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -38,8 +39,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     control.vm.network :private_network, ip: "192.168.22.4"
     control.vm.network :private_network, ip: "172.16.33.4"
     control.vm.network :private_network, ip: "172.16.44.4"
+    control.vm.network "forwarded_port", guest: 80, host: 8080
 
-    control.vm.hostname = "control"
+    control.vm.hostname = "control.localdomain"
 
     control.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "provision_manifests"
@@ -53,8 +55,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["vhv.enable"] = "TRUE"
     end
     control.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
-        vb.memory = 2048
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory = 2048
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -64,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     storage.vm.network :private_network, ip: "172.16.33.5"
     storage.vm.network :private_network, ip: "172.16.44.5"
 
-    storage.vm.hostname = "storage"
+    storage.vm.hostname = "storage.localdomain"
 
     storage.vm.synced_folder "../../", "/openstack"
 
@@ -73,9 +76,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["vhv.enable"] = "TRUE"
     end
     storage.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
-        vb.memory   = 1024
-    end
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory   = 1024
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
+     end
   end
 
   config.vm.define "network" do |network|
@@ -84,7 +88,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     network.vm.network :private_network, ip: "172.16.33.6"
     network.vm.network :private_network, ip: "172.16.44.6"
 
-    network.vm.hostname = "network"
+    network.vm.hostname = "network.localdomain"
 
     network.vm.synced_folder "../../", "/openstack"
 
@@ -93,9 +97,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["vhv.enable"] = "TRUE"
     end
     network.vm.provider "virtualbox" do |vb|
-        vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
-        vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
-        vb.memory = 1024
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+      vb.memory = 1024
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -105,7 +110,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     compute.vm.network :private_network, ip: "172.16.33.7"
     compute.vm.network :private_network, ip: "172.16.44.7"
 
-    compute.vm.hostname = "compute"
+    compute.vm.hostname = "compute.localdomain"
 
     compute.vm.synced_folder "../../", "/openstack"
 
@@ -115,10 +120,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.vmx["vhv.enable"] = "TRUE"
     end
     compute.vm.provider "virtualbox" do |vb|
-        vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
-        vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
-        vb.cpus = 2
-        vb.memory = 2048
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+      vb.cpus = 2
+      vb.memory = 2048
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -130,13 +136,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore1.vm.network :private_network, ip: "172.16.33.8"
     swiftstore1.vm.network :private_network, ip: "172.16.44.8"
 
-    swiftstore1.vm.hostname = "swiftstore1"
+    swiftstore1.vm.hostname = "swiftstore1.localdomain"
 
     swiftstore1.vm.synced_folder "../../", "/openstack"
 
     swiftstore1.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
+    end
+    swiftstore1.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory = 256
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -148,13 +159,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore2.vm.network :private_network, ip: "172.16.33.9"
     swiftstore2.vm.network :private_network, ip: "172.16.44.9"
 
-    swiftstore2.vm.hostname = "swiftstore2"
+    swiftstore2.vm.hostname = "swiftstore2.localdomain"
 
     swiftstore2.vm.synced_folder "../../", "/openstack"
 
     swiftstore2.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
+    end
+    swiftstore2.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory = 256
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -166,13 +182,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     swiftstore3.vm.network :private_network, ip: "172.16.33.10"
     swiftstore3.vm.network :private_network, ip: "172.16.44.10"
 
-    swiftstore3.vm.hostname = "swiftstore3"
+    swiftstore3.vm.hostname = "swiftstore3.localdomain"
 
     swiftstore3.vm.synced_folder "../../", "/openstack"
 
     swiftstore3.vm.provider "vmware_fusion" do |v|
         v.vmx["memsize"] =  "256"
         v.vmx["vhv.enable"] = "TRUE"
+    end
+    swiftstore3.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory = 256
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
@@ -184,13 +205,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     tempest.vm.network :private_network, ip: "172.16.33.11"
     tempest.vm.network :private_network, ip: "172.16.44.11"
 
-    tempest.vm.hostname = "tempest"
+    tempest.vm.hostname = "tempest.localdomain"
 
     tempest.vm.synced_folder "../../", "/openstack"
 
     tempest.vm.provider "vmware_fusion" do |v|
       v.vmx["memsize"] = "512"
       v.vmx["vhv.enable"] = "TRUE"
+    end
+    tempest.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vb.memory = 512
+      vb.customize ["modifyvm", :id, "--natdnspassdomain1", "off"]
     end
   end
 
