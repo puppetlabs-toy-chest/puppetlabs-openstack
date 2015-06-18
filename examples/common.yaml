@@ -141,6 +141,7 @@ openstack::neutron::password: 'whi-rtuz'
 openstack::neutron::shared_secret: 'by-sa-bo'
 openstack::neutron::core_plugin: 'ml2'
 openstack::neutron::service_plugins: ['router', 'firewall', 'lbaas', 'vpnaas', 'metering']
+openstack::neutron::neutron_enable_distributed_routing: false
 
 ######## Ceilometer
 openstack::ceilometer::address::management: '172.16.33.4'
