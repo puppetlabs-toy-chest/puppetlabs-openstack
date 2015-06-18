@@ -435,7 +435,7 @@ class openstack (
   $neutron_mechanism_drivers = ['openvswitch'],
   $neutron_tunnel_id_ranges = ['1:1000'],
   $neutron_agent_mode = ['legacy'],
-  $neutron_router_distributed = ['false'],
+  $neutron_router_distributed = false,
   $ceilometer_address_management = undef,
   $ceilometer_mongo_username = undef,
   $ceilometer_mongo_password = undef,
