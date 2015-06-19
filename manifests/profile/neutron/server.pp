@@ -29,12 +29,15 @@ class openstack::profile::neutron::server {
     }
     ->
     class { '::neutron::plugins::plumgrid':
-      director_server      => $::openstack::config::plumgrid_director_vip,
-      username             => $::openstack::config::plumgrid_username,
-      password             => $::openstack::config::plumgrid_password,
-      admin_password       => $::openstack::config::keystone_admin_password,
-      controller_priv_host => $controller_management_address,
-      connection           => $db_connection,
+      director_server              => $::openstack::config::plumgrid_director_vip,
+      username                     => $::openstack::config::plumgrid_username,
+      password                     => $::openstack::config::plumgrid_password,
+      admin_password               => $::openstack::config::keystone_admin_password,
+      controller_priv_host         => $controller_management_address,
+      connection                   => $db_connection,
+      nova_metadata_ip             => $::openstack::config::plumgrid_nova_metadata_ip,
+      nova_metadata_port           => $::openstack::config::plumgrid_nova_metadata_port,
+      metadata_proxy_shared_secret => $::openstack::config::neutron_shared_secret,
     }
     ->
     package { 'networking-plumgrid':
@@ -43,42 +46,6 @@ class openstack::profile::neutron::server {
       notify   => Service["$::neutron::params::server_service"],
     }
 
-    if $::osfamily == 'RedHat' {
-       $neutron_sudoers_file = '/etc/sudoers.d/neutron'
-    } elsif($::osfamily == 'Debian') {
-       $neutron_sudoers_file = '/etc/sudoers.d/neutron_sudoers'
-    } else {
-      fail("Unsupported osfamily ${::osfamily}")
-    }
-
-    class { '::neutron::agents::metadata':
-      auth_password => $::openstack::config::neutron_password,
-      shared_secret => $::openstack::config::neutron_shared_secret,
-      auth_url      => "http://${controller_management_address}:35357/v2.0",
-      debug         => $::openstack::config::debug,
-      auth_region   => $::openstack::config::region,
-      metadata_ip   => $controller_management_address,
-      enabled       => true,
-    }
-    ->
-    file { '/etc/neutron/rootwrap.d':
-      ensure  => directory,
-    }
-    ->
-    file {'/etc/neutron/rootwrap.d/plumlib.filters':
-      owner  => root,
-      group  => root,
-      mode   => 0600,
-      source => 'puppet:///modules/openstack/plumlib.filters',
-    }
-    ->
-    file_line { 'neutron_sudoers_file':
-      path    => $neutron_sudoers_file,
-      ensure  => present,
-      line    => 'neutron ALL = (ALL) NOPASSWD:ALL',
-      require => Package["$::neutron::params::package_name"],
-      notify  => Service["$::neutron::params::server_service"],
-    }
   }
 
   anchor { 'neutron_common_first': } ->

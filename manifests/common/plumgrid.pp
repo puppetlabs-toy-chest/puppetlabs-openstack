@@ -13,5 +13,17 @@ class openstack::common::plumgrid {
     mode    => 0440,
     content => "nova ALL=(root) NOPASSWD: /opt/pg/bin/ifc_ctl_pp *\n",
   }
-}
 
+  # Install the nova-api
+  nova::generic_service { 'api':
+    enabled      => true,
+    package_name => $::nova::params::api_package_name,
+    service_name => $::nova::params::api_service_name,
+  }
+
+  nova_config {
+   'neutron/service_metadata_proxy': value => true;
+   'neutron/metadata_proxy_shared_secret':
+      value => $::openstack::config::neutron_shared_secret;
+  }
+}
