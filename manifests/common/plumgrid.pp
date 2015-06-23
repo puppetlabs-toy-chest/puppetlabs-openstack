@@ -1,6 +1,9 @@
 # Common class used by Plumgrid Neutron Plugin.
 
 class openstack::common::plumgrid {
+  # include nova parameters
+  include nova::params
+
   # forward all ipv4 traffic
   # this is required for the vms to pass through the gateways public interface
   sysctl::value { 'net.ipv4.ip_forward': value => '1' }
@@ -14,13 +17,14 @@ class openstack::common::plumgrid {
     content => "nova ALL=(root) NOPASSWD: /opt/pg/bin/ifc_ctl_pp *\n",
   }
 
-  # Install the nova-api
+  # install the nova-api
   nova::generic_service { 'api':
     enabled      => true,
     package_name => $::nova::params::api_package_name,
     service_name => $::nova::params::api_service_name,
   }
 
+  # nova config required for metadata proxy
   nova_config {
    'neutron/service_metadata_proxy': value => true;
    'neutron/metadata_proxy_shared_secret':
