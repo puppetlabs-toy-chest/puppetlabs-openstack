@@ -253,6 +253,12 @@
 # [*plumgrid_password*]
 #   PLUMgrid platform password
 #
+# [*plumgrid_nova_metdata_ip*]
+#   Nova metadata IP used by PLUMgrid platform
+#
+# [*plumgrid_nova_metdata_port*]
+#   Nova metadata IP used by PLUMgrid platform
+#
 # [*neutron_tunneling*] (Deprecated)
 #   Boolean. Whether to enable Neutron tunneling.
 #   Default to true.
@@ -428,6 +434,8 @@ class openstack (
   $plumgrid_director_vip = undef,
   $plumgrid_username = undef,
   $plumgrid_password = undef,
+  $plumgrid_nova_metadata_ip = undef,
+  $plumgrid_nova_metadata_port = undef,
   $neutron_tunneling = true,
   $neutron_tunnel_types = ['gre'],
   $neutron_tenant_network_type = ['gre'],
@@ -517,6 +525,8 @@ class openstack (
       plumgrid_director_vip         => hiera(openstack::neutron::plumgrid_director_vip, undef),
       plumgrid_username             => hiera(openstack::neutron::plumgrid_username, undef),
       plumgrid_password             => hiera(openstack::neutron::plumgrid_password, undef),
+      plumgrid_nova_metadata_ip     => hiera(openstack::neutron::plumgrid_nova_metadata_ip, undef),
+      plumgrid_nova_metadata_port   => hiera(openstack::neutron::plumgrid_nova_metadata_port, undef),
       neutron_tunneling             => hiera(openstack::neutron::neutron_tunneling, $neutron_tunneling),
       neutron_tunnel_types          => hiera(openstack::neutron::neutron_tunnel_type, $neutron_tunnel_types),
       neutron_tenant_network_type   => hiera(openstack::neutron::neutron_tenant_network_type, $neutron_tenant_network_type),
@@ -611,6 +621,8 @@ class openstack (
       plumgrid_director_vip         => $plumgrid_director_vip,
       plumgrid_username             => $plumgrid_username,
       plumgrid_password             => $plumgrid_password,
+      plumgrid_nova_metadata_ip     => $plumgrid_nova_metadata_ip,
+      plumgrid_nova_metadata_port   => $plumgrid_nova_metadata_port,
       neutron_tunneling             => $neutron_tunneling,
       neutron_tunnel_types          => $neutron_tunnel_types,
       neutron_tenant_network_type   => $neutron_tenant_network_type,

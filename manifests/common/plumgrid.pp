@@ -11,6 +11,6 @@ class openstack::common::plumgrid {
     owner   => root,
     group   => root,
     mode    => '0440',
-    content => 'nova ALL=(root) NOPASSWD: /opt/pg/bin/ifc_ctl_pp *\n',
+    content => "nova ALL=(root) NOPASSWD: /opt/pg/bin/ifc_ctl_pp *\n",
   }
 }

@@ -29,22 +29,15 @@ class openstack::profile::neutron::server {
     }
     ->
     class { '::neutron::plugins::plumgrid':
-      director_server      => $::openstack::config::plumgrid_director_vip,
-      username             => $::openstack::config::plumgrid_username,
-      password             => $::openstack::config::plumgrid_password,
-      admin_password       => $::openstack::config::keystone_admin_password,
-      controller_priv_host => $controller_management_address,
-      connection           => $db_connection,
-    }
-
-    class { '::neutron::agents::metadata':
-      auth_password => $::openstack::config::neutron_password,
-      shared_secret => $::openstack::config::neutron_shared_secret,
-      auth_url      => "http://${controller_management_address}:35357/v2.0",
-      debug         => $::openstack::config::debug,
-      auth_region   => $::openstack::config::region,
-      metadata_ip   => $controller_management_address,
-      enabled       => true,
+      director_server              => $::openstack::config::plumgrid_director_vip,
+      username                     => $::openstack::config::plumgrid_username,
+      password                     => $::openstack::config::plumgrid_password,
+      admin_password               => $::openstack::config::keystone_admin_password,
+      controller_priv_host         => $controller_management_address,
+      connection                   => $db_connection,
+      nova_metadata_ip             => $::openstack::config::plumgrid_nova_metadata_ip,
+      nova_metadata_port           => $::openstack::config::plumgrid_nova_metadata_port,
+      metadata_proxy_shared_secret => $::openstack::config::neutron_shared_secret,
     }
   }
 
