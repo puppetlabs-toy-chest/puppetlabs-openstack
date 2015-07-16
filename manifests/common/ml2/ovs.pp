@@ -8,10 +8,10 @@ class openstack::common::ml2::ovs {
   $enable_distributed_routing   = $::openstack::config::neutron_enable_distributed_routing
 
   class { '::neutron::agents::ml2::ovs':
-    enable_tunneling 		=> $enable_tunneling,
-    local_ip         		=> $data_address,
-    enabled          		=> true,
-    tunnel_types     		=> $tunnel_types,
-    enable_distributed_routing	=> $enable_distributed_routing,
+    enable_tunneling           => $enable_tunneling,
+    local_ip                   => $data_address,
+    enabled                    => true,
+    tunnel_types               => $tunnel_types,
+    enable_distributed_routing => $enable_distributed_routing,
   }
 }

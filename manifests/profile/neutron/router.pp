@@ -12,16 +12,16 @@ class openstack::profile::neutron::router {
 
   ### Router service installation
   class { '::neutron::agents::l3':
-    debug                	=> $::openstack::config::debug,
-    external_network_bridge  	=> 'brex',
-    enabled                  	=> true,
-    agent_mode               	=> 'dvr_snat',
-    router_delete_namespaces 	=> 'True',
+    debug                    => $::openstack::config::debug,
+    external_network_bridge  => 'brex',
+    enabled                  => true,
+    agent_mode               => 'dvr_snat',
+    router_delete_namespaces => 'True',
   }
 
   class { '::neutron::agents::dhcp':
-    debug   => $::openstack::config::debug,
-    enabled => true,
+    debug                  => $::openstack::config::debug,
+    enabled                => true,
     dhcp_delete_namespaces => 'True',
   }
 
