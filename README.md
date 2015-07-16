@@ -6,6 +6,7 @@ Version 5.0 / 2014.2 / Juno
 ####Table of Contents
 
 1. [Overview - What is the puppetlabs-openstack module?](#overview)
+    * [Getting Help](#getting-help)
 2. [A Note on Versioning](#versioning)
 2. [Module Description - What does the module do?](#module-description)
 3. [Setup - The basics of getting started with OpenStack](#setup)
@@ -23,6 +24,30 @@ Version 5.0 / 2014.2 / Juno
 
 The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or swift-only installation of
 OpenStack Juno.
+
+###Getting Help
+
+If you need help configuring your puppet master or your puppet agents, or any
+help understanding puppet or hiera, please review
+[puppet's guide to getting help](https://puppetlabs.com/community/get-help).
+
+If your puppet ran successfully but OpenStack is not working as expected,
+please visit [OpenStack's getting started guide](https://wiki.openstack.org/wiki/Getting_Started)
+to find help operating OpenStack.
+
+If puppet did not run successfully, examine what resources failed the puppet
+run. Please keep in mind that this module is a thin wrapper around
+[the OpenStack Puppet Modules](https://wiki.openstack.org/wiki/Puppet#Puppet_Modules),
+so problems that arise are often due to bugs in the main modules rather than
+this one. If you are having trouble with one of the OpenStack Puppet Modules,
+first check [these resources for getting help](https://wiki.openstack.org/wiki/Puppet#Getting_Help),
+and if necessary [file a bug for the particular module](https://launchpad.net/~puppet-openstack/+related-projects).
+If you believe the problem is in the puppetlabs-openstack module, file an issue
+with the [Puppet Labs ticket tracker](https://tickets.puppetlabs.com/browse/OS).
+
+Similarly, if after seeking help from OpenStack's getting started guide you
+believe puppet has caused a misconfiguration, file a launchpad bug for the
+particular module causing the issue or for the puppetlabs-openstack module.
 
 ##Versioning
 
