@@ -48,6 +48,6 @@
     { "name": "openstack/vswitch", "version_requirement": ">=2.0.0 <3.0.0" },
 
     { "name": "garethr/erlang", "version_requirement": "0.3.0" },
-    { "name": "duritong/sysctl", "version_requirement": "0.0.1" }
+    { "name": "duritong/sysctl", "version_requirement": "0.0.11" }
   ]
 }
