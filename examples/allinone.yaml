@@ -135,6 +135,13 @@ openstack::swift::hash_suffix: 'pop-bang'
 openstack::nova::libvirt_type: 'kvm'
 openstack::nova::password: 'quuk-paj'
 
+openstack::nova::libvirt_rbd_user: 'cinder'
+openstack::nova::libvirt_rbd_secret_uuid: 'a31a9344-a280-4d27-bdb9-8ec99f499a71'
+openstack::nova::libvirt_rbd_secret_key: 'aGVmc2FmZGZkc2Zhc2ZkYXNkZmRzZmFkZGZsCg=='
+openstack::nova::libvirt_images_rbd_pool: 'rbd'
+openstack::nova::rbd_keyring: 'client.nova'
+openstack::nova::ephemeral_storage: false
+
 ######## Neutron
 
 openstack::neutron::password: 'whi-rtuz'
