@@ -3,16 +3,23 @@
 # on RHEL-alikes and Ubuntu
 #
 class openstack::resources::repo(
-  $release = 'juno'
+  $release = 'juno',
+  $manage_repos = true,
 ) {
   case $release {
     'juno', 'icehouse', 'havana', 'grizzly': {
       if $::osfamily == 'RedHat' {
-        class {'openstack::resources::repo::rdo': release => $release }
-        class {'openstack::resources::repo::erlang': }
-        class {'openstack::resources::repo::yum_refresh': }
+        if $manage_repos == true {
+          class {'openstack::resources::repo::rdo': release => $release }
+          class {'openstack::resources::repo::erlang': }
+          class {'openstack::resources::repo::yum_refresh': }
+        } else{
+          class {'openstack::resources::repo::yum_refresh': }
+        }
       } elsif $::osfamily == 'Debian' {
-        class {'openstack::resources::repo::uca': release => $release }
+        if $manage_repos == true {
+          class {'openstack::resources::repo::uca': release => $release }
+        }
       }
     }
     default: {
