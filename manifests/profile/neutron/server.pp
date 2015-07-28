@@ -24,6 +24,10 @@ class openstack::profile::neutron::server {
     $pass = $::openstack::config::mysql_pass_neutron
     $db_connection = "mysql://${user}:${pass}@${controller_management_address}/neutron"
 
+    if !defined(Package['python-pip']) {
+      package { 'python-pip': ensure => present, }
+    }
+
     neutron_config {
       'DEFAULT/service_plugins': ensure => absent,
     }
@@ -44,8 +48,8 @@ class openstack::profile::neutron::server {
       ensure   => present,
       provider => 'pip',
       notify   => Service["$::neutron::params::server_service"],
+      require  => Package['python-pip'],
     }
-
   }
 
   anchor { 'neutron_common_first': } ->
