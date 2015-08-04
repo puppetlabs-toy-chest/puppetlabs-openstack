@@ -231,6 +231,34 @@
 # [*nova_password*]
 #   The password for the nova user in Keystone.
 #
+# [*libvirt_rbd_user*]
+#   (Required) The RADOS client name for accessing rbd volumes.
+#
+# [*libvirt_rbd_secret_uuid*]
+#   (optional) The libvirt uuid of the secret for the rbd_user.
+#   Required to use cephx.
+#   Default to false.
+#
+# [*libvirt_rbd_secret_key*]
+#   (optional) The cephx key to use as key for the libvirt secret,
+#   it must be base64 encoded; when not provided this key will be
+#   requested to the ceph cluster, which assumes the node is
+#   provided of the client.admin keyring as well.
+#   Default to undef.
+#
+# [*libvirt_images_rbd_pool*]
+#   (optional) The RADOS pool in which rbd volumes are stored.
+#   Defaults to 'rbd'.
+#
+# [*rbd_keyring*]
+#   (optional) The keyring name to use when retrieving the RBD secret
+#   Default to undef.
+#
+# [*ephemeral_storage*]
+#   (optional) Wether or not to use the rbd driver for the nova
+#   ephemeral storage or for the cinder volumes only.
+#   Defaults to false.
+#
 # == Neutron
 # [*neutron_password*]
 #   The password for the neutron user in Keystone.
@@ -421,6 +449,12 @@ class openstack (
   $swift_hash_suffix = undef,
   $nova_libvirt_type = undef,
   $nova_password = undef,
+  $libvirt_rbd_user = undef,
+  $libvirt_rbd_secret_uuid = undef,
+  $libvirt_rbd_secret_key = undef,
+  $libvirt_images_rbd_pool = undef,
+  $rbd_keyring = undef,
+  $ephemeral_storage = false,
   $neutron_password = undef,
   $neutron_shared_secret = undef,
   $neutron_core_plugin = undef,
@@ -510,6 +544,12 @@ class openstack (
       swift_hash_suffix             => hiera(openstack::swift::hash_suffix),
       nova_libvirt_type             => hiera(openstack::nova::libvirt_type),
       nova_password                 => hiera(openstack::nova::password),
+      libvirt_rbd_user              => hiera(openstack::nova::libvirt_rbd_user, undef),
+      libvirt_rbd_secret_uuid       => hiera(openstack::nova::libvirt_rbd_secret_uuid, undef),
+      libvirt_rbd_secret_key        => hiera(openstack::nova::libvirt_rbd_secret_key, undef),
+      libvirt_images_rbd_pool       => hiera(openstack::nova::libvirt_images_rbd_pool, 'rbd'),
+      rbd_keyring                   => hiera(openstack::nova::rbd_keyring, undef),
+      ephemeral_storage             => hiera(openstack::nova::ephemeral_storage, false),
       neutron_password              => hiera(openstack::neutron::password),
       neutron_shared_secret         => hiera(openstack::neutron::shared_secret),
       neutron_core_plugin           => hiera(openstack::neutron::core_plugin),
@@ -604,6 +644,12 @@ class openstack (
       swift_hash_suffix             => $swift_hash_suffix,
       nova_libvirt_type             => $nova_libvirt_type,
       nova_password                 => $nova_password,
+      libvirt_rbd_user              => $libvirt_rbd_user,
+      libvirt_rbd_secret_uuid       => $libvirt_rbd_secret_uuid,
+      libvirt_rbd_secret_key        => $libvirt_rbd_secret_key,
+      libvirt_images_rbd_pool       => pick($libvirt_images_rbd_pool, 'rbd'),
+      rbd_keyring                   => $rbd_keyring,
+      ephemeral_storage             => pick($ephemeral_storage, false),
       neutron_password              => $neutron_password,
       neutron_shared_secret         => $neutron_shared_secret,
       neutron_core_plugin           => $neutron_core_plugin,
