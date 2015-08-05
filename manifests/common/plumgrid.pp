@@ -24,6 +24,13 @@ class openstack::common::plumgrid {
     admin_password                       => $::openstack::config::nova_password,
     auth_host                            => $controller_management_address,
     neutron_metadata_proxy_shared_secret => $::openstack::config::neutron_shared_secret,
-    enabled                              => true,
+  }
+
+  if !defined(Service['openstack-nova-metadata-api']) {
+    service { 'openstack-nova-metadata-api':
+      ensure  => running,
+      enable  => true,
+      require => Class['::nova::api'],
+    }
   }
 }
