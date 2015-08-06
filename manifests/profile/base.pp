@@ -1,10 +1,15 @@
 # The base profile for OpenStack. Installs the repository and ntp
-class openstack::profile::base {
+class openstack::profile::base (
+    $manage_ntp = true,
+  ){
   # make sure the parameters are initialized
   include ::openstack
 
-  # everyone also needs to be on the same clock
-  include ::ntp
+  # if set to false ntp needs to be managed elsewhere
+  if $manage_ntp == true {
+    # everyone also needs to be on the same clock
+    include ::ntp
+  }
 
   # all nodes need the OpenStack repository
   class { '::openstack::resources::repo': }
