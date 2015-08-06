@@ -15,6 +15,7 @@ class openstack::profile::neutron::router {
     debug                   => $::openstack::config::debug,
     external_network_bridge => 'brex',
     enabled                 => true,
+    agent_mode              => $::openstack::config::neutron_agent_mode,
   }
 
   class { '::neutron::agents::dhcp':

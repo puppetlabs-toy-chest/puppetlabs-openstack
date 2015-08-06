@@ -45,6 +45,7 @@ class openstack::common::neutron {
     database_connection => $database_connection,
     enabled             => $is_controller,
     sync_db             => $is_controller,
+    router_distributed  => $::openstack::config::neutron_router_distributed,
     mysql_module        => '2.2',
   }
 
