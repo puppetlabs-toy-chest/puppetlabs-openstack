@@ -90,5 +90,6 @@ class openstack::config (
   $tempest_swift_available     = undef,
   $verbose = undef,
   $debug = undef,
+  $manage_sharednetwork = false,
 ) {
 }
