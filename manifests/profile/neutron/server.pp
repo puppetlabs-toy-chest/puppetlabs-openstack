@@ -12,21 +12,6 @@ class openstack::profile::neutron::server {
   $tunnel_id_ranges              = $::openstack::config::neutron_tunnel_id_ranges # ['1:1000']
   $controller_management_address = $::openstack::config::controller_address_management
 
-  # if using gre tunnels allow that traffic
-  if 'gre' in $tenant_network_type {
-    firewall { 'gre INPUT':
-      action => 'accept',
-      proto  => 'gre',
-      chain  => 'INPUT',
-    }
-
-    firewall { 'gre OUTPUT':
-      action => 'accept',
-      proto  => 'gre',
-      chain  => 'OUTPUT',
-    }
-  }
-
   class  { '::neutron::plugins::ml2':
     type_drivers         => $type_drivers,
     tenant_network_types => $tenant_network_type,
