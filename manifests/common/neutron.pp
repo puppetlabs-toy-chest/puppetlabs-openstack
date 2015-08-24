@@ -32,11 +32,14 @@ class openstack::common::neutron {
   }
 
   class { '::neutron::keystone::auth':
-    password         => $::openstack::config::neutron_password,
-    public_address   => $::openstack::config::controller_address_api,
-    admin_address    => $::openstack::config::controller_address_management,
-    internal_address => $::openstack::config::controller_address_management,
-    region           => $::openstack::config::region,
+    configure_endpoint  => $::openstack::config::neutron_config_endpoint,
+    configure_user      => $::openstack::config::neutron_config_user,
+    configure_user_role => $::openstack::config::neutron_config_user_role,
+    password            => $::openstack::config::neutron_password,
+    public_address      => $::openstack::config::controller_address_api,
+    admin_address       => $::openstack::config::controller_address_management,
+    internal_address    => $::openstack::config::controller_address_management,
+    region              => $::openstack::config::region,
   }
 
   class { '::neutron::server':

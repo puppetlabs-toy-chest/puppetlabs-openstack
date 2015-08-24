@@ -142,6 +142,10 @@ openstack::neutron::shared_secret: 'by-sa-bo'
 openstack::neutron::core_plugin: 'ml2'
 openstack::neutron::service_plugins: ['router', 'firewall', 'lbaas', 'vpnaas', 'metering']
 
+openstack::neutron::config_endpoint: true
+openstack::neutron::config_user: true
+openstack::neutron::config_user_role: true
+
 ######## Ceilometer
 openstack::ceilometer::address::management: '172.16.33.4'
 openstack::ceilometer::mongo::username: 'mongo'

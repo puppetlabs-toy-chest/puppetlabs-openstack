@@ -276,6 +276,18 @@
 #   Neutron tunnel id ranges.
 #   Defaults to ['1:1000']
 #
+# [*neutron_config_keystone_endpoint*]
+#   Boolean. Whether to config keystone endpoint for Neutron.
+#   Default to true
+# 
+# [*neutron_config_keystone_user*]
+#   Boolean. Whether to config keystone user for Neutron.
+#   Default to true
+#
+# [*neutron_config_keystone_user_role*]
+#   Boolean. Whether to config keystone user role for Neutron.
+#   Default to true
+#
 # == Ceilometer
 # [*ceilometer_address_management*]
 #   The management IP address of the ceilometer node. Must be in the network_management CIDR.
@@ -434,6 +446,9 @@ class openstack (
   $neutron_type_drivers = ['gre'],
   $neutron_mechanism_drivers = ['openvswitch'],
   $neutron_tunnel_id_ranges = ['1:1000'],
+  $neutron_config_endpoint = true,
+  $neutron_config_user = true,
+  $neutron_config_user_role = true,
   $ceilometer_address_management = undef,
   $ceilometer_mongo_username = undef,
   $ceilometer_mongo_password = undef,
@@ -523,6 +538,9 @@ class openstack (
       neutron_type_drivers          => hiera(openstack::neutron::neutron_type_drivers, $neutron_type_drivers),
       neutron_mechanism_drivers     => hiera(openstack::neutron::neutron_mechanism_drivers, $neutron_mechanism_drivers),
       neutron_tunnel_id_ranges      => hiera(openstack::neutron::neutron_tunnel_id_ranges, $neutron_tunnel_id_ranges),
+      neutron_config_endpoint       => hiera(openstack::neutron::config_endpoint),
+      neutron_config_user           => hiera(openstack::neutron::config_user),
+      neutron_config_user_role      => hiera(openstack::neutron::config_user_role),
       ceilometer_address_management => hiera(openstack::ceilometer::address::management),
       ceilometer_mongo_username     => hiera(openstack::ceilometer::mongo::username),
       ceilometer_mongo_password     => hiera(openstack::ceilometer::mongo::password),
@@ -617,6 +635,9 @@ class openstack (
       neutron_type_drivers          => $neutron_type_drivers,
       neutron_mechanism_drivers     => $neutron_mechanism_drivers,
       neutron_tunnel_id_ranges      => $neutron_tunnel_id_ranges,
+      neutron_config_endpoint       => $neutron_config_endpoint,
+      neutron_config_user           => $neutron_config_user,
+      neutron_config_user_role      => $neutron_config_user_role,
       ceilometer_address_management => $ceilometer_address_management,
       ceilometer_mongo_username     => $ceilometer_mongo_username,
       ceilometer_mongo_password     => $ceilometer_mongo_password,
