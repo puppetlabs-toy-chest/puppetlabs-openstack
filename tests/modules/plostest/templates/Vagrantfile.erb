@@ -36,11 +36,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     <%= nodename %>.vm.hostname = "<%= nodename %>"
 
-    <%= nodename %>.vm.provider "vmware_fusion" do |v|
-        v.vmx["memsize"]  = "<%= nodedata['memsize'] %>"
-        v.vmx["numvcpus"] = "<%= nodedata['numvcpus'] %>"
+    provider = "<%= nodedata['vm_provider'] %>"
+
+    case
+      when provider.match('virtualbox')
+        <%= nodename %>.vm.provider :virtualbox do |vb|
+          vb.memory = "<%= nodedata['memsize'] %>"
+          vb.cpus = "<%= nodedata['numvcpus'] %>"
+          vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+      when provider.match('vmware_fusion')
+        <%= nodename %>.vm.provider :vmware_fusion do |v|
+          v.vmx["memsize"]  = "<%= nodedata['memsize'] %>"
+          v.vmx["numvcpus"] = "<%= nodedata['numvcpus'] %>"
+      else
+        raise "Provider Not supported, please mention the provider"
     end
   end
-
   <% end %>
 end

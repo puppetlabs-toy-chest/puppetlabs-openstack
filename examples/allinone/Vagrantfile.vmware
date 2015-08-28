@@ -1,0 +1,92 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = false
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  config.vm.define "puppet" do |puppet|
+    puppet.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
+    puppet.vm.network :private_network, ip: "192.168.11.3"
+    puppet.vm.network :private_network, ip: "192.168.22.3"
+    puppet.vm.network :private_network, ip: "172.16.33.3"
+    puppet.vm.network :private_network, ip: "172.16.44.3"
+
+    puppet.vm.hostname = "puppet"
+
+    puppet.vm.synced_folder "../../", "/openstack"
+
+    puppet.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "1024"
+    end
+  end
+
+  config.vm.define "allinone" do |allinone|
+    allinone.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    allinone.vm.box_version = "= 1.0.0"
+    allinone.vm.network :private_network, ip: "192.168.11.4"
+    allinone.vm.network :private_network, ip: "192.168.22.4"
+    allinone.vm.network :private_network, ip: "172.16.33.4"
+    allinone.vm.network :private_network, ip: "172.16.44.4"
+
+    allinone.vm.hostname = "allinone"
+
+    allinone.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = "provision_manifests"
+      puppet.manifest_file = "base.pp"
+    end
+
+    allinone.vm.synced_folder "../../", "/openstack"
+
+    allinone.vm.provider "vmware_fusion" do |v|
+        v.vmx["memsize"] =  "6144"
+        v.vmx["numvcpus"] = "4"
+        v.vmx["vhv.enable"] = "TRUE"
+    end
+  end
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  # config.vm.provider :virtualbox do |vb|
+  #   # Don't boot with headless mode
+  #   vb.gui = true
+  #
+  #   # Use VBoxManage to customize the VM. For example to change memory:
+  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+  # end
+  #
+  # View the documentation for the provider you're using for more
+  # information on available options.
+
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  # You will need to create the manifests directory and a manifest in
+  # the file base.pp in the manifests_path directory.
+  #
+  # An example Puppet manifest to provision the message of the day:
+  #
+  # # group { "puppet":
+  # #   ensure => "present",
+  # # }
+  # #
+  # # File { owner => 0, group => 0, mode => 0644 }
+  # #
+  # # file { '/etc/motd':
+  # #   content => "Welcome to your Vagrant-built virtual machine!
+  # #               Managed by Puppet.\n"
+  # # }
+  #
+  # config.vm.provision :puppet do |puppet|
+  #   puppet.manifests_path = "manifests"
+  #   puppet.manifest_file  = "site.pp"
+  # end
+
+end

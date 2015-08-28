@@ -18,3 +18,9 @@ host { 'localhost':
   name   => $::hostname,
   ip     => '127.0.0.1',
 }
+
+host { 'puppet':
+  ensure => present,
+  name   => 'puppet',
+  ip     => '192.168.11.3',
+}
