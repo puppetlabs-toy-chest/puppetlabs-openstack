@@ -3,6 +3,7 @@ class openstack::profile::keystone {
 
   openstack::resources::database { 'keystone': }
   openstack::resources::firewall { 'Keystone API': port => '5000', }
+  openstack::resources::firewall { 'Keystone Admin API': port => '35357', }
 
   include ::openstack::common::keystone
 

@@ -43,6 +43,9 @@ class openstack::config (
   $glance_api_servers = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
+  $cinder_public_address = undef,
+  $cinder_admin_address = undef,
+  $cinder_internal_address = undef,
   $swift_password = undef,
   $swift_hash_suffix = undef,
   $nova_libvirt_type = undef,
@@ -90,5 +93,6 @@ class openstack::config (
   $tempest_swift_available     = undef,
   $verbose = undef,
   $debug = undef,
+  $manage_sharednetwork = false,
 ) {
 }

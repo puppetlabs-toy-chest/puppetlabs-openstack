@@ -168,6 +168,18 @@
 # [*cinder_volume_size*]
 #   The size of the Cinder loopback storage device. Example: '8G'.
 #
+# [*cinder_public_address*]
+#   The public url for the cinder endpoint
+#   Defaults to controller_address_api
+#
+# [*cinder_admin_address*]
+#   The admin url for the cinder endpoint
+#   Defaults to controller_address_management
+#
+# [*cinder_internal_address*]
+#   The internal url for the cinder endpoint
+#   Defaults to controller_address_management
+#
 # == Swift
 # [*swift_password*]
 #    The password for the swift user in Keystone.
@@ -355,6 +367,9 @@ class openstack (
   $glance_api_servers = undef,
   $cinder_password = undef,
   $cinder_volume_size = undef,
+  $cinder_public_address = undef,
+  $cinder_admin_address = undef,
+  $cinder_internal_address = undef,
   $swift_password = undef,
   $swift_hash_suffix = undef,
   $nova_libvirt_type = undef,
@@ -441,6 +456,9 @@ class openstack (
       glance_api_servers            => hiera(openstack::glance::api_servers),
       cinder_password               => hiera(openstack::cinder::password),
       cinder_volume_size            => hiera(openstack::cinder::volume_size),
+      cinder_public_address         => pick(hiera(openstack::cinder::public_address, undef), hiera(openstack::controller::address::api)),
+      cinder_admin_address          => pick(hiera(openstack::cinder::admin_address, undef), hiera(openstack::controller::address::management)),
+      cinder_internal_address       => pick(hiera(openstack::cinder::internal_address, undef), hiera(openstack::controller::address::management)),
       swift_password                => hiera(openstack::swift::password),
       swift_hash_suffix             => hiera(openstack::swift::hash_suffix),
       nova_libvirt_type             => hiera(openstack::nova::libvirt_type),
@@ -527,6 +545,9 @@ class openstack (
       glance_api_servers            => $glance_api_servers,
       cinder_password               => $cinder_password,
       cinder_volume_size            => $cinder_volume_size,
+      cinder_public_address         => pick($cinder_public_address, $controller_address_api),
+      cinder_admin_address          => pick($cinder_admin_address, $controller_address_management),
+      cinder_internal_address       => pick($cinder_internal_address, $controller_address_management),
       swift_password                => $swift_password,
       swift_hash_suffix             => $swift_hash_suffix,
       nova_libvirt_type             => $nova_libvirt_type,

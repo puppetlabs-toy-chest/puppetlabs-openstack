@@ -6,9 +6,9 @@ class openstack::profile::cinder::api {
 
   class { '::cinder::keystone::auth':
     password         => $::openstack::config::cinder_password,
-    public_address   => $::openstack::config::controller_address_api,
-    admin_address    => $::openstack::config::controller_address_management,
-    internal_address => $::openstack::config::controller_address_management,
+    public_address   => $::openstack::config::cinder_public_address,
+    admin_address    => $::openstack::config::cinder_admin_address,
+    internal_address => $::openstack::config::cinder_internal_address,
     region           => $::openstack::config::region,
   }
 
