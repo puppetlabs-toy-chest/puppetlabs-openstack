@@ -9,21 +9,21 @@ class openstack::profile::swift::storage (
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '6000',
+    dport  => '6000',
   }
 
   firewall { '6001 - Swift Container Store':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '6001',
+    dport  => '6001',
   }
 
   firewall { '6002 - Swift Account Store':
     proto  => 'tcp',
     state  => ['NEW'],
     action => 'accept',
-    port   => '6002',
+    dport  => '6002',
   }
 
   class { '::swift':
