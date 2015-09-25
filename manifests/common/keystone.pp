@@ -23,7 +23,6 @@ class openstack::common::keystone {
     debug               => $::openstack::config::debug,
     enabled             => $::openstack::profile::base::is_controller,
     admin_bind_host     => $admin_bind_host,
-    mysql_module        => '2.2',
     service_name        => $service_name,
   }
 
