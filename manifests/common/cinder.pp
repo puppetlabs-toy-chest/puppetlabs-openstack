@@ -14,7 +14,6 @@ class openstack::common::cinder {
     rabbit_password     => $::openstack::config::rabbitmq_password,
     debug               => $::openstack::config::debug,
     verbose             => $::openstack::config::verbose,
-    mysql_module        => '2.2',
   }
 
   $storage_server = $::openstack::config::storage_address_api
