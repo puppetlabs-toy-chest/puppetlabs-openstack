@@ -26,8 +26,6 @@ class openstack::common::nova {
     verbose             => $::openstack::config::verbose,
   }
 
-  nova_config { 'DEFAULT/default_floating_pool': value => 'public' }
-
   class { '::nova::network::neutron':
     neutron_admin_password => $::openstack::config::neutron_password,
     neutron_region_name    => $::openstack::config::region,
