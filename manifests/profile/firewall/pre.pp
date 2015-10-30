@@ -32,7 +32,7 @@ class openstack::profile::firewall::pre {
     proto  => 'tcp',
     state  => ['NEW', 'ESTABLISHED', 'RELATED'],
     action => 'accept',
-    port   => 22,
+    dport  => 22,
     before => [ Firewall['8999 - Accept all management network traffic'] ],
   }
 }
