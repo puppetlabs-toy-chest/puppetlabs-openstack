@@ -54,6 +54,10 @@ dependencies:
         ref: 3.4.2
       puppetdb:
         ref: 3.0.1
+  nanliu:
+    git_prefix: puppet
+    repos:
+      staging: ~
   saz:
     git_prefix: puppet
     repos:

@@ -4,6 +4,17 @@ class openstack::profile::rabbitmq {
 
   ::openstack::resources::firewall { 'RabbitMQ': port => '5672' }
 
+  if $::osfamily == 'RedHat' {
+    package { 'erlang':
+      ensure => present,
+    }
+
+    Package['erlang'] -> Package['rabbitmq-server']
+  }
+
+  class { '::rabbitmq::server':
+    service_ensure => 'running',
+  } ->
   class { '::nova::rabbitmq':
     userid             => $::openstack::config::rabbitmq_user,
     password           => $::openstack::config::rabbitmq_password,
