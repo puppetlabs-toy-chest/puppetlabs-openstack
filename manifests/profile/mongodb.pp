@@ -14,6 +14,7 @@ class openstack::profile::mongodb {
   class { '::mongodb::server':
     bind_ip     => ['127.0.0.1', $::openstack::config::controller_address_management],
     pidfilepath => '/var/run/mongodb/mongod.pid',
+    config      => '/etc/mongod.conf',
   }
 
   #exec { '/bin/systemctl daemon-reload': 

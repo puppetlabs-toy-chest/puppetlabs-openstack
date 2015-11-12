@@ -1,0 +1,39 @@
+diff --git a/lib/puppet/provider/glance.rb b/lib/puppet/provider/glance.rb
+index 2501d63..6f7bbee 100644
+--- a/lib/puppet/provider/glance.rb
++++ b/lib/puppet/provider/glance.rb
+@@ -16,7 +16,7 @@ class Puppet::Provider::Glance < Puppet::Provider
+       glance_file['keystone_authtoken']['admin_tenant_name'] and
+       glance_file['keystone_authtoken']['admin_user'] and
+       glance_file['keystone_authtoken']['admin_password'] and
+-      glance_file['glance_store']['os_region_name']
++      glance_file['DEFAULT']['os_region_name']
+ 
+         g = {}
+         g['auth_host'] = glance_file['keystone_authtoken']['auth_host'].strip
+@@ -25,7 +25,7 @@ class Puppet::Provider::Glance < Puppet::Provider
+         g['admin_tenant_name'] = glance_file['keystone_authtoken']['admin_tenant_name'].strip
+         g['admin_user'] = glance_file['keystone_authtoken']['admin_user'].strip
+         g['admin_password'] = glance_file['keystone_authtoken']['admin_password'].strip
+-        g['os_region_name'] = glance_file['glance_store']['os_region_name'].strip
++        g['os_region_name'] = glance_file['DEFAULT']['os_region_name'].strip
+ 
+         # auth_admin_prefix not required to be set.
+         g['auth_admin_prefix'] = (glance_file['keystone_authtoken']['auth_admin_prefix'] || '').strip
+@@ -36,14 +36,14 @@ class Puppet::Provider::Glance < Puppet::Provider
+       glance_file['keystone_authtoken']['admin_tenant_name'] and
+       glance_file['keystone_authtoken']['admin_user'] and
+       glance_file['keystone_authtoken']['admin_password'] and
+-      glance_file['glance_store']['os_region_name']
++      glance_file['DEFAULT']['os_region_name']
+ 
+         g = {}
+         g['identity_uri'] = glance_file['keystone_authtoken']['identity_uri'].strip
+         g['admin_tenant_name'] = glance_file['keystone_authtoken']['admin_tenant_name'].strip
+         g['admin_user'] = glance_file['keystone_authtoken']['admin_user'].strip
+         g['admin_password'] = glance_file['keystone_authtoken']['admin_password'].strip
+-        g['os_region_name'] = glance_file['glance_store']['os_region_name'].strip
++        g['os_region_name'] = glance_file['DEFAULT']['os_region_name'].strip
+ 
+         return g
+     else

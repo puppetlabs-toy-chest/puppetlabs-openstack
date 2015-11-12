@@ -17,11 +17,11 @@ class openstack::setup::sharednetwork {
   $private_network = $::openstack::config::network_neutron_private
 
   neutron_network { 'public':
-    tenant_name              => 'admin',
+    tenant_name              => 'openstack',
     provider_network_type    => 'gre',
     router_external          => true,
     provider_segmentation_id => 3604,
-    shared                   => false,
+    shared                   => true,
   } ->
 
   neutron_subnet { $external_network:
@@ -30,27 +30,27 @@ class openstack::setup::sharednetwork {
     gateway_ip       => $gateway,
     enable_dhcp      => false,
     network_name     => 'public',
-    tenant_name      => 'services',
+    tenant_name      => 'openstack',
     allocation_pools => [$ip_range],
     dns_nameservers  => [$dns],
   }
 
-  neutron_network { 'private':
-    tenant_name              => 'admin',
-    provider_network_type    => 'gre',
-    router_external          => false,
-    provider_segmentation_id => 4063,
-    shared                   => true,
-  } ->
-
-  neutron_subnet { $private_network:
-    cidr            => $private_network,
-    ip_version      => '4',
-    enable_dhcp     => true,
-    network_name    => 'private',
-    tenant_name     => 'services',
-    dns_nameservers => [$dns],
-  }
-
-  openstack::setup::router { "services:${private_network}": }
+  #  neutron_network { 'private':
+  #  tenant_name              => 'openstack',
+  #  provider_network_type    => 'gre',
+  #  router_external          => false,
+  #  provider_segmentation_id => 4063,
+  #  shared                   => true,
+  #} ->
+  #
+  #neutron_subnet { $private_network:
+  #  cidr            => $private_network,
+  #  ip_version      => '4',
+  #  enable_dhcp     => true,
+  #  network_name    => 'private',
+  #  tenant_name     => 'openstack',
+  #  dns_nameservers => [$dns],
+  #}
+  #
+  #openstack::setup::router { "openstack:${private_network}": }
 }

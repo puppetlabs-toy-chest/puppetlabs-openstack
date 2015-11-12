@@ -1,0 +1,47 @@
+heat_template_version: 2013-05-23
+
+description: Simple template to deploy a small cluster
+
+parameters:
+  private_network:
+    type: string
+    label: Private Network
+    description: Name of private network to attach controller to
+  data_network:
+    type: string
+    label: Data Network
+    description: Name of data network to attach workers to
+  image_name:
+    type: string
+    label: Image Name
+    description: Name of image to boot.
+  key_name:
+    type: string
+    label: Key Name
+    description: Name of key to inject into machines
+
+resources:
+  controller:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: {get_param: image_name }
+      flavor: m1.tiny
+      networks:
+        - network: { get_param: private_network }
+  worker1:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: {get_param: image_name }
+      flavor: m1.tiny
+      networks:
+        - network: { get_param: data_network }
+  worker2:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: {get_param: image_name }
+      flavor: m1.tiny
+      networks:
+        - network: { get_param: data_network }

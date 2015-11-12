@@ -11,4 +11,6 @@ class openstack::resources::connectors {
   $heat     = "mysql://heat:${password}@${management_address}/heat"
   $trove    = "mysql://trove:${password}@${management_address}/trove"
   $sahara   = "mysql://sahara:${password}@${management_address}/sahara"
+  $ironic   = "mysql://ironic:${password}@${management_address}/ironic"
+  $tuskar   = "mysql://tuskar:${password}@${management_address}/tuskar"
 }

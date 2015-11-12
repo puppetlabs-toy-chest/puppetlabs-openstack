@@ -1,0 +1,26 @@
+diff --git a/lib/puppet/provider/neutron_network/neutron.rb b/lib/puppet/provider/neutron_network/neutron.rb
+index 5587dfd..7d32883 100644
+--- a/lib/puppet/provider/neutron_network/neutron.rb
++++ b/lib/puppet/provider/neutron_network/neutron.rb
+@@ -80,8 +80,8 @@ Puppet::Type.type(:neutron_network).provide(
+         "--provider:segmentation_id=#{@resource[:provider_segmentation_id]}"
+     end
+ 
+-    if @resource[:router_external]
+-      network_opts << "--router:external=#{@resource[:router_external]}"
++    if @resource[:router_external] == 'True'
++      network_opts << "--router:external"
+     end
+ 
+     results = auth_neutron('net-create', '--format=shell',
+@@ -120,7 +120,9 @@ Puppet::Type.type(:neutron_network).provide(
+   end
+ 
+   def router_external=(value)
+-    auth_neutron('net-update', "--router:external=#{value}", name)
++    if value == 'True'
++      auth_neutron('net-update', "--router:external", name)
++    end
+   end
+ 
+   [
