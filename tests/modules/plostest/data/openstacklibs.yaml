@@ -1,7 +1,7 @@
 ---
 forge: "http://forge.puppetlabs.com"
 dependencies:
-  stackforge:
+  openstack:
     forge_namespace: puppetlabs
     git_prefix: puppet
     repos:
@@ -14,10 +14,6 @@ dependencies:
       heat: ~
       ceilometer: ~
       horizon: ~
-      trove: ~
-      sahara: ~
-      ironic: ~
-      tuskar: ~
       openstacklib:
         forge: undef
       tempest:
@@ -27,46 +23,47 @@ dependencies:
     git_prefix: puppetlabs
     repos:
       apache:
-        ref: 1.2.x
+        ref: 1.7.x
       inifile:
-        ref: 1.0.x
+        ref: 1.4.x
       mysql:
+        ref: 3.6.x
       stdlib:
-        ref: 4.3.x
+        ref: 4.9.x
       rsync:
-        ref: 0.2.0
+        ref: 0.4.0
       xinetd:
-        ref: 1.2.0
+        ref: 1.5.0
       concat:
-        ref: 1.1.0
+        ref: 1.1.x
       rabbitmq:
-        ref: 3.1.0
+        ref: 5.3.1
       vcsrepo:
-        ref: 0.2.0
+        ref: 1.3.1
       firewall:
         ref: 1.0.x
       apt:
         ref: 1.4.x
       mongodb:
-        ref: 0.7.0
+        ref: 0.11.0
       ntp:
         ref: 3.0.x
       postgresql:
-        ref: 3.3.x
+        ref: 3.4.2
       puppetdb:
         ref: 3.0.1
   saz:
     git_prefix: puppet
     repos:
       ssh:
-        ref: a0f5d5da20c91775c76c77d3b57b41f4245a260a
+        ref: v2.8.1
       memcached:
-        ref: 658374848a6d2cf07f0bf714bc34709e9d0ee109
+        ref: v2.8.1
   dprince:
     git_prefix: puppet
     repos:
       qpid:
-        ref: 1.0.2
+        ref: 1.0.3
   duritong:
     git_prefix: puppet
     repos:
