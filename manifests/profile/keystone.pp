@@ -12,7 +12,6 @@ class openstack::profile::keystone {
     admin_url    => "http://${::openstack::config::controller_address_management}:35357",
     internal_url => "http://${::openstack::config::controller_address_management}:5000",
     region       => $::openstack::config::region,
-    version      => 'v2.0',
   }
 
   Keystone_role<||> -> Keystone_user<||> -> Keystone_user_role<||> -> Anchor['keystone-users']
@@ -21,7 +20,7 @@ class openstack::profile::keystone {
   $tenants = $::openstack::config::keystone_tenants
   $users   = $::openstack::config::keystone_users
 
-  create_resources('openstack::resources::role', $roles)
-  create_resources('openstack::resources::tenant', $tenants)
-  create_resources('openstack::resources::user', $users)
+  create_resources('::openstack::resources::role', $roles)
+  create_resources('::openstack::resources::tenant', $tenants)
+  create_resources('::openstack::resources::user', $users)
 }

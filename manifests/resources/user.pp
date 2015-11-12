@@ -9,7 +9,6 @@ define openstack::resources::user (
     ensure   => present,
     enabled  => $enabled,
     password => $password,
-    tenant   => $tenant,
     email    => $email,
   }
 
