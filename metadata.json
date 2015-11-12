@@ -1,20 +1,19 @@
 {
   "name": "puppetlabs-openstack",
-  "version": "4.2.0",
-  "author": "Puppet Labs and Community Contributors",
-  "summary": "Deploy various types of installations of OpenStack Icehouse.",
+  "version": "7.0.0",
+  "author": "Puppet Labs and Community Contributors, fork by Chris Hoge"
+  "summary": "Deploy various types of installations of OpenStack.",
   "license": "Apache License, Version 2.0",
-  "source": "https://github.com/puppetlabs/puppetlabs-openstack.git",
-  "project_page": "https://github.com/puppetlabs/puppetlabs-openstack",
-  "issues_url": "https://github.com/puppetlabs/puppetlabs-openstack/issues",
+  "source": "https://github.com/hogepodge/puppetlabs-openstack.git",
+  "project_page": "https://github.com/hogepodge/puppetlabs-openstack",
+  "issues_url": "https://github.com/hogepodge/puppetlabs-openstack/issues",
   "requirements": [
-    { "name": "pe","version_requirement": "3.x" },
     { "name": "puppet","version_requirement": "3.x" }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
-      "operatingsystemrelease": ["6", "7"]
+      "operatingsystemrelease": ["7"]
     },
     {
       "operatingsystem": "Ubuntu",
@@ -23,24 +22,24 @@
   ],
   "description": "Using a hiera-based roles and profiles model, do simple OpenStack deployments.",
   "dependencies": [
-    { "name": "puppetlabs/keystone", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/swift", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/cinder", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/glance", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/neutron", 	"version_requirement": ">=4.2.0 <5.0.0" },
-    { "name": "puppetlabs/nova", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/heat", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/ceilometer", 	"version_requirement": ">=4.0.0 <5.0.0" },
-    { "name": "puppetlabs/horizon", 	"version_requirement": ">=4.0.0 <5.0.0" },
+    { "name": "openstack/ceilometer", "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/cinder",     "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/glance",     "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/heat",       "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/horizon",    "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/keystone",   "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/neutron",    "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/nova",       "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/swift",      "version_requirement": ">=7.0.0 <8.0.0" },
+    { "name": "openstack/vswitch",    "version_requirement": ">=0.2.0 <1.0.0" },
 
-    { "name": "puppetlabs/ntp", 	"version_requirement": ">=3.0.0 <4.0.0" },
-    { "name": "puppetlabs/firewall", 	"version_requirement": ">=1.0.0 <2.0.0" },
-    { "name": "puppetlabs/vswitch", 	"version_requirement": ">=0.2.0 <1.0.0" },
-    { "name": "puppetlabs/mongodb", 	"version_requirement": ">=0.6.0 <1.0.0" },
-    { "name": "puppetlabs/mysql", 	"version_requirement": ">=2.2.0 <3.0.0" },
-    { "name": "puppetlabs/rabbitmq", 	"version_requirement": ">=3.0.0 <4.0.0" },
-    { "name": "puppetlabs/apache", 	"version_requirement": ">=1.0.0 <1.2.0" },
+    { "name": "puppetlabs/firewall",  "version_requirement": ">=1.0.0 <2.0.0" },
+    { "name": "puppetlabs/ntp",       "version_requirement": ">=3.0.0 <4.0.0" },
+    { "name": "puppetlabs/mongodb",   "version_requirement": ">=0.6.0 <1.0.0" },
+    { "name": "puppetlabs/mysql",     "version_requirement": ">=3.0.0 <4.0.0" },
+    { "name": "puppetlabs/rabbitmq",  "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "puppetlabs/apache",    "version_requirement": ">=1.0.0 <2.0.0" },
 
-    { "name": "duritong/sysctl", 	"version_requirement": "0.0.1" }
+    { "name": "duritong/sysctl",      "version_requirement": ">=0.0.1 <1.0.0" }
   ]
 }
