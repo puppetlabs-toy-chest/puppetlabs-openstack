@@ -3,10 +3,10 @@
 # on RHEL-alikes and Ubuntu
 #
 class openstack::resources::repo(
-  $release = 'kilo'
+  $release = 'liberty'
 ) {
   case $release {
-    'kilo', 'juno', 'icehouse', 'havana', 'grizzly': {
+    'liberty', 'kilo', 'juno', 'icehouse', 'havana', 'grizzly': {
       if $::osfamily == 'RedHat' {
         class {'openstack::resources::repo::rdo': release => $release }
       } elsif $::osfamily == 'Debian' {
