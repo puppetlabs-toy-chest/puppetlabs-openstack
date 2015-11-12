@@ -16,6 +16,8 @@ dependencies:
       horizon: ~
       openstacklib:
         forge: undef
+      openstack_extras:
+        forge: undef
       tempest:
         forge: undef
       vswitch: ~

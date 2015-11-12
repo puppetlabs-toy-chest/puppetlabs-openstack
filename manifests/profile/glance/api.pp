@@ -44,7 +44,6 @@ class openstack::profile::glance::api {
     keystone_user       => 'glance',
     verbose             => $::openstack::config::verbose,
     debug               => $::openstack::config::debug,
-    mysql_module        => '2.2',
   }
 
   class { '::glance::notify::rabbitmq':

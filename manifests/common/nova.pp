@@ -21,10 +21,9 @@ class openstack::common::nova ($is_compute    = false) {
     rabbit_password     => $::openstack::config::rabbitmq_password,
     debug               => $::openstack::config::debug,
     verbose             => $::openstack::config::verbose,
-    mysql_module        => '2.2',
   }
 
-  nova_config { 'DEFAULT/default_floating_pool': value => 'public' }
+  # nova_config { 'DEFAULT/default_floating_pool': value => 'public' }
 
   class { '::nova::api':
     admin_password                       => $::openstack::config::nova_password,

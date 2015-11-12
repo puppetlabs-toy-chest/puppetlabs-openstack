@@ -9,7 +9,7 @@ class openstack::profile::firewall::pre {
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
       require => [
-                  Class['::openstack::resources::repo::epel'],
+#                  Class['::openstack::resources::repo::epel'],
                   Class['::openstack::resources::repo::rdo'],
       ],
     }

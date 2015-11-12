@@ -43,7 +43,6 @@ class openstack::common::neutron {
     database_connection => $::openstack::resources::connectors::neutron,
     enabled             => $::openstack::profile::base::is_controller,
     sync_db             => $::openstack::profile::base::is_controller,
-    mysql_module        => '2.2',
   }
 
   class { '::neutron::server::notifications':
