@@ -1,7 +1,7 @@
 {
   "name": "puppetlabs-openstack",
   "version": "7.0.0",
-  "author": "Puppet Labs and Community Contributors, fork by Chris Hoge"
+  "author": "Puppet Labs and Community Contributors, fork by Chris Hoge",
   "summary": "Deploy various types of installations of OpenStack.",
   "license": "Apache License, Version 2.0",
   "source": "https://github.com/hogepodge/puppetlabs-openstack.git",
