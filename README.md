@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 4.2.0 / 2014.1 / Icehouse
+Version 7.0.0 / 2015.2 / Liberty
 
 ####Table of Contents
 
@@ -23,14 +23,13 @@ Version 4.2.0 / 2014.1 / Icehouse
 ##Overview
 
 The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or swift-only installation of
-OpenStack Juno. The module does not build out a high-availability or SSL secured cluster, and should be
-regarded as a learning and testing tool, similar to devstack. My intention is to improve the production
-capabilities of this module as development progresses.
+OpenStack. The module does not build out a high-availability or SSL secured cluster, and should be
+regarded as a learning and testing tool, similar to devstack. My own use of this module was previously for
+puppet-openstack development, and is now used for demos and interoperability testing.
 
 ##Versioning
 
-This module has been given version 5 to track the stackforge/puppet-openstack modules. The versioning for the
-stackforge/puppet-openstack modules are as follows:
+The versioning for the hogepodge/puppet-openstack modules is a follows: 
 
 ```
 Puppet Module :: OpenStack Version :: OpenStack Codename
@@ -39,12 +38,13 @@ Puppet Module :: OpenStack Version :: OpenStack Codename
 4.0.0         -> 2014.1.0          -> Icehouse
 5.0.0         -> 2014.2.0          -> Juno
 6.0.0         -> 2015.1.0          -> Kilo
+7.0.0         -> 2015.2.0          -> Liberty
 ```
 
 ##Module Description
 
 Using the master branch of the puppet-openstack modules, puppetlabs-openstack allows
-for the rapid deployment of an installation of OpenStack Juno. For the multi-node, up to five
+for the rapid deployment of an installation of OpenStack. For the multi-node, up to five
 types of nodes are created for the deployment:
 
 * A controller node that hosts databases, message queues and caches, and most api services.
@@ -136,6 +136,8 @@ are divided into two groups.
 This module have been tested with Puppet 3.5 and Puppet Enterprise. This module depends upon Hiera. Object
 store support (Swift) depends upon exported resources and PuppetDB.
 
+The base image must use iptables instead of firewalld.
+
 ###Beginning with OpenStack
 
 To begin, you will need to do some basic setup on the compute node. SElinux needs to be disabled
@@ -146,9 +148,8 @@ Additionally, you need to know the network address ranges for all four of the pu
 and the specific ip addresses of the controller node and the storage node. Keep in mind that your
 public networks can overlap with one another, as can the private networks.
 
-If you are running VMWare Fusion, and Vagrant with the Fusion provider, a CentOS 6.5 image is provided
-to help you get started. It is stored in the Vagrant Cloud, and will be downloaded automatically.
-See the examples/multinode and examples/allinone directories for details.
+If you are running VMWare Fusion, and Vagrant with the Fusion provider, please contact
+me (chris@openstack.org) for a CentOS 7 image if you need one to help you get started.
 
 ##Usage
 
@@ -256,17 +257,19 @@ and maintainable OpenStack deployments.
 
 * High availability and SSL-enabled endpoints are not provided by this module.
 
-* The puppet-tempest module will not be installed as a dependency if this module is installed via the puppet module tool. The reasoning for this is that the puppet-tempest module is currently broken for Puppet Enterprise >= 3.3, which will also break installation of this module. puppet-tempest is not scheduled for release anytime soon. Use r10k with the Puppetfile, download from the puppet-tempest source, or puppet module install stackforge/puppet-tempest (on FOSS puppet) before using the tempest role.
+* The puppet-tempest module will not be installed as a dependency if this module is installed via the puppet
+module tool.
 
 
 ##License
 Puppet Labs OpenStack - A Puppet Module for a Multi-Node OpenStack Icehouse Installation.
 
-Copyright (C) 2013, 2014 Puppet Labs, Inc. and Authors
+Copyright (C) 2013, 2014, 2015 Puppet Labs, Inc. and Christian Hoge
 
 Original Author - Christian Hoge
 
 Puppet Labs can be contacted at: info@puppetlabs.com
+Chris Hoge can be contacted at: chris@openstack.org
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
