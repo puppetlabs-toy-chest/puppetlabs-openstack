@@ -1,11 +1,12 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 7.0.0 / 2015.2 / Liberty
+Version 7.0.0 / 2015.2 / Liberty / the hogepodge fork
 
 ####Table of Contents
 
 1. [Overview - What is the puppetlabs-openstack module?](#overview)
+   * [Why a fork?](#forked)
 2. [A Note on Versioning](#versioning)
 2. [Module Description - What does the module do?](#module-description)
 3. [Quick Start - Up and Running with VMWare Fusion and Vagrant](#quickstart)
@@ -26,6 +27,33 @@ The puppetlabs-openstack module is used to deploy a multi-node, all-in-one, or s
 OpenStack. The module does not build out a high-availability or SSL secured cluster, and should be
 regarded as a learning and testing tool, similar to devstack. My own use of this module was previously for
 puppet-openstack development, and is now used for demos and interoperability testing.
+
+###Forked
+
+I was the original author of this module, and am to blame for nearly all of its bugs and
+oddities. Please do not use it for production work. It might be a start, but there is so
+much more that you would be missing my using it. Also, it's a bit weird. I was trying
+to get my head around some ideas of node management and code encapsulation using Puppet,
+and while I got a number of things right, and came up with some clever hacks for
+Puppet shortcomings, I also got some things wrong. Rearchitechting is a task
+left to someone else, and there is probably a better solution out there already.
+
+Why a fork? While I no longer maintain the upstream module (indeed, who really does any
+more?), I still have need for a flexible, non-devstack way to deploy stable OpenStack
+releases for demonstrations and testing. Mosly I'm interested in understanding the
+DefCore test suite so I can offer help on configuration, execution, and updating of the
+OpenStack Tempest tests that target DefCore. As such, this fork is biased towards building
+out a working test platform. Some branches may including working materials such as
+RefStack result pages so I can track the progress of the module as I work out bugs and
+misconfigurations.
+
+I generally let the upstream managers know what I'm up to and they are free to crib from
+my work, but maintaing a general-purpose module is outside of the scope of my work and
+goals.
+
+I have a goal of swapping this module out for something else that will do a similar source-based
+deployment of OpenStack. Don't hold your breath for it, though. The Puppet OpenStack modules,
+for all their quirks and dependence on vendor packaging, tend to get the job done.
 
 ##Versioning
 
