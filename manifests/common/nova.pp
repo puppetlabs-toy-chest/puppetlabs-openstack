@@ -30,6 +30,7 @@ class openstack::common::nova ($is_compute    = false) {
     auth_host                            => $controller_management_address,
     enabled                              => $is_controller,
     neutron_metadata_proxy_shared_secret => $::openstack::config::neutron_shared_secret,
+    default_floating_pool                => 'public',
   }
 
   class { '::nova::vncproxy':
