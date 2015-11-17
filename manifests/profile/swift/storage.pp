@@ -38,7 +38,8 @@ class openstack::profile::swift::storage (
   }
 
   class { '::swift::storage::all':
-    storage_local_net_ip => $management_address
+    storage_local_net_ip => $management_address,
+    allow_versions       => true,
   }
 
   @@ring_object_device { "${management_address}:6000/1":

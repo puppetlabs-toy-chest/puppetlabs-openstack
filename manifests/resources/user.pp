@@ -17,14 +17,14 @@ define openstack::resources::user (
   if $admin == true {
     keystone_user_role { "${name}@${tenant}":
       ensure         => present,
-      roles          => ['_member_', 'admin', 'heat_stack_owner'],
+      roles          => ['_member_', 'admin', 'heat_stack_owner', 'SwiftOperator'],
       user_domain    => $domain,
       project_domain => $domain,
     }
   } else {
     keystone_user_role { "${name}@${tenant}":
       ensure => present,
-      roles  => ['_member_', 'heat_stack_owner'],
+      roles  => ['_member_', 'heat_stack_owner', 'SwiftOperator'],
       user_domain    => $domain,
       project_domain => $domain,
     }
