@@ -22,7 +22,7 @@ class openstack::profile::cinder::api {
   }
 
   class { '::cinder::scheduler':
-    scheduler_driver => 'cinder.scheduler.simple.SimpleScheduler',
+    scheduler_driver => 'cinder.scheduler.filter_scheduler.FilterScheduler',
     enabled          => true,
   }
 }
