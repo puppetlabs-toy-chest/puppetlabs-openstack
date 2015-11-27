@@ -1,8 +1,8 @@
 {
   "name": "puppetlabs-openstack",
-  "version": "5.0.2",
+  "version": "6.1.0",
   "author": "Puppet Labs and Community Contributors",
-  "summary": "Install, configure, and manage a full installation of OpenStack Juno",
+  "summary": "Install, configure, and manage a full installation of OpenStack Kilo",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-openstack.git",
   "project_page": "https://github.com/puppetlabs/puppetlabs-openstack",
@@ -27,26 +27,27 @@
   ],
   "description": "Using a hiera-based roles and profiles model, do simple OpenStack deployments.",
   "dependencies": [
-    { "name": "stackforge/ceilometer", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/cinder", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/glance", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/heat", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/horizon", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/keystone", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/neutron", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/nova", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/openstack_extras", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/swift", "version_requirement": ">=5.0.0 <6.0.0" },
-    { "name": "stackforge/tempest", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "openstack/ceilometer", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/cinder", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/glance", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/heat", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/horizon", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/keystone", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/neutron", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/nova", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/openstack_extras", "version_requirement": ">=6.0.0 <7.0.0" },
+    { "name": "openstack/openstacklib", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/swift", "version_requirement": ">=6.1.0 <7.0.0" },
+    { "name": "openstack/tempest", "version_requirement": ">=6.1.0 <7.0.0" },
 
     { "name": "puppetlabs/apache", "version_requirement": ">=1.2.0 <2.0.0" },
     { "name": "puppetlabs/firewall", "version_requirement": ">=1.0.0 <2.0.0" },
-    { "name": "puppetlabs/mongodb", "version_requirement": ">=0.10.0 <0.11.0" },
+    { "name": "puppetlabs/mongodb", "version_requirement": ">=0.11.0 <0.12.0" },
     { "name": "puppetlabs/ntp", "version_requirement": ">=3.0.0 <4.0.0" },
-    { "name": "puppetlabs/rabbitmq", "version_requirement": ">=3.0.0 <4.0.0" },
-    { "name": "stackforge/vswitch", "version_requirement": ">=1.0.0 <2.0.0" },
+    { "name": "puppetlabs/rabbitmq", "version_requirement": ">=5.0.0 <6.0.0" },
+    { "name": "openstack/vswitch", "version_requirement": ">=2.1.0 <3.0.0" },
 
     { "name": "garethr/erlang", "version_requirement": "0.3.0" },
-    { "name": "duritong/sysctl", "version_requirement": "0.0.1" }
+    { "name": "duritong/sysctl", "version_requirement": "0.0.11" }
   ]
 }

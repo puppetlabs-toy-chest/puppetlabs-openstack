@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 5.0 / 2014.2 / Juno
+Version 6.0 / 2015.1 / Kilo
 
 ####Table of Contents
 
@@ -60,6 +60,7 @@ Puppet Module :: OpenStack Version :: OpenStack Codename
 3.0.0         -> 2013.2.0          -> Havana
 4.0.0         -> 2014.1.0          -> Icehouse
 5.0.0         -> 2014.2.0          -> Juno
+6.0.0         -> 2015.1.0          -> Kilo
 ```
 
 ##Module Description
@@ -106,7 +107,7 @@ store support (Swift) depends upon exported resources and PuppetDB.
 ###Beginning with OpenStack
 
 To begin, you will need to do some basic setup on the compute node. SElinux needs to be disabled
-on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary 
+on the compute nodes to give OpenStack full control over the KVM hypervisor and other necessary
 services. This is the only node that SELinux needs to be disabled on.
 
 Additionally, you need to know the network address ranges for all four of the public/private networks,
@@ -160,7 +161,7 @@ For this deployment, it's assumed that there is only one storage node and one ne
 node. There may be multiple compute nodes.
 
 After applying the configuration to the controller node, apply the remaining
-configurations to the worker nodes. 
+configurations to the worker nodes.
 
 You will need to reboot all of the nodes after installation to ensure that the kernel
 module that provides network namespaces, required by Open VSwitch, is loaded.
