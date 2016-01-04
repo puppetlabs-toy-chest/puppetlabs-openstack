@@ -46,8 +46,6 @@ class openstack::common::neutron {
     enabled             => $is_controller,
     sync_db             => $is_controller,
     mysql_module        => '2.2',
-    api_workers         => '0',
-    rpc_workers         => '0',
   }
 
   if $::osfamily == 'redhat' {
