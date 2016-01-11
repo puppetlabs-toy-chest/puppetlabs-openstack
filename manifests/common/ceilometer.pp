@@ -18,9 +18,10 @@ class openstack::common::ceilometer {
   }
 
   class { '::ceilometer::api':
-    enabled           => $is_controller,
-    keystone_host     => $controller_management_address,
-    keystone_password => $::openstack::config::ceilometer_password,
+    enabled               => $is_controller,
+    keystone_auth_uri     => "http://${controller_management_address}:5000/",
+    keystone_identity_uri => "http://${controller_management_address}:35357/",
+    keystone_password     => $::openstack::config::ceilometer_password,
   }
 
   class { '::ceilometer::db':

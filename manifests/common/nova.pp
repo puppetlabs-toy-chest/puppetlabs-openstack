@@ -27,8 +27,9 @@ class openstack::common::nova ($is_compute    = false) {
 
   class { '::nova::api':
     admin_password                       => $::openstack::config::nova_password,
-    auth_host                            => $controller_management_address,
     enabled                              => $is_controller,
+    auth_uri                             => "http://${controller_management_address}:5000/",
+    identity_uri                         => "http://${controller_management_address}:35357/",
     neutron_metadata_proxy_shared_secret => $::openstack::config::neutron_shared_secret,
     default_floating_pool                => 'public',
   }

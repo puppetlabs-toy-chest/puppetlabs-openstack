@@ -16,9 +16,10 @@ class openstack::profile::cinder::api {
   include ::openstack::common::cinder
 
   class { '::cinder::api':
-    keystone_password  => $::openstack::config::cinder_password,
-    keystone_auth_host => $::openstack::config::controller_address_management,
-    enabled            => true,
+    keystone_password => $::openstack::config::cinder_password,
+    auth_uri          => "http://${controller_management_address}:5000/",
+    identity_uri      => "http://${controller_management_address}:35357/",
+    enabled           => true,
   }
 
   class { '::cinder::scheduler':

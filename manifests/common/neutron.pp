@@ -38,8 +38,9 @@ class openstack::common::neutron {
   }
 
   class { '::neutron::server':
-    auth_host           => $::openstack::config::controller_address_management,
     auth_password       => $::openstack::config::neutron_password,
+    auth_uri            => "http://${controller_management_address}:5000/",
+    identity_uri        => "http://${controller_management_address}:35357/",
     database_connection => $::openstack::resources::connectors::neutron,
     enabled             => $::openstack::profile::base::is_controller,
     sync_db             => $::openstack::profile::base::is_controller,
