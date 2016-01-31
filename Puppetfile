@@ -3,40 +3,40 @@ forge "http://forge.puppetlabs.com"
 ## The core OpenStack modules
 
 mod "keystone",
-  :git => "git://github.com/stackforge/puppet-keystone",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-keystone",
+  :ref => "stable/liberty"
 
 mod "swift",
-  :git => "git://github.com/stackforge/puppet-swift",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-swift",
+  :ref => "stable/liberty"
 
 mod "glance",
-  :git => "git://github.com/stackforge/puppet-glance",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-glance",
+  :ref => "stable/liberty"
 
 mod "cinder",
-  :git => "git://github.com/stackforge/puppet-cinder",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-cinder",
+  :ref => "stable/liberty"
 
 mod "neutron",
-  :git => "git://github.com/stackforge/puppet-neutron",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-neutron",
+  :ref => "stable/liberty"
 
 mod "nova",
-  :git => "git://github.com/stackforge/puppet-nova",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-nova",
+  :ref => "stable/liberty"
 
 mod "heat",
-  :git => "git://github.com/stackforge/puppet-heat",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-heat",
+  :ref => "stable/liberty"
 
 mod "ceilometer",
-  :git => "git://github.com/stackforge/puppet-ceilometer",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-ceilometer",
+  :ref => "stable/liberty"
 
 mod "horizon",
-  :git => "git://github.com/stackforge/puppet-horizon",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-horizon",
+  :ref => "stable/liberty"
 
 mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
@@ -47,8 +47,8 @@ mod "openstack_extras",
   :ref => "master"
 
 mod "tempest",
-  :git => "git://github.com/stackforge/puppet-tempest",
-  :ref => "master"
+  :git => "git://github.com/openstack/puppet-tempest",
+  :ref => "stable/liberty"
 
 mod "vswitch",
   :git => "git://github.com/stackforge/puppet-vswitch",
