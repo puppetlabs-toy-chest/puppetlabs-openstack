@@ -35,7 +35,6 @@ class openstack::profile::heat::api {
     verbose             => $::openstack::config::verbose,
     keystone_host       => $::openstack::config::controller_address_management,
     keystone_password   => $::openstack::config::heat_password,
-    mysql_module        => '2.2',
   }
 
   class { '::heat::api':
