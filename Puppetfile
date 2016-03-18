@@ -40,11 +40,11 @@ mod "horizon",
 
 mod "openstacklib",
   :git => "git://github.com/stackforge/puppet-openstacklib",
-  :ref => "master"
+  :ref => "stable/liberty"
 
 mod "openstack_extras",
   :git => "git://github.com/openstack/puppet-openstack_extras.git",
-  :ref => "master"
+  :ref => "stable/liberty"
 
 mod "tempest",
   :git => "git://github.com/openstack/puppet-tempest",
