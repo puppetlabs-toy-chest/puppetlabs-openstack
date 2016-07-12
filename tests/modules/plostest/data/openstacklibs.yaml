@@ -2,25 +2,47 @@
 forge: "http://forge.puppetlabs.com"
 dependencies:
   openstack:
-    forge_namespace: puppetlabs
+    forge_namespace: openstack
     git_prefix: puppet
     repos:
-      keystone: ~
-      swift: ~
-      glance: ~
-      cinder: ~
-      neutron: ~
-      nova: ~
-      heat: ~
-      ceilometer: ~
-      horizon: ~
+      keystone:
+        ref: stable/mitaka
+        forge: undef
+      swift:
+        ref: stable/mitaka
+        forge: undef
+      glance:
+        ref: stable/mitaka
+        forge: undef
+      cinder:
+        ref: stable/mitaka
+        forge: undef
+      neutron:
+        ref: stable/mitaka
+        forge: undef
+      nova:
+        ref: stable/mitaka
+        forge: undef
+      heat:
+        ref: stable/mitaka
+        forge: undef
+      ceilometer:
+        ref: stable/mitaka
+        forge: undef
+      horizon:
+        ref: stable/mitaka
+        forge: undef
       openstacklib:
+        ref: stable/mitaka
         forge: undef
       openstack_extras:
+        ref: stable/mitaka
         forge: undef
       tempest:
+        ref: stable/mitaka
         forge: undef
-      vswitch: ~
+      vswitch: 
+        ref: stable/mitaka
   puppetlabs:
     git_prefix: puppetlabs
     repos:
