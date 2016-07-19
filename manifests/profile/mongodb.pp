@@ -17,18 +17,5 @@ class openstack::profile::mongodb {
     config      => '/etc/mongod.conf',
   }
 
-  #exec { '/bin/systemctl daemon-reload': 
-  #  before => Service['mongod']
-  #}
-
-  #file { '/usr/lib/systemd/system/mongod.service':
-  #  source => 'puppet:///modules/openstack/mongod.service',
-  #  owner  => root,
-  #  group  => root,
-  #  mode   => '0644',
-  #  before => Service['mongod'],
-  #  notify => Exec['/bin/systemctl daemon-reload']
-  #}
-
   class { '::mongodb::client': }
 }

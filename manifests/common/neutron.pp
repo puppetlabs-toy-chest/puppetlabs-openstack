@@ -21,10 +21,10 @@ class openstack::common::neutron {
     debug                 => $::openstack::config::debug,
     verbose               => $::openstack::config::verbose,
     service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
-                              'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
-                              'neutron.services.vpn.plugin.VPNDriverPlugin',
-                              'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
-                              'neutron.services.metering.metering_plugin.MeteringPlugin'],
+    #                              'neutron_lbaas.services.loadbalancer.plugin.LoadBalancerPluginv2',
+    #                          'neutron.services.vpn.plugin.VPNDriverPlugin',
+                              'neutron.services.firewall.fwaas_plugin.FirewallPlugin'],
+                              #                          'neutron.services.metering.metering_plugin.MeteringPlugin'],
   }
 
   #Anchor['keystone-users'] -> Class['::neutron']

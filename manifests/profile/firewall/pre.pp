@@ -8,23 +8,23 @@ class openstack::profile::firewall::pre {
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [
-#                  Class['::openstack::resources::repo::epel'],
-                  Class['::openstack::resources::repo::rdo'],
-      ],
+      require => [Class['::openstack::resources::repo::rdo']],
     }
   } elsif $::osfamily == 'Debian' {
     firewallchain { 'INPUT:filter:IPv4':
       purge   => true,
       ignore  => ['neutron','virbr0'],
       before  => Firewall['0001 - related established'],
-      require => [ Class['::openstack::resources::repo::uca'] ],
+      require => [Class['::openstack::resources::repo::uca']],
     }
   }
 
   include ::firewall
 
   # Default firewall rules, based on the RHEL defaults
+  package { 'iptables-services':
+    ensure => 'installed'
+  } ->
   firewall { '0001 - related established':
     proto  => 'all',
     state  => ['RELATED', 'ESTABLISHED'],

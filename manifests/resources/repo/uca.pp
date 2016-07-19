@@ -1,6 +1,6 @@
 # Ubuntu Cloud Archive repo
 class openstack::resources::repo::uca(
-  $release = 'icehouse',
+  $release = 'mitaka',
   $repo    = 'updates'
 ) {
   if ($::operatingsystem == 'Ubuntu' and

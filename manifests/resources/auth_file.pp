@@ -40,7 +40,7 @@ class openstack::resources::auth_file(
   $keystone_admin_token     = undef,
   $admin_user               = 'admin',
   $admin_tenant             = 'openstack',
-  $region_name              = 'RegionOne',
+  $region_name              = ::openstack::config::region,
   $use_no_cache             = true,
   $cinder_endpoint_type     = 'publicURL',
   $glance_endpoint_type     = 'publicURL',

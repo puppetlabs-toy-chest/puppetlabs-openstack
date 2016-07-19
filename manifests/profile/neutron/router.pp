@@ -42,23 +42,23 @@ class openstack::profile::neutron::router {
       value => true
   }
 
-  class { '::neutron::agents::lbaas':
-    debug   => $::openstack::config::debug,
-    enabled => true,
-  }
+  #  class { '::neutron::agents::lbaas':
+  #  debug   => $::openstack::config::debug,
+  #  enabled => true,
+  #}
 
-  class { '::neutron::agents::vpnaas':
-    enabled                 => true,
-    external_network_bridge => 'brex',
-  }
+  #class { '::neutron::agents::vpnaas':
+  #  enabled                 => true,
+  #  external_network_bridge => 'brex',
+  #}
 
-  class { '::neutron::agents::metering':
-    enabled => true,
-  }
+  #class { '::neutron::agents::metering':
+  #  enabled => true,
+  #}
 
-  class { '::neutron::services::fwaas':
-    enabled => true,
-  }
+  #class { '::neutron::services::fwaas':
+  #  enabled => true,
+  #}
 
   $external_bridge = 'brex'
   $external_network = $::openstack::config::network_external
