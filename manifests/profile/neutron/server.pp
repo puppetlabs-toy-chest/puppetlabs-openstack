@@ -11,6 +11,4 @@ class openstack::profile::neutron::server {
   Anchor['keystone-users'] -> Neutron_subnet<||>
   Anchor['keystone-users'] -> Neutron_router<||>
   Anchor['keystone-users'] -> Neutron_router_interface<||>
-
-  #Class['::neutron::db::mysql'] -> Exec['neutron-db-sync']
 }
