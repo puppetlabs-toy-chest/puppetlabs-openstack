@@ -39,8 +39,8 @@ class openstack::profile::glance::api {
   class { '::glance::registry':
     keystone_password   => $::openstack::config::glance_password,
     database_connection => $::openstack::resources::connectors::glance,
-    auth_uri            => "http://${controller_management_address}:5000/",
-    identity_uri        => "http://${controller_management_address}:35357/",
+    auth_uri            => "http://${controller_address}:5000/",
+    identity_uri        => "http://${controller_address}:35357/",
     keystone_tenant     => 'services',
     keystone_user       => 'glance',
     verbose             => $::openstack::config::verbose,
