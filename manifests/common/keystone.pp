@@ -5,12 +5,13 @@ class openstack::common::keystone {
     $admin_bind_host = $::openstack::config::controller_address_management
   }
 
-  file { '/etc/keystone/fernet-keys':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'keystone',
-    mode   => '0770',
-  }
+  #file { '/var/log/keystone/keystone.log':
+  #  ensure => 'present',
+  #  owner  => 'keystone',
+  #  group  => 'keystone',
+  #  mode   => '0664'
+  #}
+  #Package<||> -> File['/var/log/keystone/keystone.log'] -> Service['openstack-keystone'] 
 
   class { '::keystone':
     admin_token         => $::openstack::config::keystone_admin_token,
@@ -18,8 +19,6 @@ class openstack::common::keystone {
     debug               => $::openstack::config::debug,
     enabled             => $::openstack::profile::base::is_controller,
     admin_bind_host     => $admin_bind_host,
-    enable_fernet_setup => true,
-    token_provider      => 'fernet',
   }
 
   class { '::keystone::roles::admin':

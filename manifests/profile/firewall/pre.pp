@@ -21,10 +21,15 @@ class openstack::profile::firewall::pre {
 
   include ::firewall
 
+  Package['iptables-services'] -> Service['iptables'] -> Firewall<||> 
+
   # Default firewall rules, based on the RHEL defaults
   package { 'iptables-services':
     ensure => 'installed'
   } ->
+  service { 'firewalld':
+    ensure => 'stopped'
+  } -> 
   firewall { '0001 - related established':
     proto  => 'all',
     state  => ['RELATED', 'ESTABLISHED'],
