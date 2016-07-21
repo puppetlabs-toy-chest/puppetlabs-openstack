@@ -3,10 +3,10 @@
 # on RHEL-alikes and Ubuntu
 #
 class openstack::resources::repo(
-  $release = 'liberty'
+  $release = 'mitaka'
 ) {
   case $release {
-    'liberty', 'kilo', 'juno', 'icehouse', 'havana', 'grizzly': {
+    'mitaka': {
       if $::osfamily == 'RedHat' {
         class {'openstack::resources::repo::rdo': release => $release }
       } elsif $::osfamily == 'Debian' {
@@ -14,7 +14,7 @@ class openstack::resources::repo(
       }
     }
     default: {
-      fail { "FAIL: openstack::resources::repo parameter 'release' of '${release}' not recognized; please use one of 'icehouse', 'havana', 'grizzly'.": }
+      fail { "FAIL: openstack::resources::repo parameter 'release' of '${release}' not recognized; please use one of 'mitaka'": }
     }
   }
 }

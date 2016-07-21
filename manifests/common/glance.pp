@@ -4,6 +4,12 @@
 # set so that services like Tempest can access credentials
 # on the controller
 class openstack::common::glance {
+  $management_network = $::openstack::config::network_management
+  $management_address = ip_for_network($management_network)
+
+  $storage_management_address = $::openstack::config::storage_address_management
+  $controller_management_address = $::openstack::config::controller_address_management
+
   class { '::glance::api':
     keystone_password   => $::openstack::config::glance_password,
     auth_uri            => "http://${controller_management_address}:5000/",
@@ -11,7 +17,7 @@ class openstack::common::glance {
     keystone_tenant     => 'services',
     keystone_user       => 'glance',
     database_connection => $::openstack::resources::connectors::glance,
-    registry_host       => $::openstack::config::storage_address_management,
+    registry_host       => $storage_management_address,
     verbose             => $::openstack::config::verbose,
     debug               => $::openstack::config::debug,
     enabled             => $::openstack::profile::base::is_storage,

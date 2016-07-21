@@ -20,14 +20,14 @@ class openstack::common::neutron {
     rabbit_password       => $::openstack::config::rabbitmq_password,
     debug                 => $::openstack::config::debug,
     verbose               => $::openstack::config::verbose,
-    service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin',
-                              'neutron.services.loadbalancer.plugin.LoadBalancerPlugin',
-                              'neutron.services.vpn.plugin.VPNDriverPlugin',
-                              'neutron.services.firewall.fwaas_plugin.FirewallPlugin',
-                              'neutron.services.metering.metering_plugin.MeteringPlugin'],
+    service_plugins       => ['neutron.services.l3_router.l3_router_plugin.L3RouterPlugin'],
+    #                              'neutron_lbaas.services.loadbalancer.plugin.LoadBalancerPluginv2',
+    #                          'neutron.services.vpn.plugin.VPNDriverPlugin',
+    #                          'neutron.services.firewall.fwaas_plugin.FirewallPlugin'],
+    #                          'neutron.services.metering.metering_plugin.MeteringPlugin'],
   }
 
-  Anchor['keystone-users'] -> Class['::neutron']
+  #Anchor['keystone-users'] -> Class['::neutron']
 
   class { '::neutron::keystone::auth':
     password         => $::openstack::config::neutron_password,
@@ -47,10 +47,9 @@ class openstack::common::neutron {
   }
 
   class { '::neutron::server::notifications':
-    nova_url            => "http://${controller_management_address}:8774/v2/",
-    nova_admin_auth_url => "http://${controller_management_address}:35357/v2.0/",
-    nova_admin_password => $::openstack::config::nova_password,
-    nova_region_name    => $::openstack::config::region,
+    auth_url     => "http://${controller_management_address}:35357",
+    password     => $::openstack::config::nova_password,
+    region_name  => $::openstack::config::region,
   }
 
   if $::osfamily == 'redhat' {

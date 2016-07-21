@@ -3,12 +3,10 @@ define openstack::resources::tenant (
   $enabled = true,
   $domain = 'Default',
 ) {
-
   keystone_tenant { $name:
     ensure      => present,
     description => $description,
     enabled     => $enabled,
     domain      => $domain,
   }
-
 }

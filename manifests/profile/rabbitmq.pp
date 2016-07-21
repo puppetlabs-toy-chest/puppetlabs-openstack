@@ -8,7 +8,6 @@ class openstack::profile::rabbitmq {
     package { 'erlang':
       ensure => present,
     }
-
     Package['erlang'] -> Package['rabbitmq-server']
   }
 

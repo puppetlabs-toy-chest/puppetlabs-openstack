@@ -9,6 +9,12 @@ class openstack::profile::base {
   # all nodes need the OpenStack repository
   class { '::openstack::resources::repo': }
 
+  if ($::osfamily == 'RedHat') {
+    package { 'openstack-selinux': 
+      ensure => 'installed',
+    } 
+  }
+
   # database connectors
   class { '::openstack::resources::connectors': }
 
