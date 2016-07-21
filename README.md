@@ -1,7 +1,7 @@
 #puppetlabs-openstack
 Puppet Labs Reference and Testing Deployment Module for OpenStack.
 
-Version 7.0.0 / 2015.2 / Liberty / the hogepodge fork
+Version 8.0.0 / 2016.1 / Mitaka / The hogepodge Fork
 
 ####Table of Contents
 
@@ -67,6 +67,8 @@ Puppet Module :: OpenStack Version :: OpenStack Codename
 5.0.0         -> 2014.2.0          -> Juno
 6.0.0         -> 2015.1.0          -> Kilo
 7.0.0         -> 2015.2.0          -> Liberty
+8.0.0         -> 2016.1.0          -> Mitaka
+9.0.0         -> 2016.2.0          -> Newton 
 ```
 
 ##Module Description
@@ -98,7 +100,8 @@ To run the integrated testing infrastructure you need the following requirements
 * VMWare Fusion/Desktop, with the network set to not require authentication for "promiscuous mode"
 * Vagrant plugin for VMWare Fusion/Desktop.
 * Puppet 3.x (`sudo gem install puppet`)
-* A CentOS 7 minimal image, loaded into Vagrant with the name 'centos-7-64-openstack'.
+* A CentOS 7 minimal image, loaded into Vagrant with the name 'centos-7-64-openstack'
+  (or something thereabouts)
 
 Start by creating a working test system in the examples directory:
 
@@ -161,10 +164,11 @@ are divided into two groups.
   * Management network.
   * Data network.
 
-This module have been tested with Puppet 3.5 and Puppet Enterprise. This module depends upon Hiera. Object
-store support (Swift) depends upon exported resources and PuppetDB.
+This module have been tested with Puppet 3.whatever. I'm sure it breaks badly on 4.
+This module depends upon Hiera. Object store support (Swift) depends upon exported
+resources and PuppetDB.
 
-The base image must use iptables instead of firewalld.
+The base image must use iptables instead of firewalld. I've added code to install it.
 
 ###Beginning with OpenStack
 
@@ -285,14 +289,12 @@ and maintainable OpenStack deployments.
 
 * High availability and SSL-enabled endpoints are not provided by this module.
 
-* The puppet-tempest module will not be installed as a dependency if this module is installed via the puppet
-module tool.
-
 
 ##License
-Puppet Labs OpenStack - A Puppet Module for a Multi-Node OpenStack Icehouse Installation.
+hogepodge, I mean, Puppet Labs OpenStack - A Puppet Module for a Multi-Node OpenStack Mitaka Installation.
+Say that ten times fast.
 
-Copyright (C) 2013, 2014, 2015 Puppet Labs, Inc. and Christian Hoge
+Copyright (C) 2013, 2014, 2015, 2016 Puppet, Inc. and Christian Hoge
 
 Original Author - Christian Hoge
 
