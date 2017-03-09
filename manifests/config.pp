@@ -71,6 +71,7 @@ class openstack::config (
   $plumgrid_director_vip = undef,
   $plumgrid_username = undef,
   $plumgrid_password = undef,
+  $neutron_l2_population = undef,
   $ceilometer_address_management = undef,
   $ceilometer_mongo_username = undef,
   $ceilometer_mongo_password = undef,
