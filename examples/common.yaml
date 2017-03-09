@@ -132,7 +132,7 @@ openstack::swift::hash_suffix: 'pop-bang'
 
 ######## Nova
 
-openstack::nova::libvirt_type: 'kvm'
+openstack::nova::libvirt_type: 'qemu'
 openstack::nova::password: 'quuk-paj'
 
 ######## Neutron
