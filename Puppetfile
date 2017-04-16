@@ -4,43 +4,39 @@ forge "http://forge.puppetlabs.com"
 
 mod "keystone",
   :git => "git://github.com/stackforge/puppet-keystone",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "swift",
   :git => "git://github.com/stackforge/puppet-swift",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "glance",
   :git => "git://github.com/stackforge/puppet-glance",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "cinder",
   :git => "git://github.com/stackforge/puppet-cinder",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "neutron",
   :git => "git://github.com/stackforge/puppet-neutron",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "nova",
   :git => "git://github.com/stackforge/puppet-nova",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "heat",
   :git => "git://github.com/stackforge/puppet-heat",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "ceilometer",
   :git => "git://github.com/stackforge/puppet-ceilometer",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "horizon",
   :git => "git://github.com/stackforge/puppet-horizon",
-  :ref => "master"
-
-mod "openstacklib",
-  :git => "git://github.com/stackforge/puppet-openstacklib",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "openstack_extras",
   :git => "git://github.com/stackforge/puppet-openstack_extras",
@@ -48,11 +44,11 @@ mod "openstack_extras",
 
 mod "tempest",
   :git => "git://github.com/stackforge/puppet-tempest",
-  :ref => "master"
+  :ref => "stable/icehouse"
 
 mod "vswitch",
   :git => "git://github.com/stackforge/puppet-vswitch",
-  :ref => "master"
+  :ref => "0.3.0"
 
 ## R10K doesn't handle dependencies, so let's handle them here
 # pointing to as many stable projects as possible
